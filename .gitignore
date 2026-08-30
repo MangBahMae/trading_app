@@ -14,7 +14,10 @@ env/
 credentials.json
 
 # Derived/cached data - regenerate via scripts/load_data.py, ma_regime.py, rsi.py 등
-data/merged/
+# (디렉토리 자체가 아니라 확장자로 지정 - 디렉토리를 통째로 무시하면 아래의
+# manual_lines.db 예외 규칙이 git에서 작동하지 않음)
+data/merged/*.parquet
+# manual_lines.db는 재생성 불가능한 사용자 데이터(직접 그은 지지/저항/추세선)라 추적함
 
 # 차트 이미지 - 각 plot_*.py 스크립트로 재생성 가능
 output/
