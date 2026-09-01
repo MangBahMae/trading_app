@@ -3,18 +3,21 @@
 
 각 신호의 판정 로직 자체는 이미 검증 완료된 scripts/*.py의 함수를 그대로
 가져다 쓴다 (로직 재구현/변경 없음). 이 파일은 그것들을 순서대로 실행해서
-결과를 하나의 "날짜 -> 신호 목록" 구조로 모아주는 역할만 한다.
+결과를 하나의 "날짜 -> Signal 목록" 구조로 모아주는 역할만 한다.
+
+Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카운트
+포함 여부를 결정하는 유일한 기준 - 표시 문구가 바뀌어도 카운트 로직은 안 바뀐다.
 
 9개 신호:
 1. 매물소진 매수/매도 (exhaustion.py)
-2. 도지캔들 (doji.py)
-3. 정배열 전환 (ma_regime.py - 전날과 다른 상태로 "바뀐 날"만, 지속 상태 아님)
-4. 역배열 전환 (ma_regime.py - 위와 동일)
+2. 도지캔들 (doji.py - 필터링 미완이라 reference로 취급, 미결 사항 참고)
+3. 정배열 진입/유지 (ma_regime.py - bullish_trigger/bullish_state, 유지되는 동안 매일 표시)
+4. 역배열 전환 (ma_regime.py - 전날과 다른 상태로 "바뀐 날"만, 지속 상태 아님)
 5. 이동평균(MA50/MA200) 터치 롱/숏 (sr_touch.py)
-6. RSI 다이버전스 4종 (rsi_swings.py + divergence.py)
-7. 다우이론 HH/LH/HL/LL (dow_theory.py)
+6. RSI 다이버전스 4종 (rsi_swings.py + divergence.py - 무효화 전까지 매일 표시)
+7. 다우이론 HH/LH/HL/LL (dow_theory.py - 표시 전용, direction="reference")
 8. RSI 과매도 (rsi_overbought_oversold.py)
-9. RSI 과매수 (rsi_overbought_oversold.py)
+9. RSI 과매수 (rsi_overbought_oversold.py - 표시 전용, direction="reference")
 """
 import sys
 from pathlib import Path
@@ -34,12 +37,13 @@ import rsi_swings
 import divergence
 import rsi_overbought_oversold
 from data_fetcher import ensure_fresh_data
+from signal_types import Signal
 
 DOW_LABEL_KR = {
-    "HH": "다우이론 HH (신고점 갱신)",
-    "LH": "다우이론 LH (저항 갱신)",
-    "HL": "다우이론 HL (지지 갱신)",
-    "LL": "다우이론 LL (신저점 갱신)",
+    "HH": "신고점 갱신",
+    "LH": "고점갱신 실패",
+    "HL": "저점 상승",
+    "LL": "저점 하락",
 }
 DIV_LABEL_KR = {
     "regular_bullish": "RSI 다이버전스 - 정상 강세",
@@ -73,48 +77,58 @@ def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None 
     for i in range(n):
         sig = exhaustion_df["exhaustion_signal"].iloc[i]
         if sig == "buy":
-            signals[i].append("매물소진 - 매수 신호")
+            signals[i].append(Signal("매물소진 - 매수 신호", "long"))
         elif sig == "sell":
-            signals[i].append("매물소진 - 매도 신호")
+            signals[i].append(Signal("매물소진 - 매도 신호", "short"))
 
     for i in range(n):
         if doji_df["is_doji"].iloc[i]:
-            signals[i].append("도지캔들")
+            signals[i].append(Signal("도지캔들", "reference"))
+
+    for i in range(n):
+        if regime_df["bullish_state"].iloc[i]:
+            text = "정배열 진입" if regime_df["bullish_trigger"].iloc[i] else "정배열 유지 중"
+            signals[i].append(Signal(text, "long"))
 
     regimes = regime_df["ma_regime"].tolist()
     for i in range(1, n):
-        prev_regime, curr_regime = regimes[i - 1], regimes[i]
-        if curr_regime == "bullish" and prev_regime != "bullish":
-            signals[i].append("정배열 전환")
-        if curr_regime == "bearish" and prev_regime != "bearish":
-            signals[i].append("역배열 전환")
+        if regimes[i] == "bearish" and regimes[i - 1] != "bearish":
+            signals[i].append(Signal("역배열 전환", "short"))
 
     for ma_col in ["MA50", "MA200"]:
         signal_col = f"{ma_col}_signal"
         for i in range(n):
             sig = touch_df[signal_col].iloc[i]
             if sig == "long":
-                signals[i].append(f"{ma_col} 터치 - 롱 신호")
+                signals[i].append(Signal(f"{ma_col} 터치 - 롱 신호", "long"))
             elif sig == "short":
-                signals[i].append(f"{ma_col} 터치 - 숏 신호")
+                signals[i].append(Signal(f"{ma_col} 터치 - 숏 신호", "short"))
 
-    for _, ev in divergence_events.iterrows():
-        idx = int(ev["index"])
-        if idx in signals:
-            signals[idx].append(DIV_LABEL_KR[ev["type"]])
-
-    for _, ev in dow_events.iterrows():
-        label = ev["label"]
-        if label in DOW_LABEL_KR:
-            idx = int(ev["index"])
-            if idx in signals:
-                signals[idx].append(DOW_LABEL_KR[label])
+    divergence_state_events = divergence.compute_divergence_state(rsi_swings_df, divergence_events)
+    for _, ev in divergence_state_events.iterrows():
+        label = DIV_LABEL_KR[ev["type"]]
+        direction = "long" if ev["type"] in divergence.BULLISH_TYPES else "short"
+        trigger_idx = int(ev["index"])
+        end_idx = int(ev["state_end_index"])
+        for day_idx in range(trigger_idx, end_idx + 1):
+            if day_idx in signals:
+                suffix = "진입" if day_idx == trigger_idx else "유지 중"
+                signals[day_idx].append(Signal(f"{label} {suffix}", direction))
 
     for i in range(n):
-        if ob_os_df["rsi_buy"].iloc[i]:
-            signals[i].append("RSI 과매도 (RSI<=25)")
+        if ob_os_df["oversold_state"].iloc[i]:
+            text = "RSI 과매도 진입" if ob_os_df["oversold_trigger"].iloc[i] else "RSI 과매도 유지 중"
+            signals[i].append(Signal(text, "long"))
         if ob_os_df["rsi_sell"].iloc[i]:
-            signals[i].append("RSI 과매수 (RSI>=80)")
+            signals[i].append(Signal("RSI 과매수 (RSI>=80)", "reference"))
+
+    # 다우이론: 표시 전용/카운트 제외 확정 (기획서 3-4). 스윙 확정 시점 1회만이 아니라,
+    # 그 라벨이 다음 라벨로 바뀌기 전까지 매일 표시.
+    dow_state_df = dow_theory.compute_dow_state(base_df, dow_events)
+    for i in range(n):
+        label = dow_state_df["dow_label"].iloc[i]
+        if label is not None:
+            signals[i].append(Signal(f"다우이론 {DOW_LABEL_KR[label]} (참고)", "reference"))
 
     return signals
 
@@ -123,7 +137,7 @@ EMA_COLS = ["MA9", "MA20", "MA50", "MA200"]
 
 
 def load_dashboard_data():
-    """대시보드에서 쓸 (OHLCV+EMA 데이터프레임, 날짜별 신호 dict)를 반환.
+    """대시보드에서 쓸 (OHLCV+EMA 데이터프레임, 날짜별 Signal 목록 dict)를 반환.
 
     EMA9/20/50/200은 ma_regime.py가 이미 계산하는 값을 그대로 가져다 붙인다
     (차트 표시용으로 별도 재계산하지 않음 - 4-3에서 검증된 것과 동일한 값).
@@ -141,8 +155,9 @@ def load_dashboard_data():
 
 if __name__ == "__main__":
     df, signals = load_dashboard_data()
-    total = sum(len(v) for v in signals.values())
-    print(f"캔들 {len(df)}개, 신호 총 {total}건")
+    total = sum(1 for lst in signals.values() for s in lst if s.direction != "reference")
+    ref_total = sum(1 for lst in signals.values() for s in lst if s.direction == "reference")
+    print(f"캔들 {len(df)}개, 신호 총 {total}건 (참고 지표 {ref_total}건 별도)")
     for i, sigs in signals.items():
         if sigs:
-            print(df["open_time"].iloc[i].date(), sigs)
+            print(df["open_time"].iloc[i].date(), [f"{s.text} [{s.direction}]" for s in sigs])

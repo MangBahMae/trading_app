@@ -30,6 +30,8 @@ from pathlib import Path
 
 import pandas as pd
 
+import rsi_swings
+
 RSI_SWINGS_PATH = Path(__file__).resolve().parent.parent / "data" / "merged" / "BTCUSDT_1d_rsi_swings.parquet"
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "merged" / "BTCUSDT_1d_divergence.parquet"
 
@@ -105,10 +107,82 @@ def compute_divergences(df: pd.DataFrame):
     return result, excluded
 
 
-if __name__ == "__main__":
-    rsi_swings = pd.read_parquet(RSI_SWINGS_PATH)
+BULLISH_TYPES = {"regular_bullish", "hidden_bullish"}
 
-    result, excluded = compute_divergences(rsi_swings)
+
+def compute_divergence_state(rsi_swings_df: pd.DataFrame, events_df: pd.DataFrame) -> pd.DataFrame:
+    """확정된 다이버전스마다 state가 유지되는 마지막 캔들 인덱스(state_end_index)를 붙인다.
+
+    해제는 둘 중 먼저 오는 것:
+    ① 가격 이탈: 종가가 무효화 가격(다이버전스를 구성한 pivot의 가격 - 강세는 저가,
+       약세는 고가 = compute_divergences()가 계산해둔 "price" 컬럼)을 이탈. trigger
+       캔들 자체의 종가로는 무효화될 수 없으므로(그 캔들의 저가/고가가 곧 price) 다음
+       캔들부터 스캔한다.
+    ② 반대 방향 RSI pivot 확정: 강한 추세 구간에서는 ①이 오래도록 안 와서 다이버전스
+       state가 수십~백일씩 유지되며 같은 방향 다이버전스가 계속 새로 겹쳐 쌓이는 문제가
+       있었음 - 다음 반대 방향 RSI pivot(강세 계열은 다음 고점, 약세 계열은 다음 저점)이
+       "확정"되는 시점(pivot 당일 j가 아니라 우측 N봉이 마감돼 확정되는 j+N - rsi_swings.py의
+       confirmed_at과 동일한 원칙, look-ahead 방지)에 자동 종료. 아직 데이터 범위 안에서
+       확정 안 됐으면(j+N이 마지막 캔들을 넘어가면) 이 조건은 적용하지 않는다.
+
+    두 후보 중 더 빠른(작은) 인덱스를 최종 state_end_index로 채택하고, 어느 쪽이었는지
+    end_reason에 "reverse"/"opposite_pivot"로 남긴다. 둘 다 안 왔으면 "ongoing"(진행 중).
+    """
+    df = rsi_swings_df.reset_index(drop=True)
+    n = len(df)
+    close = df["close"]
+
+    high_idx = df.index[df["rsi_swing_high"]].tolist()
+    low_idx = df.index[df["rsi_swing_low"]].tolist()
+
+    events_df = events_df.copy()
+    invalidation_price = []
+    state_end_index = []
+    end_reason = []
+
+    for _, ev in events_df.iterrows():
+        trigger_idx = int(ev["index"])
+        price = ev["price"]
+        is_bullish = ev["type"] in BULLISH_TYPES
+
+        # ① 가격 이탈
+        reverse_end = n - 1
+        reverse_found = False
+        for j in range(trigger_idx + 1, n):
+            broken = close.iloc[j] < price if is_bullish else close.iloc[j] > price
+            if broken:
+                reverse_end = j - 1
+                reverse_found = True
+                break
+
+        # ② 반대 방향 RSI pivot 확정
+        opposite_pivots = high_idx if is_bullish else low_idx
+        next_opposite = next((j for j in opposite_pivots if j > trigger_idx), None)
+        opposite_confirm_end = None
+        if next_opposite is not None:
+            confirm_idx = next_opposite + rsi_swings.N
+            if confirm_idx <= n - 1:
+                opposite_confirm_end = confirm_idx
+
+        candidates = [(reverse_end, "reverse" if reverse_found else "ongoing")]
+        if opposite_confirm_end is not None:
+            candidates.append((opposite_confirm_end, "opposite_pivot"))
+        end_idx, reason = min(candidates, key=lambda c: c[0])
+
+        invalidation_price.append(price)
+        state_end_index.append(end_idx)
+        end_reason.append(reason)
+
+    events_df["invalidation_price"] = invalidation_price
+    events_df["state_end_index"] = state_end_index
+    events_df["end_reason"] = end_reason
+    return events_df
+
+
+if __name__ == "__main__":
+    rsi_swings_df = pd.read_parquet(RSI_SWINGS_PATH)
+
+    result, excluded = compute_divergences(rsi_swings_df)
     print(result["type"].value_counts())
     print()
     print(result[["open_time", "type", "rsi", "prev_rsi", "price", "prev_price", "gap"]].to_string())

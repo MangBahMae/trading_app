@@ -29,16 +29,16 @@ def tv_chart(bars, selected_date=None, height=680, ema_series=None, draw_mode="s
     ema_series: {"MA9": {"color": "#1f77ff", "dashed": False, "visible": bool,
                           "data": [{"time": "YYYY-MM-DD", "value": float}, ...]}, ...}
                 NaN 구간은 호출 전에 걸러서 넘길 것
-    draw_mode: "select"(기본, 캔들 클릭=신호 패널 갱신) | "support" | "resistance"
-               (수평선, 클릭 1번) | "trend"(추세선, 클릭 2번)
-    lines: [{"id": int, "line_type": "support"|"resistance"|"trend",
+    draw_mode: "select"(기본, 캔들 클릭=신호 패널 갱신) | "horizontal"(수평선, 클릭 1번)
+               | "trend"(추세선, 클릭 2번)
+    lines: [{"id": int, "line_type": "horizontal"|"trend",
              "price1": float, "time1": str|None, "price2": float|None, "time2": str|None,
              "label": str}, ...] - 차트에 그릴 저장된 라인 목록 (lines_store.list_lines 결과에
             manual_lines.line_label로 만든 "label"을 얹어서 넘길 것)
 
     반환값 (매번 새 이벤트가 있을 때만 dict, 없으면 None):
       {"seq": int, "kind": "select", "date": "YYYY-MM-DD"}
-      {"seq": int, "kind": "add_horizontal", "line_type": "support"|"resistance", "price": float}
+      {"seq": int, "kind": "add_horizontal", "price": float}
       {"seq": int, "kind": "add_trend", "time1": str, "price1": float, "time2": str, "price2": float}
     seq는 매 이벤트마다 증가하는 일련번호 - 호출 측에서 마지막으로 처리한 seq와
     비교해서 "이미 처리한 이벤트"를 걸러내는 데 쓸 것 (안 그러면 재실행마다 중복 처리됨).

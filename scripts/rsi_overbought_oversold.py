@@ -23,6 +23,9 @@ def compute_ob_os_signals(df: pd.DataFrame) -> pd.DataFrame:
     df = df.reset_index(drop=True).copy()
     df["rsi_buy"] = df["rsi"] <= OVERSOLD
     df["rsi_sell"] = df["rsi"] >= OVERBOUGHT
+
+    df["oversold_state"] = df["rsi_buy"]
+    df["oversold_trigger"] = df["oversold_state"] & ~df["oversold_state"].shift(1, fill_value=False)
     return df
 
 

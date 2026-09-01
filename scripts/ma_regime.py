@@ -40,6 +40,10 @@ def compute_ma_regime(df: pd.DataFrame) -> pd.DataFrame:
     regimes = [None] * len(df)
     bullish_susp = [None] * len(df)
     bearish_susp = [None] * len(df)
+    bullish_trigger = [False] * len(df)
+    bullish_state = [False] * len(df)
+
+    prev_bullish = False
 
     for i in range(len(df)):
         ma9, ma20, ma50, ma200 = df["MA9"].iloc[i], df["MA20"].iloc[i], df["MA50"].iloc[i], df["MA200"].iloc[i]
@@ -71,9 +75,15 @@ def compute_ma_regime(df: pd.DataFrame) -> pd.DataFrame:
         cond_c = close > ma50
         bearish_susp[i] = int(cond_c)
 
+        bullish_state[i] = bullish
+        bullish_trigger[i] = bullish and not prev_bullish
+        prev_bullish = bullish
+
     df["ma_regime"] = regimes
     df["bullish_suspicion"] = bullish_susp
     df["bearish_suspicion"] = bearish_susp
+    df["bullish_trigger"] = bullish_trigger
+    df["bullish_state"] = bullish_state
     return df
 
 

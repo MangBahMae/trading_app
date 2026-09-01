@@ -5,8 +5,8 @@
 세션이 끝나도 유지되도록 로컬 SQLite 파일에 저장 (기획서 5번 데이터 저장 파트).
 
 라인 종류(line_type):
-- "support"    : 수평 지지선 (근접 시 매수 후보 신호)
-- "resistance" : 수평 저항선 (근접 시 매도 후보 신호)
+- "horizontal" : 수평선. 지지/저항을 타입으로 고정하지 않음 - 캔들이 선 위에 있으면
+                 지지, 아래 있으면 저항으로 그때그때 동적으로 판정 (manual_lines.py 참고)
 - "trend"      : 추세선, 두 점(time1,price1)-(time2,price2)으로 정의
                  (근접 시 매도 후보 신호로 취급 - 기획서 스펙)
 """
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS lines (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     symbol TEXT NOT NULL,
     interval TEXT NOT NULL,
-    line_type TEXT NOT NULL CHECK (line_type IN ('support', 'resistance', 'trend')),
+    line_type TEXT NOT NULL CHECK (line_type IN ('horizontal', 'trend')),
     time1 TEXT,       -- trend 라인만 사용 (YYYY-MM-DD)
     price1 REAL NOT NULL,
     time2 TEXT,       -- trend 라인만 사용
@@ -38,12 +38,11 @@ def _connect():
     return conn
 
 
-def add_horizontal_line(symbol: str, interval: str, line_type: str, price: float) -> int:
-    assert line_type in ("support", "resistance")
+def add_horizontal_line(symbol: str, interval: str, price: float) -> int:
     with _connect() as conn:
         cur = conn.execute(
-            "INSERT INTO lines (symbol, interval, line_type, price1, created_at) VALUES (?, ?, ?, ?, ?)",
-            (symbol, interval, line_type, price, datetime.now(timezone.utc).isoformat()),
+            "INSERT INTO lines (symbol, interval, line_type, price1, created_at) VALUES (?, ?, 'horizontal', ?, ?)",
+            (symbol, interval, price, datetime.now(timezone.utc).isoformat()),
         )
         return cur.lastrowid
 

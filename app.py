@@ -20,7 +20,7 @@ import streamlit as st
 from pipeline import load_dashboard_data
 from config import SYMBOL, INTERVAL
 import lines_store
-from manual_lines import compute_manual_line_signals, line_label
+from manual_lines import compute_manual_line_signals, compute_manual_line_state_signals, line_label
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "components"))
 from tv_chart import tv_chart
@@ -61,8 +61,7 @@ EMA_STYLE = {
 }
 DRAW_MODE_OPTIONS = {
     "캔들 선택": "select",
-    "지지선 그리기 (클릭 1번)": "support",
-    "저항선 그리기 (클릭 1번)": "resistance",
+    "수평선 그리기 (클릭 1번)": "horizontal",
     "추세선 그리기 (클릭 2번)": "trend",
 }
 
@@ -74,6 +73,8 @@ DRAW_MODE_OPTIONS = {
 # 프래그먼트 밖에 둬서, 그건 의도적으로 전체 페이지를 다시 그리게 유지한다.
 @st.fragment
 def render_dashboard(df: pd.DataFrame, signals: dict):
+    if "selected_idx" not in st.session_state:
+        st.session_state["selected_idx"] = len(df) - 1  # 최초 진입 시 가장 최근 캔들 기본 선택
     selected_idx = st.session_state.get("selected_idx")
     last_seq = st.session_state.get("tv_chart_last_seq", 0)
 
@@ -175,7 +176,7 @@ def render_dashboard(df: pd.DataFrame, signals: dict):
                     st.session_state["selected_idx"] = selected_idx
 
             elif kind == "add_horizontal":
-                lines_store.add_horizontal_line(SYMBOL, INTERVAL, event["line_type"], event["price"])
+                lines_store.add_horizontal_line(SYMBOL, INTERVAL, event["price"])
                 st.rerun()
 
             elif kind == "add_trend":
@@ -199,6 +200,7 @@ def render_dashboard(df: pd.DataFrame, signals: dict):
     # (9개 신호처럼 st.cache_data로 묶인 pipeline과 분리해서) 매번 새로 계산한다.
     # 캔들 수 x 라인 수 규모라 캐싱 없이도 충분히 빠르다.
     manual_signals = compute_manual_line_signals(df, saved_lines) if saved_lines else {}
+    manual_state_signals = compute_manual_line_state_signals(df, saved_lines) if saved_lines else {}
 
     with right:
         st.subheader("신호")
@@ -214,11 +216,40 @@ def render_dashboard(df: pd.DataFrame, signals: dict):
             )
             st.divider()
 
-            day_signals = signals.get(selected_idx, []) + manual_signals.get(selected_idx, [])
-            if not day_signals:
-                st.write("이 날짜에 충족된 신호가 없습니다.")
-            else:
-                for s in day_signals:
+            day_all = (
+                signals.get(selected_idx, [])
+                + manual_signals.get(selected_idx, [])
+                + manual_state_signals.get(selected_idx, [])
+            )
+            long_signals = [s.text for s in day_all if s.direction == "long"]
+            short_signals = [s.text for s in day_all if s.direction == "short"]
+            reference_texts = [s.text for s in day_all if s.direction == "reference"]
+
+            tab_all, tab_long, tab_short = st.tabs(["통합", "롱", "숏"])
+
+            with tab_all:
+                col_l, col_s = st.columns(2)
+                col_l.metric("롱", len(long_signals))
+                col_s.metric("숏", len(short_signals))
+
+            with tab_long:
+                if long_signals:
+                    for s in long_signals:
+                        st.markdown(f"- {s}")
+                else:
+                    st.write("이 날짜에 롱 신호가 없습니다.")
+
+            with tab_short:
+                if short_signals:
+                    for s in short_signals:
+                        st.markdown(f"- {s}")
+                else:
+                    st.write("이 날짜에 숏 신호가 없습니다.")
+
+            if reference_texts:
+                st.divider()
+                st.caption("참고 지표 (카운트 제외)")
+                for s in reference_texts:
                     st.markdown(f"- {s}")
 
 

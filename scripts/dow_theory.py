@@ -72,6 +72,31 @@ def compute_dow_events(df: pd.DataFrame) -> pd.DataFrame:
     return events_df
 
 
+LABEL_DIRECTION = {"HH": "long", "HL": "long", "LH": "short", "LL": "short"}
+
+
+def compute_dow_state(base_df: pd.DataFrame, events: pd.DataFrame) -> pd.DataFrame:
+    """캔들마다 "그 시점까지 확정된 가장 최근 라벨"과 그 방향을 붙인다.
+
+    표시 전용(카운트 제외) 신호라 trigger/state 이분법이 필요 없음 - 다음 라벨이
+    나올 때까지 무한히 이어지는 단일 상태라서 "현재 값" 하나면 충분함.
+    label=None인 이벤트(맨 첫 스윙, 비교 대상 없음)는 건너뛴다 - 여기서 값을 채우면
+    high/low 두 계열이 서로 다른 시점에 처음 등장할 때, 이미 유효했던 라벨을
+    엉뚱하게 None으로 되돌려버리는 문제가 생기기 때문.
+    """
+    df = base_df.reset_index(drop=True).copy()
+    n = len(df)
+
+    label_at = pd.Series([None] * n, dtype=object)
+    for _, ev in events.iterrows():
+        if ev["label"] is not None:
+            label_at.iloc[int(ev["index"])] = ev["label"]
+
+    df["dow_label"] = label_at.ffill()
+    df["dow_direction"] = df["dow_label"].map(LABEL_DIRECTION)
+    return df
+
+
 if __name__ == "__main__":
     df = pd.read_parquet(SWINGS_PATH)
     events = compute_dow_events(df)

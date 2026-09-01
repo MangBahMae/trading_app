@@ -42,9 +42,9 @@
   var volumeSeries = null;
   var emaSeriesMap = {};  // { "MA9": LineSeries, ... }
   var lastBarTimes = null;
-  var currentDrawMode = "select";  // "select" | "support" | "resistance" | "trend"
+  var currentDrawMode = "select";  // "select" | "horizontal" | "trend"
   var pendingTrendPoint = null;    // 추세선 첫 번째 클릭 대기 중이면 {time, price}
-  var priceLineRefs = [];          // 현재 그려진 수평선(지지/저항) 참조들
+  var priceLineRefs = [];          // 현재 그려진 수평선 참조들
   var trendSeriesMap = {};         // { lineId: LineSeries }
   var firstBarTime = null;
   var lastBarTime = null;
@@ -131,8 +131,8 @@
       var price = param.point ? candleSeries.coordinateToPrice(param.point.y) : null;
       if (price === null || price === undefined) return;
 
-      if (currentDrawMode === "support" || currentDrawMode === "resistance") {
-        emitEvent({ kind: "add_horizontal", line_type: currentDrawMode, price: price });
+      if (currentDrawMode === "horizontal") {
+        emitEvent({ kind: "add_horizontal", price: price });
         return;
       }
 
@@ -180,11 +180,10 @@
     trendSeriesMap = {};
 
     (lines || []).forEach(function (line) {
-      if (line.line_type === "support" || line.line_type === "resistance") {
-        var color = line.line_type === "support" ? "#2e7d32" : "#c62828";
+      if (line.line_type === "horizontal") {
         var pl = candleSeries.createPriceLine({
           price: line.price1,
-          color: color,
+          color: "#1565c0",
           lineWidth: 2,
           lineStyle: LightweightCharts.LineStyle.Dashed,
           axisLabelVisible: true,
