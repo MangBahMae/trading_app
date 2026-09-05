@@ -49,6 +49,26 @@
   var firstBarTime = null;
   var lastBarTime = null;
 
+  var WEEKDAYS_KR = ["일", "월", "화", "수", "목", "금", "토"];
+
+  // 차트 시간축/크로스헤어에 쓰는 날짜 포맷 - "요일 YYYY-MM-DD" (예: "금 2026-03-10").
+  // lightweight-charts는 BusinessDay({year,month,day})나 "YYYY-MM-DD" 문자열을
+  // time으로 받는데, 요일 계산을 위해 일단 Date로 변환한다.
+  function formatDateWithWeekday(time) {
+    var d;
+    if (typeof time === "string") {
+      d = new Date(time + "T00:00:00Z");
+    } else if (time && typeof time === "object" && "year" in time) {
+      d = new Date(Date.UTC(time.year, time.month - 1, time.day));
+    } else {
+      d = new Date(time * 1000);
+    }
+    var y = d.getUTCFullYear();
+    var m = String(d.getUTCMonth() + 1).padStart(2, "0");
+    var day = String(d.getUTCDate()).padStart(2, "0");
+    return WEEKDAYS_KR[d.getUTCDay()] + " " + y + "-" + m + "-" + day;
+  }
+
   var DIM_UP = "#a8ddb8";      // 평소(흐림): 상승 캔들
   var DIM_DOWN = "#f2b8b6";    // 평소(흐림): 하락 캔들
   var VIVID_UP = "#26a69a";    // 선택됨(선명): 상승 캔들
@@ -91,7 +111,11 @@
       layout: { textColor: "#333333", background: { color: "#ffffff" } },
       grid: { vertLines: { color: "#eeeeee" }, horzLines: { color: "#eeeeee" } },
       rightPriceScale: { borderColor: "#cccccc" },
-      timeScale: { borderColor: "#cccccc" },
+      // 시간축 자체(테두리)는 남기되, 평소 반복 표시되는 날짜 눈금만 지운다.
+      // 캔들에 마우스를 올렸을 때 뜨는 크로스헤어 날짜 라벨은 이 축 안에서
+      // localization.timeFormatter로 그려지므로 계속 나온다.
+      timeScale: { borderColor: "#cccccc", tickMarkFormatter: function () { return ""; } },
+      localization: { timeFormatter: formatDateWithWeekday },
       crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
       handleScroll: true,
       handleScale: true,

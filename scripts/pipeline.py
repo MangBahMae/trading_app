@@ -12,7 +12,7 @@ Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카�
 1. 매물소진 매수/매도 (exhaustion.py)
 2. 도지캔들 (doji.py - 필터링 미완이라 reference로 취급, 미결 사항 참고)
 3. 정배열 진입/유지 (ma_regime.py - bullish_trigger/bullish_state, 유지되는 동안 매일 표시)
-4. 역배열 전환 (ma_regime.py - 전날과 다른 상태로 "바뀐 날"만, 지속 상태 아님)
+4. 역배열 진입/유지 (ma_regime.py - bearish_trigger/bearish_state, 유지되는 동안 매일 표시)
 5. 이동평균(MA50/MA200) 터치 롱/숏 (sr_touch.py)
 6. RSI 다이버전스 4종 (rsi_swings.py + divergence.py - 무효화 전까지 매일 표시)
 7. 다우이론 HH/LH/HL/LL (dow_theory.py - 표시 전용, direction="reference")
@@ -90,19 +90,22 @@ def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None 
             text = "정배열 진입" if regime_df["bullish_trigger"].iloc[i] else "정배열 유지 중"
             signals[i].append(Signal(text, "long"))
 
-    regimes = regime_df["ma_regime"].tolist()
-    for i in range(1, n):
-        if regimes[i] == "bearish" and regimes[i - 1] != "bearish":
-            signals[i].append(Signal("역배열 전환", "short"))
+    for i in range(n):
+        if regime_df["bearish_state"].iloc[i]:
+            text = "역배열 진입" if regime_df["bearish_trigger"].iloc[i] else "역배열 유지 중"
+            signals[i].append(Signal(text, "short"))
 
     for ma_col in ["MA50", "MA200"]:
         signal_col = f"{ma_col}_signal"
+        case_col = f"{ma_col}_case"
         for i in range(n):
             sig = touch_df[signal_col].iloc[i]
             if sig == "long":
                 signals[i].append(Signal(f"{ma_col} 터치 - 롱 신호", "long"))
             elif sig == "short":
                 signals[i].append(Signal(f"{ma_col} 터치 - 숏 신호", "short"))
+            elif touch_df[case_col].iloc[i] == "gray_zone":
+                signals[i].append(Signal(f"{ma_col} 근접했으나 회색지대라 신호 제외", "reference"))
 
     divergence_state_events = divergence.compute_divergence_state(rsi_swings_df, divergence_events)
     for _, ev in divergence_state_events.iterrows():
