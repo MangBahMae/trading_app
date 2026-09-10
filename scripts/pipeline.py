@@ -1,5 +1,5 @@
 """
-9개 신호 로직을 하나로 묶어 실행하고, 날짜별로 그날 충족된 신호 목록을 만든다.
+12개 신호 로직을 하나로 묶어 실행하고, 날짜별로 그날 충족된 신호 목록을 만든다.
 
 각 신호의 판정 로직 자체는 이미 검증 완료된 scripts/*.py의 함수를 그대로
 가져다 쓴다 (로직 재구현/변경 없음). 이 파일은 그것들을 순서대로 실행해서
@@ -8,7 +8,7 @@
 Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카운트
 포함 여부를 결정하는 유일한 기준 - 표시 문구가 바뀌어도 카운트 로직은 안 바뀐다.
 
-9개 신호:
+12개 신호:
 1. 매물소진 매수/매도 (exhaustion.py)
 2. 도지캔들 (doji.py - 필터링 미완이라 reference로 취급, 미결 사항 참고)
 3. 정배열 진입/유지 (ma_regime.py - bullish_trigger/bullish_state, 유지되는 동안 매일 표시)
@@ -18,6 +18,9 @@ Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카�
 7. 다우이론 HH/LH/HL/LL (dow_theory.py - 표시 전용, direction="reference")
 8. RSI 과매도 (rsi_overbought_oversold.py)
 9. RSI 과매수 (rsi_overbought_oversold.py - 표시 전용, direction="reference")
+10. 고점 도지 (거부 캔들) - 숏 (doji_spinning_top_at_high.py)
+11. 고점 스피닝탑 (거부 캔들) - 숏 (doji_spinning_top_at_high.py)
+12. 장악형 하락 - 숏 (bearish_engulfing.py)
 """
 import sys
 from pathlib import Path
@@ -31,6 +34,8 @@ import dow_theory
 import ma_regime
 import sr_touch
 import doji
+import doji_spinning_top_at_high
+import bearish_engulfing
 import exhaustion
 import rsi
 import rsi_swings
@@ -65,6 +70,8 @@ def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None 
     touch_df = sr_touch.compute_sr_touch(regime_df)
 
     doji_df = doji.compute_doji(base_df)
+    rejection_at_high_df = doji_spinning_top_at_high.compute_doji_spinning_top_at_high(base_df)
+    bearish_engulfing_df = bearish_engulfing.compute_bearish_engulfing(base_df)
     exhaustion_df = exhaustion.compute_exhaustion(base_df)
 
     rsi_df = rsi.compute_rsi_signals(base_df)
@@ -84,6 +91,16 @@ def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None 
     for i in range(n):
         if doji_df["is_doji"].iloc[i]:
             signals[i].append(Signal("도지캔들", "reference"))
+
+    for i in range(n):
+        if rejection_at_high_df["is_doji_at_high"].iloc[i]:
+            signals[i].append(Signal("고점 도지 (거부 캔들) - 숏 신호", "short"))
+        if rejection_at_high_df["is_spinning_top_at_high"].iloc[i]:
+            signals[i].append(Signal("고점 스피닝탑 (거부 캔들) - 숏 신호", "short"))
+
+    for i in range(n):
+        if bearish_engulfing_df["is_bearish_engulfing"].iloc[i]:
+            signals[i].append(Signal("장악형 하락 - 숏 신호", "short"))
 
     for i in range(n):
         if regime_df["bullish_state"].iloc[i]:
