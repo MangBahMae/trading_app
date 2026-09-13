@@ -175,11 +175,16 @@ def build_signals_by_date(
         case_col = f"{ma_col}_case"
         for i in range(n):
             sig = touch_df[signal_col].iloc[i]
-            if sig == "long":
-                signals[i].append(Signal(f"{ma_col} 터치 - 롱 신호", "long"))
-            elif sig == "short":
-                signals[i].append(Signal(f"{ma_col} 터치 - 숏 신호", "short"))
-            elif touch_df[case_col].iloc[i] == "gray_zone":
+            case = touch_df[case_col].iloc[i]
+            if case == "touch_reject" and sig == "long":
+                signals[i].append(Signal(f"{ma_col} 지지", "long"))
+            elif case == "touch_reject" and sig == "short":
+                signals[i].append(Signal(f"{ma_col} 저항 (거부)", "short"))
+            elif case == "breakout" and sig == "long":
+                signals[i].append(Signal(f"{ma_col} 상향 돌파", "long"))
+            elif case == "breakout" and sig == "short":
+                signals[i].append(Signal(f"{ma_col} 하향 이탈", "short"))
+            elif case == "gray_zone":
                 signals[i].append(Signal(f"{ma_col} 근접했으나 회색지대라 신호 제외", "reference"))
 
     divergence_state_events = divergence.compute_divergence_state(rsi_swings_df, divergence_events)
