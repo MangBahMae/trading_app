@@ -26,7 +26,7 @@ def tv_chart(bars, selected_date=None, height=680, ema_series=None, draw_mode="s
           시간순 정렬, 중복 없어야 함 (lightweight-charts 요구사항)
     selected_date: 현재 강조 표시할 캔들의 "YYYY-MM-DD" 문자열, 없으면 None
     height: 차트 높이(px)
-    ema_series: {"MA9": {"color": "#1f77ff", "dashed": False, "visible": bool,
+    ema_series: {"EMA9": {"color": "#1f77ff", "dashed": False, "visible": bool,
                           "data": [{"time": "YYYY-MM-DD", "value": float}, ...]}, ...}
                 NaN 구간은 호출 전에 걸러서 넘길 것
     draw_mode: "select"(기본, 캔들 클릭=신호 패널 갱신) | "horizontal"(수평선, 클릭 1번)

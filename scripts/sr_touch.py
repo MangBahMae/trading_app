@@ -30,7 +30,7 @@ import pandas as pd
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "merged" / "BTCUSDT_1d_ma_regime.parquet"
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "merged" / "BTCUSDT_1d_sr_touch.parquet"
 
-MA_TARGETS = ["MA50", "MA200"]
+MA_TARGETS = ["EMA50", "EMA200"]
 TOUCH_MAX_PCT = 0.1      # 터치/거부 구간: |이격률| <= 0.1%
 BREAKOUT_MIN_PCT = 0.5   # 돌파 구간: |이격률| > 0.5%
 

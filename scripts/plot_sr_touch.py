@@ -3,7 +3,7 @@
 
 마커 규칙 (텍스트 라벨은 연속 터치 구간에서 겹쳐 보여 제거하고, 마커 모양/색으로만 구분):
 - 색: 롱 신호 = 초록, 숏 신호 = 빨강
-- 모양: MA50 = 원(o)/얇은 X(x), MA200 = 사각형(s)/굵은 X(X)
+- 모양: EMA50 = 원(o)/얇은 X(x), EMA200 = 사각형(s)/굵은 X(X)
 - 배경으로 EMA50(보라)/EMA200(검정 점선) 라인을 함께 그려서 터치 지점을 눈으로 확인 가능하게 함
 """
 from pathlib import Path
@@ -23,10 +23,10 @@ CHUNK_SIZE = 90
 
 # (ma_col, signal) -> (marker, color)
 MARKER_STYLE = {
-    ("MA50", "long"): ("o", "green"),
-    ("MA50", "short"): ("x", "red"),
-    ("MA200", "long"): ("s", "green"),
-    ("MA200", "short"): ("X", "red"),
+    ("EMA50", "long"): ("o", "green"),
+    ("EMA50", "short"): ("x", "red"),
+    ("EMA200", "long"): ("s", "green"),
+    ("EMA200", "short"): ("X", "red"),
 }
 
 
@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
         ohlc = build_ohlc(chunk)
 
-        ma_specs = [("MA50", "purple", 1.2, "-"), ("MA200", "black", 1.2, "--")]
+        ma_specs = [("EMA50", "purple", 1.2, "-"), ("EMA200", "black", 1.2, "--")]
         addplots = []
         for col, color, width, style in ma_specs:
             vals = chunk[col].values
@@ -62,7 +62,7 @@ if __name__ == "__main__":
             addplots.append(mpf.make_addplot(vals, color=color, width=width, linestyle=style))
 
         used_keys = set()
-        for ma_col in ["MA50", "MA200"]:
+        for ma_col in ["EMA50", "EMA200"]:
             signal_col = f"{ma_col}_signal"
             for signal in ["long", "short"]:
                 vals = np.full(len(chunk), np.nan)
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
         start_date = chunk["open_time"].iloc[0].date()
         end_date = chunk["open_time"].iloc[-1].date()
-        title = f"BTCUSDT 1D  MA Touch Long/Short (MA50/MA200)  ({start_date} ~ {end_date})"
+        title = f"BTCUSDT 1D  EMA Touch Long/Short (EMA50/EMA200)  ({start_date} ~ {end_date})"
         fname = OUT_DIR / f"sr_touch_{c+1:02d}_{start_date}_{end_date}.png"
 
         fig, axlist = mpf.plot(
@@ -95,13 +95,13 @@ if __name__ == "__main__":
         ax = axlist[0]
 
         legend_labels = {
-            ("MA50", "long"): "MA50 터치 → 롱 신호",
-            ("MA50", "short"): "MA50 터치 → 숏 신호",
-            ("MA200", "long"): "MA200 터치 → 롱 신호",
-            ("MA200", "short"): "MA200 터치 → 숏 신호",
+            ("EMA50", "long"): "EMA50 터치 → 롱 신호",
+            ("EMA50", "short"): "EMA50 터치 → 숏 신호",
+            ("EMA200", "long"): "EMA200 터치 → 롱 신호",
+            ("EMA200", "short"): "EMA200 터치 → 숏 신호",
         }
         legend_elems = []
-        for key in [("MA50", "long"), ("MA50", "short"), ("MA200", "long"), ("MA200", "short")]:
+        for key in [("EMA50", "long"), ("EMA50", "short"), ("EMA200", "long"), ("EMA200", "short")]:
             if key in used_keys:
                 marker, color = MARKER_STYLE[key]
                 legend_elems.append(Line2D([0], [0], marker=marker, color=color, linestyle="None",

@@ -13,7 +13,7 @@ Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카�
 2. 도지캔들 (doji.py - 필터링 미완이라 reference로 취급, 미결 사항 참고)
 3. 정배열 진입/유지 (ma_regime.py - bullish_trigger/bullish_state, 유지되는 동안 매일 표시)
 4. 역배열 진입/유지 (ma_regime.py - bearish_trigger/bearish_state, 유지되는 동안 매일 표시)
-5. 이동평균(MA50/MA200) 터치 롱/숏 (sr_touch.py)
+5. 이동평균(EMA50/EMA200) 터치 롱/숏 (sr_touch.py)
 6. RSI 다이버전스 4종 (rsi_swings.py + divergence.py - 무효화 전까지 매일 표시)
 7. 다우이론 HH/LH/HL/LL (dow_theory.py - 표시 전용, direction="reference")
 8. RSI 과매도 (rsi_overbought_oversold.py)
@@ -157,15 +157,20 @@ def build_signals_by_date(
 
     for i in range(n):
         if regime_df["bullish_state"].iloc[i]:
-            text = "정배열 진입" if regime_df["bullish_trigger"].iloc[i] else "정배열 유지 중"
-            signals[i].append(Signal(text, "long"))
+            ratchet = int(regime_df["bullish_suspicion_ratchet"].iloc[i])
+            label = "정배열 진입" if regime_df["bullish_trigger"].iloc[i] else "정배열 유지 중"
+            signals[i].append(Signal(f"{label} · 이력 {ratchet}단계", "long"))
+            if regime_df["bullish_suspicion"].iloc[i] == 2:
+                signals[i].append(Signal("⚠ 오늘 EMA 이탈 (위험)", "reference"))
+        if regime_df["bullish_exit_trigger"].iloc[i]:
+            signals[i].append(Signal("정배열 종료", "reference"))
 
     for i in range(n):
         if regime_df["bearish_state"].iloc[i]:
             text = "역배열 진입" if regime_df["bearish_trigger"].iloc[i] else "역배열 유지 중"
             signals[i].append(Signal(text, "short"))
 
-    for ma_col in ["MA50", "MA200"]:
+    for ma_col in ["EMA50", "EMA200"]:
         signal_col = f"{ma_col}_signal"
         case_col = f"{ma_col}_case"
         for i in range(n):
@@ -206,7 +211,7 @@ def build_signals_by_date(
     return signals
 
 
-EMA_COLS = ["MA9", "MA20", "MA50", "MA200"]
+EMA_COLS = ["EMA9", "EMA20", "EMA50", "EMA200"]
 
 
 def load_dashboard_data(invalidated_log: list | None = None):

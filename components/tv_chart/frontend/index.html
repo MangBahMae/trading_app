@@ -40,7 +40,7 @@
   var chart = null;
   var candleSeries = null;
   var volumeSeries = null;
-  var emaSeriesMap = {};  // { "MA9": LineSeries, ... }
+  var emaSeriesMap = {};  // { "EMA9": LineSeries, ... }
   var lastBarTimes = null;
   var currentDrawMode = "select";  // "select" | "horizontal" | "trend"
   var pendingTrendPoint = null;    // 추세선 첫 번째 클릭 대기 중이면 {time, price}
@@ -243,7 +243,7 @@
         crosshairMarkerVisible: false,
         lastValueVisible: false,
         priceLineVisible: false,
-        title: key.replace("MA", "EMA"),
+        title: key,
       });
     });
   }

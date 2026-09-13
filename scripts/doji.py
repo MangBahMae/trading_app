@@ -75,8 +75,8 @@ def _swing_low_price_series(df: pd.DataFrame, swings_df: pd.DataFrame) -> pd.Ser
 def compute_valid_doji_long(df: pd.DataFrame, manual_signals: dict) -> dict:
     """도지 몸통 + (스윙저점 근접 OR EMA50/200 터치 OR 수평선 지지 근접) + 거래량 증가.
 
-    df: open_time/open/high/low/close/volume/MA50/MA200 컬럼을 가진 캔들 데이터프레임
-        (0-based 연속 인덱스. load_dashboard_data()가 이미 MA50/MA200을 붙여서 넘김)
+    df: open_time/open/high/low/close/volume/EMA50/EMA200 컬럼을 가진 캔들 데이터프레임
+        (0-based 연속 인덱스. load_dashboard_data()가 이미 EMA50/EMA200을 붙여서 넘김)
     manual_signals: compute_manual_line_signals()의 결과 - "수평선 지지 근접"은 여기서
         direction=="long"인 날인지만 확인 (근접 판정 로직 재구현 없이 그대로 재사용)
 
@@ -98,7 +98,7 @@ def compute_valid_doji_long(df: pd.DataFrame, manual_signals: dict) -> dict:
         low, high = df["low"].iloc[i], df["high"].iloc[i]
 
         near_swing = _near(low, high, swing_low_price.iloc[i])
-        near_ema = bool(touch_df["MA50_touch"].iloc[i] or touch_df["MA200_touch"].iloc[i])
+        near_ema = bool(touch_df["EMA50_touch"].iloc[i] or touch_df["EMA200_touch"].iloc[i])
         near_line = any(s.direction == "long" for s in manual_signals.get(i, []))
 
         if not (near_swing or near_ema or near_line):

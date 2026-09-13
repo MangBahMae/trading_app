@@ -75,10 +75,10 @@ if __name__ == "__main__":
         ohlc = build_ohlc(chunk)
 
         ma_specs = [
-            ("MA9", "blue", 1.0, "-"),
-            ("MA20", "orange", 1.0, "-"),
-            ("MA50", "purple", 1.2, "-"),
-            ("MA200", "black", 1.2, "--"),
+            ("EMA9", "blue", 1.0, "-"),
+            ("EMA20", "orange", 1.0, "-"),
+            ("EMA50", "purple", 1.2, "-"),
+            ("EMA200", "black", 1.2, "--"),
         ]
         addplots = []
         for col, color, width, style in ma_specs:

@@ -55,10 +55,10 @@ with top_r:
 
 WINDOW_OPTIONS = {"최근 3개월": 90, "최근 6개월": 180, "최근 1년": 365, "전체": None}
 EMA_STYLE = {
-    "MA9": ("EMA9", "#1f77ff", "solid"),
-    "MA20": ("EMA20", "#ff8c00", "solid"),
-    "MA50": ("EMA50", "#7d3cff", "solid"),
-    "MA200": ("EMA200", "#000000", "dash"),
+    "EMA9": ("EMA9", "#1f77ff", "solid"),
+    "EMA20": ("EMA20", "#ff8c00", "solid"),
+    "EMA50": ("EMA50", "#7d3cff", "solid"),
+    "EMA200": ("EMA200", "#000000", "dash"),
 }
 DRAW_MODE_OPTIONS = {
     "캔들 선택": "select",
