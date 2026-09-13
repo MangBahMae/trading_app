@@ -21,6 +21,11 @@ Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카�
 10. 고점 도지 (거부 캔들) - 숏 (doji_spinning_top_at_high.py)
 11. 고점 스피닝탑 (거부 캔들) - 숏 (doji_spinning_top_at_high.py)
 12. 장악형 하락 - 숏 (bearish_engulfing.py)
+
+무효화 필터:
+- 시세 분출(volatility_expansion.py) 구간에서는 doji_at_high, spinning_top_at_high,
+  bearish_engulfing 3종을 발생시키지 않는다. 무효화된 케이스는 invalidated_log
+  인자를 넘기면 그 리스트에 기록된다 (검토용, 기본 동작에는 영향 없음).
 """
 import sys
 from pathlib import Path
@@ -36,6 +41,7 @@ import sr_touch
 import doji
 import doji_spinning_top_at_high
 import bearish_engulfing
+import volatility_expansion
 import exhaustion
 import rsi
 import rsi_swings
@@ -58,7 +64,53 @@ DIV_LABEL_KR = {
 }
 
 
-def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None = None) -> dict:
+def _volatility_expansion_matches(vol_exp_df: pd.DataFrame, i: int) -> list[dict]:
+    """i번째 캔들이 걸린 시세 분출 창(N) 목록. 없으면 빈 리스트."""
+    matches = []
+    for window in volatility_expansion.WINDOWS:
+        if vol_exp_df[f"expansion_{window}"].iloc[i]:
+            matches.append(
+                {
+                    "n": window,
+                    "cum_pct": vol_exp_df[f"cum_pct_{window}"].iloc[i],
+                    "cum_pct_per_n": vol_exp_df[f"cum_pct_per_n_{window}"].iloc[i],
+                }
+            )
+    return matches
+
+
+def _emit_bearish_signal(
+    i: int,
+    text: str,
+    base_df: pd.DataFrame,
+    vol_exp_df: pd.DataFrame,
+    signals: dict,
+    invalidated_log: list | None,
+) -> None:
+    """시세 분출 구간이면 신호를 발생시키지 않고 invalidated_log에만 기록."""
+    matches = _volatility_expansion_matches(vol_exp_df, i)
+    if matches:
+        if invalidated_log is not None:
+            for m in matches:
+                invalidated_log.append(
+                    {
+                        "index": i,
+                        "date": base_df["open_time"].iloc[i],
+                        "signal_text": text,
+                        "n": m["n"],
+                        "cum_pct": m["cum_pct"],
+                        "cum_pct_per_n": m["cum_pct_per_n"],
+                    }
+                )
+        return
+    signals[i].append(Signal(text, "short"))
+
+
+def build_signals_by_date(
+    base_df: pd.DataFrame,
+    regime_df: pd.DataFrame | None = None,
+    invalidated_log: list | None = None,
+) -> dict:
     base_df = base_df.reset_index(drop=True)
     n = len(base_df)
 
@@ -72,6 +124,7 @@ def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None 
     doji_df = doji.compute_doji(base_df)
     rejection_at_high_df = doji_spinning_top_at_high.compute_doji_spinning_top_at_high(base_df)
     bearish_engulfing_df = bearish_engulfing.compute_bearish_engulfing(base_df)
+    vol_exp_df = volatility_expansion.compute_volatility_expansion(base_df)
     exhaustion_df = exhaustion.compute_exhaustion(base_df)
 
     rsi_df = rsi.compute_rsi_signals(base_df)
@@ -94,13 +147,13 @@ def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None 
 
     for i in range(n):
         if rejection_at_high_df["is_doji_at_high"].iloc[i]:
-            signals[i].append(Signal("고점 도지 (거부 캔들) - 숏 신호", "short"))
+            _emit_bearish_signal(i, "고점 도지 (거부 캔들) - 숏 신호", base_df, vol_exp_df, signals, invalidated_log)
         if rejection_at_high_df["is_spinning_top_at_high"].iloc[i]:
-            signals[i].append(Signal("고점 스피닝탑 (거부 캔들) - 숏 신호", "short"))
+            _emit_bearish_signal(i, "고점 스피닝탑 (거부 캔들) - 숏 신호", base_df, vol_exp_df, signals, invalidated_log)
 
     for i in range(n):
         if bearish_engulfing_df["is_bearish_engulfing"].iloc[i]:
-            signals[i].append(Signal("장악형 하락 - 숏 신호", "short"))
+            _emit_bearish_signal(i, "장악형 하락 - 숏 신호", base_df, vol_exp_df, signals, invalidated_log)
 
     for i in range(n):
         if regime_df["bullish_state"].iloc[i]:
@@ -156,15 +209,18 @@ def build_signals_by_date(base_df: pd.DataFrame, regime_df: pd.DataFrame | None 
 EMA_COLS = ["MA9", "MA20", "MA50", "MA200"]
 
 
-def load_dashboard_data():
+def load_dashboard_data(invalidated_log: list | None = None):
     """대시보드에서 쓸 (OHLCV+EMA 데이터프레임, 날짜별 Signal 목록 dict)를 반환.
 
     EMA9/20/50/200은 ma_regime.py가 이미 계산하는 값을 그대로 가져다 붙인다
     (차트 표시용으로 별도 재계산하지 않음 - 4-3에서 검증된 것과 동일한 값).
+
+    invalidated_log: 리스트를 넘기면 시세 분출로 무효화된 약세 신호 케이스가
+    거기에 기록된다 (검토용, 기본 동작에는 영향 없음).
     """
     base_df = ensure_fresh_data().reset_index(drop=True)
     regime_df = ma_regime.compute_ma_regime(base_df)
-    signals = build_signals_by_date(base_df, regime_df=regime_df)
+    signals = build_signals_by_date(base_df, regime_df=regime_df, invalidated_log=invalidated_log)
 
     base_df = base_df.copy()
     for col in EMA_COLS:
