@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
         # 다이버전스 마커 (가격 패널 panel=0은 "index" 기준, RSI 패널 panel=2는
         # 짝지어진 "rsi_swing_index" 기준 - 가격 극점과 RSI 극점이 ±3봉 차이날 수 있음)
-        div_chunk = div[(div["index"] >= start) & (div["index"] < end)].copy()
+        div_chunk = div[(div["structure_idx"] >= start) & (div["structure_idx"] < end)].copy()
 
         price_markers = {}
         connector_lines = []  # (px1, py1, px2, py2, rx1, ry1, rx2, ry2, color) - 필요한 점이 같은 청크 안에 있을 때만
@@ -86,7 +86,7 @@ if __name__ == "__main__":
             r_vals = np.full(len(chunk), np.nan)
             any_val = False
             for _, ev in div_chunk[div_chunk["type"] == dtype].iterrows():
-                price_pos = int(ev["index"]) - start
+                price_pos = int(ev["structure_idx"]) - start
                 p_vals[price_pos] = ev["price"]
                 any_val = True
 

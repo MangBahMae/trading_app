@@ -191,11 +191,11 @@ def build_signals_by_date(
     for _, ev in divergence_state_events.iterrows():
         label = DIV_LABEL_KR[ev["type"]]
         direction = "long" if ev["type"] in divergence.BULLISH_TYPES else "short"
-        trigger_idx = int(ev["index"])
+        display_idx = int(ev["confirmed_idx"])
         end_idx = int(ev["state_end_index"])
-        for day_idx in range(trigger_idx, end_idx + 1):
+        for day_idx in range(display_idx, end_idx + 1):
             if day_idx in signals:
-                suffix = "진입" if day_idx == trigger_idx else "유지 중"
+                suffix = "진입" if day_idx == display_idx else "유지 중"
                 signals[day_idx].append(Signal(f"{label} {suffix}", direction))
 
     for i in range(n):

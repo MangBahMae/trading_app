@@ -37,12 +37,14 @@ OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "merged" / "BTCUSDT
 
 GAP_MIN = 5
 GAP_MAX = 60
+DETECT_HIDDEN = False  # True면 은닉 강세/약세도 감지·기록 (기본은 정상 2종만)
 
 
 def compute_divergences(df: pd.DataFrame):
     df = df.reset_index(drop=True)
     events = []
     excluded_by_gap = []
+    close_time_to_idx = {ct: idx for idx, ct in enumerate(df["close_time"])}
 
     high_idx = df.index[df["rsi_swing_high"]].tolist()
     for i in range(1, len(high_idx)):
@@ -59,6 +61,9 @@ def compute_divergences(df: pd.DataFrame):
         else:
             continue
 
+        if kind == "hidden_bearish" and not DETECT_HIDDEN:
+            continue
+
         if not (GAP_MIN <= gap <= GAP_MAX):
             excluded_by_gap.append({
                 "open_time": df["open_time"].iloc[curr_idx], "type": kind, "gap": gap,
@@ -66,8 +71,16 @@ def compute_divergences(df: pd.DataFrame):
             })
             continue
 
+        confirmed_idx = close_time_to_idx[df["rsi_confirmed_at"].iloc[curr_idx]]
+        born_invalid = any(
+            df["close"].iloc[j] > price_curr for j in range(curr_idx + 1, confirmed_idx + 1)
+        )
+        if born_invalid:
+            continue
+
         events.append({
-            "index": curr_idx, "open_time": df["open_time"].iloc[curr_idx], "type": kind,
+            "structure_idx": curr_idx, "confirmed_idx": confirmed_idx,
+            "open_time": df["open_time"].iloc[curr_idx], "type": kind,
             "rsi": rsi_curr, "prev_rsi": rsi_prev, "price": price_curr, "prev_price": price_prev,
             "prev_index": prev_idx, "gap": gap,
             "rsi_swing_index": curr_idx, "prev_rsi_swing_index": prev_idx,
@@ -88,6 +101,9 @@ def compute_divergences(df: pd.DataFrame):
         else:
             continue
 
+        if kind == "hidden_bullish" and not DETECT_HIDDEN:
+            continue
+
         if not (GAP_MIN <= gap <= GAP_MAX):
             excluded_by_gap.append({
                 "open_time": df["open_time"].iloc[curr_idx], "type": kind, "gap": gap,
@@ -95,14 +111,22 @@ def compute_divergences(df: pd.DataFrame):
             })
             continue
 
+        confirmed_idx = close_time_to_idx[df["rsi_confirmed_at"].iloc[curr_idx]]
+        born_invalid = any(
+            df["close"].iloc[j] < price_curr for j in range(curr_idx + 1, confirmed_idx + 1)
+        )
+        if born_invalid:
+            continue
+
         events.append({
-            "index": curr_idx, "open_time": df["open_time"].iloc[curr_idx], "type": kind,
+            "structure_idx": curr_idx, "confirmed_idx": confirmed_idx,
+            "open_time": df["open_time"].iloc[curr_idx], "type": kind,
             "rsi": rsi_curr, "prev_rsi": rsi_prev, "price": price_curr, "prev_price": price_prev,
             "prev_index": prev_idx, "gap": gap,
             "rsi_swing_index": curr_idx, "prev_rsi_swing_index": prev_idx,
         })
 
-    result = pd.DataFrame(events).sort_values("index").reset_index(drop=True)
+    result = pd.DataFrame(events).sort_values("structure_idx").reset_index(drop=True)
     excluded = pd.DataFrame(excluded_by_gap).sort_values("open_time").reset_index(drop=True) if excluded_by_gap else pd.DataFrame(excluded_by_gap)
     return result, excluded
 
@@ -115,9 +139,11 @@ def compute_divergence_state(rsi_swings_df: pd.DataFrame, events_df: pd.DataFram
 
     해제는 둘 중 먼저 오는 것:
     ① 가격 이탈: 종가가 무효화 가격(다이버전스를 구성한 pivot의 가격 - 강세는 저가,
-       약세는 고가 = compute_divergences()가 계산해둔 "price" 컬럼)을 이탈. trigger
-       캔들 자체의 종가로는 무효화될 수 없으므로(그 캔들의 저가/고가가 곧 price) 다음
-       캔들부터 스캔한다.
+       약세는 고가 = compute_divergences()가 계산해둔 "price" 컬럼)을 이탈. 구조발생일
+       ~확정일 구간의 이탈은 compute_divergences()의 born-invalid 체크가 이미 걸러내고
+       왔으므로(그 구간에 이탈이 있었으면 애초에 이벤트로 안 만들어짐), 여기서는
+       확정일(confirmed_idx) 다음 캔들부터 스캔한다 (look-ahead 방지 - 진입 표시 시점과
+       동일한 기준).
     ② 반대 방향 RSI pivot 확정: 강한 추세 구간에서는 ①이 오래도록 안 와서 다이버전스
        state가 수십~백일씩 유지되며 같은 방향 다이버전스가 계속 새로 겹쳐 쌓이는 문제가
        있었음 - 다음 반대 방향 RSI pivot(강세 계열은 다음 고점, 약세 계열은 다음 저점)이
@@ -141,23 +167,25 @@ def compute_divergence_state(rsi_swings_df: pd.DataFrame, events_df: pd.DataFram
     end_reason = []
 
     for _, ev in events_df.iterrows():
-        trigger_idx = int(ev["index"])
+        structure_idx = int(ev["structure_idx"])
+        confirmed_idx = int(ev["confirmed_idx"])
         price = ev["price"]
         is_bullish = ev["type"] in BULLISH_TYPES
 
-        # ① 가격 이탈
+        # ① 가격 이탈 (확정일 다음날부터 스캔 - 구조발생일~확정일 구간은
+        # compute_divergences()의 born-invalid 체크가 이미 걸러냄)
         reverse_end = n - 1
         reverse_found = False
-        for j in range(trigger_idx + 1, n):
+        for j in range(confirmed_idx + 1, n):
             broken = close.iloc[j] < price if is_bullish else close.iloc[j] > price
             if broken:
                 reverse_end = j - 1
                 reverse_found = True
                 break
 
-        # ② 반대 방향 RSI pivot 확정
+        # ② 반대 방향 RSI pivot 확정 (구조발생일 기준 비교 - 기존 그대로)
         opposite_pivots = high_idx if is_bullish else low_idx
-        next_opposite = next((j for j in opposite_pivots if j > trigger_idx), None)
+        next_opposite = next((j for j in opposite_pivots if j > structure_idx), None)
         opposite_confirm_end = None
         if next_opposite is not None:
             confirm_idx = next_opposite + rsi_swings.N
