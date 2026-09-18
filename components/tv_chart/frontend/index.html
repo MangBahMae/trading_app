@@ -317,7 +317,12 @@
   // 다이버전스는 카운트 신호가 아니라 참고 표시 전용(pipeline.get_divergence_markers) -
   // prev<->구조발생일 두 피벗을 가격/RSI 패널에 각각 화살표+점선 연결로, 확정(발화)일은
   // 구조발생일과 구분되는 검정 원으로 표시한다.
-  function renderDivergenceMarkers(markers, colors) {
+  //
+  // RSI 패널쪽 연결선/마커는 rsiVisible이 false면 아예 만들지 않는다 - RSI 패널
+  // 자체(rsiSeries/rsi70/rsi30)는 renderRsiPanel()이 꺼도, 여기서 매 렌더마다
+  // 새로 그리는 다이버전스 RSI 연결선은 별개 시리즈라 그 토글에 안 걸렸던 게 버그
+  // 원인. 캔들 패널쪽(priceLine/priceMarkers)은 RSI 토글과 무관하게 항상 그린다.
+  function renderDivergenceMarkers(markers, colors, rsiVisible) {
     clearDivergenceLines();
     var priceMarkers = [];
     var rsiMarkers = [];
@@ -336,22 +341,26 @@
       ]);
       divLineSeries.push(priceLine);
 
-      var rsiLine = chart.addLineSeries({
-        color: color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed,
-        priceScaleId: "rsi", crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false,
-      });
-      rsiLine.setData([
-        { time: m.prev_date, value: m.prev_rsi },
-        { time: m.structure_date, value: m.rsi },
-      ]);
-      divLineSeries.push(rsiLine);
+      if (rsiVisible) {
+        var rsiLine = chart.addLineSeries({
+          color: color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed,
+          priceScaleId: "rsi", crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false,
+        });
+        rsiLine.setData([
+          { time: m.prev_date, value: m.prev_rsi },
+          { time: m.structure_date, value: m.rsi },
+        ]);
+        divLineSeries.push(rsiLine);
+      }
 
       var arrowShape = isBullish ? "arrowUp" : "arrowDown";
       var pricePos = isBullish ? "belowBar" : "aboveBar";
       priceMarkers.push({ time: m.prev_date, position: pricePos, color: color, shape: arrowShape });
       priceMarkers.push({ time: m.structure_date, position: pricePos, color: color, shape: arrowShape });
-      rsiMarkers.push({ time: m.prev_date, position: "inBar", color: color, shape: arrowShape });
-      rsiMarkers.push({ time: m.structure_date, position: "inBar", color: color, shape: arrowShape });
+      if (rsiVisible) {
+        rsiMarkers.push({ time: m.prev_date, position: "inBar", color: color, shape: arrowShape });
+        rsiMarkers.push({ time: m.structure_date, position: "inBar", color: color, shape: arrowShape });
+      }
 
       // 확정(발화)일 - 구조발생일과 다른 색(검정)/모양(원)으로 구분
       priceMarkers.push({ time: m.confirmed_date, position: "inBar", color: "#000000", shape: "circle" });
@@ -411,7 +420,7 @@
     });
 
     renderRsiPanel(rsiConfig);
-    renderDivergenceMarkers(divergenceMarkers, divMarkerColors);
+    renderDivergenceMarkers(divergenceMarkers, divMarkerColors, !!rsiConfig.visible);
 
     // 데이터 구성 자체가 바뀐 경우(최초 로드, "표시 기간" 변경)에만 전체 보기로
     // 맞추고, 단순히 다른 캔들을 클릭하거나 EMA를 껐다 켜서 selected_date/표시

@@ -209,17 +209,22 @@ def build_signals_by_date(
 
 
 def get_divergence_markers(base_df: pd.DataFrame, rsi_df: pd.DataFrame | None = None) -> list[dict]:
-    """정상 RSI 다이버전스(현재 은닉 비활성화 상태 기준 27건)를 차트 마커용 데이터로 변환.
+    """정상 RSI 다이버전스(현재 lbL=lbR=3 기준 36건)를 차트 마커용 데이터로 변환.
 
     신호 카운트(build_signals_by_date)에는 안 들어간다 - MAE가 목표 움직임 폭보다
     커서 유효성 검증 결과 단독 카운트 신호로 부적합 판단, 차트 참고 표시로만 남김.
     계산 로직(divergence.compute_divergences/compute_divergence_state)은 그대로
     재사용 - 여기서는 결과를 표시용 dict로 변환만 한다.
+
+    lbR(우측 확인 봉수)=3 - rsi_swings.py 기본값(N=5, 다른 용도의 표준 대조에 계속
+    쓰임)은 그대로 두고, 여기 표시 전용 호출에서만 n=3으로 국소 적용한다(사용자
+    확인 실험 결과: 5봉 대비 이벤트 27->36건 증가, 확정 2일 단축, 다만 3봉 피벗의
+    35.7%가 5봉 기준으론 재역전되는 "가짜 피벗" - 그래도 육안 확인 후 3봉으로 결정).
     """
     base_df = base_df.reset_index(drop=True)
     if rsi_df is None:
         rsi_df = rsi.compute_rsi_signals(base_df)
-    rsi_swings_df = rsi_swings.find_rsi_swings(rsi_df, n=5)
+    rsi_swings_df = rsi_swings.find_rsi_swings(rsi_df, n=3)
     events, _excluded = divergence.compute_divergences(rsi_swings_df)
     state_events = divergence.compute_divergence_state(rsi_swings_df, events)
 

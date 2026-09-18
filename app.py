@@ -113,16 +113,22 @@ def render_dashboard(df: pd.DataFrame, signals: dict, divergence_markers: list):
         # EMA9/20/50/200 온오프 - 값 자체는 ma_regime.py(4-3에서 검증된 로직)가 계산한
         # 걸 그대로 가져다 씀(pipeline.py에서 이미 df에 붙여둠). 기본은 꺼짐("깨끗한
         # 캔들만" 기본값 유지, 필요할 때만 켜서 봄).
-        ema_ui_cols = st.columns(5)
+        ema_ui_cols = st.columns(6)
         show_ema = {}
         for ema_col, ui_col in zip(EMA_STYLE, ema_ui_cols):
             label, _, _ = EMA_STYLE[ema_col]
             with ui_col:
                 show_ema[ema_col] = st.checkbox(label, value=False, key=f"ema_toggle_{ema_col}")
-        # RSI 패널도 EMA와 동일하게 기본 꺼짐 토글 - 다이버전스가 카운트 신호에서
-        # 참고 표시로 재분류되면서, 상시 노출로 되돌리지 않기 위해 기본은 숨김.
+        # RSI 패널/다이버전스 표시 둘 다 EMA와 동일하게 기본 꺼짐 토글 - 다이버전스가
+        # 카운트 신호에서 참고 표시로 재분류되면서, 상시 노출로 되돌리지 않기 위해
+        # 기본은 숨김. 둘을 분리한 이유: 캔들 패널 위 화살표/연결선/확정일 마커가
+        # RSI를 안 켜도 항상 나와서 차트가 지저분해진다는 피드백 - 다이버전스를
+        # 별도 체크박스로 완전히 껐다 켤 수 있게 함(RSI 패널 쪽 표시는 RSI 체크박스와도
+        # 같이 걸림 - RSI를 꺼두면 다이버전스를 켜도 RSI 패널 쪽 흔적은 안 나옴).
         with ema_ui_cols[4]:
             show_rsi = st.checkbox("RSI", value=False, key="rsi_toggle")
+        with ema_ui_cols[5]:
+            show_divergence = st.checkbox("다이버전스", value=False, key="divergence_toggle")
 
         bars = [
             {
@@ -171,7 +177,7 @@ def render_dashboard(df: pd.DataFrame, signals: dict, divergence_markers: list):
             if m["prev_date"] in visible_dates
             and m["structure_date"] in visible_dates
             and m["confirmed_date"] in visible_dates
-        ]
+        ] if show_divergence else []
 
         # 기획서 "수동 지지선/저항선/추세선" 기능 - 자동 검출 없음, 전부 사용자가 그린 것만.
         # SQLite에 저장되어 세션이 끝나도 유지됨 (lines_store.py).

@@ -5,8 +5,12 @@
 (MPL-2.0, 원작 (c) systemalphatrader) - RSI pivot 기반 다이버전스 판정 로직을 이식.
 
 절차 (기존 "가격 스윙 ↔ RSI 스윙 짝짓기" 방식은 폐기):
-1. RSI 자체의 pivot(rsi_swings.py, lbL=lbR=5)만 사용. 가격 쪽은 별도 스윙 탐지 없이,
-   RSI pivot이 확정된 바로 그 캔들의 그날 저가/고가를 그대로 사용
+1. RSI 자체의 pivot(rsi_swings.py)만 사용. lbL/lbR은 이 파일이 정하지 않고
+   호출 측이 find_rsi_swings(rsi_df, n=...)에 넘긴 값을 그대로 따름 - 현재
+   차트 표시 경로(pipeline.get_divergence_markers)는 n=3으로 호출 중
+   (rsi_swings.py 자체 기본값 N=5는 다른 용도 표준 대조용으로 안 건드림).
+   가격 쪽은 별도 스윙 탐지 없이, RSI pivot이 확정된 바로 그 캔들의 그날
+   저가/고가를 그대로 사용
 2. 직전 RSI pivot과 이번 RSI pivot, 딱 1쌍만 비교 (그 사이 다른 pivot은 보지 않음)
 3. 두 pivot 사이 캔들 간격이 5~60봉 사이여야 인정 (너무 가까우면 노이즈, 너무 멀면
    무의미한 비교로 간주 - 원본 그대로 적용)
