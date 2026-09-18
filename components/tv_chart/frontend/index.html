@@ -41,6 +41,13 @@
   var candleSeries = null;
   var volumeSeries = null;
   var emaSeriesMap = {};  // { "EMA9": LineSeries, ... }
+  var rsiSeries = null;
+  var rsi70Series = null;  // RSI 패널 70/30 기준선 - EMA와 같은 방식(2점 LineSeries)으로 구현
+  var rsi30Series = null;
+  var divLineSeries = [];  // 다이버전스 prev<->curr 연결선(가격+RSI 패널) - 매 렌더마다 지우고 재생성
+  var divergencePriceMarkers = [];  // 다이버전스 가격 패널 마커 - candleSeries.setMarkers()는 매번
+                                     // 전체 배열을 덮어써서, 추세선 임시 마커와 합쳐 넣기 위해 따로 보관
+  var pendingTrendMarker = null;    // 추세선 1번째 클릭 대기 중 임시 마커
   var lastBarTimes = null;
   var currentDrawMode = "select";  // "select" | "horizontal" | "trend"
   var pendingTrendPoint = null;    // 추세선 첫 번째 클릭 대기 중이면 {time, price}
@@ -126,19 +133,47 @@
       wickUpColor: VIVID_UP, wickDownColor: VIVID_DOWN,
       borderUpColor: VIVID_UP, borderDownColor: VIVID_DOWN,
     });
-    // 캔들 가격축은 위쪽 70%만 쓰도록 여백을 줘서, 아래 30%에 거래량이 들어갈
-    // 자리를 만든다 (한 차트 안에 두 스케일을 겹쳐 쓰는 lightweight-charts 표준 방식).
+    // 캔들/거래량/RSI 세 스케일을 한 차트 안에 겹쳐서 쓴다 (lightweight-charts
+    // 표준 방식 - 각 스케일에 scaleMargins로 세로 밴드를 나눠줌). 대략
+    // 캔들 50% / 거래량 20% / RSI(패널, 기본 숨김) 20% 배분, 나머지는 여백.
     chart.priceScale("right").applyOptions({
-      scaleMargins: { top: 0.05, bottom: 0.3 },
+      scaleMargins: { top: 0.05, bottom: 0.45 },
     });
 
-    // 거래량 - 캔들과 같은 차트 안, 별도의(보이지 않는) 가격축을 써서 하단에만 그림.
+    // 거래량 - 캔들과 같은 차트 안, 별도의(보이지 않는) 가격축을 써서 중간 밴드에 그림.
     volumeSeries = chart.addHistogramSeries({
       priceFormat: { type: "volume" },
       priceScaleId: "volume",
     });
     chart.priceScale("volume").applyOptions({
-      scaleMargins: { top: 0.75, bottom: 0 },
+      scaleMargins: { top: 0.55, bottom: 0.25 },
+    });
+
+    // RSI 패널 - EMA처럼 체크박스로 켜고 끄는 토글(기본 숨김). 다이버전스가
+    // 카운트 신호에서 참고 표시로 재분류되면서, 상시 노출로 되돌리지 않기 위해
+    // 기본 꺼짐을 유지한다. 70/30 기준선은 EMA와 같은 2점 LineSeries 방식으로 그림.
+    rsiSeries = chart.addLineSeries({
+      color: "#7b1fa2",
+      lineWidth: 1,
+      priceScaleId: "rsi",
+      visible: false,
+      crosshairMarkerVisible: false,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      title: "RSI",
+    });
+    chart.priceScale("rsi").applyOptions({
+      scaleMargins: { top: 0.78, bottom: 0.02 },
+    });
+    rsi70Series = chart.addLineSeries({
+      color: "#ff6f42", lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dotted,
+      priceScaleId: "rsi", visible: false, crosshairMarkerVisible: false,
+      lastValueVisible: false, priceLineVisible: false,
+    });
+    rsi30Series = chart.addLineSeries({
+      color: "#4169e1", lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dotted,
+      priceScaleId: "rsi", visible: false, crosshairMarkerVisible: false,
+      lastValueVisible: false, priceLineVisible: false,
     });
 
     // 캔들의 시간축 칸 아무 곳(꼬리 위든 몸통이든)을 클릭해도 그 캔들의 time을 준다 -
@@ -163,7 +198,8 @@
       if (currentDrawMode === "trend") {
         if (!pendingTrendPoint) {
           pendingTrendPoint = { time: param.time, price: price };
-          candleSeries.setMarkers([{ time: param.time, position: "aboveBar", color: "#ff9800", shape: "circle", text: "1" }]);
+          pendingTrendMarker = { time: param.time, position: "aboveBar", color: "#ff9800", shape: "circle", text: "1" };
+          applyCandleMarkers();
         } else {
           emitEvent({
             kind: "add_trend",
@@ -171,7 +207,8 @@
             time2: param.time, price2: price,
           });
           pendingTrendPoint = null;
-          candleSeries.setMarkers([]);
+          pendingTrendMarker = null;
+          applyCandleMarkers();
         }
       }
     });
@@ -248,11 +285,94 @@
     });
   }
 
+  // 가격 패널 마커는 candleSeries.setMarkers()가 매번 전체를 덮어쓰므로, 다이버전스
+  // 마커와 추세선 임시 마커("1")를 합쳐서 한 번에 넣는다 - 안 그러면 둘 중 하나가
+  // 다른 하나를 지워버린다. 시간순 정렬은 lightweight-charts의 setMarkers 요구사항.
+  function applyCandleMarkers() {
+    var markers = divergencePriceMarkers.slice();
+    if (pendingTrendMarker) markers.push(pendingTrendMarker);
+    markers.sort(function (a, b) { return a.time < b.time ? -1 : (a.time > b.time ? 1 : 0); });
+    candleSeries.setMarkers(markers);
+  }
+
+  function renderRsiPanel(rsiConfig) {
+    var visible = !!rsiConfig.visible;
+    rsiSeries.applyOptions({ visible: visible });
+    rsi70Series.applyOptions({ visible: visible });
+    rsi30Series.applyOptions({ visible: visible });
+    if (!visible) return;
+
+    rsiSeries.setData(rsiConfig.data || []);
+    if (firstBarTime && lastBarTime) {
+      rsi70Series.setData([{ time: firstBarTime, value: 70 }, { time: lastBarTime, value: 70 }]);
+      rsi30Series.setData([{ time: firstBarTime, value: 30 }, { time: lastBarTime, value: 30 }]);
+    }
+  }
+
+  function clearDivergenceLines() {
+    divLineSeries.forEach(function (s) { chart.removeSeries(s); });
+    divLineSeries = [];
+  }
+
+  // 다이버전스는 카운트 신호가 아니라 참고 표시 전용(pipeline.get_divergence_markers) -
+  // prev<->구조발생일 두 피벗을 가격/RSI 패널에 각각 화살표+점선 연결로, 확정(발화)일은
+  // 구조발생일과 구분되는 검정 원으로 표시한다.
+  function renderDivergenceMarkers(markers, colors) {
+    clearDivergenceLines();
+    var priceMarkers = [];
+    var rsiMarkers = [];
+
+    (markers || []).forEach(function (m) {
+      var color = (colors && colors[m.type]) || "#888888";
+      var isBullish = m.type.indexOf("bullish") !== -1;
+
+      var priceLine = chart.addLineSeries({
+        color: color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed,
+        crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false,
+      });
+      priceLine.setData([
+        { time: m.prev_date, value: m.prev_price },
+        { time: m.structure_date, value: m.price },
+      ]);
+      divLineSeries.push(priceLine);
+
+      var rsiLine = chart.addLineSeries({
+        color: color, lineWidth: 1, lineStyle: LightweightCharts.LineStyle.Dashed,
+        priceScaleId: "rsi", crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false,
+      });
+      rsiLine.setData([
+        { time: m.prev_date, value: m.prev_rsi },
+        { time: m.structure_date, value: m.rsi },
+      ]);
+      divLineSeries.push(rsiLine);
+
+      var arrowShape = isBullish ? "arrowUp" : "arrowDown";
+      var pricePos = isBullish ? "belowBar" : "aboveBar";
+      priceMarkers.push({ time: m.prev_date, position: pricePos, color: color, shape: arrowShape });
+      priceMarkers.push({ time: m.structure_date, position: pricePos, color: color, shape: arrowShape });
+      rsiMarkers.push({ time: m.prev_date, position: "inBar", color: color, shape: arrowShape });
+      rsiMarkers.push({ time: m.structure_date, position: "inBar", color: color, shape: arrowShape });
+
+      // 확정(발화)일 - 구조발생일과 다른 색(검정)/모양(원)으로 구분
+      priceMarkers.push({ time: m.confirmed_date, position: "inBar", color: "#000000", shape: "circle" });
+    });
+
+    priceMarkers.sort(function (a, b) { return a.time < b.time ? -1 : (a.time > b.time ? 1 : 0); });
+    rsiMarkers.sort(function (a, b) { return a.time < b.time ? -1 : (a.time > b.time ? 1 : 0); });
+
+    divergencePriceMarkers = priceMarkers;
+    applyCandleMarkers();
+    rsiSeries.setMarkers(rsiMarkers);
+  }
+
   function onRender(args) {
     var bars = args.bars || [];
     var selectedDate = args.selected_date || null;
     var height = args.height || 680;
     var emaConfig = args.ema_series || {};
+    var rsiConfig = args.rsi_series || { visible: false, data: [] };
+    var divergenceMarkers = args.divergence_markers || [];
+    var divMarkerColors = args.div_marker_colors || {};
     var drawMode = args.draw_mode || "select";
     var lines = args.lines || [];
 
@@ -263,7 +383,8 @@
     // 임시 상태를 정리한다 - 안 그러면 엉뚱한 시점에 이전 클릭과 짝지어질 수 있음.
     if (drawMode !== currentDrawMode) {
       pendingTrendPoint = null;
-      candleSeries.setMarkers([]);
+      pendingTrendMarker = null;
+      applyCandleMarkers();
     }
     currentDrawMode = drawMode;
 
@@ -288,6 +409,9 @@
         s.setData(cfg.data || []);
       }
     });
+
+    renderRsiPanel(rsiConfig);
+    renderDivergenceMarkers(divergenceMarkers, divMarkerColors);
 
     // 데이터 구성 자체가 바뀐 경우(최초 로드, "표시 기간" 변경)에만 전체 보기로
     // 맞추고, 단순히 다른 캔들을 클릭하거나 EMA를 껐다 켜서 selected_date/표시

@@ -19,7 +19,10 @@ _COMPONENT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "front
 _component_func = components.declare_component("tv_chart", path=_COMPONENT_DIR)
 
 
-def tv_chart(bars, selected_date=None, height=680, ema_series=None, draw_mode="select", lines=None, key=None):
+def tv_chart(
+    bars, selected_date=None, height=680, ema_series=None, rsi_series=None,
+    divergence_markers=None, div_marker_colors=None, draw_mode="select", lines=None, key=None,
+):
     """
     bars: [{"time": "YYYY-MM-DD", "open": float, "high": float, "low": float, "close": float,
              "volume": float}, ...]  (volume은 생략 가능, 없으면 0으로 처리)
@@ -29,6 +32,17 @@ def tv_chart(bars, selected_date=None, height=680, ema_series=None, draw_mode="s
     ema_series: {"EMA9": {"color": "#1f77ff", "dashed": False, "visible": bool,
                           "data": [{"time": "YYYY-MM-DD", "value": float}, ...]}, ...}
                 NaN 구간은 호출 전에 걸러서 넘길 것
+    rsi_series: {"visible": bool, "data": [{"time": "YYYY-MM-DD", "value": float}, ...]}
+                EMA와 같은 온오프 방식, 기본 숨김 - 별도 패널(하단 밴드)에 그려짐
+    divergence_markers: RSI 다이버전스 참고 표시(카운트 신호 아님) 목록.
+        [{"type": "regular_bullish"|"regular_bearish",
+          "prev_date": str, "prev_price": float, "prev_rsi": float,
+          "structure_date": str, "price": float, "rsi": float,
+          "confirmed_date": str}, ...]
+        prev/structure 두 피벗을 가격 패널·RSI 패널에 각각 마커+연결선으로 표시하고,
+        confirmed_date에는 별도 모양의 "확정(발화)일" 마커를 찍는다.
+    div_marker_colors: {"regular_bullish": "#1a9c1a", "regular_bearish": "#c21807"} 같은
+        type -> 색상 매핑
     draw_mode: "select"(기본, 캔들 클릭=신호 패널 갱신) | "horizontal"(수평선, 클릭 1번)
                | "trend"(추세선, 클릭 2번)
     lines: [{"id": int, "line_type": "horizontal"|"trend",
@@ -48,6 +62,9 @@ def tv_chart(bars, selected_date=None, height=680, ema_series=None, draw_mode="s
         selected_date=selected_date,
         height=height,
         ema_series=ema_series or {},
+        rsi_series=rsi_series or {"visible": False, "data": []},
+        divergence_markers=divergence_markers or [],
+        div_marker_colors=div_marker_colors or {},
         draw_mode=draw_mode,
         lines=lines or [],
         key=key,

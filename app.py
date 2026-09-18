@@ -38,7 +38,7 @@ def get_data(refresh_token: int):
 if "refresh_token" not in st.session_state:
     st.session_state["refresh_token"] = 0
 
-df, signals = get_data(st.session_state["refresh_token"])
+df, signals, divergence_markers = get_data(st.session_state["refresh_token"])
 
 st.title(f"{SYMBOL} {INTERVAL} 통합 신호 대시보드")
 st.caption(
@@ -65,6 +65,12 @@ DRAW_MODE_OPTIONS = {
     "수평선 그리기 (클릭 1번)": "horizontal",
     "추세선 그리기 (클릭 2번)": "trend",
 }
+# RSI 다이버전스는 카운트 신호에서 제외되고(pipeline.get_divergence_markers 참고)
+# 차트 참고 표시로만 남음 - 색은 방향별로만 구분(강세=초록, 약세=빨강).
+DIV_MARKER_COLOR = {
+    "regular_bullish": "#1a9c1a",
+    "regular_bearish": "#c21807",
+}
 
 
 # 캔들 클릭/표시기간 변경/EMA 토글/선 그리기처럼 차트+신호 패널 안에서 일어나는
@@ -73,7 +79,7 @@ DRAW_MODE_OPTIONS = {
 # 다시 실행/재렌더링해서 화면 전체가 깜빡이는 것처럼 보인다. 데이터 새로고침 버튼만
 # 프래그먼트 밖에 둬서, 그건 의도적으로 전체 페이지를 다시 그리게 유지한다.
 @st.fragment
-def render_dashboard(df: pd.DataFrame, signals: dict):
+def render_dashboard(df: pd.DataFrame, signals: dict, divergence_markers: list):
     if "selected_idx" not in st.session_state:
         st.session_state["selected_idx"] = len(df) - 1  # 최초 진입 시 가장 최근 캔들 기본 선택
     selected_idx = st.session_state.get("selected_idx")
@@ -107,12 +113,16 @@ def render_dashboard(df: pd.DataFrame, signals: dict):
         # EMA9/20/50/200 온오프 - 값 자체는 ma_regime.py(4-3에서 검증된 로직)가 계산한
         # 걸 그대로 가져다 씀(pipeline.py에서 이미 df에 붙여둠). 기본은 꺼짐("깨끗한
         # 캔들만" 기본값 유지, 필요할 때만 켜서 봄).
-        ema_ui_cols = st.columns(4)
+        ema_ui_cols = st.columns(5)
         show_ema = {}
         for ema_col, ui_col in zip(EMA_STYLE, ema_ui_cols):
             label, _, _ = EMA_STYLE[ema_col]
             with ui_col:
                 show_ema[ema_col] = st.checkbox(label, value=False, key=f"ema_toggle_{ema_col}")
+        # RSI 패널도 EMA와 동일하게 기본 꺼짐 토글 - 다이버전스가 카운트 신호에서
+        # 참고 표시로 재분류되면서, 상시 노출로 되돌리지 않기 위해 기본은 숨김.
+        with ema_ui_cols[4]:
+            show_rsi = st.checkbox("RSI", value=False, key="rsi_toggle")
 
         bars = [
             {
@@ -142,6 +152,27 @@ def render_dashboard(df: pd.DataFrame, signals: dict):
                 ],
             }
 
+        rsi_series_df = plot_df[["open_time", "rsi"]].dropna(subset=["rsi"])
+        rsi_series = {
+            "visible": show_rsi,
+            "data": [
+                {"time": r.open_time.strftime("%Y-%m-%d"), "value": r.rsi}
+                for r in rsi_series_df.itertuples()
+            ],
+        }
+
+        # 다이버전스 마커 - pipeline.get_divergence_markers()가 만든 27건(현재) 중
+        # 현재 표시 기간(plot_df)에 두 피벗+확정일이 전부 들어오는 것만 넘긴다
+        # (한쪽만 걸리면 연결선을 그릴 수 없고 lightweight-charts 마커도 해당
+        # 시점 데이터가 있어야 붙는다).
+        visible_dates = {b["time"] for b in bars}
+        visible_divergence_markers = [
+            m for m in divergence_markers
+            if m["prev_date"] in visible_dates
+            and m["structure_date"] in visible_dates
+            and m["confirmed_date"] in visible_dates
+        ]
+
         # 기획서 "수동 지지선/저항선/추세선" 기능 - 자동 검출 없음, 전부 사용자가 그린 것만.
         # SQLite에 저장되어 세션이 끝나도 유지됨 (lines_store.py).
         saved_lines = lines_store.list_lines(SYMBOL, INTERVAL)
@@ -158,6 +189,9 @@ def render_dashboard(df: pd.DataFrame, signals: dict):
             selected_date=selected_date,
             height=680,
             ema_series=ema_series,
+            rsi_series=rsi_series,
+            divergence_markers=visible_divergence_markers,
+            div_marker_colors=DIV_MARKER_COLOR,
             draw_mode=draw_mode,
             lines=saved_lines,
             key="tv_chart_main",
@@ -259,4 +293,4 @@ def render_dashboard(df: pd.DataFrame, signals: dict):
                     st.markdown(f"- {s}")
 
 
-render_dashboard(df, signals)
+render_dashboard(df, signals, divergence_markers)
