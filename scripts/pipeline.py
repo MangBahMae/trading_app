@@ -8,24 +8,27 @@
 Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카운트
 포함 여부를 결정하는 유일한 기준 - 표시 문구가 바뀌어도 카운트 로직은 안 바뀐다.
 
-9개 카운트 신호 (RSI 다이버전스는 유효성 검증 결과 MAE가 목표폭보다 커서
+8개 카운트 신호 (RSI 다이버전스는 유효성 검증 결과 MAE가 목표폭보다 커서
 카운트 신호에서 제외 - 차트 참고 표시(get_divergence_markers)로만 남음):
 1. 매물소진 매수/매도 (exhaustion.py)
-2. 도지캔들 (doji.py - 필터링 미완이라 reference로 취급, 미결 사항 참고)
-3. 정배열 진입/유지 (ma_regime.py - bullish_trigger/bullish_state, 유지되는 동안 매일 표시)
-4. 역배열 진입/유지 (ma_regime.py - bearish_trigger/bearish_state, 유지되는 동안 매일 표시)
-5. 이동평균(EMA50/EMA200) 터치 롱/숏 (sr_touch.py)
-6. 다우이론 HH/LH/HL/LL (dow_theory.py - 표시 전용, direction="reference")
-7. RSI 과매도 (rsi_overbought_oversold.py)
-8. RSI 과매수 (rsi_overbought_oversold.py - 표시 전용, direction="reference")
-9. 고점 도지 (거부 캔들) - 숏 (doji_spinning_top_at_high.py)
-10. 고점 스피닝탑 (거부 캔들) - 숏 (doji_spinning_top_at_high.py)
-11. 장악형 하락 - 숏 (bearish_engulfing.py)
+2. 정배열 진입/유지 (ma_regime.py - bullish_trigger/bullish_state, 유지되는 동안 매일 표시)
+3. 역배열 진입/유지 (ma_regime.py - bearish_trigger/bearish_state, 유지되는 동안 매일 표시)
+4. 이동평균(EMA50/EMA200) 터치 롱/숏 (sr_touch.py)
+5. 다우이론 HH/LH/HL/LL (dow_theory.py - 표시 전용, direction="reference")
+6. RSI 과매도 (rsi_overbought_oversold.py)
+7. RSI 과매수 (rsi_overbought_oversold.py - 표시 전용, direction="reference")
+8. 장악형 하락 - 숏 (bearish_engulfing.py)
+
+옛 신호2(도지캔들)/9(고점 도지)/10(고점 스피닝탑)은 완전 폐기됨 - 캔들패턴
+4종(도지/망치형/역망치형 x 롱/숏, 9~14번)으로 재설계돼서 candle_patterns.py로
+이전. 이 신호들은 수평선 방향 조건(사용자가 그은 선)에 의존해서 여기(캐시된
+흐름) 말고 app.py의 언캐시드 경로에서 계산된다 - candle_patterns.py 참고.
 
 무효화 필터:
-- 시세 분출(volatility_expansion.py) 구간에서는 doji_at_high, spinning_top_at_high,
-  bearish_engulfing 3종을 발생시키지 않는다. 무효화된 케이스는 invalidated_log
-  인자를 넘기면 그 리스트에 기록된다 (검토용, 기본 동작에는 영향 없음).
+- 시세 분출(volatility_expansion.py) 구간에서는 bearish_engulfing을 발생시키지
+  않는다. 무효화된 케이스는 invalidated_log 인자를 넘기면 그 리스트에 기록된다
+  (검토용, 기본 동작에는 영향 없음). 캔들패턴 6종 중 숏 3종에도 동일 필터가
+  candle_patterns.py 안에서 별도로 적용된다(롱 3종은 대칭 필터 없어서 미적용).
 
 RSI 다이버전스(divergence.py)는 로직 자체는 정확하지만(구조발생일/확정일 분리,
 born-invalid 필터, 은닉 비활성화까지 검증 완료), MAE(반대 방향 최대 역행폭)가
@@ -43,8 +46,6 @@ import swing_points
 import dow_theory
 import ma_regime
 import sr_touch
-import doji
-import doji_spinning_top_at_high
 import bearish_engulfing
 import volatility_expansion
 import exhaustion
@@ -126,8 +127,6 @@ def build_signals_by_date(
         regime_df = ma_regime.compute_ma_regime(base_df)
     touch_df = sr_touch.compute_sr_touch(regime_df)
 
-    doji_df = doji.compute_doji(base_df)
-    rejection_at_high_df = doji_spinning_top_at_high.compute_doji_spinning_top_at_high(base_df)
     bearish_engulfing_df = bearish_engulfing.compute_bearish_engulfing(base_df)
     vol_exp_df = volatility_expansion.compute_volatility_expansion(base_df)
     exhaustion_df = exhaustion.compute_exhaustion(base_df)
@@ -143,16 +142,6 @@ def build_signals_by_date(
             signals[i].append(Signal("매물소진 - 매수 신호", "long"))
         elif sig == "sell":
             signals[i].append(Signal("매물소진 - 매도 신호", "short"))
-
-    for i in range(n):
-        if doji_df["is_doji"].iloc[i]:
-            signals[i].append(Signal("도지캔들", "reference"))
-
-    for i in range(n):
-        if rejection_at_high_df["is_doji_at_high"].iloc[i]:
-            _emit_bearish_signal(i, "고점 도지 (거부 캔들) - 숏 신호", base_df, vol_exp_df, signals, invalidated_log)
-        if rejection_at_high_df["is_spinning_top_at_high"].iloc[i]:
-            _emit_bearish_signal(i, "고점 스피닝탑 (거부 캔들) - 숏 신호", base_df, vol_exp_df, signals, invalidated_log)
 
     for i in range(n):
         if bearish_engulfing_df["is_bearish_engulfing"].iloc[i]:

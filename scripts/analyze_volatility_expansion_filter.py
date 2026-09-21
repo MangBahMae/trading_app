@@ -2,7 +2,9 @@
 volatility_expansion 무효화 필터 검증용 리포트 스크립트 (일회성 분석, pipeline에서 안 씀).
 
 1. 2022-01-01 이후 시세 분출 판정 건수/날짜/걸린 창(N) 목록
-2. 약세 신호 3종의 필터 적용 전/무효화/최종 건수 비교
+2. 약세 신호(현재는 bearish_engulfing만 - 옛 doji_at_high/spinning_top_at_high는
+   폐기됨, candle_patterns.py의 숏 3종은 별도 국소 필터 사용이라 이 리포트 범위 밖)
+   의 필터 적용 전/무효화/최종 건수 비교
 3. 무효화된 케이스별 날짜/신호명/N/cum_pct/cum_pct_per_n + 이후 5봉 수익률/최대 상승폭/최대 하락폭
 """
 from pathlib import Path
@@ -10,7 +12,6 @@ from pathlib import Path
 import pandas as pd
 
 import bearish_engulfing
-import doji_spinning_top_at_high
 import pipeline
 import volatility_expansion
 from data_fetcher import ensure_fresh_data
@@ -58,12 +59,9 @@ def main():
         print(f"  {date}  matched N={windows}  [{detail}]")
 
     # --- 2. 필터 적용 전/후 비교 ---
-    rejection_df = doji_spinning_top_at_high.compute_doji_spinning_top_at_high(base_df)
     bearish_engulfing_df = bearish_engulfing.compute_bearish_engulfing(base_df)
 
     raw_counts = {
-        "doji_at_high": int(rejection_df["is_doji_at_high"].sum()),
-        "spinning_top_at_high": int(rejection_df["is_spinning_top_at_high"].sum()),
         "bearish_engulfing": int(bearish_engulfing_df["is_bearish_engulfing"].sum()),
     }
 
@@ -71,13 +69,9 @@ def main():
     signals = pipeline.build_signals_by_date(base_df, invalidated_log=invalidated_log)
 
     final_counts = {
-        "doji_at_high": 0,
-        "spinning_top_at_high": 0,
         "bearish_engulfing": 0,
     }
     text_to_key = {
-        "고점 도지 (거부 캔들) - 숏 신호": "doji_at_high",
-        "고점 스피닝탑 (거부 캔들) - 숏 신호": "spinning_top_at_high",
         "장악형 하락 - 숏 신호": "bearish_engulfing",
     }
     for sigs in signals.values():
@@ -90,8 +84,6 @@ def main():
     # 여러 줄이 기록되므로, "무효화된 신호 발생 건수"는 (index, signal_text) 기준 unique로 센다.
     invalidated_unique = {(rec["index"], rec["signal_text"]) for rec in invalidated_log}
     invalidated_counts = {
-        "doji_at_high": 0,
-        "spinning_top_at_high": 0,
         "bearish_engulfing": 0,
     }
     for _, text in invalidated_unique:
@@ -101,12 +93,10 @@ def main():
 
     print()
     print("=" * 70)
-    print("2. 약세 신호 3종 필터 전/후 비교")
+    print("2. 약세 신호 필터 전/후 비교")
     print("=" * 70)
     print(f"{'신호':30s} {'필터 전':>8s} {'무효화':>8s} {'최종':>8s}")
     for key, label in [
-        ("doji_at_high", "doji_at_high"),
-        ("spinning_top_at_high", "spinning_top_at_high"),
         ("bearish_engulfing", "bearish_engulfing"),
     ]:
         print(f"{label:30s} {raw_counts[key]:8d} {invalidated_counts[key]:8d} {final_counts[key]:8d}")

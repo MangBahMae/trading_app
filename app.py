@@ -21,7 +21,7 @@ from pipeline import load_dashboard_data
 from config import SYMBOL, INTERVAL
 import lines_store
 from manual_lines import compute_manual_line_signals, compute_manual_line_state_signals, line_label
-import doji
+import candle_patterns
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "components"))
 from tv_chart import tv_chart
@@ -243,9 +243,10 @@ def render_dashboard(df: pd.DataFrame, signals: dict, divergence_markers: list):
     # 캔들 수 x 라인 수 규모라 캐싱 없이도 충분히 빠르다.
     manual_signals = compute_manual_line_signals(df, saved_lines) if saved_lines else {}
     manual_state_signals = compute_manual_line_state_signals(df, saved_lines) if saved_lines else {}
-    # 유효 도지(3-1-2)는 위치 조건 중 하나로 manual_signals(수평선 지지 근접)를 그대로
-    # 참조하므로, 마찬가지로 pipeline 캐시 밖 - 매번 새로 계산한다.
-    valid_doji_signals = doji.compute_valid_doji_long(df, manual_signals)
+    # 캔들패턴 6종(도지/망치형/역망치형 x 롱/숏)은 추세판정 조건 중 하나로
+    # manual_signals(수평선 지지/저항 근접)를 그대로 참조하므로, 마찬가지로
+    # pipeline 캐시 밖 - 매번 새로 계산한다.
+    candle_pattern_signals = candle_patterns.compute_candle_pattern_signals(df, manual_signals)
 
     with right:
         st.subheader("신호")
@@ -265,7 +266,7 @@ def render_dashboard(df: pd.DataFrame, signals: dict, divergence_markers: list):
                 signals.get(selected_idx, [])
                 + manual_signals.get(selected_idx, [])
                 + manual_state_signals.get(selected_idx, [])
-                + valid_doji_signals.get(selected_idx, [])
+                + candle_pattern_signals.get(selected_idx, [])
             )
             long_signals = [s.text for s in day_all if s.direction == "long"]
             short_signals = [s.text for s in day_all if s.direction == "short"]
