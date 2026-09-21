@@ -23,6 +23,7 @@ OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "merged" / "BTCUSDT
 
 PREV_MIN_PCT = 3.5
 VOLUME_MIN_RATIO = 0.5
+USE_VOLUME_FILTER = True  # False면 거래량 조건(cond3)을 건너뜀 (검증/비교용)
 
 
 def compute_exhaustion(df: pd.DataFrame) -> pd.DataFrame:
@@ -43,7 +44,7 @@ def compute_exhaustion(df: pd.DataFrame) -> pd.DataFrame:
             continue
         if curr_pct > prev_pct / 2:
             continue
-        if curr_vol < prev_vol * VOLUME_MIN_RATIO:
+        if USE_VOLUME_FILTER and curr_vol < prev_vol * VOLUME_MIN_RATIO:
             continue
 
         prev_open, prev_close = df["open"].iloc[i - 1], df["close"].iloc[i - 1]
