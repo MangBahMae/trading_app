@@ -24,8 +24,10 @@
 시세분출(volatility_expansion.py) 무효화 필터는 숏 3종(도지숏/망치형숏/역망치형숏)
 에만 적용한다 - pipeline.py의 _emit_bearish_signal()과 동일한 패턴을 이 파일에
 소규모로 복제해서 씀(private 헬퍼를 다른 모듈이 직접 끌어다 쓰는 커플링을 피하기
-위함, volatility_expansion.py 자체 로직은 그대로 재사용). 롱 3종은 이번 범위에
-해당하는 대칭(하락형) 필터가 아직 없어서 미적용 - 별도 작업으로 남김.
+위함, volatility_expansion.py 자체 로직은 그대로 재사용). 완전히 죽이지 않고
+direction="reference"로 강등 + 텍스트에 "시세분출 구간 - 카운트 제외" 표시 -
+카운트만 빠지고 화면엔 여전히 보임. 롱 3종은 이번 범위에 해당하는 대칭(하락형)
+필터가 아직 없어서 미적용 - 별도 작업으로 남김.
 
 이 모듈의 신호 계산은 app.py의 언캐시드 경로에서 호출된다(pipeline.py의
 build_signals_by_date 캐시 흐름 밖) - 수평선 방향 조건이 사용자가 그은 선
@@ -194,6 +196,8 @@ def compute_candle_pattern_signals(
                             "cum_pct": m["cum_pct"],
                             "cum_pct_per_n": m["cum_pct_per_n"],
                         })
+                # 완전히 죽이지 않고 카운트에서만 제외(reference), 텍스트로 표시
+                signals[i].append(Signal(f"{label} - 숏 후보 (시세분출 구간 - 카운트 제외)", "reference"))
                 continue
             signals[i].append(Signal(f"{label} - 숏 후보", "short"))
 

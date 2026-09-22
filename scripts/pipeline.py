@@ -25,10 +25,12 @@ Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카�
 흐름) 말고 app.py의 언캐시드 경로에서 계산된다 - candle_patterns.py 참고.
 
 무효화 필터:
-- 시세 분출(volatility_expansion.py) 구간에서는 bearish_engulfing을 발생시키지
-  않는다. 무효화된 케이스는 invalidated_log 인자를 넘기면 그 리스트에 기록된다
-  (검토용, 기본 동작에는 영향 없음). 캔들패턴 6종 중 숏 3종에도 동일 필터가
-  candle_patterns.py 안에서 별도로 적용된다(롱 3종은 대칭 필터 없어서 미적용).
+- 시세 분출(volatility_expansion.py) 구간에서는 bearish_engulfing을 카운트에서
+  뺀다(direction="reference"로 강등, 텍스트에 "시세분출 구간 - 카운트 제외" 표시)
+  - 신호 자체를 안 띄우던 예전 방식은 사용자가 억제 사실을 알 길이 없어서 변경함.
+  invalidated_log 인자를 넘기면 상세 내역(N/cum_pct)도 별도로 기록된다(검토용).
+  캔들패턴 6종 중 숏 3종에도 동일 방식이 candle_patterns.py 안에서 별도로
+  적용된다(롱 3종은 대칭 필터 없어서 미적용).
 
 RSI 다이버전스(divergence.py)는 로직 자체는 정확하지만(구조발생일/확정일 분리,
 born-invalid 필터, 은닉 비활성화까지 검증 완료), MAE(반대 방향 최대 역행폭)가
@@ -93,7 +95,9 @@ def _emit_bearish_signal(
     signals: dict,
     invalidated_log: list | None,
 ) -> None:
-    """시세 분출 구간이면 신호를 발생시키지 않고 invalidated_log에만 기록."""
+    """시세 분출 구간이면 신호를 완전히 죽이지 않고, 카운트에서만 빼고(reference)
+    텍스트로 그 사실을 남긴다 - 예전엔 신호 자체를 안 띄워서 사용자가 억제됐다는
+    걸 알 방법이 없었음(invalidated_log도 app.py가 안 넘겨서 UI에 노출 안 됐음)."""
     matches = _volatility_expansion_matches(vol_exp_df, i)
     if matches:
         if invalidated_log is not None:
@@ -108,6 +112,7 @@ def _emit_bearish_signal(
                         "cum_pct_per_n": m["cum_pct_per_n"],
                     }
                 )
+        signals[i].append(Signal(f"{text} (시세분출 구간 - 카운트 제외)", "reference"))
         return
     signals[i].append(Signal(text, "short"))
 
