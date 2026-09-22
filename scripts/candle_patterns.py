@@ -2,13 +2,22 @@
 캔들패턴 4종 (도지/망치형/역망치형) - 롱/숏 각각. 신호2(일반도지)/9(고점도지)/
 10(고점스피닝탑)을 전부 폐기하고 대체하는 통합 모듈.
 
-모양 판정 (몸통비율<=10% 후보, range 대비):
-    몸통비율 = |종가-시가| / (고가-저가)
-    위꼬리비율 = 위꼬리 / (고가-저가), 아래꼬리비율 = 아래꼬리 / (고가-저가)
-    대칭도 = min(위꼬리비율,아래꼬리비율) / max(위꼬리비율,아래꼬리비율)
-    도지: 대칭도 >= 1/3
-    망치형: 대칭도 < 1/3 AND 아래꼬리비율 > 위꼬리비율
-    역망치형: 대칭도 < 1/3 AND 위꼬리비율 > 아래꼬리비율
+모양 판정 - 2단계(후보 여부 -> 모양) 구조:
+    1. 후보 여부(몸통비율, range 대비):
+       몸통비율 = |종가-시가| / (고가-저가)
+       몸통비율 <= 15%: 무조건 후보
+       15% < 몸통비율 <= 25%: 거래량 >= 직전 20일 평균거래량(당일 제외)의 1.5배
+         여야만 후보(실측 사례 2025-06-22 기준 확정). 미달이면 이 캔들은
+         망치형/역망치형/도지 어느 것도 안 됨(shape=None).
+       몸통비율 > 25%: 후보 자체가 아님.
+    2. 후보로 확정되면(둘 중 어느 구간이든) 아래로 반드시 셋 중 하나:
+       위꼬리비율 = 위꼬리 / (고가-저가), 아래꼬리비율 = 아래꼬리 / (고가-저가)
+       대칭도 = min(위꼬리비율,아래꼬리비율) / max(위꼬리비율,아래꼬리비율)
+       망치형: 대칭도 < 1/3 AND 아래꼬리비율 > 위꼬리비율
+       역망치형: 대칭도 < 1/3 AND 위꼬리비율 > 아래꼬리비율
+       도지: 그 외 전부(대칭도>=1/3 포함) - "대칭도>=1/3"을 별도로 안 걸고
+       망치형/역망치형이 아니면 도지라는 else로 처리. 15~25% 구간도 이제
+       망치형/역망치형이 나올 수 있음(예전엔 그 구간에서 도지만 가능했음).
 (몸통 대비 꼬리 배수 방식은 몸통<=10%와 수학적으로 양립 불가라 폐기됨 -
  두 꼬리 합이 range의 90% 이상인데 "몸통의 2배 미만"은 나올 수 없었음.)
 
@@ -21,13 +30,18 @@
 위치판정에 스윙저점/고점 근접은 쓰지 않는다 (확정 지연으로 인한 미래참조 위험 -
 스윙 확정에는 우측 N봉이 더 필요해서, 그 시점엔 아직 몰랐을 정보이기 때문).
 
+표시 3단계 (모양이 맞으면 항상 뭔가는 뜬다 - 예전엔 추세판정까지 통과해야만
+화면에 보였음):
+    1. 모양만 맞고 추세판정(롱/숏 둘 다) 불충족 -> "{모양} - 참고" (reference)
+    2. 모양+추세판정 충족 -> "{모양} - 롱 후보"/"{모양} - 숏 후보" (long/short, 카운트됨)
+    3. 모양+추세판정(숏) 충족했으나 시세분출로 무효화 -> "{모양} - 시세분출 무효"
+       (reference, 카운트 제외) - 롱/숏 동시 충족 시 둘 다 따로 뜰 수 있음(상호배타 아님)
+
 시세분출(volatility_expansion.py) 무효화 필터는 숏 3종(도지숏/망치형숏/역망치형숏)
 에만 적용한다 - pipeline.py의 _emit_bearish_signal()과 동일한 패턴을 이 파일에
 소규모로 복제해서 씀(private 헬퍼를 다른 모듈이 직접 끌어다 쓰는 커플링을 피하기
-위함, volatility_expansion.py 자체 로직은 그대로 재사용). 완전히 죽이지 않고
-direction="reference"로 강등 + 텍스트에 "시세분출 구간 - 카운트 제외" 표시 -
-카운트만 빠지고 화면엔 여전히 보임. 롱 3종은 이번 범위에 해당하는 대칭(하락형)
-필터가 아직 없어서 미적용 - 별도 작업으로 남김.
+위함, volatility_expansion.py 자체 로직은 그대로 재사용). 롱 3종은 이번 범위에
+해당하는 대칭(하락형) 필터가 아직 없어서 미적용 - 별도 작업으로 남김.
 
 이 모듈의 신호 계산은 app.py의 언캐시드 경로에서 호출된다(pipeline.py의
 build_signals_by_date 캐시 흐름 밖) - 수평선 방향 조건이 사용자가 그은 선
@@ -44,8 +58,11 @@ import sr_touch
 import volatility_expansion
 from signal_types import Signal
 
-BODY_MAX_PCT = 0.10
+BODY_MAX_PCT = 0.15
+BODY_EXT_MAX_PCT = 0.25   # 도지 확장구간 상한(15~25%) - 거래량 조건 만족 시만 도지 인정
 SYMMETRY_MIN = 1 / 3
+VOLUME_LOOKBACK = 20      # 확장구간 판정용 평균거래량 계산 기간
+VOLUME_RATIO_MIN = 1.5    # 확장구간 진입에 필요한 거래량 배수(직전 20일 평균 대비)
 TREND_PCT = 8.0
 TREND_N_RANGE = range(1, 6)
 
@@ -72,25 +89,44 @@ def compute_candle_shape(df: pd.DataFrame) -> pd.DataFrame:
     upper_wick_ratio[nonzero_range] = upper_wick[nonzero_range] / candle_range[nonzero_range]
     lower_wick_ratio[nonzero_range] = lower_wick[nonzero_range] / candle_range[nonzero_range]
 
+    # 확장구간(몸통 15~25%) 도지 판정용 거래량배수 - 당일 자신은 평균에서 제외(shift(1))
+    # 해서 순수 과거 20일 평균과만 비교(미래참조 아님). 앞 20봉은 자연히 NaN.
+    avg_volume = df["volume"].shift(1).rolling(VOLUME_LOOKBACK).mean()
+    volume_ratio = df["volume"] / avg_volume
+
     shape = pd.Series([None] * len(df), dtype=object)
     for i in df.index:
-        if body_ratio.iloc[i] > BODY_MAX_PCT:
+        br = body_ratio.iloc[i]
+        if br > BODY_EXT_MAX_PCT:
             continue
+        if br > BODY_MAX_PCT:
+            # 15~25% 확장구간 진입 자체는 거래량 조건이 있어야 함(무변경) -
+            # 미달이면 이 캔들은 후보에서 완전히 탈락(망치형/역망치형/도지 다 안 됨)
+            vr = volume_ratio.iloc[i]
+            if not (pd.notna(vr) and vr >= VOLUME_RATIO_MIN):
+                continue
+
         uw, lw = upper_wick_ratio.iloc[i], lower_wick_ratio.iloc[i]
         bigger, smaller = max(uw, lw), min(uw, lw)
         if bigger == 0:
             continue  # 두 꼬리 다 0(사실상 점) - 대칭도 정의 불가, 판정 제외
         symmetry = smaller / bigger
-        if symmetry >= SYMMETRY_MIN:
-            shape.iloc[i] = "doji"
-        elif lw > uw:
+
+        # 망치형/역망치형 조건(대칭도<1/3 + 방향)은 무변경. 도지는 "대칭도>=1/3"을
+        # 명시적으로 체크하는 대신, 망치형도 역망치형도 아닌 나머지 전부(else)로 대체 -
+        # 결과적으로 몸통비율(+확장구간 거래량) 조건만 통과하면 항상 셋 중 하나로 분류됨.
+        # (기존엔 확장구간에서 도지만 가능했는데, 이제 망치형/역망치형도 그 구간에서 나올 수 있음)
+        if symmetry < SYMMETRY_MIN and lw > uw:
             shape.iloc[i] = "hammer"
-        else:
+        elif symmetry < SYMMETRY_MIN and uw > lw:
             shape.iloc[i] = "inverted_hammer"
+        else:
+            shape.iloc[i] = "doji"
 
     df["body_ratio"] = body_ratio
     df["upper_wick_ratio"] = upper_wick_ratio
     df["lower_wick_ratio"] = lower_wick_ratio
+    df["volume_ratio"] = volume_ratio
     df["shape"] = shape
     return df
 
@@ -148,7 +184,8 @@ def compute_candle_pattern_signals(
     invalidated_log: 리스트를 넘기면 시세분출로 무효화된 숏 케이스가 거기에 기록된다
         (롱은 이 필터 대상이 아니므로 기록 안 됨).
 
-    반환: {row_index: [Signal("도지 - 롱 후보", "long"), ...]}
+    반환: {row_index: [Signal("도지 - 롱 후보", "long"), ...]} - 모양이 맞는 모든
+        캔들에 대해 항상 뭔가는 들어간다(참고/후보/시세분출무효 중 하나 이상).
     """
     df = df.reset_index(drop=True)
     n = len(df)
@@ -180,12 +217,13 @@ def compute_candle_pattern_signals(
             continue
         label = PATTERN_LABEL_KR[shape]
 
-        if long_trend_ok.iloc[i]:
-            signals[i].append(Signal(f"{label} - 롱 후보", "long"))
+        fired_long = bool(long_trend_ok.iloc[i])
+        short_result = None  # None | "counted" | "invalidated"
 
         if short_trend_ok.iloc[i]:
             matches = _volatility_expansion_matches(vol_exp_df, i)
             if matches:
+                short_result = "invalidated"
                 if invalidated_log is not None:
                     for m in matches:
                         invalidated_log.append({
@@ -196,9 +234,19 @@ def compute_candle_pattern_signals(
                             "cum_pct": m["cum_pct"],
                             "cum_pct_per_n": m["cum_pct_per_n"],
                         })
-                # 완전히 죽이지 않고 카운트에서만 제외(reference), 텍스트로 표시
-                signals[i].append(Signal(f"{label} - 숏 후보 (시세분출 구간 - 카운트 제외)", "reference"))
-                continue
+            else:
+                short_result = "counted"
+
+        if fired_long:
+            signals[i].append(Signal(f"{label} - 롱 후보", "long"))
+        if short_result == "counted":
             signals[i].append(Signal(f"{label} - 숏 후보", "short"))
+        elif short_result == "invalidated":
+            signals[i].append(Signal(f"{label} - 시세분출 무효", "reference"))
+
+        # 모양은 맞았지만 추세판정(롱/숏 어느 쪽도) 조건을 하나도 못 채운 경우 -
+        # 예전엔 화면에서 아예 안 보였는데, 모양 자체는 항상 표시하도록 변경.
+        if not fired_long and short_result is None:
+            signals[i].append(Signal(f"{label} - 참고", "reference"))
 
     return signals
