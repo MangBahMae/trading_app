@@ -1,5 +1,5 @@
 """
-Feature 1 - 통합 신호 대시보드
+Feature 1 - 통합 신호 대시보드 / Feature 3 - 포지션 사이징 계산기
 
 좌측: 캔들스틱 차트(+거래량) + 수동 지지선/저항선/추세선 그리기
 우측: 좌측에서 클릭한 캔들의 날짜에 그날 충족된 신호만 리스트로 표시
@@ -8,6 +8,9 @@ Feature 1 - 통합 신호 대시보드
 scripts/*.py 함수를 그대로 재사용한다 (여기서 로직을 다시 구현하지 않음).
 매수/매도 추천이나 종합 판단 문구는 표시하지 않고, "이 조건이 그날
 충족됐다"는 사실만 보여준다.
+
+사이드바 메뉴로 신호 스캐너(기존 화면, 로직 무변경) / 포지션 사이징(신규,
+position_sizing.py에 분리)을 전환한다.
 """
 import sys
 from pathlib import Path
@@ -22,11 +25,14 @@ from config import SYMBOL, INTERVAL
 import lines_store
 from manual_lines import compute_manual_line_signals, compute_manual_line_state_signals, line_label
 import candle_patterns
+import position_sizing
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "components"))
 from tv_chart import tv_chart
 
 st.set_page_config(page_title=f"{SYMBOL} {INTERVAL} 신호 대시보드", layout="wide")
+
+menu = st.sidebar.radio("메뉴", ["신호 스캐너", "포지션 사이징"])
 
 
 @st.cache_data(ttl=3600, show_spinner="데이터 갱신 중 (Binance API)...")
@@ -34,24 +40,6 @@ def get_data(refresh_token: int):
     # refresh_token은 캐시 무효화 트리거 용도 (밑줄 없는 이름이라야 캐시 키에 포함됨)
     return load_dashboard_data()
 
-
-if "refresh_token" not in st.session_state:
-    st.session_state["refresh_token"] = 0
-
-df, signals, divergence_markers = get_data(st.session_state["refresh_token"])
-
-st.title(f"{SYMBOL} {INTERVAL} 통합 신호 대시보드")
-st.caption(
-    f"데이터 범위: {df['open_time'].min().date()} ~ {df['open_time'].max().date()}  "
-    f"(마지막으로 마감된 캔들까지만 반영, 진행 중인 봉은 제외)"
-)
-
-top_l, top_r = st.columns([5, 1])
-with top_r:
-    if st.button("데이터 새로고침", width="stretch"):
-        st.session_state["refresh_token"] += 1
-        st.cache_data.clear()
-        st.rerun()
 
 WINDOW_OPTIONS = {"최근 3개월": 90, "최근 6개월": 180, "최근 1년": 365, "전체": None}
 EMA_STYLE = {
@@ -300,4 +288,25 @@ def render_dashboard(df: pd.DataFrame, signals: dict, divergence_markers: list):
                     st.markdown(f"- {s}")
 
 
-render_dashboard(df, signals, divergence_markers)
+if menu == "포지션 사이징":
+    position_sizing.render_position_sizing()
+else:
+    if "refresh_token" not in st.session_state:
+        st.session_state["refresh_token"] = 0
+
+    df, signals, divergence_markers = get_data(st.session_state["refresh_token"])
+
+    st.title(f"{SYMBOL} {INTERVAL} 통합 신호 대시보드")
+    st.caption(
+        f"데이터 범위: {df['open_time'].min().date()} ~ {df['open_time'].max().date()}  "
+        f"(마지막으로 마감된 캔들까지만 반영, 진행 중인 봉은 제외)"
+    )
+
+    top_l, top_r = st.columns([5, 1])
+    with top_r:
+        if st.button("데이터 새로고침", width="stretch"):
+            st.session_state["refresh_token"] += 1
+            st.cache_data.clear()
+            st.rerun()
+
+    render_dashboard(df, signals, divergence_markers)
