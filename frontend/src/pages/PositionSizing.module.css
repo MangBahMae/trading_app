@@ -1,0 +1,158 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.page h1 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+.rateBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--muted-color);
+  margin-bottom: 20px;
+}
+
+.rateBar button {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  cursor: pointer;
+}
+
+.rateBar button:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+@media (max-width: 760px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.col {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.col h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.col h3 {
+  font-size: 0.95rem;
+  margin: 18px 0 8px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted-color);
+  margin: 14px 0 4px;
+}
+
+.col > input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.radioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.caption {
+  font-size: 0.78rem;
+  color: var(--muted-color);
+  margin-top: 4px;
+}
+
+.errorBox {
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: var(--danger-bg);
+  color: var(--danger-color);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.metric {
+  background: var(--bg-color);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.metricLabel {
+  font-size: 0.78rem;
+  color: var(--muted-color);
+}
+
+.metricValue {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.tpTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin: 8px 0 12px;
+}
+
+.tpTable th,
+.tpTable td {
+  text-align: right;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tpTable th:first-child,
+.tpTable td:first-child {
+  text-align: left;
+}
+
+.warningBox {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--warning-border);
+  background: var(--warning-bg);
+  color: var(--warning-text);
+  font-size: 0.85rem;
+  margin-top: 8px;
+}

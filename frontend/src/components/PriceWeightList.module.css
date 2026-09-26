@@ -1,0 +1,86 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 3fr 2fr auto;
+  gap: 8px;
+  align-items: end;
+}
+
+.priceCell,
+.weightCell {
+  display: flex;
+  flex-direction: column;
+}
+
+.smallLabel {
+  font-size: 0.75rem;
+  color: var(--muted-color);
+  margin-bottom: 2px;
+}
+
+.priceCell input,
+.weightCell input {
+  padding: 6px 8px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.priceCell input:disabled,
+.weightCell input:disabled {
+  background: var(--disabled-bg);
+  color: var(--muted-color);
+}
+
+.caption {
+  font-size: 0.75rem;
+  color: var(--muted-color);
+  margin-top: 2px;
+}
+
+.deleteCell button {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  cursor: pointer;
+}
+
+.deleteCell button:hover {
+  background: var(--danger-bg);
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+.addButton {
+  align-self: flex-start;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.weightOk {
+  font-size: 0.8rem;
+  color: var(--muted-color);
+}
+
+.weightWarning {
+  font-size: 0.8rem;
+  color: var(--danger-color);
+  font-weight: 600;
+}
