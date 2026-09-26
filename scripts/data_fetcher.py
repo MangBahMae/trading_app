@@ -73,8 +73,19 @@ def ensure_fresh_data(force: bool = False) -> pd.DataFrame:
     """
     캐시가 있으면 그걸 기준으로 증분 갱신, 없으면 HISTORY_START부터 전체를
     Binance API로 받아와서 새로 캐시를 만든다.
+
+    [버그 수정, 2026-09] 예전 버전은 캐시가 없을 때 fetch_full_history()로 받은
+    직후 "이미 최신" 체크에 걸려 df.to_parquet() 저장 코드보다 먼저 return 해버려서,
+    캐시 파일이 "한 번도" 디스크에 안 써지고 매번 Binance에서 2022년부터 전체를
+    다시 받아오고 있었다(2단계 이식 작업의 회귀 테스트 중 발견). cache_existed를
+    별도로 기억해뒀다가, 캐시가 없었으면(최초 적재) 무조건 한 번은 저장하도록
+    수정. 겸사겸사 룩어헤드 필터(아래 주석)도 모든 경로에 일관되게 적용되도록
+    같이 손봤다 - 이 버그 때문에 "이미 최신이라 그대로 반환"하는 경로에서는
+    그 필터 자체가 아예 안 걸려서, 최초 적재 시 진행 중인(미마감) 캔들이 새어
+    나갈 수 있었던 것도 같은 원인이었다.
     """
-    if DASHBOARD_CACHE_PATH.exists():
+    cache_existed = DASHBOARD_CACHE_PATH.exists()
+    if cache_existed:
         df = pd.read_parquet(DASHBOARD_CACHE_PATH)
     else:
         df = fetch_full_history(SYMBOL, INTERVAL, HISTORY_START)
@@ -84,22 +95,27 @@ def ensure_fresh_data(force: bool = False) -> pd.DataFrame:
     # 일봉 기준: 마지막으로 "마감된" 캔들의 open_time은 오늘 UTC 자정보다 하루 전이어야 함
     latest_closed_open = now_utc.floor("D") - pd.Timedelta(days=1)
 
-    if not force and last_open_time >= latest_closed_open:
-        return df  # 이미 최신
+    needs_incremental_fetch = force or last_open_time < latest_closed_open
 
-    start_ms = int((last_open_time + pd.Timedelta(milliseconds=1)).timestamp() * 1000)
-    new_rows = fetch_klines(SYMBOL, INTERVAL, start_time_ms=start_ms)
+    if needs_incremental_fetch:
+        start_ms = int((last_open_time + pd.Timedelta(milliseconds=1)).timestamp() * 1000)
+        new_rows = fetch_klines(SYMBOL, INTERVAL, start_time_ms=start_ms)
 
-    if not new_rows.empty:
-        df = pd.concat([df, new_rows], ignore_index=True)
-        df = df.drop_duplicates(subset="open_time", keep="last").sort_values("open_time").reset_index(drop=True)
+        if not new_rows.empty:
+            df = pd.concat([df, new_rows], ignore_index=True)
+            df = df.drop_duplicates(subset="open_time", keep="last").sort_values("open_time").reset_index(drop=True)
 
     # 룩어헤드 금지 원칙: 아직 마감되지 않은(진행 중인) 캔들은 절대 포함하지 않는다.
     # Binance API는 오늘 자정부터 지금까지의 미완성 캔들도 함께 돌려주므로 걸러낸다.
+    # (예전엔 이 필터가 needs_incremental_fetch 분기 안에서만 걸려서, 캐시가
+    # 없어 방금 fetch_full_history()로 받아온 경우나 "이미 최신" 조기 반환 경로에는
+    # 안 걸렸다 - 모든 경로에서 매번 적용하도록 밖으로 뺌)
     df = df[df["close_time"] <= pd.Timestamp.now(tz="UTC")].reset_index(drop=True)
 
-    DASHBOARD_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(DASHBOARD_CACHE_PATH, index=False)
+    if not cache_existed or needs_incremental_fetch:
+        DASHBOARD_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        df.to_parquet(DASHBOARD_CACHE_PATH, index=False)
+
     return df
 
 
