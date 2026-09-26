@@ -5,3 +5,9 @@ requests==2.32.3
 python-multipart==0.0.20
 pytest==8.3.4
 httpx==0.28.1
+
+# 2단계(신호 스캐너 이식)에서 추가 - scripts/pipeline.py 및 신호 계산 모듈들이
+# 요구하는 것과 동일 (저장소 루트 requirements.txt 대조)
+pandas==3.0.5
+numpy==2.5.2
+pyarrow==25.0.1

@@ -49,3 +49,70 @@ export interface PriceWeightRow {
   price: number;
   weight: number;
 }
+
+// --- 신호 스캐너(대시보드) - backend/app/schemas/dashboard.py 대응 ---
+
+export type SignalDirection = "long" | "short" | "reference";
+
+export interface Candle {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  ema9: number | null;
+  ema20: number | null;
+  ema50: number | null;
+  ema200: number | null;
+  rsi: number | null;
+}
+
+export interface DateRange {
+  min: string;
+  max: string;
+}
+
+export interface SignalItem {
+  text: string;
+  direction: SignalDirection;
+}
+
+export type DivergenceType = "regular_bullish" | "regular_bearish" | "hidden_bullish" | "hidden_bearish";
+
+export interface DivergenceMarker {
+  type: DivergenceType;
+  label: string;
+  prev_date: string;
+  prev_price: number;
+  prev_rsi: number;
+  structure_date: string;
+  price: number;
+  rsi: number;
+  confirmed_date: string;
+}
+
+export type LineType = "horizontal" | "trend";
+
+export interface ManualLine {
+  id: number;
+  symbol: string;
+  interval: string;
+  line_type: LineType;
+  time1: string | null;
+  price1: number;
+  time2: string | null;
+  price2: number | null;
+  created_at: string;
+  label: string;
+}
+
+export interface DashboardResponse {
+  candles: Candle[];
+  date_range: DateRange;
+  signals: Record<string, SignalItem[]>;
+  divergence_markers: DivergenceMarker[];
+  manual_lines: ManualLine[];
+}
+
+export type DrawMode = "select" | "horizontal" | "trend";

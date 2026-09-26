@@ -1,13 +1,14 @@
 """FastAPI 앱 진입점.
 
-Streamlit -> React 마이그레이션 1단계: 기존 scripts/*.py 계산 로직을 API로
-감싸는 백엔드. 이번 단계는 포지션 사이징 계산기만 다룬다(신호 스캐너는
-scripts/pipeline.py 등 df 기반 로직이 커서 다음 단계에서 별도로 옮긴다).
+Streamlit -> React 마이그레이션. 1단계(포지션 사이징 계산기)에 이어 2단계에서
+신호 스캐너(차트+신호 패널) API를 추가했다 - scripts/pipeline.py 및 그 의존
+모듈들을 app/services/에 그대로 이식(계산 로직 무변경, 회귀 테스트로 검증
+완료 - backend/tests/test_regression_pipeline.py).
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import position_sizing
+from app.routers import dashboard, lines, position_sizing
 
 app = FastAPI(title="trading_app API", version="0.1.0")
 
@@ -24,6 +25,8 @@ app.add_middleware(
 )
 
 app.include_router(position_sizing.router)
+app.include_router(dashboard.router)
+app.include_router(lines.router)
 
 
 @app.get("/health")

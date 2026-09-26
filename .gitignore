@@ -22,6 +22,9 @@ data/merged/*.parquet
 # 차트 이미지 - 각 plot_*.py 스크립트로 재생성 가능
 output/
 
+# 회귀 테스트가 실행할 때마다 새로 만드는 덤프(원본/이식본 비교용) - 재생성 가능
+backend/tests/regression/_output/
+
 # OS
 .DS_Store
 Thumbs.db

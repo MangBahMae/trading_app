@@ -5,15 +5,32 @@
 //
 // 사전조건: backend가 http://localhost:8000 에서 떠 있어야 한다
 // (uvicorn app.main:app --port 8000).
+//
+// 2단계(신호 스캐너) 도입 후 App의 기본 화면이 "신호 스캐너"로 바뀌어서,
+// 포지션 사이징 화면을 보려면 먼저 네비게이션 클릭이 필요하다. 또한 기본
+// 화면인 SignalScanner가 실제 TvChart(lightweight-charts)를 마운트하면
+// jsdom엔 real canvas가 없어서 비동기 애니메이션 프레임에서 예외가 터지므로
+// (SignalScanner.test.tsx 상단 설명 참고) 여기서도 동일하게 mock 처리한다.
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import App from "../App";
+
+vi.mock("../components/chart/TvChart", () => ({
+  default: () => <div data-testid="tv-chart-mock" />,
+}));
+
+async function goToPositionSizing(user: ReturnType<typeof userEvent.setup>) {
+  await waitFor(() => screen.getByRole("button", { name: "포지션 사이징" }), { timeout: 10000 });
+  await user.click(screen.getByRole("button", { name: "포지션 사이징" }));
+  await screen.findByText("포지션 사이징 계산기");
+}
 
 describe("포지션 사이징 화면 - 실시간 반응성", () => {
   it("잔고/진입가 입력 시 Enter 없이 즉시 원화 환산 캡션이 갱신된다 (클라이언트 사이드)", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await goToPositionSizing(user);
 
     const balanceInput = screen.getByLabelText("잔고 (USDT)") as HTMLInputElement;
     await user.clear(balanceInput);
@@ -37,6 +54,7 @@ describe("포지션 사이징 화면 - 실시간 반응성", () => {
   it("입력을 마치면(디바운스 후) 백엔드 계산 결과가 자동으로 채워진다", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await goToPositionSizing(user);
 
     const entryPriceInput = screen.getByLabelText("진입 1 가격") as HTMLInputElement;
     await user.clear(entryPriceInput);

@@ -1,0 +1,90 @@
+.panel {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.ohlc {
+  font-size: 0.85rem;
+  color: var(--muted-color);
+  margin: 4px 0 12px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 12px 0;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tabButton {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  cursor: pointer;
+}
+
+.tabButtonActive {
+  composes: tabButton;
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+.metrics {
+  display: flex;
+  gap: 16px;
+}
+
+.metric {
+  flex: 1;
+  background: var(--bg-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.metricLabel {
+  font-size: 0.78rem;
+  color: var(--muted-color);
+}
+
+.metricValue {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.signalList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.signalList li {
+  padding: 4px 0;
+  font-size: 0.9rem;
+}
+
+.referenceSection {
+  margin-top: 12px;
+}
+
+.referenceLabel {
+  font-size: 0.78rem;
+  color: var(--muted-color);
+  margin-bottom: 4px;
+}
+
+.empty {
+  color: var(--muted-color);
+  font-size: 0.9rem;
+  white-space: pre-line;
+}
