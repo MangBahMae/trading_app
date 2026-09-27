@@ -65,8 +65,9 @@ describe("포지션 사이징 화면 - 실시간 반응성", () => {
     await user.type(stopLossInput, "113800");
 
     // 진입가=118000, 손절가=113800 -> stop_pct는 환율과 무관하게 결정적으로
-    // 3.56%가 나와야 한다 (환율은 balance->KRW 환산에만 쓰이므로 이 값에는
-    // 영향 없음). 백엔드 응답이 올 때까지(디바운스 200ms + 네트워크) 기다린다.
+    // 3.56%가 나와야 한다(잔고는 이제 원화로 환산하지 않고 USDT 그대로
+    // 계산에 들어가므로 이 값엔 애초에 환율이 관여하지 않음). 백엔드 응답이
+    // 올 때까지(디바운스 200ms + 네트워크) 기다린다.
     await waitFor(
       () => {
         expect(screen.getByText(/손절 폭: 3\.56%/)).toBeInTheDocument();
@@ -80,5 +81,36 @@ describe("포지션 사이징 화면 - 실시간 반응성", () => {
     // 1R/포지션 사이즈 메트릭도 채워짐(환율 의존값이라 정확한 숫자 대신
     // "계산 불가"가 아니라 실제 숫자가 표시됐는지만 확인)
     expect(screen.queryByText("계산 불가")).not.toBeInTheDocument();
+  });
+
+  it("회귀 방지: 잔고를 원화로 환산해서 계산에 넣지 않는다 (통화 단위 버그)", async () => {
+    // 예전 버그: 잔고(USDT)를 원화로 환산한 값을 진입가(USDT 그대로)와 함께
+    // 계산 API에 넘겨서, 예를 들어 잔고 300 USDT일 때 BTC 수량이 0.96개처럼
+    // 터무니없이 크게 나왔다. 잔고 300 USDT + 리스크 1%면 1R은 정확히
+    // 3 USDT(3.00)여야 하고, 절대 300*환율(약 1,350) = 405,000 근처 숫자가
+    // 되면 안 된다.
+    const user = userEvent.setup();
+    render(<App />);
+    await goToPositionSizing(user);
+
+    const balanceInput = screen.getByLabelText("잔고 (USDT)") as HTMLInputElement;
+    await user.clear(balanceInput);
+    await user.type(balanceInput, "300");
+
+    const entryPriceInput = screen.getByLabelText("진입 1 가격") as HTMLInputElement;
+    await user.clear(entryPriceInput);
+    await user.type(entryPriceInput, "118000");
+
+    const stopLossInput = screen.getByLabelText("손절가") as HTMLInputElement;
+    await user.clear(stopLossInput);
+    await user.type(stopLossInput, "113800");
+
+    await waitFor(
+      () => {
+        expect(screen.getByText(/^3 USDT$/)).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
+    expect(screen.queryByText(/405,000/)).not.toBeInTheDocument();
   });
 });

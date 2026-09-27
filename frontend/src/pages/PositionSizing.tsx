@@ -3,7 +3,7 @@ import { calculatePosition, getExchangeRate } from "../api/client";
 import NumberInput from "../components/NumberInput";
 import PriceWeightList from "../components/PriceWeightList";
 import type { CalculateResponse, Direction, PriceWeightItem } from "../types";
-import { formatKrwCompact, formatKrwWithCompact, formatUsdtKrw } from "../utils/krwFormat";
+import { formatKrwWithCompact, formatUsdtKrw } from "../utils/krwFormat";
 import styles from "./PositionSizing.module.css";
 
 const DEBOUNCE_MS = 200;
@@ -42,6 +42,11 @@ export default function PositionSizing() {
   const [takeProfits, setTakeProfits] = useState<PriceWeightItem[]>([]);
   const [marginInput, setMarginInput] = useState(0);
 
+  // 원화 환산은 어디까지나 화면 표시(참고용 캡션)에만 쓰고, 계산 API에는
+  // balanceUsdt를 그대로 넘긴다 - 진입가/SL/TP가 전부 USDT로 입력되는데
+  // 잔고만 원화로 바꿔서 보내면 "포지션 사이즈 = 원화 리스크금액 ÷ USDT 진입가"
+  // 처럼 서로 다른 통화가 섞여 BTC 수량이 완전히 틀어지는 버그가 있었다
+  // (예: 잔고 300 USDT인데 결과가 BTC 0.96개로 나오는 등) - 발견 후 수정.
   const balanceKrw = balanceUsdt * exchangeRate;
 
   // --- 계산 결과 (짧은 디바운스로 백엔드 호출 - calculate_position 로직 자체는
@@ -52,7 +57,7 @@ export default function PositionSizing() {
   useEffect(() => {
     const timer = setTimeout(() => {
       calculatePosition({
-        balance: balanceKrw,
+        balance: balanceUsdt,
         risk_pct: riskPct,
         direction,
         entries,
@@ -68,7 +73,7 @@ export default function PositionSizing() {
     }, DEBOUNCE_MS);
 
     return () => clearTimeout(timer);
-  }, [balanceKrw, riskPct, direction, entries, stopLoss, takeProfits, marginInput]);
+  }, [balanceUsdt, riskPct, direction, entries, stopLoss, takeProfits, marginInput]);
 
   return (
     <div className={styles.page}>
@@ -149,8 +154,8 @@ export default function PositionSizing() {
             onChange={setTakeProfits}
           />
 
-          <label className={styles.fieldLabel} htmlFor="margin-input">투입 마진 (선택, 0이면 레버리지 생략)</label>
-          <NumberInput id="margin-input" min={0} step={10000} value={marginInput} onChange={setMarginInput} />
+          <label className={styles.fieldLabel} htmlFor="margin-input">투입 마진 (USDT, 선택, 0이면 레버리지 생략)</label>
+          <NumberInput id="margin-input" min={0} step={10} value={marginInput} onChange={setMarginInput} />
         </div>
 
         {/* 우측: 결과 */}
@@ -164,17 +169,17 @@ export default function PositionSizing() {
               <div className={styles.metrics}>
                 <div className={styles.metric}>
                   <div className={styles.metricLabel}>1R (리스크 금액)</div>
-                  <div className={styles.metricValue}>{result.risk_amount.toLocaleString("en-US")}원</div>
-                  <div className={styles.caption}>{formatKrwCompact(result.risk_amount)}</div>
+                  <div className={styles.metricValue}>{result.risk_amount.toLocaleString("en-US", { maximumFractionDigits: 2 })} USDT</div>
+                  <div className={styles.caption}>{formatUsdtKrw(result.risk_amount, exchangeRate)}</div>
                 </div>
                 <div className={styles.metric}>
                   <div className={styles.metricLabel}>포지션 사이즈</div>
                   {result.position_size !== null ? (
                     <>
                       <div className={styles.metricValue}>
-                        {result.position_size.toLocaleString("en-US", { maximumFractionDigits: 0 })}원
+                        {result.position_size.toLocaleString("en-US", { maximumFractionDigits: 2 })} USDT
                       </div>
-                      <div className={styles.caption}>{formatKrwCompact(result.position_size)}</div>
+                      <div className={styles.caption}>{formatUsdtKrw(result.position_size, exchangeRate)}</div>
                     </>
                   ) : (
                     <div className={styles.metricValue}>계산 불가</div>
@@ -182,7 +187,7 @@ export default function PositionSizing() {
                 </div>
               </div>
 
-              <p>예상 평단: {result.avg_entry.toLocaleString("en-US", { maximumFractionDigits: 2 })}</p>
+              <p>예상 평단: {result.avg_entry.toLocaleString("en-US", { maximumFractionDigits: 2 })} USDT</p>
               <p>손절 폭: {(result.stop_pct * 100).toFixed(2)}%</p>
               {result.btc_quantity !== null ? (
                 <p>BTC 수량: {result.btc_quantity.toFixed(6)}</p>
