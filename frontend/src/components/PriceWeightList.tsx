@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import NumberInput from "./NumberInput";
 import type { PriceWeightRow } from "../types";
 import { formatUsdtKrw } from "../utils/krwFormat";
 import styles from "./PriceWeightList.module.css";
@@ -74,13 +75,12 @@ export default function PriceWeightList({
             <label className={styles.smallLabel} htmlFor={priceId}>
               {label} {idx + 1} 가격
             </label>
-            <input
+            <NumberInput
               id={priceId}
-              type="number"
-              value={row.price}
               min={0}
               step={1}
-              onChange={(e) => updateRow(row.id, { price: parseFloat(e.target.value) || 0 })}
+              value={row.price}
+              onChange={(v) => updateRow(row.id, { price: v })}
             />
             {row.price > 0 && exchangeRate > 0 && (
               <div className={styles.caption}>
@@ -94,16 +94,15 @@ export default function PriceWeightList({
               {label} {idx + 1} 비중%
             </label>
             {rows.length === 1 ? (
-              <input id={weightId} type="number" value={100} disabled />
+              <NumberInput id={weightId} value={100} onChange={() => {}} disabled />
             ) : (
-              <input
+              <NumberInput
                 id={weightId}
-                type="number"
-                value={row.weight}
                 min={0}
                 max={100}
                 step={1}
-                onChange={(e) => updateRow(row.id, { weight: parseFloat(e.target.value) || 0 })}
+                value={row.weight}
+                onChange={(v) => updateRow(row.id, { weight: v })}
               />
             )}
           </div>

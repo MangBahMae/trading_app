@@ -4,11 +4,14 @@ Streamlit -> React 마이그레이션. 1단계(포지션 사이징 계산기)에
 신호 스캐너(차트+신호 패널) API를 추가했다 - scripts/pipeline.py 및 그 의존
 모듈들을 app/services/에 그대로 이식(계산 로직 무변경, 회귀 테스트로 검증
 완료 - backend/tests/test_regression_pipeline.py).
+
+기능 2(매매 계획/기록, Phase 2-1)는 Streamlit 버전 자체가 없던 신규 기능이라
+처음부터 이 스택에 직접 구현했다 (data/trades.db, backend/app/services/trades.py).
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import dashboard, lines, position_sizing
+from app.routers import dashboard, lines, position_sizing, trades
 
 app = FastAPI(title="trading_app API", version="0.1.0")
 
@@ -27,6 +30,7 @@ app.add_middleware(
 app.include_router(position_sizing.router)
 app.include_router(dashboard.router)
 app.include_router(lines.router)
+app.include_router(trades.router)
 
 
 @app.get("/health")

@@ -1,0 +1,107 @@
+.form {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 720px;
+}
+
+.form h2 {
+  margin-top: 0;
+}
+
+.form h3 {
+  font-size: 0.95rem;
+  margin: 18px 0 8px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted-color);
+  margin: 14px 0 4px;
+}
+
+.form input[type="number"],
+.form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.radioGroup label,
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.tagGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.row2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.linkButton {
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.linkButton:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.errorBox {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: var(--danger-bg);
+  color: var(--danger-color);
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  cursor: pointer;
+}
+
+.primaryButton {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: white !important;
+}

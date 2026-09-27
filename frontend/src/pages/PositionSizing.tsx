@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { calculatePosition, getExchangeRate } from "../api/client";
+import NumberInput from "../components/NumberInput";
 import PriceWeightList from "../components/PriceWeightList";
 import type { CalculateResponse, Direction, PriceWeightItem } from "../types";
 import { formatKrwCompact, formatKrwWithCompact, formatUsdtKrw } from "../utils/krwFormat";
@@ -92,27 +93,13 @@ export default function PositionSizing() {
           <h2>입력</h2>
 
           <label className={styles.fieldLabel} htmlFor="balance-usdt">잔고 (USDT)</label>
-          <input
-            id="balance-usdt"
-            type="number"
-            min={0}
-            step={10}
-            value={balanceUsdt}
-            onChange={(e) => setBalanceUsdt(parseFloat(e.target.value) || 0)}
-          />
+          <NumberInput id="balance-usdt" min={0} step={10} value={balanceUsdt} onChange={setBalanceUsdt} />
           {balanceUsdt > 0 && (
             <div className={styles.caption}>확정값: {formatKrwWithCompact(balanceKrw)}</div>
           )}
 
           <label className={styles.fieldLabel} htmlFor="risk-pct">리스크 %</label>
-          <input
-            id="risk-pct"
-            type="number"
-            min={0}
-            step={0.1}
-            value={riskPct}
-            onChange={(e) => setRiskPct(parseFloat(e.target.value) || 0)}
-          />
+          <NumberInput id="risk-pct" min={0} step={0.1} value={riskPct} onChange={setRiskPct} />
 
           <label className={styles.fieldLabel}>방향</label>
           <div className={styles.radioGroup}>
@@ -147,14 +134,7 @@ export default function PositionSizing() {
           />
 
           <label className={styles.fieldLabel} htmlFor="stop-loss">손절가</label>
-          <input
-            id="stop-loss"
-            type="number"
-            min={0}
-            step={1}
-            value={stopLoss}
-            onChange={(e) => setStopLoss(parseFloat(e.target.value) || 0)}
-          />
+          <NumberInput id="stop-loss" min={0} step={1} value={stopLoss} onChange={setStopLoss} />
           {stopLoss > 0 && exchangeRate > 0 && (
             <div className={styles.caption}>
               {stopLoss.toLocaleString("en-US")} USDT {formatUsdtKrw(stopLoss, exchangeRate)}
@@ -170,14 +150,7 @@ export default function PositionSizing() {
           />
 
           <label className={styles.fieldLabel} htmlFor="margin-input">투입 마진 (선택, 0이면 레버리지 생략)</label>
-          <input
-            id="margin-input"
-            type="number"
-            min={0}
-            step={10000}
-            value={marginInput}
-            onChange={(e) => setMarginInput(parseFloat(e.target.value) || 0)}
-          />
+          <NumberInput id="margin-input" min={0} step={10000} value={marginInput} onChange={setMarginInput} />
         </div>
 
         {/* 우측: 결과 */}

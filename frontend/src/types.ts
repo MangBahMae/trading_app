@@ -116,3 +116,60 @@ export interface DashboardResponse {
 }
 
 export type DrawMode = "select" | "horizontal" | "trend";
+
+// --- 매매 계획/기록(기능 2, Phase 2-1) - backend/app/schemas/trades.py 대응 ---
+
+export type TradeStatus = "draft" | "open" | "closed";
+export type ExitReason = "tp" | "sl" | "invalidation" | "manual";
+
+export interface ExitItem {
+  price: number;
+  weight: number;
+  realized_pnl: number;
+}
+
+export interface TradePlanInput {
+  direction: Direction;
+  entry_rationale?: string | null;
+  signal_tags: string[];
+  invalidation_note?: string | null;
+  invalidation_price?: number | null;
+  stop_loss?: number | null;
+  entries: PriceWeightItem[];
+  take_profits: PriceWeightItem[];
+  margin?: number | null;
+  leverage?: number | null;
+}
+
+export interface TradeCloseInput {
+  exits: ExitItem[];
+  exit_reason: ExitReason;
+  exit_memo?: string | null;
+}
+
+export interface Trade {
+  id: number;
+  status: TradeStatus;
+  direction: Direction;
+
+  entry_rationale: string | null;
+  signal_tags: string[];
+  invalidation_note: string | null;
+  invalidation_price: number | null;
+  stop_loss: number | null;
+  entries: PriceWeightItem[];
+  take_profits: PriceWeightItem[];
+  margin: number | null;
+  leverage: number | null;
+  avg_entry: number | null;
+  quantity: number | null;
+  risk_amount: number | null;
+  planned_at: string;
+
+  exits: ExitItem[] | null;
+  exit_reason: ExitReason | null;
+  exit_memo: string | null;
+  realized_pnl_total: number | null;
+  realized_r: number | null;
+  closed_at: string | null;
+}
