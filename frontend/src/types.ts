@@ -76,6 +76,10 @@ export interface DateRange {
 export interface SignalItem {
   text: string;
   direction: SignalDirection;
+  // 신호 구조 확장 필드 - 아직 백엔드가 채우지 않아 null/[]로 내려옴(화면 미사용)
+  source?: "zone" | "line" | "ema" | null;
+  tier?: "strong" | "mid" | "weak" | null;
+  evidence?: string[];
 }
 
 export type DivergenceType = "regular_bullish" | "regular_bearish" | "hidden_bullish" | "hidden_bearish";

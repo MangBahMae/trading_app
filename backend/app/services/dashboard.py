@@ -77,7 +77,13 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
         )
         if day_all:
             date = df["open_time"].iloc[i].strftime("%Y-%m-%d")
-            signals_by_date[date] = [{"text": s.text, "direction": s.direction} for s in day_all]
+            signals_by_date[date] = [
+                {
+                    "text": s.text, "direction": s.direction,
+                    "source": s.source, "tier": s.tier, "evidence": list(s.evidence),
+                }
+                for s in day_all
+            ]
 
     candle_cols = ["open", "high", "low", "close", "volume"] + EMA_COLS + ["rsi"]
     candles = []

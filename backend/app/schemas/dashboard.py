@@ -26,6 +26,9 @@ class DateRange(BaseModel):
 class SignalItem(BaseModel):
     text: str
     direction: Literal["long", "short", "reference"]
+    source: Literal["zone", "line", "ema"] | None = None
+    tier: Literal["strong", "mid", "weak"] | None = None
+    evidence: list[str] = []
 
 
 class DivergenceMarker(BaseModel):
