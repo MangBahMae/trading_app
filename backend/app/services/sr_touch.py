@@ -14,8 +14,9 @@
 
 전제 조건을 만족한 캔들에 한해 이격률로 3구간 판정:
 - A. 터치/거부 (|deviation| <= 0.1): 종가가 EMA에 바짝 붙어 마감 - 종가 위치로는
-     방향을 알 수 없으므로 몸통 색으로 판정. 양봉(close>open)=EMA 저항→SHORT,
-     음봉(close<open)=EMA 지지→LONG, 도지(close==open)=무신호.
+     방향을 알 수 없으므로 시가 위치로 판정. 시가>EMA=EMA 지지→LONG,
+     시가<EMA=EMA 저항→SHORT. 시가==EMA면 전날 종가가 있던 쪽으로 판정하고,
+     그것도 같거나 전날이 없으면 무신호. (도지도 시가 위치로 판정됨)
 - B. 돌파 (|deviation| > 0.5): 몸통 색은 안 쓰고 종가 위치만으로 판정 - 윗꼬리로
      EMA를 찌르고 종가가 EMA 아래로 밀려난 양봉(EMA에 거부당한 캔들)도 종가 기준으로
      SHORT 처리해야 하기 때문. deviation>0.5 -> LONG, deviation<-0.5 -> SHORT.
@@ -68,11 +69,20 @@ def compute_sr_touch(df: pd.DataFrame) -> pd.DataFrame:
 
             if abs_dev <= TOUCH_MAX_PCT:
                 cases[i] = "touch_reject"
-                if close > open_:
-                    signals[i] = "short"
-                elif close < open_:
+                # 방향은 캔들 색이 아니라 시가가 EMA의 어느 쪽에 있었는지로 정한다
+                # (시가가 위 = 지지 시험 -> long, 아래 = 저항 시험 -> short).
+                # 시가가 EMA와 정확히 같으면 전날 종가가 있던 쪽으로 정하고,
+                # 그것도 같거나 전날이 없으면 무신호(None 유지).
+                if open_ > ma_val:
                     signals[i] = "long"
-                # else: 도지 -> 무신호(None 유지)
+                elif open_ < ma_val:
+                    signals[i] = "short"
+                elif i > 0:
+                    prev_close = df["close"].iloc[i - 1]
+                    if prev_close > ma_val:
+                        signals[i] = "long"
+                    elif prev_close < ma_val:
+                        signals[i] = "short"
             elif abs_dev > BREAKOUT_MIN_PCT:
                 cases[i] = "breakout"
                 signals[i] = "long" if deviation > BREAKOUT_MIN_PCT else "short"

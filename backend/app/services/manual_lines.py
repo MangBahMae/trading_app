@@ -159,44 +159,59 @@ def compute_line_breakout_events(df: pd.DataFrame, line: dict, levels: list) -> 
 
 def compute_manual_line_signals(df: pd.DataFrame, lines: list) -> dict:
     """
-    df: open_time/close/low/high 컬럼을 가진 캔들 데이터프레임 (0-based 연속 인덱스)
+    df: open_time/open/close/low/high 컬럼을 가진 캔들 데이터프레임 (0-based 연속 인덱스)
     lines: lines_store.list_lines()의 결과
 
     반환: {row_index: [Signal("수평선 90,000 근접 - 지지 시험 (매수 후보)", "long"), ...]}
 
-    수평선은 타입 고정이 아니라 그날 종가가 선 위/아래에 있는지로 방향을 정한다
-    (위=지지 시험/매수 후보=long, 아래=저항 시험/매도 후보=short, 동률은 매수 후보로
-    취급 - 부동소수점상 극히 드문 케이스라 실질적 영향 없음). 추세선은 위치 무관하게
-    항상 매도 후보=short로 고정 (기획서 스펙).
+    수평선/추세선 모두 그날 시가가 선(추세선은 외삽 포함 그날 가격) 위/아래에 있는지로
+    방향을 정한다 (위=지지 시험/매수 후보=long, 아래=저항 시험/매도 후보=short).
+    시가가 선과 같으면 전날 종가가 있던 쪽으로 정하고, 그것도 같거나 전날이 없으면
+    long (기존 동률 관행).
     """
     df = df.reset_index(drop=True)
     n = len(df)
     signals = {i: [] for i in range(n)}
 
+    def level_at(line: dict, i: int) -> float:
+        if line["line_type"] == "horizontal":
+            return line["price1"]
+        return _trend_line_price(
+            line["time1"], line["price1"], line["time2"], line["price2"],
+            df["open_time"].iloc[i],
+        )
+
     for line in lines:
         label = line_label(line)
 
         for i in range(n):
-            low, high, close = df["low"].iloc[i], df["high"].iloc[i], df["close"].iloc[i]
-
-            if line["line_type"] == "horizontal":
-                level = line["price1"]
-                if close >= level:
-                    direction_label, direction = "지지 시험 (매수 후보)", "long"
-                else:
-                    direction_label, direction = "저항 시험 (매도 후보)", "short"
-            else:
-                level = _trend_line_price(
-                    line["time1"], line["price1"], line["time2"], line["price2"],
-                    df["open_time"].iloc[i],
-                )
-                direction_label, direction = "매도 후보", "short"
+            low, high, open_ = df["low"].iloc[i], df["high"].iloc[i], df["open"].iloc[i]
+            level = level_at(line, i)
 
             if level <= 0:
                 continue
 
-            if _distance_ratio(low, high, level) <= PROXIMITY_PCT:
-                signals[i].append(Signal(f"{label} 근접 - {direction_label}", direction))
+            if _distance_ratio(low, high, level) > PROXIMITY_PCT:
+                continue
+
+            # 방향은 종가가 아니라 시가가 선의 어느 쪽에 있었는지로 정한다
+            # (시가가 위 = 지지 시험/매수 후보=long, 아래 = 저항 시험/매도 후보=short).
+            # 수평선/추세선 공통. 시가가 선과 정확히 같으면 전날 종가가 선의 어느 쪽에
+            # 있었는지로 정하고, 그것도 같거나 전날이 없으면 long(기존 동률 관행).
+            if open_ > level:
+                is_support = True
+            elif open_ < level:
+                is_support = False
+            elif i > 0 and df["close"].iloc[i - 1] != level_at(line, i - 1):
+                is_support = df["close"].iloc[i - 1] > level_at(line, i - 1)
+            else:
+                is_support = True
+
+            if is_support:
+                direction_label, direction = "지지 시험 (매수 후보)", "long"
+            else:
+                direction_label, direction = "저항 시험 (매도 후보)", "short"
+            signals[i].append(Signal(f"{label} 근접 - {direction_label}", direction))
 
     return signals
 

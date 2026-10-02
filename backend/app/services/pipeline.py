@@ -8,16 +8,15 @@
 Signal(text, direction)의 direction("long"/"short"/"reference")이 롱/숏 카운트
 포함 여부를 결정하는 유일한 기준 - 표시 문구가 바뀌어도 카운트 로직은 안 바뀐다.
 
-8개 카운트 신호 (RSI 다이버전스는 유효성 검증 결과 MAE가 목표폭보다 커서
+6개 카운트 신호 (RSI 다이버전스는 유효성 검증 결과 MAE가 목표폭보다 커서
 카운트 신호에서 제외 - 차트 참고 표시(get_divergence_markers)로만 남음):
 1. 매물소진 매수/매도 (exhaustion.py)
 2. 정배열 진입/유지 (ma_regime.py - bullish_trigger/bullish_state, 유지되는 동안 매일 표시)
 3. 역배열 진입/유지 (ma_regime.py - bearish_trigger/bearish_state, 유지되는 동안 매일 표시)
 4. 이동평균(EMA50/EMA200) 터치 롱/숏 (sr_touch.py)
-5. 다우이론 HH/LH/HL/LL (dow_theory.py - 표시 전용, direction="reference")
-6. RSI 과매도 (rsi_overbought_oversold.py)
-7. RSI 과매수 (rsi_overbought_oversold.py - 표시 전용, direction="reference")
-8. 장악형 하락 - 숏 (bearish_engulfing.py)
+5. RSI 과매도 (rsi_overbought_oversold.py)
+6. 장악형 하락 - 숏 (bearish_engulfing.py)
+(다우이론/RSI 과매수 표시 신호는 삭제됨)
 
 옛 신호2(도지캔들)/9(고점 도지)/10(고점 스피닝탑)은 완전 폐기됨 - 캔들패턴
 4종(도지/망치형/역망치형 x 롱/숏, 9~14번)으로 재설계돼서 candle_patterns.py로
@@ -44,8 +43,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import pandas as pd
 
-import swing_points
-import dow_theory
 import ma_regime
 import sr_touch
 import bearish_engulfing
@@ -58,12 +55,6 @@ import rsi_overbought_oversold
 from data_fetcher import ensure_fresh_data
 from signal_types import Signal
 
-DOW_LABEL_KR = {
-    "HH": "신고점 갱신",
-    "LH": "고점갱신 실패",
-    "HL": "저점 상승",
-    "LL": "저점 하락",
-}
 DIV_LABEL_KR = {
     "regular_bullish": "RSI 다이버전스 - 정상 강세",
     "regular_bearish": "RSI 다이버전스 - 정상 약세",
@@ -125,9 +116,6 @@ def build_signals_by_date(
     base_df = base_df.reset_index(drop=True)
     n = len(base_df)
 
-    swings_df = swing_points.find_swing_points(base_df, n=2)
-    dow_events = dow_theory.compute_dow_events(swings_df)
-
     if regime_df is None:
         regime_df = ma_regime.compute_ma_regime(base_df)
     touch_df = sr_touch.compute_sr_touch(regime_df)
@@ -188,16 +176,6 @@ def build_signals_by_date(
         if ob_os_df["oversold_state"].iloc[i]:
             text = "RSI 과매도 진입" if ob_os_df["oversold_trigger"].iloc[i] else "RSI 과매도 유지 중"
             signals[i].append(Signal(text, "long"))
-        if ob_os_df["rsi_sell"].iloc[i]:
-            signals[i].append(Signal("RSI 과매수 (RSI>=80)", "reference"))
-
-    # 다우이론: 표시 전용/카운트 제외 확정 (기획서 3-4). 스윙 확정 시점 1회만이 아니라,
-    # 그 라벨이 다음 라벨로 바뀌기 전까지 매일 표시.
-    dow_state_df = dow_theory.compute_dow_state(base_df, dow_events)
-    for i in range(n):
-        label = dow_state_df["dow_label"].iloc[i]
-        if label is not None:
-            signals[i].append(Signal(f"다우이론 {DOW_LABEL_KR[label]} (참고)", "reference"))
 
     return signals
 
