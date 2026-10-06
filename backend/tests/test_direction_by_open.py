@@ -118,10 +118,12 @@ def test_horizontal_open_equals_line_uses_previous_close_then_defaults_long():
     assert [s for s in sigs if s[0] == 1][0][1] == "long"  # 전날 종가도 선과 같음 -> long
 
 
-def test_trend_line_uses_extrapolated_price_and_open_for_direction():
-    # 두 점 (01-01,100) (01-03,110) -> 01-05의 선 가격은 120(외삽)
+def test_trend_line_uses_interpolated_price_and_open_for_direction():
+    # 추세선은 두 점 사이 선분만 평가한다(선 밖 외삽 없음 - 3단계 신호 정렬로 바뀜. 예전엔 점 (01-01,100)
+    # (01-03,110)을 지나 01-05(외삽 120)에서 신호가 났지만, 이제는 같은 가격 기울기를 선분 안쪽(점 사이)에서
+    # 확인한다). 두 점 (01-01,100) (01-09,140) -> 01-05의 선 가격은 선형 보간으로 120.
     line = {"id": 2, "line_type": "trend", "time1": "2025-01-01", "price1": 100.0,
-            "time2": "2025-01-03", "price2": 110.0}
+            "time2": "2025-01-09", "price2": 140.0}
     rows = [(0, 0, 0, 0)] * 4 + [(121, 122, 119.5, 121)]  # 01-05: 시가 121 > 선 120
     # 앞 4개 캔들은 선(100~115) 근처가 아니게 아주 멀리 둔다
     rows = [(50, 51, 49, 50)] * 4 + rows[4:]

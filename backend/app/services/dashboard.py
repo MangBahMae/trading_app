@@ -25,6 +25,7 @@ import pipeline  # noqa: E402
 import lines_store  # noqa: E402
 import manual_lines  # noqa: E402
 import candle_patterns  # noqa: E402
+import zone_signals  # noqa: E402
 from config import SYMBOL, INTERVAL  # noqa: E402
 
 EMA_COLS = ["EMA9", "EMA20", "EMA50", "EMA200"]
@@ -65,6 +66,9 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
     manual_signals = manual_lines.compute_manual_line_signals(df, lines) if lines else {}
     manual_state_signals = manual_lines.compute_manual_line_state_signals(df, lines) if lines else {}
     candle_pattern_signals = candle_patterns.compute_candle_pattern_signals(df, manual_signals)
+    # 존 신호는 수동선 신호처럼 요청마다 다시 계산(1시간 캐시 밖). 캔들패턴 등 다른 신호의
+    # 자리 판정에는 연결하지 않고, 기존 신호의 순서가 안 바뀌게 맨 뒤에 붙인다.
+    zone_signal_map = zone_signals.compute_zone_signals(df, lines) if lines else {}
 
     n = len(df)
     signals_by_date = {}
@@ -74,6 +78,7 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
             + manual_signals.get(i, [])
             + manual_state_signals.get(i, [])
             + candle_pattern_signals.get(i, [])
+            + zone_signal_map.get(i, [])
         )
         if day_all:
             date = df["open_time"].iloc[i].strftime("%Y-%m-%d")
@@ -81,6 +86,7 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
                 {
                     "text": s.text, "direction": s.direction,
                     "source": s.source, "tier": s.tier, "evidence": list(s.evidence),
+                    "ref_id": s.ref_id, "ref_created_at": s.ref_created_at,
                 }
                 for s in day_all
             ]
@@ -111,6 +117,18 @@ def add_horizontal_line(price: float) -> int:
 
 def add_trend_line(time1: str, price1: float, time2: str, price2: float) -> int:
     return lines_store.add_trend_line(SYMBOL, INTERVAL, time1, price1, time2, price2)
+
+
+def update_trend(line_id: int, time1: str, price1: float, time2: str, price2: float) -> bool:
+    return lines_store.update_trend(line_id, time1, price1, time2, price2)
+
+
+def add_zone(time1: str, price1: float, time2: str, price2: float) -> int:
+    return lines_store.add_zone(SYMBOL, INTERVAL, time1, time2, price1, price2)
+
+
+def update_zone(line_id: int, time1: str, price1: float, time2: str, price2: float) -> bool:
+    return lines_store.update_zone(line_id, time1, time2, price1, price2)
 
 
 def delete_line(line_id: int) -> None:

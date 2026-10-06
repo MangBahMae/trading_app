@@ -48,6 +48,8 @@ def _trend_line_price(time1, price1, time2, price2, target_time) -> float:
 def line_label(line: dict) -> str:
     if line["line_type"] == "horizontal":
         return f"수평선 {line['price1']:,.0f}"
+    if line["line_type"] == "zone":
+        return f"▭ 존 {line['price2']:,.0f}~{line['price1']:,.0f} ({line['time1']} → {line['time2']})"
     return f"추세선 ({line['time1']} {line['price1']:,.0f} → {line['time2']} {line['price2']:,.0f})"
 
 
@@ -164,10 +166,14 @@ def compute_manual_line_signals(df: pd.DataFrame, lines: list) -> dict:
 
     반환: {row_index: [Signal("수평선 90,000 근접 - 지지 시험 (매수 후보)", "long"), ...]}
 
-    수평선/추세선 모두 그날 시가가 선(추세선은 외삽 포함 그날 가격) 위/아래에 있는지로
-    방향을 정한다 (위=지지 시험/매수 후보=long, 아래=저항 시험/매도 후보=short).
+    수평선/추세선 모두 그날 시가가 선(추세선은 두 점 사이를 선형 보간한 그날 가격) 위/아래에
+    있는지로 방향을 정한다 (위=지지 시험/매수 후보=long, 아래=저항 시험/매도 후보=short).
     시가가 선과 같으면 전날 종가가 있던 쪽으로 정하고, 그것도 같거나 전날이 없으면
     long (기존 동률 관행).
+
+    추세선은 화면에 그려지는 두 점 사이 선분과 같은 구간(time1 <= 날짜 <= time2, 양 끝 포함)의
+    캔들만 평가한다 - 선 밖으로 외삽하지 않는다. 추세선 신호에는 ref_id(lines.id)와
+    ref_created_at(lines.created_at)을 남긴다(수평선 신호는 null).
     """
     df = df.reset_index(drop=True)
     n = len(df)
@@ -181,10 +187,27 @@ def compute_manual_line_signals(df: pd.DataFrame, lines: list) -> dict:
             df["open_time"].iloc[i],
         )
 
+    dates = df["open_time"].dt.strftime("%Y-%m-%d").tolist()
+
     for line in lines:
+        if line["line_type"] == "zone":
+            continue  # 존은 여기서 판정하지 않는다(zone_signals.py) - 선으로 오인(추세선 취급)하지 않게 건너뜀
         label = line_label(line)
 
+        # 추세선은 화면에 그려지는 두 점 사이 선분과 같은 구간만 평가한다: time1 <= 날짜 <= time2
+        # (양 끝 포함, 존과 같은 규칙 - 선 밖으로 외삽하지 않는다). 시간 순서가 뒤바뀌어 저장된 옛 행도
+        # 같은 구간이 되도록 작은 쪽/큰 쪽으로 잡는다. 수평선은 구간 제한이 없다.
+        if line["line_type"] == "trend":
+            start, end = sorted((line["time1"], line["time2"]))
+            # 신호를 만든 도형의 id/생성일 - 사후적으로 그린 선의 신호를 백테스트가 걸러낼 수 있게 남긴다
+            ref = {"ref_id": line.get("id"), "ref_created_at": line.get("created_at")}
+        else:
+            start = end = None
+            ref = {}
+
         for i in range(n):
+            if start is not None and not (start <= dates[i] <= end):
+                continue
             low, high, open_ = df["low"].iloc[i], df["high"].iloc[i], df["open"].iloc[i]
             level = level_at(line, i)
 
@@ -211,7 +234,7 @@ def compute_manual_line_signals(df: pd.DataFrame, lines: list) -> dict:
                 direction_label, direction = "지지 시험 (매수 후보)", "long"
             else:
                 direction_label, direction = "저항 시험 (매도 후보)", "short"
-            signals[i].append(Signal(f"{label} 근접 - {direction_label}", direction))
+            signals[i].append(Signal(f"{label} 근접 - {direction_label}", direction, **ref))
 
     return signals
 
@@ -235,7 +258,7 @@ def compute_manual_line_state_signals(df: pd.DataFrame, lines: list) -> dict:
 
     for line in lines:
         if line["line_type"] != "horizontal":
-            continue
+            continue  # 추세선(돌파 판정 없음)과 존(신호 미사용)은 대상 아님
 
         label = line_label(line)
         for ev in compute_line_breakout_events(df, line, levels):
