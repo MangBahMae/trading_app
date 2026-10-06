@@ -80,6 +80,9 @@ export interface SignalItem {
   source?: "zone" | "line" | "ema" | null;
   tier?: "strong" | "mid" | "weak" | null;
   evidence?: string[];
+  // 신호를 만든 도형(존)의 id/생성일 - 존 신호만 채워지고 나머지는 null
+  ref_id?: number | null;
+  ref_created_at?: string | null;
 }
 
 export type DivergenceType = "regular_bullish" | "regular_bearish" | "hidden_bullish" | "hidden_bearish";
@@ -96,7 +99,7 @@ export interface DivergenceMarker {
   confirmed_date: string;
 }
 
-export type LineType = "horizontal" | "trend";
+export type LineType = "horizontal" | "trend" | "zone";
 
 export interface ManualLine {
   id: number;
@@ -119,7 +122,7 @@ export interface DashboardResponse {
   manual_lines: ManualLine[];
 }
 
-export type DrawMode = "select" | "horizontal" | "trend";
+export type DrawMode = "select" | "horizontal" | "trend" | "zone";
 
 // --- 매매 계획/기록(기능 2, Phase 2-1) - backend/app/schemas/trades.py 대응 ---
 

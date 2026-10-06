@@ -38,6 +38,53 @@ export async function addTrendLine(
   return resp.json();
 }
 
+// 존: price1=상단, price2=하단, time1=시작, time2=끝 (서버가 잘못된 값은 422로 거부)
+export async function addZone(
+  time1: string, price1: number, time2: string, price2: number,
+): Promise<{ id: number }> {
+  const resp = await fetch(`${API_BASE_URL}/api/lines/zone`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ time1, price1, time2, price2 }),
+  });
+  if (!resp.ok) {
+    throw new Error(`존 추가 실패: ${resp.status}`);
+  }
+  return resp.json();
+}
+
+// 추세선 두 점 수정(끝점 드래그): time1 <= time2로 정규화된 값을 보낸다. id는 그대로이고 서버가
+// created_at을 수정 시각으로 갱신한다. 실패(404/422)하면 throw한다.
+export async function updateTrend(
+  lineId: number, time1: string, price1: number, time2: string, price2: number,
+): Promise<{ id: number }> {
+  const resp = await fetch(`${API_BASE_URL}/api/lines/trend/${lineId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ time1, price1, time2, price2 }),
+  });
+  if (!resp.ok) {
+    throw new Error(`추세선 수정 실패: ${resp.status}`);
+  }
+  return resp.json();
+}
+
+// 존 모양 수정(꼭지점 드래그): price1=상단, price2=하단, time1=시작, time2=끝. id는 그대로이고
+// 서버가 created_at을 수정 시각으로 갱신한다. 실패(404/422)하면 throw한다.
+export async function updateZone(
+  lineId: number, time1: string, price1: number, time2: string, price2: number,
+): Promise<{ id: number }> {
+  const resp = await fetch(`${API_BASE_URL}/api/lines/zone/${lineId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ time1, price1, time2, price2 }),
+  });
+  if (!resp.ok) {
+    throw new Error(`존 수정 실패: ${resp.status}`);
+  }
+  return resp.json();
+}
+
 export async function deleteLine(lineId: number): Promise<void> {
   const resp = await fetch(`${API_BASE_URL}/api/lines/${lineId}`, { method: "DELETE" });
   if (!resp.ok) {

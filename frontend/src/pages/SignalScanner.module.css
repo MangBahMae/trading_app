@@ -64,6 +64,22 @@
   white-space: nowrap;
 }
 
+/* 그리기 도구 토글 - 현재 선택된 도구(기본 모드 포함)를 눈에 띄게 표시한다. */
+.radioLabel {
+  padding: 4px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.radioLabelActive {
+  composes: radioLabel;
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+  font-weight: 600;
+}
+
 .drawHint {
   font-size: 0.8rem;
   color: var(--muted-color);
