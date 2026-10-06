@@ -1,6 +1,8 @@
 import type { Trade, TradeCloseInput, TradePlanInput, TradeStatus } from "../types";
 
-const API_BASE_URL = "http://localhost:8000";
+// 서버 배포에서는 같은 도메인의 /api/...를 상대 경로로 부른다(빈 문자열). 개발 중에는 Vite 프록시
+// (vite.config.ts)가 /api를 백엔드로 넘기고, 필요하면 VITE_API_BASE_URL로 다른 주소를 지정할 수 있다.
+const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL ?? "";
 
 export class TradeApiError extends Error {
   errors: string[];
@@ -39,7 +41,7 @@ export async function getSignalTags(): Promise<string[]> {
 }
 
 export async function listTrades(status?: TradeStatus): Promise<Trade[]> {
-  const url = new URL(`${API_BASE_URL}/api/trades`);
+  const url = new URL(`${API_BASE_URL}/api/trades`, window.location.origin); // 상대 경로("")도 처리
   if (status) url.searchParams.set("status", status);
   const resp = await fetch(url);
   return handle(resp);

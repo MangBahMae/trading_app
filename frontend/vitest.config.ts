@@ -13,5 +13,8 @@ export default defineConfig({
     // 타임아웃(5000ms)을 넘겨 flaky해진다 - 파일 단위는 직렬로 돌린다.
     fileParallelism: false,
     testTimeout: 15000,
+    // 테스트(jsdom)에는 Vite 개발 서버 프록시가 없어서 상대 경로 fetch가 안 된다 - 실제로 떠 있는
+    // 백엔드 주소를 직접 알려준다.
+    env: { VITE_API_BASE_URL: "http://localhost:8000" },
   },
 });

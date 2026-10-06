@@ -19,6 +19,9 @@ credentials.json
 data/merged/*.parquet
 # manual_lines.db는 재생성 불가능한 사용자 데이터(직접 그은 지지/저항/추세선)라 추적함
 
+# 개인 매매 기록(기능 2) - 절대 git에 올리지 않는다(서버에는 처음 실행 때 빈 DB가 새로 만들어짐)
+data/trades.db
+
 # 차트 이미지 - 각 plot_*.py 스크립트로 재생성 가능
 output/
 
