@@ -3,7 +3,7 @@ import {
   MARKET_STATE_COLORS, marketStateBlockSpan,
   cornerPoint, hitTestShapes, hitTestTrendHandle, hitTestZoneHandle, nearestOnSegment, oppositeCorner,
   otherTrendHandle, sameTrend, sameZone, toDateString, trendFromPoints, trendHandlePoints, trendPoint,
-  trendRayPixels, rayFromScreenPoints, trendVisibleGeom, zoneColorKind, zoneFromCorners, zoneFillSpan, zoneHorizontalSpan, zoneIsDegenerate,
+  trendRayPixels, rayFromScreenPoints, trendVisibleGeom, zoneColorKind, zoneFromCorners, zoneHorizontalSpan, zoneIsDegenerate,
   zoneRectPixels, type HitCoords, type ShapeLine, type ZoneGeom,
 } from "./chartLogic";
 import { createTimeAxis, makeBarIndex } from "./timeAxis";
@@ -34,23 +34,6 @@ describe("zoneColorKind (종가 위치 기준 색, 신호 방향과 무관)", ()
     expect(zoneColorKind(100, 90, 100)).toBe("inside");
     expect(zoneColorKind(100, 90, 90)).toBe("inside");
     expect(zoneColorKind(100, 90, null)).toBe("inside");
-  });
-});
-
-describe("zoneFillSpan (time1부터 오른쪽 끝까지)", () => {
-  const first = axis.firstDate;
-  it("time1에서 rightX까지(time2는 쓰지 않는다)", () => {
-    expect(zoneFillSpan("2026-01-10", first, axis.dateToX, 400)).toEqual([100, 400]);
-  });
-  it("시작이 데이터 이전이면 왼쪽 끝(0)에서 시작", () => {
-    expect(zoneFillSpan("2025-12-01", first, axis.dateToX, 400)).toEqual([0, 400]);
-  });
-  it("time1이 rightX보다 오른쪽이면 폭 0(거꾸로 그리지 않는다)", () => {
-    expect(zoneFillSpan("2026-03-01", first, axis.dateToX, 400)).toEqual([600, 600]);
-  });
-  it("첫 캔들 날짜나 좌표를 못 구하면 null", () => {
-    expect(zoneFillSpan("2026-01-10", null, axis.dateToX, 400)).toBeNull();
-    expect(zoneFillSpan("2026-01-10", first, () => null, 400)).toBeNull();
   });
 });
 
@@ -278,13 +261,11 @@ describe("hitTestShapes", () => {
     const future = zone(6, 600, 500, "2026-01-28", "2026-02-03"); // x 280~340 (마지막 캔들 x=250 오른쪽)
     expect(hitTestShapes([future], { x: 300, y: 450 }, coords)?.id).toBe(6);
     expect(hitTestShapes([future], { x: 270, y: 450 }, coords)).toBeNull();
-    expect(hitTestShapes([future], { x: 345, y: 450 }, coords)?.id).toBe(6);  // time2 오른쪽도 존의 일부(오른쪽 끝까지 연장)
-    expect(hitTestShapes([future], { x: 450, y: 450 }, coords)).toBeNull();   // 차트 오른쪽 끝(400) 밖
+    expect(hitTestShapes([future], { x: 345, y: 450 }, coords)).toBeNull();   // time2(x340) 오른쪽은 존이 아니다
   });
 
-  it("존은 time2를 지나 차트 오른쪽 끝까지 클릭으로 잡힌다", () => {
-    expect(hitTestShapes([zone(3, 600, 500)], { x: 350, y: 450 }, coords)?.id).toBe(3);   // time2=x200 오른쪽
-    expect(hitTestShapes([zone(3, 600, 500)], { x: 350, y: 520 }, coords)).toBeNull();    // 가격 범위 밖
+  it("존은 time2 오른쪽(연장 구간)에서는 안 잡힌다", () => {
+    expect(hitTestShapes([zone(3, 600, 500)], { x: 350, y: 450 }, coords)).toBeNull();    // time2=x200 오른쪽
   });
 
   it("데이터 이전으로 잘린 존은 보이는 부분(왼쪽 끝부터)이 잡힌다", () => {

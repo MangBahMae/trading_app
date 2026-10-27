@@ -1,7 +1,7 @@
 """
 캔들 패턴 신호의 near_zone 플래그 (표시용): 고가~저가 범위가 존과 조금이라도 겹치면 True.
 
-- 존은 time1부터 오른쪽 끝까지 연장(time2 무관), time1 이전 캔들은 근처가 아니다
+- 존은 time1~time2 범위만(양 끝 포함): time1 이전, time2 이후 캔들은 근처가 아니다
 - 경계에 닿기만 해도(low == 상단, high == 하단) 겹침
 - 캔들 패턴이 아닌 신호는 None, zones를 안 넘기면 모든 캔들 패턴 신호가 None
 - 플래그는 후보/참고 판정(신호 text/direction)을 절대 바꾸지 않는다
@@ -25,7 +25,7 @@ import pipeline  # noqa: E402
 T, B = 110.0, 100.0
 
 
-def _zone(time1="2025-01-01", time2="2025-01-01", top=T, bottom=B, zone_id=5):
+def _zone(time1="2025-01-01", time2="2025-12-31", top=T, bottom=B, zone_id=5):
     return {"id": zone_id, "line_type": "zone", "time1": time1, "price1": top, "time2": time2,
             "price2": bottom, "created_at": "2026-10-06T00:00:00+00:00"}
 
@@ -52,10 +52,13 @@ def test_near_zone_flags_overlap_rules():
     assert zs(df, [_zone()]) == [False, True, True, True, False, True]
 
 
-def test_zone_extends_right_beyond_time2_and_not_left_of_time1():
+def test_zone_range_is_time1_to_time2_inclusive():
     df = _doji_df([DOJI(105)] * 5)  # 01-01 ~ 01-05 전부 존 안 가격
-    assert candle_patterns._near_zone_flags(df, [_zone(time1="2025-01-03", time2="2025-01-03")]) == [
-        False, False, True, True, True]   # time1 전날까지 False, time2(=time1)를 지나도 계속 True
+    assert candle_patterns._near_zone_flags(df, [_zone(time1="2025-01-02", time2="2025-01-04")]) == [
+        False, True, True, True, False]   # time1 전날과 time2 다음 날은 근처 아님, 양 끝 당일은 근처
+    # 미래 time2(마지막 캔들 이후)는 새 캔들이 붙을 때마다 이어서 근처로 본다
+    assert candle_patterns._near_zone_flags(df, [_zone(time1="2025-01-04", time2="2099-01-01")]) == [
+        False, False, False, True, True]
 
 
 def test_non_zone_rows_and_empty_list_give_all_false():
@@ -68,8 +71,8 @@ def test_non_zone_rows_and_empty_list_give_all_false():
 def test_every_candle_pattern_signal_gets_the_flag_and_judgement_is_unchanged():
     df, _, _ = pipeline.load_dashboard_data()
     df = df.reset_index(drop=True)
-    zones = [_zone(time1="2024-01-01", top=70000.0, bottom=60000.0), _zone(time1="2025-06-01", top=108000.0,
-                                                                       bottom=104000.0, zone_id=6)]
+    zones = [_zone(time1="2024-01-01", time2="2024-12-31", top=70000.0, bottom=60000.0),
+             _zone(time1="2025-06-01", time2="2025-12-31", top=108000.0, bottom=104000.0, zone_id=6)]
     base = candle_patterns.compute_candle_pattern_signals(df, {})
     flagged = candle_patterns.compute_candle_pattern_signals(df, {}, zones=zones)
 
@@ -86,7 +89,7 @@ def test_every_candle_pattern_signal_gets_the_flag_and_judgement_is_unchanged():
     lows, highs = df["low"].tolist(), df["high"].tolist()
     dates = df["open_time"].dt.strftime("%Y-%m-%d").tolist()
     for i, v in flagged.items():
-        expect = any(dates[i] >= z["time1"] and lows[i] <= max(z["price1"], z["price2"])
+        expect = any(z["time1"] <= dates[i] <= z["time2"] and lows[i] <= max(z["price1"], z["price2"])
                      and highs[i] >= min(z["price1"], z["price2"]) for z in zones)
         assert all(s.near_zone is expect for s in v)
 
@@ -98,7 +101,7 @@ def client(tmp_path, monkeypatch):
 
 
 def test_dashboard_exposes_near_zone_only_on_candle_pattern_signals(client):
-    client.post("/api/lines/zone", json={"time1": "2024-01-01", "price1": 70000.0, "time2": "2024-02-01",
+    client.post("/api/lines/zone", json={"time1": "2024-01-01", "price1": 70000.0, "time2": "2024-12-31",
                                          "price2": 60000.0})
     data = client.get("/api/dashboard").json()
     items = [s for v in data["signals"].values() for s in v]

@@ -3,7 +3,7 @@
 백엔드 코드는 바꾸지 않았다 - 날짜 검증은 형식(YYYY-MM-DD)과 시작<끝만 하고 상한이 없다.
 
 - POST/PUT/조회: 미래 날짜 존, 추세선, 수평선이 저장되고 /api/dashboard에 내려간다
-- 존 신호: 존은 time1부터 오른쪽으로 연장돼, 새 캔들이 붙을 때마다 이어서 평가된다(time2는 모서리일 뿐)
+- 존 신호: 미래 time2의 존은 새 캔들이 붙을 때마다 time2까지 이어서 평가된다(미래 캔들은 평가 안 함)
 - 추세선: 마지막 점 이후(외삽 구간)에도 신호가 난다
 """
 import sys
@@ -82,7 +82,7 @@ def test_date_validation_is_still_enforced_for_zones(client):
         "time1": "2099-06-01", "price1": 2.0, "time2": "2099-01-01", "price2": 1.0}).status_code == 422
 
 
-# --- 존 신호: 새 캔들에서도 이어진다 (time2와 무관) ---
+# --- 존 신호: 미래 time2는 새 캔들에서도 이어진다 ---
 
 T, B = 110.0, 100.0
 
@@ -122,13 +122,12 @@ def test_zone_with_future_time2_keeps_signalling_on_newly_added_candles():
     assert second["2025-01-04"] == ["존 100~110 지지 반응 (매수 후보)"]
 
 
-def test_zone_keeps_signalling_after_its_time2_when_more_candles_arrive():
+def test_zone_stops_after_its_time2_even_when_more_candles_arrive():
     above = (120, 121, 119, 120)
     reaction = (115, 116, 108, 112)
     rows = [above, reaction, above, reaction, above, reaction]  # 01-01 ~ 01-06
     zone = _zone(time2="2025-01-04")
-    # time2(01-04)는 모서리일 뿐이라 01-06 반응도 평가한다
-    assert list(_sig_days(_df(rows), zone)) == ["2025-01-02", "2025-01-04", "2025-01-06"]
+    assert list(_sig_days(_df(rows), zone)) == ["2025-01-02", "2025-01-04"]  # 01-06 반응은 time2 이후라 평가 안 함
 
 
 # --- 추세선: time1부터 오른쪽으로 연장해서 평가한다 (마지막 점 이후 외삽 구간 포함) ---

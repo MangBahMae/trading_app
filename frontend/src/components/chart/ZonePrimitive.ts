@@ -2,7 +2,7 @@ import type {
   IChartApi, ISeriesApi, ISeriesPrimitive, ISeriesPrimitivePaneRenderer, ISeriesPrimitivePaneView,
   SeriesAttachedParameter, SeriesType, Time,
 } from "lightweight-charts";
-import { ZONE_COLORS, zoneColorKind, zoneFillSpan, zoneHorizontalSpan, type ZoneGeom } from "./chartLogic";
+import { ZONE_COLORS, zoneColorKind, zoneHorizontalSpan, type ZoneGeom } from "./chartLogic";
 import type { TimeAxis } from "./timeAxis";
 
 export interface ZoneSpec {
@@ -76,17 +76,16 @@ export class ZonePrimitive implements ISeriesPrimitive<Time> {
       }
       : this.spec;
 
-    target.useMediaCoordinateSpace(({ context, mediaSize }) => {
+    target.useMediaCoordinateSpace(({ context }) => {
       const yTop = series.priceToCoordinate(spec.top);
       const yBottom = series.priceToCoordinate(spec.bottom);
       if (yTop === null || yBottom === null) return;
 
-      // 시작이 데이터 이전이면 왼쪽 끝에서 자르고, 오른쪽은 차트 끝까지 연장해 칠한다(신호도 같은 규칙).
-      // time2는 칠하는 범위가 아니라 꼭지점 핸들 위치다.
-      const fill = zoneFillSpan(spec.time1, ctx.axis.firstDate, ctx.axis.dateToX, mediaSize.width);
-      if (!fill) return;
+      // 시작이 데이터 이전이면 왼쪽 끝에서 자르고, 끝이 미래면 계산한 좌표 그대로 그린다.
+      const span = zoneHorizontalSpan(spec.time1, spec.time2, ctx.axis.firstDate, ctx.axis.dateToX);
+      if (!span) return;
 
-      const [x1, x2] = fill;
+      const [x1, x2] = span;
       const y = Math.min(yTop, yBottom);
       const h = Math.abs(yBottom - yTop);
       const color = ZONE_COLORS[zoneColorKind(spec.top, spec.bottom, ctx.lastClose)];
@@ -111,11 +110,8 @@ export class ZonePrimitive implements ISeriesPrimitive<Time> {
           context.strokeRect(cx - half, cy - half, HANDLE_SIZE_PX, HANDLE_SIZE_PX);
         };
         if (!leftClipped) { drawHandle(x1, y); drawHandle(x1, y + h); }
-        const corner = zoneHorizontalSpan(spec.time1, spec.time2, ctx.axis.firstDate, ctx.axis.dateToX);
-        if (corner) {
-          drawHandle(corner[1], y);
-          drawHandle(corner[1], y + h);
-        }
+        drawHandle(x2, y);
+        drawHandle(x2, y + h);
       }
     });
   }

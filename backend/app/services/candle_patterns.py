@@ -175,7 +175,7 @@ def _volatility_expansion_matches(vol_exp_df: pd.DataFrame, i: int) -> list[dict
 
 def _near_zone_flags(df: pd.DataFrame, zones: list) -> list:
     """캔들별로 고가~저가 범위가 존과 조금이라도 겹치는지(low <= 상단 and high >= 하단).
-    존은 time1부터 오른쪽 끝까지 연장되므로(zone_signals.py와 같은 규칙) time2는 쓰지 않는다."""
+    존의 유효 범위는 zone_signals.py와 같다: time1 <= 날짜 <= time2 (time2 이후 캔들은 근처 아님)."""
     n = len(df)
     flags = [False] * n
     dates = df["open_time"].dt.strftime("%Y-%m-%d").tolist()
@@ -185,7 +185,7 @@ def _near_zone_flags(df: pd.DataFrame, zones: list) -> list:
             continue
         top, bottom = max(z["price1"], z["price2"]), min(z["price1"], z["price2"])
         for i in range(n):
-            if not flags[i] and dates[i] >= z["time1"] and lows[i] <= top and highs[i] >= bottom:
+            if not flags[i] and z["time1"] <= dates[i] <= (z["time2"] or "9999-12-31") and lows[i] <= top and highs[i] >= bottom:
                 flags[i] = True
     return flags
 

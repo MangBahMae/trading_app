@@ -60,10 +60,11 @@ def main():
     real = [dict(r) for r in conn.execute("SELECT * FROM lines WHERE symbol='BTCUSDT' AND interval='1d' ORDER BY id")]
     conn.close()
     zones = [ln for ln in real if ln["line_type"] == "zone"]
-    synth = [{"id": 9100 + k, "line_type": "zone", "time1": t1, "price1": hi, "time2": t1, "price2": lo,
+    synth = [{"id": 9100 + k, "line_type": "zone", "time1": t1, "price1": hi, "time2": t2, "price2": lo,
               "created_at": "2026-10-27T00:00:00+00:00"}
-             for k, (t1, hi, lo) in enumerate([("2026-09-01", 80500.0, 79000.0), ("2025-06-01", 108000.0, 104000.0),
-                                               ("2024-03-01", 66000.0, 62000.0)])]
+             for k, (t1, t2, hi, lo) in enumerate([("2026-09-01", "2026-09-10", 80500.0, 79000.0),
+                                                   ("2025-06-01", "2025-06-20", 108000.0, 104000.0),
+                                                   ("2024-03-01", "2024-04-10", 66000.0, 62000.0)])]
     print(f"캔들 {len(df)}개. 실제 존 {len(zones)}개 + 합성 존 {len(synth)}개 (실제 DB는 읽기 전용)\n")
 
     manual = manual_lines.compute_manual_line_signals(df, real) if real else {}

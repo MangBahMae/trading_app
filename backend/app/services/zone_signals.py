@@ -33,11 +33,11 @@
      조건 없이 위 조건만으로 매일 판정한다.
 4) 존 안에 머무는 날(시가/종가/직전 종가 모두 존 안)은 위 규칙대로 하면 신호가 없다.
 
-유효 기간: 캔들 날짜(UTC YYYY-MM-DD)가 time1 이후인 모든 캔들을 평가한다(time1 포함).
-time2는 사각형의 두 번째 모서리일 뿐 존의 끝이 아니다 - 존은 time1부터 오른쪽으로 끝없이
-연장된다(과거 구간을 보고 그린 존이 나중에 가격이 다시 왔을 때 신호를 내야 하므로,
-추세선과 같은 규칙). time1 이전은 평가하지 않는다. 첫 캔들처럼 직전 종가가 없으면
-이탈과 갭 규칙, B안의 반응은 건너뛴다.
+유효 기간: 캔들 날짜(UTC YYYY-MM-DD)가 time1 <= 날짜 <= time2인 캔들만 평가한다(양 끝
+포함). time2 이후에는 평가하지 않는다(존은 추세선과 달리 오른쪽으로 연장되지 않는다 - 한때
+연장했다가 되돌렸다). time2는 마지막 캔들 이후 미래 날짜여도 되며, 그 경우 새 캔들이 붙을
+때마다 time2까지 이어서 평가한다. 첫 캔들처럼 직전 종가가 없으면 이탈과 갭 규칙, B안의
+반응은 건너뛴다. 유동성 스윕과 near_zone(candle_patterns.py)도 같은 범위를 쓴다.
 
 사후적으로 그린 존은 형성 시점(created_at) 이전 캔들에도 신호가 나올 수 있다 - 그래서
 신호에 존 id/생성일(ref_id/ref_created_at)을 남겨 백테스트가 걸러낼 수 있게 한다.
@@ -130,7 +130,7 @@ def compute_zone_signals(df: pd.DataFrame, lines: list, first_touch_only: bool =
         label = _zone_label(top, bottom)
 
         for i in range(n):
-            if dates[i] < zone["time1"]:
+            if dates[i] < zone["time1"] or dates[i] > zone["time2"]:
                 continue
             pc = closes[i - 1] if i > 0 else None
             result = _classify_day(opens[i], highs[i], lows[i], closes[i], pc, top, bottom, first_touch_only)

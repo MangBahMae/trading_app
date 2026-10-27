@@ -231,11 +231,11 @@ def test_sweep_is_evaluated_only_from_time1():
 
 # --- 유효 기간 ---
 
-def test_validity_starts_on_time1_and_has_no_end():
+def test_validity_window_is_inclusive_on_both_ends():
     rows = [ABOVE] + [(115, 116, 108, 112)] * 6   # 인덱스 1~6이 매일 지지 반응(직전 종가 > T)
-    # 날짜: idx0=01-01 ... idx2=01-03. time2(01-05, idx4)는 모서리일 뿐 끝이 아니다
-    out = _run(rows, time1="2025-01-03", time2="2025-01-05", first_touch_only=False)
-    assert [i for i, *_ in out] == [2, 3, 4, 5, 6]  # time1 당일부터 마지막 캔들까지
+    # 날짜: idx0=01-01 ... idx3=01-04, idx5=01-06
+    out = _run(rows, time1="2025-01-03", time2="2025-01-05")
+    assert [i for i, *_ in out] == [2, 3, 4]       # time1 당일(idx2)과 time2 당일(idx4) 포함, 그 밖은 제외
 
 
 def test_candles_before_time1_provide_previous_close_but_are_not_evaluated():
@@ -244,11 +244,14 @@ def test_candles_before_time1_provide_previous_close_but_are_not_evaluated():
     assert _run(rows, time1="2025-01-03", time2="2025-12-31") == []
 
 
-def test_signals_continue_after_time2():
-    # time2(01-02) 이후 가격이 존 위로 갔다가 다시 돌아오면 그 반응도 잡는다
-    rows = [ABOVE, (115, 116, 108, 112), ABOVE, (115, 116, 108, 112)]
-    assert _run(rows, time1="2025-01-01", time2="2025-01-02") == [
-        (1, "존 100~110 지지 반응 (매수 후보)", "long"), (3, "존 100~110 지지 반응 (매수 후보)", "long")]
+def test_nothing_after_time2():
+    rows = [ABOVE, (115, 116, 108, 112), (112, 113, 108, 111)]
+    assert _run(rows, time1="2025-01-01", time2="2025-01-02") == [(1, "존 100~110 지지 반응 (매수 후보)", "long")]
+
+
+def test_sweep_after_time2_is_not_emitted():
+    rows = [ABOVE, (115, 116, 98, 105), ABOVE, (115, 116, 98, 105)]
+    assert _run(rows, time1="2025-01-01", time2="2025-01-02") == [(1, SUP_SWEEP, "long")]
 
 
 # --- 신호 필드 / 다른 선 종류 ---

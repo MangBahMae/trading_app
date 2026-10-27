@@ -109,7 +109,7 @@ def test_dashboard_zone_signals_follow_the_updated_shape(client):
         assert s["ref_id"] == zone_id                      # id 유지
         assert s["ref_created_at"] == new_created != old_created  # 수정 시각으로 갱신
         assert s["text"].startswith("존 60,000~70,000 ")   # 새 가격 범위
-        assert date >= "2024-03-01"                        # 새 time1부터 (time2 이후도 평가: 오른쪽 연장)
+        assert "2024-03-01" <= date <= "2024-12-31"        # 새 유효 기간
     assert {d for d, _ in new_signals} != {d for d, _ in old_signals}
 
     # 기존(존이 아닌) 신호는 수정과 무관하게 그대로

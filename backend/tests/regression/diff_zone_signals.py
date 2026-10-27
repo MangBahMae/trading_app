@@ -47,9 +47,10 @@ def main():
     conn.close()
     zones = [ln for ln in lines if ln["line_type"] == "zone"]
     # 실제 존 2개는 time2 이후 가격이 다시 오지 않아 diff가 0일 수 있다 - 연장 효과를 보이는 합성 존(메모리에서만) 추가
-    for k, (t1, hi, lo) in enumerate([("2026-09-01", 80500.0, 79000.0), ("2025-06-01", 108000.0, 104000.0),
-                                       ("2024-03-01", 66000.0, 62000.0)]):
-        zones.append({"id": 9100 + k, "line_type": "zone", "time1": t1, "price1": hi, "time2": t1,
+    for k, (t1, t2, hi, lo) in enumerate([("2026-09-01", "2026-09-10", 80500.0, 79000.0),
+                                          ("2025-06-01", "2025-06-20", 108000.0, 104000.0),
+                                          ("2024-03-01", "2024-04-10", 66000.0, 62000.0)]):
+        zones.append({"id": 9100 + k, "line_type": "zone", "time1": t1, "price1": hi, "time2": t2,
                       "price2": lo, "created_at": "2026-10-27T00:00:00+00:00"})
     last = df["open_time"].iloc[-1].strftime("%Y-%m-%d")
     print(f"캔들 {len(df)}개, 마지막 {last}. 존 {len(zones)}개 (실제 DB는 읽기 전용, id 9100~ 는 합성)\n")
@@ -74,8 +75,11 @@ def main():
             new_sweep = [t for _, t in ta if "스윕" in t]
             kind = "기타"
             if not new_sweep:
-                kind = "!!! 스윕이 아닌데 바뀜"
-                bad += 1
+                if not ta and d > z["time2"]:
+                    kind = "제거(time2 이후)"     # 존 범위가 time1~time2로 되돌아가며 사라진 신호
+                else:
+                    kind = "!!! 예상 밖 변경"
+                    bad += 1
             elif tb:
                 kind = "반응 대체"
             else:
