@@ -41,6 +41,7 @@ const RIGHT_OFFSET_BARS = 25;
 
 // 클릭과 드래그를 구분하는 이동 거리(px) - 이 이상 움직이고 놓은 건 클릭으로 처리하지 않는다.
 const DRAG_THRESHOLD_PX = 5;
+const DEFAULT_HEIGHT_PX = 400;
 const TOOLBAR_WIDTH_PX = 40;
 const TOOLBAR_HEIGHT_PX = 34;
 
@@ -94,7 +95,8 @@ export interface RsiSeriesConfig {
 interface TvChartProps {
   bars: Bar[];
   selectedDate: string | null;
-  height: number;
+  // 지정하지 않으면 부모 컨테이너를 꽉 채우고(ResizeObserver로 크기를 따라감), 지정하면 처음 높이로만 쓴다(부모 높이를 못 구할 때의 대비)
+  height?: number;
   emaSeries: Record<string, EmaSeriesConfig>;
   rsiSeries: RsiSeriesConfig;
   divergenceMarkers: DivergenceMarker[];
@@ -113,6 +115,8 @@ interface TvChartProps {
   onUpdateZone: (lineId: number, time1: string, price1: number, time2: string, price2: number) => Promise<void>;
   // 추세선 끝점 드래그 저장(PUT) - 존과 같은 방식. time1 <= time2로 정규화된 값이 온다.
   onUpdateTrend: (lineId: number, time1: string, price1: number, time2: string, price2: number) => Promise<void>;
+  // crosshair가 가리키는 캔들 날짜(캔들 밖/마우스가 차트를 벗어나면 null) - 오버레이 범례용 읽기 전용 알림. 날짜가 바뀔 때만 호출한다.
+  onCrosshairDate?: (date: string | null) => void;
 }
 
 // components/tv_chart/frontend/index.html(기존 Streamlit 커스텀 컴포넌트)의
@@ -127,7 +131,7 @@ interface TvChartProps {
 export default function TvChart({
   bars, selectedDate, height, emaSeries, rsiSeries, divergenceMarkers,
   divMarkerColors, marketStateBlocks, drawMode, lines, onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone,
-  onFinishDrawing, onDeleteLine, onUpdateZone, onUpdateTrend,
+  onFinishDrawing, onDeleteLine, onUpdateZone, onUpdateTrend, onCrosshairDate,
 }: TvChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selection, setSelection] = useState<Selection | null>(null);
@@ -166,12 +170,14 @@ export default function TvChart({
   // 항상 "최신" 콜백/드로우모드를 참조해야 하므로 ref에 담아 매 렌더마다 갱신한다.
   const callbacksRef = useRef({
     onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone, onFinishDrawing, onUpdateZone, onUpdateTrend,
+    onCrosshairDate,
   });
   useEffect(() => {
     callbacksRef.current = {
       onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone, onFinishDrawing, onUpdateZone, onUpdateTrend,
+      onCrosshairDate,
     };
-  }, [onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone, onFinishDrawing, onUpdateZone, onUpdateTrend]);
+  }, [onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone, onFinishDrawing, onUpdateZone, onUpdateTrend, onCrosshairDate]);
 
   // 이벤트 핸들러(최초 마운트 때 한 번만 등록)가 최신 선택 상태를 읽도록 매 렌더 뒤에 동기화한다.
   useEffect(() => {
@@ -222,7 +228,7 @@ export default function TvChart({
 
     const chart = createChart(container, {
       width: container.clientWidth,
-      height,
+      height: container.clientHeight || height || DEFAULT_HEIGHT_PX,
       layout: { textColor: THEME.text, background: { color: THEME.background } },
       grid: { vertLines: { color: THEME.grid }, horzLines: { color: THEME.grid } },
       rightPriceScale: { borderColor: THEME.border },
@@ -631,7 +637,13 @@ export default function TvChart({
       }
     });
 
+    let lastCrosshairDate: string | null = null;
     chart.subscribeCrosshairMove((param: MouseEventParams) => {
+      const hoverDate = param && param.time ? String(param.time) : null;
+      if (hoverDate !== lastCrosshairDate) {
+        lastCrosshairDate = hoverDate;
+        callbacksRef.current.onCrosshairDate?.(hoverDate);
+      }
       const mode = currentDrawModeRef.current;
       container.style.cursor = shapeDrag
         ? handleCursor(shapeDrag.kind, shapeDrag.handle)
@@ -639,15 +651,23 @@ export default function TvChart({
           : mode !== "select" ? "crosshair" : param && param.time ? "pointer" : "default";
     });
 
+    // 창 크기뿐 아니라 컨테이너 크기(레이아웃에 따라 달라지는 폭/높이)를 따라간다.
     const handleResize = () => {
-      chart.applyOptions({ width: container.clientWidth });
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      if (w <= 0 || h <= 0) return; // 숨겨져 있거나 아직 레이아웃 전이면 무시
+      if (w === chart.options().width && h === chart.options().height) return;
+      chart.applyOptions({ width: w, height: h });
       cancelShapeDrag();
       setSelection(null); // 리사이즈하면 툴바 위치가 어긋나므로 선택 해제
     };
     window.addEventListener("resize", handleResize);
+    const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(handleResize) : null;
+    resizeObserver?.observe(container);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      resizeObserver?.disconnect();
       window.removeEventListener("keydown", onKeyDown);
       container.removeEventListener("pointerdown", onPointerDown, true);
       container.removeEventListener("pointermove", onPointerMove, true);
@@ -879,8 +899,8 @@ export default function TvChart({
     : 0;
 
   return (
-    <div style={{ position: "relative", width: "100%" }}>
-      <div ref={containerRef} style={{ width: "100%" }} />
+    <div style={{ position: "relative", width: "100%", height: height === undefined ? "100%" : undefined }}>
+      <div ref={containerRef} style={{ width: "100%", height: height === undefined ? "100%" : height }} />
       {selection && toolbarShape && !dragging && (
         <div
           role="toolbar"
