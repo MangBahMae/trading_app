@@ -2,7 +2,7 @@ import type {
   ISeriesApi, ISeriesPrimitive, ISeriesPrimitivePaneRenderer, ISeriesPrimitivePaneView,
   SeriesAttachedParameter, SeriesType, Time,
 } from "lightweight-charts";
-import { trendHandlePoints, trendSegmentPixels, type TrendSpec } from "./chartLogic";
+import { trendHandlePoints, trendRayPixels, type TrendSpec } from "./chartLogic";
 import type { TimeAxis } from "./timeAxis";
 
 export interface TrendLineSpec extends TrendSpec {
@@ -13,10 +13,10 @@ type DrawTarget = Parameters<ISeriesPrimitivePaneRenderer["draw"]>[0];
 
 const HANDLE_SIZE_PX = 8;
 
-// 추세선: 두 점 사이 선분만 그린다(양쪽 연장 없음 - 백엔드 신호도 같은 구간만 평가). 라인 시리즈는
+// 추세선: 이른 쪽 점에서 오른쪽 끝까지 연장한 반직선으로 그린다(백엔드 신호도 같은 규칙으로 평가). 라인 시리즈는
 // 미래 시간에 점을 넣으면 시간축에 "한 칸"만 생겨서 마지막 캔들 오른쪽 빈 공간의 위치가 틀어지므로,
 // 존처럼 프리미티브로 그려서 시간 -> x를 timeAxis(논리 인덱스 기반)로 직접 계산한다. 두 점이 같은 날이면
-// price1 높이의 수평 선분이다. 기존 모양(#c62828, 1px 점선 / 선택 시 #b71c1c, 3px 실선)을 그대로 따르고,
+// 그 날부터 price1 높이의 수평 반직선이다. 기존 모양(#c62828, 1px 점선 / 선택 시 #b71c1c, 3px 실선)을 그대로 따르고,
 // 선택되면 양 끝점에 작은 정사각형 핸들을 그린다. 끝점 드래그 중에는 setOverride()로 임시 모양을 넣어
 // 실시간으로 보여준다(저장 전).
 export class TrendLinePrimitive implements ISeriesPrimitive<Time> {
@@ -61,9 +61,9 @@ export class TrendLinePrimitive implements ISeriesPrimitive<Time> {
     if (!series) return;
     const spec: TrendLineSpec = this.override ? { ...this.spec, ...this.override } : this.spec;
 
-    target.useMediaCoordinateSpace(({ context }) => {
+    target.useMediaCoordinateSpace(({ context, mediaSize }) => {
       const priceToY = (p: number) => series.priceToCoordinate(p);
-      const seg = trendSegmentPixels(spec, axis.dateToX, priceToY);
+      const seg = trendRayPixels(spec, axis.dateToX, priceToY, mediaSize.width);
       if (!seg) return;
 
       context.strokeStyle = spec.selected ? "#b71c1c" : "#c62828";

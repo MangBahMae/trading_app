@@ -1,10 +1,11 @@
 """
 추세선 개선: 끝점 드래그 수정용 PUT /api/lines/trend/{line_id}, POST/PUT 공통 검증, 그리고 추세선
-신호가 "두 점 사이 선분(time1 <= 날짜 <= time2, 양 끝 포함)"만 평가하는 새 규칙.
+신호가 "time1(이른 쪽 점)부터 오른쪽으로 끝없이 연장한 직선"을 평가하는 규칙(time1 이전은 평가 안 함).
+(한동안 "두 점 사이 선분만" 평가했지만, 추세선 돌파는 대부분 두 번째 점 이후에 일어나서 연장 규칙으로 되돌렸다.)
 
 - PUT: 값 갱신, id 유지, created_at은 수정한 시각으로 갱신 / 추세선이 아닌 행·없는 id는 404 / 틀린 값은 422
 - POST/PUT 공통: 가격 양수, 날짜 형식(YYYY-MM-DD), 시작 <= 끝(같은 날 허용)
-- 신호: 선분 밖 캔들에는 신호 없음(time1 전날, time2 다음날), 양 끝 당일은 평가, ref_id/ref_created_at 채움
+- 신호: time1 전날까지는 신호 없음, time1 당일부터 오른쪽(time2 이후 포함)으로 계속 평가, ref_id/ref_created_at 채움
 
 실데이터 manual_lines.db는 건드리지 않는다 - lines_store.DB_PATH를 임시 파일로 바꿔서 쓴다.
 """
@@ -126,7 +127,7 @@ def test_post_trend_accepts_normal_requests(client, body):
     assert _lines(client)[resp.json()["id"]]["time1"] == body["time1"]
 
 
-# --- 신호: 두 점 사이 선분(time1 <= 날짜 <= time2)만 평가 ---
+# --- 신호: time1부터 오른쪽으로 끝없이 연장한 직선을 평가 (time1 이전은 평가 안 함) ---
 
 def _df(rows, start="2025-01-01"):
     return pd.DataFrame({
@@ -151,31 +152,54 @@ def _signal_days(rows, line):
     return [i for i, lst in sigs.items() if lst], sigs
 
 
-def test_trend_signals_only_inside_the_segment_inclusive_on_both_ends():
+def test_trend_signals_start_on_time1_and_continue_to_the_right_without_end():
     rows = [TOUCH] * 7                                  # idx 0..6 = 01-01 .. 01-07, 전부 선에 닿음
     days, _ = _signal_days(rows, _flat_trend("2025-01-03", "2025-01-05"))
-    assert days == [2, 3, 4]                            # time1 당일(idx2)과 time2 당일(idx4) 포함
+    # time1 당일(idx2)부터, time2(idx4)를 지나 마지막 캔들(idx6)까지 계속 평가한다
+    assert days == [2, 3, 4, 5, 6]
 
 
-def test_no_signal_on_the_day_before_time1_and_the_day_after_time2():
+def test_no_signal_before_time1():
     rows = [TOUCH] * 7
     days, _ = _signal_days(rows, _flat_trend("2025-01-03", "2025-01-05"))
-    assert 1 not in days                                # time1 전날(01-02)
-    assert 5 not in days                                # time2 다음날(01-06)
-    assert 0 not in days and 6 not in days              # 더 바깥
+    assert 0 not in days and 1 not in days              # time1 전날(01-02)과 그 이전은 평가 안 함
+    assert 5 in days and 6 in days                      # time2 다음날부터도 평가한다(예전 선분 규칙과 다른 점)
 
 
-def test_single_day_trend_line_is_evaluated_on_that_day_only():
+def test_single_day_trend_line_is_a_flat_ray_from_that_day():
+    # 같은 날 두 점: 백엔드 _trend_line_price가 price1 고정 -> 그 날부터 오른쪽으로 price1 높이의 수평 연장선
     rows = [TOUCH] * 5
     days, _ = _signal_days(rows, _flat_trend("2025-01-03", "2025-01-03"))
-    assert days == [2]
+    assert days == [2, 3, 4]
 
 
-def test_reversed_stored_row_uses_the_same_segment():
-    # 옛 행처럼 time1 > time2로 저장돼도 같은 구간(01-03 ~ 01-05)이어야 한다
+def test_reversed_stored_row_starts_at_the_earlier_point():
+    # 옛 행처럼 time1 > time2로 저장돼도 이른 쪽 점(01-03)부터 시작해 같은 연장선이어야 한다
     rows = [TOUCH] * 7
     days, _ = _signal_days(rows, _flat_trend("2025-01-05", "2025-01-03"))
-    assert days == [2, 3, 4]
+    assert days == [2, 3, 4, 5, 6]
+
+
+def test_price_beyond_the_second_point_is_linearly_extrapolated():
+    # (01-01,100) -> (01-09,140): 하루 +5 -> 두 번째 점(01-09) 이후인 01-11(idx 10)의 선 가격은 150
+    line = {"id": 2, "line_type": "trend", "time1": "2025-01-01", "price1": 100.0, "time2": "2025-01-09",
+            "price2": 140.0, "created_at": CREATED}
+    rows = [(50, 51, 49, 50)] * 10 + [(151, 152, 149.5, 151)]   # idx 10: 선 150, 시가 151 > 150 -> 지지
+    days, sigs = _signal_days(rows, line)
+    assert days == [10] and sigs[10][0].direction == "long" and "지지 시험" in sigs[10][0].text
+    rows = rows[:10] + [(149, 150.5, 148, 148.5)]               # 시가 149 < 150 -> 저항
+    days, sigs = _signal_days(rows, line)
+    assert days == [10] and sigs[10][0].direction == "short" and "저항 시험" in sigs[10][0].text
+
+
+def test_descending_ray_that_reaches_zero_stops_producing_signals():
+    # 가파르게 내려가는 선은 연장하다 0 이하가 되는 날부터 평가하지 않는다 (엉뚱한 신호 방지)
+    line = {"id": 3, "line_type": "trend", "time1": "2025-01-01", "price1": 20.0, "time2": "2025-01-03",
+            "price2": 10.0, "created_at": CREATED}              # 하루 -5: 20, 15, 10, 5, 0(01-05), -5 ...
+    near_line = [(lvl + 0.5, lvl + 1, lvl - 1, lvl + 0.2) for lvl in (20, 15, 10, 5)]   # idx 0..3: 선에 닿음
+    touch_zero = [(0.5, 1, 0, 0.5)] * 4                          # idx 4..7: 저가 0 - 선 가격 0/음수에 "닿는" 캔들
+    days, _ = _signal_days(near_line + touch_zero, line)
+    assert days == [0, 1, 2, 3]                                  # idx 4(선 가격 0)부터는 평가하지 않는다
 
 
 def test_price_inside_the_segment_is_still_linearly_interpolated():
@@ -209,9 +233,9 @@ def test_horizontal_signals_ignore_the_trend_window():
     assert days == list(range(7))
 
 
-# --- 대시보드: 수정 후 신호가 새 선분 기준으로 바뀐다 ---
+# --- 대시보드: 수정 후 신호가 새 연장선 기준으로 바뀐다 ---
 
-def test_dashboard_trend_signals_follow_the_updated_segment(client):
+def test_dashboard_trend_signals_follow_the_updated_line(client):
     trend_id = client.post("/api/lines/trend", json=TREND_A).json()["id"]
 
     def trend_signals():
@@ -223,7 +247,8 @@ def test_dashboard_trend_signals_follow_the_updated_segment(client):
     first = trend_signals()
     created = _lines(client)[trend_id]["created_at"]
     assert first, "2023년 상승 구간 추세선이면 신호가 있어야 함"
-    assert all("2023-01-01" <= d <= "2023-12-31" for d, _ in first)                 # 선분 밖(외삽)에는 신호 없음
+    assert all(d >= "2023-01-01" for d, _ in first)                                 # time1 이전에는 신호 없음
+    assert any(d > "2023-12-31" for d, _ in first), "time2 이후(오른쪽 연장선)에도 신호가 나야 함"
     assert all(s["ref_id"] == trend_id and s["ref_created_at"] == created for _, s in first)
 
     assert client.put(f"/api/lines/trend/{trend_id}", json=TREND_B).status_code == 200
@@ -231,6 +256,5 @@ def test_dashboard_trend_signals_follow_the_updated_segment(client):
     second = trend_signals()
     new_created = _lines(client)[trend_id]["created_at"]
     assert second, "2024년 추세선 모양에도 신호가 있어야 함"
-    assert all("2024-03-01" <= d <= "2024-12-31" for d, _ in second)
+    assert all(d >= "2024-03-01" for d, _ in second)
     assert all(s["ref_id"] == trend_id and s["ref_created_at"] == new_created != created for _, s in second)
-    assert {d for d, _ in second}.isdisjoint({d for d, _ in first})

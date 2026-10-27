@@ -3,6 +3,7 @@ import type {
   SeriesAttachedParameter, SeriesType, Time,
 } from "lightweight-charts";
 import type { DrawMode } from "../../types";
+import { rayFromScreenPoints } from "./chartLogic";
 import type { TimeAxis } from "./timeAxis";
 
 type DrawTarget = Parameters<ISeriesPrimitivePaneRenderer["draw"]>[0];
@@ -100,8 +101,12 @@ export class PreviewPrimitive implements ISeriesPrimitive<Time> {
         if (mode === "trend") {
           context.strokeStyle = "rgba(198, 40, 40, 0.6)";
           context.beginPath();
-          context.moveTo(x1, y1);
-          context.lineTo(mouse.x, mouse.y);
+          // 확정 후와 같은 모양: 첫 점과 마우스를 지나 오른쪽 끝까지 가는 반직선. 마우스가 첫 점과 같은 날이면
+          // 확정 시 수평 반직선이 되므로 미리보기도 수평으로 그린다.
+          const sameDay = axis.xToDate(mouse.x) === first.time;
+          const ray = rayFromScreenPoints({ x: x1, y: y1 }, sameDay ? { x: x1, y: y1 } : mouse, mediaSize.width);
+          context.moveTo(ray.x1, ray.y1);
+          context.lineTo(ray.x2, ray.y2);
           context.stroke();
         } else if (mode === "zone") {
           const x = Math.min(x1, mouse.x);

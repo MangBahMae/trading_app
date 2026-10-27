@@ -282,6 +282,7 @@ export default function TvChart({
         priceToY: (price: number) => candleSeries.priceToCoordinate(price),
         dateToX: axis.dateToX,
         firstTime: axis.firstDate,
+        rightX: chart.timeScale().width(),
       };
     };
 
@@ -308,7 +309,7 @@ export default function TvChart({
       kind === "zone" ? CORNER_CURSOR[handle as ZoneCorner] : "move";
 
     // 지금 선택된 존/추세선의 모양(저장 대기 중이면 임시 모양 기준). 같은 날 추세선은 화면에서 price1 높이의
-    // 수평 선분이라 편집 대상 모양도 price2 = price1로 본다.
+    // 수평 반직선이라 편집 대상 모양도 price2 = price1로 본다.
     function selectedShape(): { kind: ShapeKind; id: number; geom: ZoneGeom } | null {
       const sel = selectionRef.current;
       const line = sel
@@ -419,7 +420,7 @@ export default function TvChart({
         revert();
         return;
       }
-      // 존은 폭/높이가 0이면 저장할 수 없다. 추세선은 같은 날(수평 선분)도 POST와 같이 허용한다.
+      // 존은 폭/높이가 0이면 저장할 수 없다. 추세선은 같은 날(수평 반직선)도 POST와 같이 허용한다.
       if (d.kind === "zone" && zoneIsDegenerate(geom)) {
         revert();
         setDragError("존의 폭이나 높이가 0이 되어 수정할 수 없습니다.");

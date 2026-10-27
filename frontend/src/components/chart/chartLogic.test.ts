@@ -3,7 +3,7 @@ import {
   MARKET_STATE_COLORS, marketStateBlockSpan,
   cornerPoint, hitTestShapes, hitTestTrendHandle, hitTestZoneHandle, nearestOnSegment, oppositeCorner,
   otherTrendHandle, sameTrend, sameZone, toDateString, trendFromPoints, trendHandlePoints, trendPoint,
-  trendSegmentPixels, trendVisibleGeom, zoneColorKind, zoneFromCorners, zoneHorizontalSpan, zoneIsDegenerate,
+  trendRayPixels, rayFromScreenPoints, trendVisibleGeom, zoneColorKind, zoneFromCorners, zoneHorizontalSpan, zoneIsDegenerate,
   zoneRectPixels, type HitCoords, type ShapeLine, type ZoneGeom,
 } from "./chartLogic";
 import { createTimeAxis, makeBarIndex } from "./timeAxis";
@@ -21,6 +21,7 @@ const coords: HitCoords = {
   priceToY: (p) => 1000 - p,
   dateToX: axis.dateToX,
   firstTime: axis.firstDate,
+  rightX: 400,                    // 차트 영역 오른쪽 끝
 };
 
 describe("zoneColorKind (종가 위치 기준 색, 신호 방향과 무관)", () => {
@@ -77,38 +78,47 @@ describe("nearestOnSegment", () => {
   });
 });
 
-describe("trendSegmentPixels (두 점 사이 선분만, 연장 없음)", () => {
+describe("trendRayPixels (이른 점에서 오른쪽 끝까지 반직선)", () => {
   const priceToY = (p: number) => 1000 - p;
-  // (01-10, 500)=(x100,y500), (01-20, 600)=(x200,y400)
+  // (01-10, 500)=(x100,y500), (01-20, 600)=(x200,y400): 기울기 -1 (화면 y/x)
   const spec = { time1: "2026-01-10", price1: 500, time2: "2026-01-20", price2: 600 };
+  const RIGHT = 400;
 
-  it("두 점 사이 선분만 돌려준다(왼쪽/오른쪽으로 연장하지 않는다)", () => {
-    expect(trendSegmentPixels(spec, axis.dateToX, priceToY)).toEqual({ x1: 100, y1: 500, x2: 200, y2: 400 });
+  it("이른 점에서 시작해 오른쪽 끝(rightX)까지 같은 기울기로 연장한다", () => {
+    expect(trendRayPixels(spec, axis.dateToX, priceToY, RIGHT)).toEqual({ x1: 100, y1: 500, x2: 400, y2: 200 });
   });
-  it("미래 날짜로 끝나는 선분도 계산한 좌표 그대로", () => {
-    const future = { time1: "2026-01-10", price1: 500, time2: "2026-02-03", price2: 400 }; // x100 -> x340
-    expect(trendSegmentPixels(future, axis.dateToX, priceToY)).toEqual({ x1: 100, y1: 500, x2: 340, y2: 600 });
+  it("이른 점 왼쪽으로는 연장하지 않는다(시작점 x가 1번 점)", () => {
+    expect(trendRayPixels(spec, axis.dateToX, priceToY, RIGHT)!.x1).toBe(100);
   });
-  it("시간 순서가 뒤바뀐 옛 행도 같은 선분(점 두 개를 그대로 잇는다)", () => {
+  it("미래 날짜로 끝나는 선도 같은 직선 위로 오른쪽 끝까지", () => {
+    const future = { time1: "2026-01-10", price1: 500, time2: "2026-02-03", price2: 400 }; // x100 -> x340, y500 -> y600
+    expect(trendRayPixels(future, axis.dateToX, priceToY, RIGHT)).toEqual({ x1: 100, y1: 500, x2: 400, y2: 625 });
+  });
+  it("시간 순서가 뒤바뀐 옛 행도 이른 쪽 점부터 시작하는 같은 반직선", () => {
     const reversed = { time1: "2026-01-20", price1: 600, time2: "2026-01-10", price2: 500 };
-    expect(trendSegmentPixels(reversed, axis.dateToX, priceToY)).toEqual({ x1: 200, y1: 400, x2: 100, y2: 500 });
+    expect(trendRayPixels(reversed, axis.dateToX, priceToY, RIGHT)).toEqual({ x1: 100, y1: 500, x2: 400, y2: 200 });
   });
-  it("두 점이 같은 날이면 price1 높이의 수평 선분(그 날 캔들 한 칸 폭, 백엔드는 price1 고정)", () => {
+  it("두 점이 같은 날이면 그 날부터 price1 높이의 수평 반직선(백엔드는 price1 고정)", () => {
     const sameDay = { time1: "2026-01-10", price1: 500, time2: "2026-01-10", price2: 700 };
-    // 한 칸 = 10px -> 좌우 5px
-    expect(trendSegmentPixels(sameDay, axis.dateToX, priceToY)).toEqual({ x1: 95, y1: 500, x2: 105, y2: 500 });
+    expect(trendRayPixels(sameDay, axis.dateToX, priceToY, RIGHT)).toEqual({ x1: 100, y1: 500, x2: 400, y2: 500 });
   });
-  it("같은 날 선분은 칸이 아주 좁아도 최소 길이를 유지한다", () => {
-    const narrow = createTimeAxis(makeBarIndex(BAR_DATES), {
-      logicalToCoordinate: (l) => 50 + 1 * l, coordinateToLogical: (x) => x - 50,   // 한 칸 = 1px
-    });
-    const sameDay = { time1: "2026-01-10", price1: 500, time2: "2026-01-10", price2: 700 };
-    const seg = trendSegmentPixels(sameDay, narrow.dateToX, priceToY)!;
-    expect(seg.x2 - seg.x1).toBe(8); // SAME_DAY_MIN_HALF_PX(4) * 2
+  it("rightX가 시작점보다 왼쪽이어도 거꾸로 그리지 않는다", () => {
+    const seg = trendRayPixels(spec, axis.dateToX, priceToY, 50)!;
+    expect(seg.x2).toBeGreaterThanOrEqual(seg.x1);
   });
   it("좌표를 못 구하면 null", () => {
-    expect(trendSegmentPixels(spec, () => null, priceToY)).toBeNull();
-    expect(trendSegmentPixels(spec, axis.dateToX, () => null)).toBeNull();
+    expect(trendRayPixels(spec, () => null, priceToY, RIGHT)).toBeNull();
+    expect(trendRayPixels(spec, axis.dateToX, () => null, RIGHT)).toBeNull();
+  });
+});
+
+describe("rayFromScreenPoints (그리는 중 미리보기)", () => {
+  it("왼쪽 점에서 시작해 오른쪽 끝까지, 마우스가 첫 점 왼쪽이어도 같은 모양", () => {
+    expect(rayFromScreenPoints({ x: 100, y: 500 }, { x: 200, y: 400 }, 400)).toEqual({ x1: 100, y1: 500, x2: 400, y2: 200 });
+    expect(rayFromScreenPoints({ x: 200, y: 400 }, { x: 100, y: 500 }, 400)).toEqual({ x1: 100, y1: 500, x2: 400, y2: 200 });
+  });
+  it("두 점의 x가 같으면 수평", () => {
+    expect(rayFromScreenPoints({ x: 100, y: 500 }, { x: 100, y: 300 }, 400)).toEqual({ x1: 100, y1: 500, x2: 400, y2: 500 });
   });
 });
 
@@ -182,7 +192,7 @@ describe("추세선 끝점 핸들 로직", () => {
 describe("hitTestShapes", () => {
   const hline = (id: number, price: number): ShapeLine =>
     ({ id, line_type: "horizontal", time1: null, price1: price, time2: null, price2: null });
-  // 추세선: (01-10,500) -> (01-20,600). 화면 선분: (x100,y500) -> (x200,y400)
+  // 추세선: (01-10,500) -> (01-20,600). 화면 반직선: (x100,y500) -> (x200,y400) -> 오른쪽 끝(x400)
   const trend = (id: number): ShapeLine =>
     ({ id, line_type: "trend", time1: "2026-01-10", price1: 500, time2: "2026-01-20", price2: 600 });
   const zone = (id: number, top: number, bottom: number, t1 = "2026-01-10", t2 = "2026-01-20"): ShapeLine =>
@@ -197,45 +207,47 @@ describe("hitTestShapes", () => {
     expect(hitTestShapes([hline(1, 500)], { x: 77, y: 503 }, coords)?.anchor).toEqual({ x: 77, y: 500 });
   });
 
-  it("추세선은 두 점 사이 선분 위를 클릭하면 잡힌다", () => {
+  it("추세선은 이른 점에서 오른쪽으로 이어진 반직선 위를 클릭하면 잡힌다", () => {
     expect(hitTestShapes([trend(2)], { x: 150, y: 450 }, coords)?.id).toBe(2);   // 선분 한가운데
     expect(hitTestShapes([trend(2)], { x: 103, y: 497 }, coords)?.id).toBe(2);   // 1번 점 근처
     expect(hitTestShapes([trend(2)], { x: 198, y: 402 }, coords)?.id).toBe(2);   // 2번 점 근처
   });
 
-  it("선분 밖(두 점 밖의 연장선, 마지막 캔들 오른쪽 빈 공간, 첫 캔들 왼쪽)은 선 위여도 안 잡힌다", () => {
-    // 직선 y = 500 - (x - 100)의 연장선 위 점들 - 예전(전체 폭 직선)에는 잡혔지만 이제는 선분 밖
-    expect(hitTestShapes([trend(2)], { x: 350, y: 250 }, coords)).toBeNull();    // 2번 점 오른쪽 연장선
-    expect(hitTestShapes([trend(2)], { x: 30, y: 570 }, coords)).toBeNull();     // 1번 점 왼쪽 연장선
-    expect(hitTestShapes([trend(2)], { x: 230, y: 370 }, coords)).toBeNull();    // 끝점(200,400)에서 ~42px
-    // 끝점 바로 바깥 6px 이내는 끝점까지의 거리로 잡힌다(선분 끝 근처)
-    expect(hitTestShapes([trend(2)], { x: 204, y: 396 }, coords)?.id).toBe(2);
+  it("두 번째 점 오른쪽 연장 구간(마지막 캔들 오른쪽 빈 공간 포함)도 잡히고, 이른 점 왼쪽은 안 잡힌다", () => {
+    // 직선 y = 500 - (x - 100)
+    expect(hitTestShapes([trend(2)], { x: 350, y: 250 }, coords)?.id).toBe(2);   // 2번 점 오른쪽 연장선
+    expect(hitTestShapes([trend(2)], { x: 30, y: 570 }, coords)).toBeNull();     // 1번 점 왼쪽 연장선은 없다
+    expect(hitTestShapes([trend(2)], { x: 96, y: 504 }, coords)?.id).toBe(2);    // 시작점 바로 왼쪽 6px 이내는 시작점까지의 거리
+    expect(hitTestShapes([trend(2)], { x: 60, y: 540 }, coords)).toBeNull();
+    expect(hitTestShapes([trend(2)], { x: 450, y: 150 }, coords)).toBeNull();    // 차트 오른쪽 끝(400) 밖
   });
 
-  it("미래(마지막 캔들 오른쪽 빈 공간)로 이어진 추세선 선분은 그 위를 클릭하면 잡힌다", () => {
+  it("미래(마지막 캔들 오른쪽 빈 공간)로 이어진 추세선도 그 위를 클릭하면 잡힌다", () => {
     // (01-10,500) -> (02-03,400): x100~340. 중간 x=220에서 y = 500 + (220-100)*(100/240) = 550
     const future: ShapeLine = { id: 8, line_type: "trend", time1: "2026-01-10", price1: 500, time2: "2026-02-03", price2: 400 };
     expect(hitTestShapes([future], { x: 220, y: 550 }, coords)?.id).toBe(8);
-    expect(hitTestShapes([future], { x: 335, y: 600 - 3 }, coords)?.id).toBe(8); // 미래 쪽 끝점 근처
-    expect(hitTestShapes([future], { x: 360, y: 610 }, coords)).toBeNull();      // 끝점 오른쪽(연장선)
+    expect(hitTestShapes([future], { x: 335, y: 600 - 3 }, coords)?.id).toBe(8);   // 두 번째 점 근처
+    expect(hitTestShapes([future], { x: 380, y: 100 + 100 + 0 }, coords)).toBeNull(); // 선에서 멀다
+    expect(hitTestShapes([future], { x: 380, y: 500 + 280 * (100 / 240) }, coords)?.id).toBe(8); // 두 번째 점 오른쪽 연장
   });
 
   it("추세선에서 6px 넘게 떨어지면 안 잡힌다", () => {
     expect(hitTestShapes([trend(2)], { x: 150, y: 450 + 20 }, coords)).toBeNull();
   });
 
-  it("추세선 anchor는 클릭에서 가장 가까운 선분 위의 점", () => {
+  it("추세선 anchor는 클릭에서 가장 가까운 반직선 위의 점", () => {
     const anchor = hitTestShapes([trend(2)], { x: 150, y: 453 }, coords)!.anchor;
     expect(Math.abs(anchor.y - (500 - (anchor.x - 100)))).toBeLessThan(1e-9);   // 선분(직선) 위
     expect(anchor.x).toBeGreaterThanOrEqual(100);
-    expect(anchor.x).toBeLessThanOrEqual(200);
+    expect(anchor.x).toBeLessThanOrEqual(400);
   });
 
-  it("두 점이 같은 날인 추세선은 그 날의 짧은 수평 선분처럼 잡힌다", () => {
+  it("두 점이 같은 날인 추세선은 그 날부터 오른쪽으로 가는 수평 반직선처럼 잡힌다", () => {
     const flat: ShapeLine = { id: 5, line_type: "trend", time1: "2026-01-10", price1: 500, time2: "2026-01-10", price2: 700 };
     expect(hitTestShapes([flat], { x: 100, y: 503 }, coords)?.id).toBe(5);       // 그 날(x=100), price1 높이
     expect(hitTestShapes([flat], { x: 100, y: 520 }, coords)).toBeNull();
-    expect(hitTestShapes([flat], { x: 300, y: 503 }, coords)).toBeNull();        // 다른 날 - 더는 전체 폭 수평선이 아니다
+    expect(hitTestShapes([flat], { x: 300, y: 503 }, coords)?.id).toBe(5);       // 오른쪽으로 계속된다
+    expect(hitTestShapes([flat], { x: 40, y: 503 }, coords)).toBeNull();         // 그 날 왼쪽은 아니다
   });
 
   it("존은 직사각형 안쪽을 클릭하면 잡히고 밖은 안 잡힌다", () => {

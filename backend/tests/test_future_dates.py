@@ -130,15 +130,17 @@ def test_zone_stops_after_its_time2_even_when_more_candles_arrive():
     assert list(_sig_days(_df(rows), zone)) == ["2025-01-02", "2025-01-04"]  # 01-06 반응은 time2 이후라 평가 안 함
 
 
-# --- 추세선: 두 점 사이 선분 구간(time1 <= 날짜 <= time2)만 평가한다 ---
+# --- 추세선: time1부터 오른쪽으로 연장해서 평가한다 (마지막 점 이후 외삽 구간 포함) ---
 
-def test_trend_line_has_no_signals_after_its_last_point():
-    """3단계 신호 정렬로 바뀐 규칙: 예전엔 마지막 점 이후(외삽 구간)에도 신호가 났지만, 이제는 화면의
-    선분과 같은 구간만 평가한다. 선분 밖(미래 캔들 포함)에는 신호가 나지 않는다."""
+def test_trend_line_keeps_producing_signals_after_its_last_point():
+    """추세선은 이른 쪽 점(time1)부터 오른쪽으로 끝없이 연장해 평가한다 - 마지막 점(time2) 이후에도 신호가 난다.
+    (한동안은 두 점 사이 선분만 평가했지만 돌파는 대부분 두 번째 점 이후라서 연장 규칙으로 되돌렸다.)"""
     far = (50, 51, 49, 50)
     # 점: (01-01,100) (01-03,110) -> 하루 +5. 01-07 = 130, 01-08 = 135 (둘 다 마지막 점 이후이고 선 근처 캔들)
     trend = {"id": 3, "line_type": "trend", "time1": "2025-01-01", "price1": 100.0,
              "time2": "2025-01-03", "price2": 110.0, "created_at": "2026-10-06T00:00:00+00:00"}
     rows = [far] * 6 + [(131, 132, 129, 131), (134, 136, 133, 134)]   # idx 6 = 01-07, idx 7 = 01-08
     sigs = manual_lines.compute_manual_line_signals(_df(rows), [trend])
-    assert [i for i, lst in sigs.items() if lst] == []
+    assert [i for i, lst in sigs.items() if lst] == [6, 7]
+    assert sigs[6][0].direction == "long"     # 시가 131 > 선 130 -> 지지 시험
+    assert sigs[7][0].direction == "short"    # 시가 134 < 선 135 -> 저항 시험

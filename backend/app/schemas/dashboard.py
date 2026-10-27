@@ -72,8 +72,8 @@ class HorizontalLineRequest(BaseModel):
 
 
 class TrendLineRequest(BaseModel):
-    """추세선(두 점 사이 선분). POST/PUT 공통 검증: 가격 양수, 날짜 형식(YYYY-MM-DD), 시작 <= 끝.
-    같은 날(시작 == 끝)은 허용한다(그 하루의 수평 선분으로 취급, 기존 동작과 같다). 프론트가 두 점을
+    """추세선(이른 점부터 오른쪽으로 끝없이 연장한 반직선). POST/PUT 공통 검증: 가격 양수, 날짜 형식(YYYY-MM-DD), 시작 <= 끝.
+    같은 날(시작 == 끝)은 허용한다(그 날부터 오른쪽으로 가는 수평 반직선으로 취급). 프론트가 두 점을
     시간순으로 정규화해서 보내며, 서버는 정규화하지 않고 틀린 값을 거부한다."""
     time1: str
     price1: float = Field(gt=0)

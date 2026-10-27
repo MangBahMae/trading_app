@@ -155,6 +155,7 @@ export interface HitCoords {
   priceToY: (price: number) => number | null;
   dateToX: (date: string) => number | null;  // timeAxis 기반 - 미래 날짜도 좌표가 나온다
   firstTime: string | null;                  // 표시 중인 첫 캔들 날짜(데이터 이전 처리용)
+  rightX: number;                            // 차트 영역 오른쪽 끝 x(추세선 반직선의 끝)
 }
 
 export interface ShapeHit {
@@ -175,9 +176,9 @@ export function nearestOnSegment(
   return { dist: Math.hypot(px - x, py - y), x, y };
 }
 
-// 추세선이 화면에 그려지는 모양: 두 점 사이 선분만(양쪽 연장 없음). 백엔드 신호도 같은 구간
-// (time1 <= 날짜 <= time2)만 평가한다. 두 점이 같은 날이면 백엔드(_trend_line_price가 price1 고정)와
-// 같이 price1 높이의 수평 선분으로 그린다 - 길이는 그 날 캔들 한 칸 폭(최소 SAME_DAY_MIN_HALF_PX*2)이다.
+// 추세선이 화면에 그려지는 모양: 이른 쪽 점(time1)에서 시작해 오른쪽 끝까지 끝없이 연장한 반직선(ray).
+// 백엔드 신호도 같은 규칙(time1 이전은 평가 안 함, 오른쪽은 선형 외삽)이라 화면과 신호가 일치한다.
+// 두 점이 같은 날이면 백엔드(_trend_line_price가 price1 고정)와 같이 그 날부터 price1 높이의 수평 반직선이다.
 export interface TrendSpec {
   time1: string;
   price1: number;
@@ -187,27 +188,39 @@ export interface TrendSpec {
 
 export type TrendHandle = "p1" | "p2"; // 1번 점 / 2번 점(끝점 핸들)
 
-export const SAME_DAY_MIN_HALF_PX = 4;
+// 두 점 (xa,ya),(xb,yb)를 지나 x = rightX까지 연장한 반직선. xa == xb면 수평(백엔드 same-day 규칙).
+function extendToRight(
+  xa: number, ya: number, xb: number, yb: number, rightX: number,
+): { x1: number; y1: number; x2: number; y2: number } {
+  const x2 = Math.max(rightX, xa);
+  if (xb === xa) return { x1: xa, y1: ya, x2, y2: ya };
+  return { x1: xa, y1: ya, x2, y2: ya + ((yb - ya) / (xb - xa)) * (x2 - xa) };
+}
 
-export function trendSegmentPixels(
+// 시간순으로 이른 점에서 시작해 rightX(차트 영역 오른쪽 끝, 화면 좌표)까지 그리는 반직선.
+export function trendRayPixels(
   t: TrendSpec, dateToX: (date: string) => number | null, priceToY: (price: number) => number | null,
+  rightX: number,
 ): { x1: number; y1: number; x2: number; y2: number } | null {
   const xa = dateToX(t.time1);
   const ya = priceToY(t.price1);
   if (xa === null || ya === null) return null;
-  if (t.time1 === t.time2) {
-    const next = addDays(t.time1, 1);
-    const xn = next === null ? null : dateToX(next);
-    const half = Math.max(xn === null ? 0 : Math.abs(xn - xa) / 2, SAME_DAY_MIN_HALF_PX);
-    return { x1: xa - half, y1: ya, x2: xa + half, y2: ya };
-  }
+  if (t.time1 === t.time2) return extendToRight(xa, ya, xa, ya, rightX);
   const xb = dateToX(t.time2);
   const yb = priceToY(t.price2);
   if (xb === null || yb === null) return null;
-  return { x1: xa, y1: ya, x2: xb, y2: yb };
+  // 옛 행처럼 time1 > time2로 저장돼도 이른 쪽 점부터 시작한다(백엔드 _trend_start와 같다)
+  return xa <= xb ? extendToRight(xa, ya, xb, yb, rightX) : extendToRight(xb, yb, xa, ya, rightX);
 }
 
-// 같은 날 추세선은 화면에서 price1 높이의 수평 선분이므로, 편집 대상 모양도 price2 = price1로 본다
+// 미리보기용: 화면 좌표 두 점의 반직선(왼쪽 점에서 시작). 같은 x면 수평.
+export function rayFromScreenPoints(
+  p: { x: number; y: number }, q: { x: number; y: number }, rightX: number,
+): { x1: number; y1: number; x2: number; y2: number } {
+  return p.x <= q.x ? extendToRight(p.x, p.y, q.x, q.y, rightX) : extendToRight(q.x, q.y, p.x, p.y, rightX);
+}
+
+// 같은 날 추세선은 화면에서 price1 높이의 수평 반직선이므로, 편집 대상 모양도 price2 = price1로 본다
 // (보이지 않는 price2가 드래그 때 갑자기 튀어나오지 않게).
 export function trendVisibleGeom(t: TrendSpec): TrendSpec {
   return t.time1 === t.time2 ? { ...t, price2: t.price1 } : t;
@@ -263,7 +276,7 @@ export function sameTrend(a: TrendSpec, b: TrendSpec): boolean {
 
 // 클릭 지점에서 가장 가까운 도형 하나를 고른다(없으면 null).
 //   수평선: 클릭 y와 선 y의 거리 <= tolerance
-//   추세선: 화면에 실제로 그려진 선분(두 점 사이)과의 거리 <= tolerance - 선분 밖(연장선)은 제외
+//   추세선: 화면에 실제로 그려진 반직선(이른 점 ~ 오른쪽 끝)과의 거리 <= tolerance - 이른 점 왼쪽은 제외
 //   존: 클릭이 직사각형 안. 선(수평선/추세선)이 tolerance 안에 있으면 선이 우선하고,
 //       존끼리 겹치면 더 작은 존이 우선한다.
 export function hitTestShapes(
@@ -283,9 +296,9 @@ export function hitTestShapes(
       if (d <= tolerance) { score = d; anchor = { x: click.x, y }; }
     } else if (line.line_type === "trend") {
       if (!line.time1 || !line.time2 || line.price2 === null) continue;
-      const seg = trendSegmentPixels(
+      const seg = trendRayPixels(
         { time1: line.time1, price1: line.price1, time2: line.time2, price2: line.price2 },
-        c.dateToX, c.priceToY,
+        c.dateToX, c.priceToY, c.rightX,
       );
       if (!seg) continue;
       const near = nearestOnSegment(click.x, click.y, seg.x1, seg.y1, seg.x2, seg.y2);
