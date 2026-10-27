@@ -19,6 +19,8 @@ import sys
 import time
 from pathlib import Path
 
+import pandas as pd
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import pipeline  # noqa: E402
@@ -26,6 +28,7 @@ import lines_store  # noqa: E402
 import manual_lines  # noqa: E402
 import candle_patterns  # noqa: E402
 import zone_signals  # noqa: E402
+import market_state  # noqa: E402
 from config import SYMBOL, INTERVAL  # noqa: E402
 
 EMA_COLS = ["EMA9", "EMA20", "EMA50", "EMA200"]
@@ -133,3 +136,36 @@ def update_zone(line_id: int, time1: str, price1: float, time2: str, price2: flo
 
 def delete_line(line_id: int) -> None:
     lines_store.delete_line(line_id)
+
+
+def get_market_state(n: int, k: int) -> dict:
+    """시장 상태(상승/하락/횡보) - 신호가 아니라 차트 음영 전용. 1시간 캐시된 캔들(EMA 포함)로
+    매 요청 새로 계산한다(벡터 연산이라 수 ms) - 프론트가 N/K를 바꿔 가며 바로 재계산한다.
+    ValueError(잘못된 n/k)는 호출한 라우터가 422로 바꾼다."""
+    market_state.validate_params(n, k)
+    df, _signals, _markers = _get_base_data(False)
+    states = market_state.compute_market_state(df, n, k)
+    dates = [d.strftime("%Y-%m-%d") for d in df["open_time"]]
+    blocks = market_state.find_blocks(states, dates)
+
+    candles = []
+    for date, row in zip(dates, states.itertuples(index=False)):
+        insufficient = pd.isna(row.state)  # EMA50이 아직 없는 앞 49봉
+        candles.append({
+            "date": date,
+            "state": None if insufficient else row.state,
+            "reason": None if insufficient else row.reason,
+            "a": bool(row.a),
+            "b": bool(row.b),
+            "c": bool(row.c),
+            "gap_now": None if pd.isna(row.gap_now) else float(row.gap_now),
+            "gap_prev": None if pd.isna(row.gap_prev) else float(row.gap_prev),
+            "cross_count": None if pd.isna(row.cross_count) else int(row.cross_count),
+        })
+    summary = market_state.summarize(states, blocks)
+    return {
+        "params": {"n": n, "k": k},
+        "counts": {**summary["state_counts"], **{f"reason_{r}": c for r, c in summary["reason_counts"].items()}},
+        "candles": candles,
+        "blocks": blocks,
+    }

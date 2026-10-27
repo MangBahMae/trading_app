@@ -52,6 +52,7 @@ import rsi
 import rsi_swings
 import divergence
 import rsi_overbought_oversold
+import feature_flags
 from data_fetcher import ensure_fresh_data
 from signal_types import Signal
 
@@ -124,8 +125,11 @@ def build_signals_by_date(
     vol_exp_df = volatility_expansion.compute_volatility_expansion(base_df)
     exhaustion_df = exhaustion.compute_exhaustion(base_df)
 
-    rsi_df = rsi.compute_rsi_signals(base_df)
-    ob_os_df = rsi_overbought_oversold.compute_ob_os_signals(rsi_df)
+    # RSI 과매도는 플래그가 꺼져 있으면 계산도 호출하지 않는다(feature_flags.py).
+    ob_os_df = None
+    if feature_flags.ENABLE_RSI_OVERSOLD_SIGNAL:
+        rsi_df = rsi.compute_rsi_signals(base_df)
+        ob_os_df = rsi_overbought_oversold.compute_ob_os_signals(rsi_df)
 
     signals = {i: [] for i in range(n)}
 
@@ -172,10 +176,11 @@ def build_signals_by_date(
             elif case == "gray_zone":
                 signals[i].append(Signal(f"{ma_col} 근접했으나 회색지대라 신호 제외", "reference"))
 
-    for i in range(n):
-        if ob_os_df["oversold_state"].iloc[i]:
-            text = "RSI 과매도 진입" if ob_os_df["oversold_trigger"].iloc[i] else "RSI 과매도 유지 중"
-            signals[i].append(Signal(text, "long"))
+    if ob_os_df is not None:
+        for i in range(n):
+            if ob_os_df["oversold_state"].iloc[i]:
+                text = "RSI 과매도 진입" if ob_os_df["oversold_trigger"].iloc[i] else "RSI 과매도 유지 중"
+                signals[i].append(Signal(text, "long"))
 
     return signals
 
@@ -193,6 +198,9 @@ def get_divergence_markers(base_df: pd.DataFrame, rsi_df: pd.DataFrame | None = 
     확인 실험 결과: 5봉 대비 이벤트 27->36건 증가, 확정 2일 단축, 다만 3봉 피벗의
     35.7%가 5봉 기준으론 재역전되는 "가짜 피벗" - 그래도 육안 확인 후 3봉으로 결정).
     """
+    if not feature_flags.ENABLE_DIVERGENCE_MARKERS:
+        return []
+
     base_df = base_df.reset_index(drop=True)
     if rsi_df is None:
         rsi_df = rsi.compute_rsi_signals(base_df)

@@ -11,9 +11,10 @@ import {
   type SeriesMarker,
   type Time,
 } from "lightweight-charts";
-import type { DivergenceMarker, DrawMode, ManualLine } from "../../types";
+import type { DivergenceMarker, DrawMode, ManualLine, MarketStateBlock } from "../../types";
 import type { Bar } from "./chartLogic";
 import { ZonePrimitive } from "./ZonePrimitive";
+import { MarketStatePrimitive } from "./MarketStatePrimitive";
 import { PreviewPrimitive } from "./PreviewPrimitive";
 import { TrendLinePrimitive } from "./TrendLinePrimitive";
 import {
@@ -97,6 +98,8 @@ interface TvChartProps {
   rsiSeries: RsiSeriesConfig;
   divergenceMarkers: DivergenceMarker[];
   divMarkerColors: Record<string, string>;
+  // 시장 상태 횡보 구간 배경 음영(신호 아님). 빈 배열이면 아무것도 안 그린다(토글 OFF).
+  marketStateBlocks: MarketStateBlock[];
   drawMode: DrawMode;
   lines: ManualLine[];
   onSelectDate: (date: string) => void;
@@ -122,7 +125,7 @@ interface TvChartProps {
 // 새로 만들지 않음 - 이게 줌/이동 상태 보존의 핵심).
 export default function TvChart({
   bars, selectedDate, height, emaSeries, rsiSeries, divergenceMarkers,
-  divMarkerColors, drawMode, lines, onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone,
+  divMarkerColors, marketStateBlocks, drawMode, lines, onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone,
   onFinishDrawing, onDeleteLine, onUpdateZone, onUpdateTrend,
 }: TvChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -153,6 +156,7 @@ export default function TvChart({
   const zonePrimitivesRef = useRef<ZonePrimitive[]>([]);
   const pendingZonePointRef = useRef<{ time: string; price: number } | null>(null);
   const trendPrimitivesRef = useRef<TrendLinePrimitive[]>([]);
+  const marketStateRef = useRef<MarketStatePrimitive | null>(null);
   const barIndexRef = useRef<BarIndex>(makeBarIndex([]));
   const firstBarTimeRef = useRef<string | null>(null);
   const lastBarTimeRef = useRef<string | null>(null);
@@ -260,6 +264,11 @@ export default function TvChart({
       color: "#4169e1", lineWidth: 1, lineStyle: LineStyle.Dotted, priceScaleId: "rsi",
       visible: false, crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false,
     });
+
+    // 시장 상태(횡보) 배경 음영 - 마운트 때 한 번 붙이고, 데이터는 렌더 effect에서 setData로 갱신한다.
+    const marketState = new MarketStatePrimitive();
+    candleSeries.attachPrimitive(marketState);
+    marketStateRef.current = marketState;
 
     // 미리보기(고무줄) 프리미티브 - 그리는 중인 도형을 마우스를 따라 보여준다.
     const preview = new PreviewPrimitive();
@@ -646,6 +655,7 @@ export default function TvChart({
       trendPrimitiveByIdRef.current = new Map();
       previewRef.current?.clear(); // 미리보기 잔상 제거(StrictMode 재마운트 포함)
       previewRef.current = null;
+      marketStateRef.current = null;
       chart.remove();
       chartRef.current = null;
       // 지워진 차트에 속한 시리즈 참조가 남으면 StrictMode 재마운트 때 새 차트에
@@ -682,6 +692,7 @@ export default function TvChart({
     barIndexRef.current = makeBarIndex(bars.map((b) => b.time));
     const axis = axisFor(chart, barIndexRef.current);
     previewRef.current?.setAxis(axis);
+    marketStateRef.current?.setData(marketStateBlocks, axis);
 
     if (bars.length > 0) {
       firstBarTimeRef.current = bars[0].time;
@@ -849,7 +860,7 @@ export default function TvChart({
       chart.timeScale().fitContent();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bars, selectedDate, emaSeries, rsiSeries, divergenceMarkers, divMarkerColors, drawMode, lines, selectedLineId]);
+  }, [bars, selectedDate, emaSeries, rsiSeries, divergenceMarkers, divMarkerColors, marketStateBlocks, drawMode, lines, selectedLineId]);
 
   // 선택된 도형 위에 뜨는 작은 툴바(지금은 삭제 버튼 하나). 도형 위쪽에 두되 위로 공간이
   // 없으면 아래로, 좌우로는 차트 영역 안에 자른다.

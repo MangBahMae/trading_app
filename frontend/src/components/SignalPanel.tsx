@@ -1,10 +1,45 @@
 import { useState } from "react";
-import type { Candle, SignalItem } from "../types";
+import type { Candle, MarketStateRow, SignalItem } from "../types";
 import styles from "./SignalPanel.module.css";
 
 interface Props {
   candle: Candle | null;
   signals: SignalItem[];
+  // 그날의 시장 상태(신호 아님, 차트 음영과 같은 판정). 아직 못 받았으면 null.
+  marketState?: MarketStateRow | null;
+  marketStateParams?: { n: number; k: number } | null;
+}
+
+const fmt1 = (v: number | null) => (v === null ? "-" : v.toLocaleString("en-US", { maximumFractionDigits: 1 }));
+
+// 시장 상태 요약 - 횡보면 어떤 조건(A / B+C) 때문인지, B 간격값과 C 교차 횟수를 같이 보여준다.
+function MarketStateBox({ row, params }: { row: MarketStateRow; params: { n: number; k: number } | null }) {
+  if (row.state === null) {
+    return (
+      <div className={styles.marketState} data-testid="market-state-box">
+        <div className={styles.marketStateTitle}>시장 상태 <strong>데이터 부족</strong></div>
+        <div className={styles.marketStateLine}>EMA50이 아직 계산되지 않은 구간입니다.</div>
+      </div>
+    );
+  }
+  const n = params?.n ?? "N";
+  const k = params?.k ?? "K";
+  return (
+    <div className={styles.marketState} data-testid="market-state-box">
+      <div className={styles.marketStateTitle}>
+        시장 상태 <strong>{row.state}</strong> · 사유 <strong>{row.reason}</strong>
+      </div>
+      <div className={styles.marketStateLine}>
+        A 꼬임: {row.a ? "해당" : "아님"}
+      </div>
+      <div className={styles.marketStateLine}>
+        B 간격 축소: {row.b ? "해당" : "아님"} (|EMA9-EMA50| {fmt1(row.gap_now)} ← {n}봉 전 {fmt1(row.gap_prev)})
+      </div>
+      <div className={styles.marketStateLine}>
+        C 9 교차: {row.c ? "해당" : "아님"} (최근 {n}봉 교차 {row.cross_count === null ? "-" : `${row.cross_count}회`}, 기준 {k}회 이상)
+      </div>
+    </div>
+  );
 }
 
 type Tab = "all" | "long" | "short";
@@ -13,7 +48,7 @@ type Tab = "all" | "long" | "short";
 // day_all(그날의 전체 신호)은 이미 백엔드 /api/dashboard 응답의 signals[date]에
 // pipeline + 수동 선 + 캔들패턴이 전부 합쳐져서 내려오므로, 여기서는 그걸
 // direction별로 나누기만 한다.
-export default function SignalPanel({ candle, signals }: Props) {
+export default function SignalPanel({ candle, signals, marketState = null, marketStateParams = null }: Props) {
   const [tab, setTab] = useState<Tab>("all");
 
   if (!candle) {
@@ -38,6 +73,8 @@ export default function SignalPanel({ candle, signals }: Props) {
         {" "}저가 {candle.low.toLocaleString("en-US")} · 종가 {candle.close.toLocaleString("en-US")}
       </div>
       <hr className={styles.divider} />
+
+      {marketState && <MarketStateBox row={marketState} params={marketStateParams} />}
 
       <div className={styles.tabs}>
         <button

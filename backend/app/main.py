@@ -11,7 +11,7 @@ Streamlit -> React 마이그레이션. 1단계(포지션 사이징 계산기)에
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import dashboard, lines, position_sizing, trades
+from app.routers import dashboard, lines, market_state, position_sizing, trades
 
 app = FastAPI(title="trading_app API", version="0.1.0")
 
@@ -31,6 +31,7 @@ app.include_router(position_sizing.router)
 app.include_router(dashboard.router)
 app.include_router(lines.router)
 app.include_router(trades.router)
+app.include_router(market_state.router)
 
 
 @app.get("/health")

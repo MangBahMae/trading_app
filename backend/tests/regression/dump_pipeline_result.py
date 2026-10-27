@@ -11,7 +11,9 @@ sys.modules 캐시상 "먼저 import된 쪽"만 계속 재사용하므로 두 �
 그래서 완전히 격리된 서브프로세스 2개(원본용/이식본용)로 나눠 실행한다
 (backend/tests/test_regression_pipeline.py에서 호출).
 
-사용법: python dump_pipeline_result.py <source_dir> <output_json_path>
+사용법: python dump_pipeline_result.py <source_dir> <output_json_path> [--flags-on]
+  --flags-on: 이식본(backend/app/services)의 feature_flags를 전부 True로 켠 채로 실행한다
+  (플래그를 켜면 꺼두기 전 결과가 그대로 되살아나는지 확인하는 용도. 원본(scripts/)엔 해당 없음).
 """
 import json
 import sys
@@ -22,6 +24,12 @@ output_path = sys.argv[2]
 sys.path.insert(0, source_dir)
 
 import pipeline  # noqa: E402
+
+if "--flags-on" in sys.argv:
+    import feature_flags  # noqa: E402
+    for _name in dir(feature_flags):
+        if _name.startswith("ENABLE_"):
+            setattr(feature_flags, _name, True)
 
 
 def _signal_to_dict(sig):

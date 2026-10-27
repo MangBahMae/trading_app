@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  MARKET_STATE_COLORS, marketStateBlockSpan,
   cornerPoint, hitTestShapes, hitTestTrendHandle, hitTestZoneHandle, nearestOnSegment, oppositeCorner,
   otherTrendHandle, sameTrend, sameZone, toDateString, trendFromPoints, trendHandlePoints, trendPoint,
   trendSegmentPixels, trendVisibleGeom, zoneColorKind, zoneFromCorners, zoneHorizontalSpan, zoneIsDegenerate,
@@ -380,5 +381,33 @@ describe("존 꼭지점 드래그 로직", () => {
     expect(toDateString(Date.UTC(2026, 0, 10) / 1000)).toBe("2026-01-10");
     expect(toDateString(null)).toBeNull();
     expect(toDateString(undefined)).toBeNull();
+  });
+});
+
+describe("marketStateBlockSpan (횡보 배경 음영의 가로 범위)", () => {
+  // 위 테스트용 축: 1월 날짜는 x = 일(DD) * 10, 칸 폭 10px -> 좌우 5px 여유.
+  it("시작 캔들 칸의 왼쪽 ~ 끝 캔들 칸의 오른쪽 가장자리까지 덮는다", () => {
+    expect(marketStateBlockSpan("2026-01-10", "2026-01-12", axis.dateToX)).toEqual([95, 125]);
+  });
+
+  it("1봉짜리 블록도 한 칸 폭(10px)이 된다", () => {
+    expect(marketStateBlockSpan("2026-01-10", "2026-01-10", axis.dateToX)).toEqual([95, 105]);
+  });
+
+  it("끝이 마지막 캔들 오른쪽(미래)이어도 계산된 좌표로 이어진다", () => {
+    expect(marketStateBlockSpan("2026-01-24", "2026-01-30", axis.dateToX)).toEqual([235, 305]);
+  });
+
+  it("시작이 첫 캔들보다 앞(표시 기간 밖)이면 왼쪽으로 벗어난 좌표가 나온다(캔버스가 잘라 줌)", () => {
+    expect(marketStateBlockSpan("2026-01-02", "2026-01-06", axis.dateToX)).toEqual([15, 65]);
+  });
+
+  it("날짜를 좌표로 못 바꾸면 null", () => {
+    expect(marketStateBlockSpan("bad", "2026-01-06", axis.dateToX)).toBeNull();
+    expect(marketStateBlockSpan("2026-01-06", "bad", axis.dateToX)).toBeNull();
+  });
+
+  it("A / BC 음영 색이 서로 달라 구분된다", () => {
+    expect(MARKET_STATE_COLORS.A).not.toBe(MARKET_STATE_COLORS.BC);
   });
 });

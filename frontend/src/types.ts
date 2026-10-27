@@ -180,3 +180,35 @@ export interface Trade {
   realized_r: number | null;
   closed_at: string | null;
 }
+
+// --- 시장 상태(상승/하락/횡보, 차트 배경 음영 전용) - backend/app/schemas/market_state.py 대응 ---
+// 신호가 아니다(롱/숏 카운트와 무관). 상태/사유는 서버가 EMA9/20/50과 종가로 판정한다.
+
+export type MarketStateName = "상승" | "하락" | "횡보";
+export type MarketStateReason = "A" | "BC" | "없음";
+
+export interface MarketStateRow {
+  date: string;
+  state: MarketStateName | null;       // null = 데이터 부족(EMA50이 아직 없는 앞 49봉)
+  reason: MarketStateReason | null;
+  a: boolean;                          // A: EMA 꼬임
+  b: boolean;                          // B: |EMA9-EMA50|이 N봉 전보다 줄어듦
+  c: boolean;                          // C: 최근 N봉 종가-EMA9 교차 횟수 >= K
+  gap_now: number | null;              // |EMA9-EMA50| 오늘
+  gap_prev: number | null;             // |EMA9-EMA50| N봉 전
+  cross_count: number | null;          // 최근 N봉 교차 횟수
+}
+
+export interface MarketStateBlock {
+  start: string;
+  end: string;
+  length: number;
+  reason: "A" | "BC";
+}
+
+export interface MarketStateResponse {
+  params: { n: number; k: number };
+  counts: Record<string, number>;
+  candles: MarketStateRow[];
+  blocks: MarketStateBlock[];
+}

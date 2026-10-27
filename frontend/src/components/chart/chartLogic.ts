@@ -114,6 +114,30 @@ export function zoneHorizontalSpan(
   return [Math.min(x1, x2), Math.max(x1, x2)];
 }
 
+// --- 시장 상태(횡보) 배경 음영 - 색/가로 범위 결정 순수 로직 (캔버스 없이 테스트 가능) ---
+
+// 신호가 아니라 보기용 음영이다. A(EMA 꼬임)는 회색, BC(간격 축소 + 9 교차)는 연한 파랑 -
+// 존 색(초록/빨강/노랑)과 겹치지 않게 골랐다. 상승/하락은 음영이 없다.
+export const MARKET_STATE_COLORS: Record<"A" | "BC", string> = {
+  A: "rgba(120, 120, 120, 0.16)",
+  BC: "rgba(66, 133, 244, 0.14)",
+};
+
+// 블록(start~end 날짜, 둘 다 포함)의 가로 범위(x1~x2): 시작 캔들 칸의 왼쪽 가장자리 ~ 끝 캔들 칸의
+// 오른쪽 가장자리. 칸 폭의 절반 = 끝 날짜와 다음 날짜의 x 간격 / 2 (일봉 가정, 미래 구간과 같은 기준).
+// 표시 중인 첫 캔들보다 앞(표시 기간 밖)이면 음수 좌표가 나오지만 캔버스가 알아서 잘라 준다.
+export function marketStateBlockSpan(
+  start: string, end: string, dateToX: (date: string) => number | null,
+): [number, number] | null {
+  const xs = dateToX(start);
+  const xe = dateToX(end);
+  if (xs === null || xe === null) return null;
+  const next = addDays(end, 1);
+  const xn = next === null ? null : dateToX(next);
+  const half = xn === null ? 0 : Math.abs(xn - xe) / 2;
+  return [Math.min(xs, xe) - half, Math.max(xs, xe) + half];
+}
+
 // --- 그려진 도형 클릭 판정 (lightweight-charts에는 선 클릭 이벤트가 없어서 직접 계산) ---
 
 export const HIT_TOLERANCE_PX = 6;

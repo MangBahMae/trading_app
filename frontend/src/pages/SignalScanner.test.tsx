@@ -14,52 +14,59 @@
 // 좌표 계산이 필요해 여기선 검증 불가 - 사용자가 직접 브라우저에서 확인 필요.
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 
 vi.mock("../components/chart/TvChart", () => ({
-  default: () => <div data-testid="tv-chart-mock" />,
+  default: (props: { marketStateBlocks?: unknown[] }) => (
+    <div data-testid="tv-chart-mock" data-market-blocks={props.marketStateBlocks?.length ?? -1} />
+  ),
 }));
+
+// 데이터는 매일 늘어나므로 "최신 날짜"를 테스트에 박아두지 않고, 화면 캡션의 데이터 범위 끝 날짜를 읽는다.
+async function waitForLatestDate(): Promise<string> {
+  const caption = await screen.findByText(/데이터 범위:/, {}, { timeout: 10000 });
+  const last = /~\s*(\d{4}-\d{2}-\d{2})/.exec(caption.textContent ?? "")?.[1];
+  expect(last).toBeTruthy();
+  // 최신 날짜가 우측 패널에 기본 선택돼 표시된다
+  await screen.findByText(last as string, {}, { timeout: 10000 });
+  return last as string;
+}
+
+const blockCount = () =>
+  Number(screen.getByTestId("tv-chart-mock").getAttribute("data-market-blocks"));
 
 describe("신호 스캐너 화면", () => {
   it("로드 후 최신 날짜가 기본 선택되고, 해당 날짜 신호가 패널에 표시된다", async () => {
     render(<App />);
+    await waitForLatestDate();
 
-    // 데이터 범위 캡션이 뜰 때까지 대기(= /api/dashboard 로드 완료)
-    await waitFor(
-      () => {
-        expect(screen.getByText(/데이터 범위:/)).toBeInTheDocument();
-      },
-      { timeout: 10000 },
-    );
-
-    // 최신 날짜(2026-09-26)가 우측 패널에 기본 선택돼 표시됨
-    await waitFor(() => {
-      expect(screen.getByText("2026-09-26")).toBeInTheDocument();
-    });
-
-    // 통합 탭 기본 진입 - 롱 1건/숏 0건(백엔드에서 직접 확인한 값)
+    // 통합 탭 기본 진입 - 롱/숏 건수 메트릭이 숫자로 표시된다
     // "롱"이라는 텍스트는 탭 버튼과 메트릭 라벨 둘 다에 있어 getAllByText로
     // 받고, 버튼이 아닌(메트릭 라벨) 쪽의 부모(.metric)에서 숫자를 확인한다.
     const longTexts = screen.getAllByText("롱");
     const longLabel = longTexts.find((el) => el.tagName !== "BUTTON");
-    expect(longLabel?.parentElement).toHaveTextContent("1");
+    expect(longLabel?.parentElement).toHaveTextContent(/\d+/);
   });
 
-  it("숏 탭을 누르면 그 날짜에 숏 신호가 없다는 안내가 뜬다", async () => {
+  it("숏 탭을 누르면 통합 탭의 건수 메트릭이 사라지고 숏 신호 목록(없으면 안내)이 뜬다", async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await waitFor(() => screen.getByText("2026-09-26"), { timeout: 10000 });
+    await waitForLatestDate();
 
     await user.click(screen.getByRole("button", { name: "숏" }));
-    expect(screen.getByText("이 날짜에 숏 신호가 없습니다.")).toBeInTheDocument();
+    // 그날 숏 신호가 있는지는 데이터에 따라 달라서(매일 바뀜) 목록 또는 안내문 중 하나가 보이면 된다.
+    const hasEmptyMessage = screen.queryByText("이 날짜에 숏 신호가 없습니다.") !== null;
+    const hasShortList = document.querySelectorAll("ul li").length > 0;
+    expect(hasEmptyMessage || hasShortList).toBe(true);
+    expect(screen.queryAllByText("롱").some((el) => el.tagName !== "BUTTON")).toBe(false);
   });
 
-  it("표시 기간/드로우 모드/EMA·RSI·다이버전스 체크박스가 정상 토글된다", async () => {
+  it("표시 기간/드로우 모드/EMA·RSI 체크박스가 정상 토글된다", async () => {
     const user = userEvent.setup();
     render(<App />);
-    await waitFor(() => screen.getByText("2026-09-26"), { timeout: 10000 });
+    await waitForLatestDate();
 
     const yearRadio = screen.getByLabelText("최근 1년") as HTMLInputElement;
     expect(yearRadio.checked).toBe(false);
@@ -83,7 +90,7 @@ describe("신호 스캐너 화면", () => {
   it("사이드 네비게이션으로 포지션 사이징 화면과 전환된다", async () => {
     const user = userEvent.setup();
     render(<App />);
-    await waitFor(() => screen.getByText("2026-09-26"), { timeout: 10000 });
+    await waitForLatestDate();
 
     await user.click(screen.getByRole("button", { name: "포지션 사이징" }));
     expect(screen.getByText("포지션 사이징 계산기")).toBeInTheDocument();
@@ -95,5 +102,113 @@ describe("신호 스캐너 화면", () => {
       () => expect(screen.getByText("BTCUSDT 1d 통합 신호 대시보드")).toBeInTheDocument(),
       { timeout: 10000 },
     );
+  });
+
+  it("다이버전스는 플래그로 꺼져 있어 체크박스가 보이지 않는다", async () => {
+    render(<App />);
+    await waitForLatestDate();
+    expect(screen.queryByLabelText("다이버전스")).not.toBeInTheDocument();
+  });
+
+  // 시장 상태(횡보 음영)는 실험 단계라 기본 OFF다 - 켜기 전에는 요청도, 음영도, 상태 박스도, N/K 입력칸도 없다.
+  describe("시장 상태(횡보 음영, 신호 아님) - 실험 단계, 기본 OFF", () => {
+    const marketStateRequests = () =>
+      vi.mocked(fetch).mock.calls.filter(([url]) => String(url).includes("/api/market-state")).length;
+
+    beforeEach(() => {
+      vi.spyOn(globalThis, "fetch");
+    });
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    async function enableMarketState(user: ReturnType<typeof userEvent.setup>) {
+      await user.click(screen.getByLabelText("횡보 음영"));
+      await screen.findByTestId("market-state-box", {}, { timeout: 10000 });
+    }
+
+    it("기본값은 OFF: 체크 해제, 상태 박스/음영 블록/N·K 입력칸이 없고 서버 요청도 안 나간다", async () => {
+      render(<App />);
+      await waitForLatestDate();
+      await new Promise((r) => setTimeout(r, 500)); // 디바운스(200ms)보다 길게 기다려도 요청이 없어야 한다
+
+      expect(screen.getByLabelText("횡보 음영")).not.toBeChecked();
+      expect(screen.queryByTestId("market-state-box")).not.toBeInTheDocument();
+      expect(blockCount()).toBe(0);
+      expect(screen.queryByLabelText("N")).not.toBeInTheDocument();
+      expect(screen.queryByLabelText("K")).not.toBeInTheDocument();
+      expect(marketStateRequests()).toBe(0);
+    });
+
+    it("켜면 패널 상단에 상태/사유/B 간격/C 교차가 표시되고 N·K 입력칸이 나타난다", async () => {
+      const user = userEvent.setup();
+      render(<App />);
+      await waitForLatestDate();
+      await enableMarketState(user);
+
+      const box = screen.getByTestId("market-state-box");
+      expect(box).toHaveTextContent(/시장 상태 (상승|하락|횡보) · 사유 (A|BC|없음)/);
+      expect(box).toHaveTextContent("B 간격 축소");
+      expect(box).toHaveTextContent("기준 4회 이상"); // 기본 K=4
+      expect(screen.getByLabelText("N")).toBeInTheDocument();
+      expect(screen.getByLabelText("K")).toBeInTheDocument();
+    });
+
+    it("토글: 켜면 차트에 블록이 넘어가고, 끄면 블록/박스/입력칸이 사라지고, 다시 켜도 재요청 없이 돌아온다", async () => {
+      const user = userEvent.setup();
+      render(<App />);
+      await waitForLatestDate();
+      await enableMarketState(user);
+      await waitFor(() => expect(blockCount()).toBeGreaterThan(0), { timeout: 10000 });
+      const before = blockCount();
+      expect(marketStateRequests()).toBe(1);
+
+      await user.click(screen.getByLabelText("횡보 음영"));
+      await waitFor(() => expect(blockCount()).toBe(0));
+      expect(screen.queryByTestId("market-state-box")).not.toBeInTheDocument();
+      expect(screen.queryByLabelText("K")).not.toBeInTheDocument();
+
+      await user.click(screen.getByLabelText("횡보 음영"));
+      await waitFor(() => expect(blockCount()).toBe(before));
+      expect(screen.getByTestId("market-state-box")).toBeInTheDocument();
+      await new Promise((r) => setTimeout(r, 500));
+      expect(marketStateRequests()).toBe(1); // 이미 받은 결과를 재사용 - 다시 요청하지 않는다
+    });
+
+    it("K를 바꾸면 바로 서버에 다시 계산을 요청해 패널의 기준과 음영 블록이 갱신된다", async () => {
+      const user = userEvent.setup();
+      render(<App />);
+      await waitForLatestDate();
+      await enableMarketState(user);
+      await waitFor(() => expect(blockCount()).toBeGreaterThan(0), { timeout: 10000 });
+
+      const kInput = screen.getByLabelText("K") as HTMLInputElement;
+      await user.clear(kInput);
+      await user.type(kInput, "9");
+
+      await waitFor(
+        () => expect(screen.getByTestId("market-state-box")).toHaveTextContent("기준 9회 이상"),
+        { timeout: 10000 },
+      );
+      expect(Number.isNaN(blockCount())).toBe(false);
+      expect(blockCount()).toBeGreaterThan(0);
+      expect(marketStateRequests()).toBe(2); // 기본 K=4 한 번 + K=9 한 번
+    });
+
+    it("K가 N보다 크면 안내가 뜨고 요청하지 않는다(이전 결과 유지)", async () => {
+      const user = userEvent.setup();
+      render(<App />);
+      await waitForLatestDate();
+      await enableMarketState(user);
+
+      const kInput = screen.getByLabelText("K") as HTMLInputElement;
+      await user.clear(kInput);
+      await user.type(kInput, "11"); // 기본 N=10 -> K>N
+
+      expect(await screen.findByText(/K는 0 이상 N 이하 정수/)).toBeInTheDocument();
+      expect(screen.getByTestId("market-state-box")).toHaveTextContent("기준 4회 이상");
+      await new Promise((r) => setTimeout(r, 500));
+      expect(marketStateRequests()).toBe(1);
+    });
   });
 });

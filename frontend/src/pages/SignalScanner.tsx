@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import {
   addHorizontalLine, addTrendLine, addZone, deleteLine, getDashboard, updateTrend, updateZone,
 } from "../api/dashboard";
+import { getMarketState } from "../api/marketState";
+import NumberInput from "../components/NumberInput";
 import TvChart from "../components/chart/TvChart";
 import type { EmaSeriesConfig } from "../components/chart/TvChart";
 import LineManager from "../components/LineManager";
 import SignalPanel from "../components/SignalPanel";
-import type { DashboardResponse, DrawMode } from "../types";
+import type { DashboardResponse, DrawMode, MarketStateBlock, MarketStateResponse } from "../types";
 import styles from "./SignalScanner.module.css";
 
 const WINDOW_OPTIONS: Record<string, number | null> = {
@@ -28,6 +30,13 @@ const DRAW_MODE_OPTIONS: { label: string; value: DrawMode }[] = [
   { label: "존 그리기 (클릭 2번)", value: "zone" },
 ];
 
+// 시장 상태(횡보/추세) 기본 파라미터 - 서버 market_state.py의 DEFAULT_N/K와 같은 임시값.
+// 입력칸에서 바꾸면 바로 서버에 다시 계산을 요청한다(음영/패널이 같이 갱신).
+const DEFAULT_MS_N = 10;
+const DEFAULT_MS_K = 4;
+const MS_DEBOUNCE_MS = 200;
+const NO_BLOCKS: MarketStateBlock[] = []; // 토글 OFF일 때 넘기는 빈 배열(참조 고정 - 불필요한 재렌더 방지)
+
 const DIV_MARKER_COLOR: Record<string, string> = {
   regular_bullish: "#1a9c1a",
   regular_bearish: "#c21807",
@@ -47,6 +56,16 @@ export default function SignalScanner() {
   const [showDivergence, setShowDivergence] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
+  // 시장 상태 - 신호가 아니라 차트 배경 음영 전용(횡보 구간 표시).
+  // 실험 단계라 기본 OFF: 판정이 실제 차트와 잘 안 맞아 보류 중이다(코드는 그대로 둠).
+  // OFF면 서버 요청도, 차트 음영도, 신호 패널의 상태 박스도, N/K 입력칸도 없다.
+  const [showMarketState, setShowMarketState] = useState(false);
+  const [msN, setMsN] = useState(DEFAULT_MS_N);
+  const [msK, setMsK] = useState(DEFAULT_MS_K);
+  const [marketState, setMarketState] = useState<MarketStateResponse | null>(null);
+  const [msError, setMsError] = useState<string | null>(null);
+  const msParamsValid = Number.isInteger(msN) && Number.isInteger(msK) && msN >= 1 && msK >= 0 && msK <= msN;
+
   const loadDashboard = (refresh = false) => {
     setLoading(true);
     getDashboard(refresh)
@@ -63,6 +82,42 @@ export default function SignalScanner() {
     loadDashboard(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // N/K가 바뀌거나 데이터가 새로 갱신되면(마지막 캔들 날짜가 바뀜) 서버에 다시 계산을 요청한다.
+  // 타이핑마다 요청이 나가지 않게 짧게 디바운스하고, 늦게 도착한 옛 응답은 버린다.
+  const lastDate = data?.date_range.max ?? null;
+  // 이미 받은 결과가 지금 N/K와 마지막 캔들 날짜에 맞으면(토글을 껐다 다시 켠 경우 등) 재사용한다.
+  const marketStateUpToDate =
+    marketState !== null &&
+    marketState.params.n === msN &&
+    marketState.params.k === msK &&
+    marketState.candles[marketState.candles.length - 1]?.date === lastDate;
+  useEffect(() => {
+    // 토글 OFF면 요청하지 않는다(보류 중인 실험 기능).
+    if (!showMarketState || lastDate === null || !msParamsValid || marketStateUpToDate) return;
+    let stale = false;
+    const timer = setTimeout(() => {
+      getMarketState(msN, msK)
+        .then((res) => {
+          if (stale) return;
+          setMarketState(res);
+          setMsError(null);
+        })
+        .catch((err) => {
+          if (!stale) setMsError(String(err));
+        });
+    }, MS_DEBOUNCE_MS);
+    return () => {
+      stale = true;
+      clearTimeout(timer);
+    };
+  }, [showMarketState, lastDate, msN, msK, msParamsValid, marketStateUpToDate]);
+
+  const marketStateByDate = useMemo(
+    () => new Map((marketState?.candles ?? []).map((row) => [row.date, row])),
+    [marketState],
+  );
+  const marketStateBlocks = showMarketState && marketState ? marketState.blocks : NO_BLOCKS;
 
   const plotCandles = useMemo(() => {
     if (!data) return [];
@@ -202,10 +257,33 @@ export default function SignalScanner() {
             <input type="checkbox" checked={showRsi} onChange={(e) => setShowRsi(e.target.checked)} />
             RSI
           </label>
+          {data.divergence_markers.length > 0 && (
+            <label className={styles.checkLabel}>
+              <input type="checkbox" checked={showDivergence} onChange={(e) => setShowDivergence(e.target.checked)} />
+              다이버전스
+            </label>
+          )}
+        </div>
+
+        <div className={styles.controlGroup}>
           <label className={styles.checkLabel}>
-            <input type="checkbox" checked={showDivergence} onChange={(e) => setShowDivergence(e.target.checked)} />
-            다이버전스
+            <input type="checkbox" checked={showMarketState} onChange={(e) => setShowMarketState(e.target.checked)} />
+            횡보 음영
           </label>
+          {showMarketState && (
+            <>
+              <label className={styles.checkLabel} htmlFor="ms-n">N</label>
+              <NumberInput id="ms-n" className={styles.msInput} min={1} step={1} value={msN} onChange={setMsN} />
+              <label className={styles.checkLabel} htmlFor="ms-k">K</label>
+              <NumberInput id="ms-k" className={styles.msInput} min={0} step={1} value={msK} onChange={setMsK} />
+              <span className={styles.msLegend}>
+                <span className={styles.msSwatchA} /> A 꼬임
+                <span className={styles.msSwatchBC} /> BC 간격 축소+9 교차
+              </span>
+              {!msParamsValid && <span className={styles.msError}>N은 1 이상 정수, K는 0 이상 N 이하 정수여야 합니다.</span>}
+              {msError && <span className={styles.msError}>{msError}</span>}
+            </>
+          )}
         </div>
       </div>
 
@@ -230,6 +308,7 @@ export default function SignalScanner() {
             rsiSeries={rsiSeriesConfig}
             divergenceMarkers={visibleDivergenceMarkers}
             divMarkerColors={DIV_MARKER_COLOR}
+            marketStateBlocks={marketStateBlocks}
             drawMode={drawMode}
             lines={data.manual_lines}
             onSelectDate={setSelectedDate}
@@ -244,7 +323,12 @@ export default function SignalScanner() {
           <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} />
         </div>
         <div className={styles.right}>
-          <SignalPanel candle={selectedCandle} signals={selectedSignals} />
+          <SignalPanel
+            candle={selectedCandle}
+            signals={selectedSignals}
+            marketState={showMarketState && selectedDate ? marketStateByDate.get(selectedDate) ?? null : null}
+            marketStateParams={showMarketState ? marketState?.params ?? null : null}
+          />
         </div>
       </div>
     </div>
