@@ -114,6 +114,17 @@ export function zoneHorizontalSpan(
   return [Math.min(x1, x2), Math.max(x1, x2)];
 }
 
+// 존이 화면에 칠해지는 가로 범위: time1(데이터 이전이면 왼쪽 끝)부터 차트 오른쪽 끝까지. 백엔드 신호도 같은 규칙
+// (time1부터 오른쪽 끝없이)이라 time2는 칠하는 범위와 무관하다 - time2는 꼭지점 핸들 위치로만 쓰인다.
+export function zoneFillSpan(
+  time1: string, firstTime: string | null, dateToX: (date: string) => number | null, rightX: number,
+): [number, number] | null {
+  if (firstTime === null) return null;
+  const x1 = time1 < firstTime ? 0 : dateToX(time1);
+  if (x1 === null) return null;
+  return [x1, Math.max(rightX, x1)];
+}
+
 // --- 시장 상태(횡보) 배경 음영 - 색/가로 범위 결정 순수 로직 (캔버스 없이 테스트 가능) ---
 
 // 신호가 아니라 보기용 음영이다. A(EMA 꼬임)는 회색, BC(간격 축소 + 9 교차)는 연한 파랑 -
@@ -305,7 +316,7 @@ export function hitTestShapes(
       if (near.dist <= tolerance) { score = near.dist; anchor = { x: near.x, y: near.y }; }
     } else {
       if (!line.time1 || !line.time2 || line.price2 === null) continue;
-      const span = zoneHorizontalSpan(line.time1, line.time2, c.firstTime, c.dateToX);
+      const span = zoneFillSpan(line.time1, c.firstTime, c.dateToX, c.rightX);
       const yTop = c.priceToY(line.price1);
       const yBottom = c.priceToY(line.price2);
       if (!span || yTop === null || yBottom === null) continue;
