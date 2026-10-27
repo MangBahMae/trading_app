@@ -80,17 +80,17 @@
 }
 
 .badge_open {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: rgba(41, 98, 255, 0.2);
+  color: #82b1ff;
 }
 
 .badge_closed {
-  background: #dcfce7;
-  color: #15803d;
+  background: rgba(38, 166, 154, 0.2);
+  color: #4dd0c0;
 }
 
 .positiveR {
-  color: #15803d;
+  color: #4dd0c0;
   font-weight: 600;
 }
 

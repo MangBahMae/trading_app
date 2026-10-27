@@ -13,6 +13,7 @@ import {
 } from "lightweight-charts";
 import type { DivergenceMarker, DrawMode, ManualLine, MarketStateBlock } from "../../types";
 import type { Bar } from "./chartLogic";
+import { THEME } from "./chartTheme";
 import { ZonePrimitive } from "./ZonePrimitive";
 import { MarketStatePrimitive } from "./MarketStatePrimitive";
 import { PreviewPrimitive } from "./PreviewPrimitive";
@@ -222,21 +223,25 @@ export default function TvChart({
     const chart = createChart(container, {
       width: container.clientWidth,
       height,
-      layout: { textColor: "#333333", background: { color: "#ffffff" } },
-      grid: { vertLines: { color: "#eeeeee" }, horzLines: { color: "#eeeeee" } },
-      rightPriceScale: { borderColor: "#cccccc" },
-      timeScale: { borderColor: "#cccccc", tickMarkFormatter: () => "", rightOffset: RIGHT_OFFSET_BARS },
+      layout: { textColor: THEME.text, background: { color: THEME.background } },
+      grid: { vertLines: { color: THEME.grid }, horzLines: { color: THEME.grid } },
+      rightPriceScale: { borderColor: THEME.border },
+      timeScale: { borderColor: THEME.border, tickMarkFormatter: () => "", rightOffset: RIGHT_OFFSET_BARS },
       localization: { timeFormatter: formatDateWithWeekday },
-      crosshair: { mode: CrosshairMode.Normal },
+      crosshair: {
+        mode: CrosshairMode.Normal,
+        vertLine: { color: THEME.crosshair, labelBackgroundColor: THEME.border },
+        horzLine: { color: THEME.crosshair, labelBackgroundColor: THEME.border },
+      },
       handleScroll: true,
       handleScale: true,
     });
     chartRef.current = chart;
 
     const candleSeries = chart.addCandlestickSeries({
-      upColor: "#26a69a", downColor: "#ef5350",
-      wickUpColor: "#26a69a", wickDownColor: "#ef5350",
-      borderUpColor: "#26a69a", borderDownColor: "#ef5350",
+      upColor: THEME.up, downColor: THEME.down,
+      wickUpColor: THEME.up, wickDownColor: THEME.down,
+      borderUpColor: THEME.up, borderDownColor: THEME.down,
     });
     candleSeriesRef.current = candleSeries;
 
@@ -250,18 +255,18 @@ export default function TvChart({
     chart.priceScale("volume").applyOptions({ scaleMargins: { top: 0.55, bottom: 0.25 } });
 
     const rsiSeriesApi = chart.addLineSeries({
-      color: "#7b1fa2", lineWidth: 1, priceScaleId: "rsi", visible: false,
+      color: THEME.rsi, lineWidth: 1, priceScaleId: "rsi", visible: false,
       crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false, title: "RSI",
     });
     rsiSeriesRef.current = rsiSeriesApi;
     chart.priceScale("rsi").applyOptions({ scaleMargins: { top: 0.78, bottom: 0.02 } });
 
     rsi70SeriesRef.current = chart.addLineSeries({
-      color: "#ff6f42", lineWidth: 1, lineStyle: LineStyle.Dotted, priceScaleId: "rsi",
+      color: THEME.rsi70, lineWidth: 1, lineStyle: LineStyle.Dotted, priceScaleId: "rsi",
       visible: false, crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false,
     });
     rsi30SeriesRef.current = chart.addLineSeries({
-      color: "#4169e1", lineWidth: 1, lineStyle: LineStyle.Dotted, priceScaleId: "rsi",
+      color: THEME.rsi30, lineWidth: 1, lineStyle: LineStyle.Dotted, priceScaleId: "rsi",
       visible: false, crosshairMarkerVisible: false, lastValueVisible: false, priceLineVisible: false,
     });
 
@@ -719,7 +724,7 @@ export default function TvChart({
       if (line.line_type === "horizontal") {
         const isSelected = line.id === selectedLineId;
         const pl = candleSeries.createPriceLine({
-          price: line.price1, color: isSelected ? "#0d47a1" : "#1565c0", lineWidth: isSelected ? 4 : 2,
+          price: line.price1, color: isSelected ? THEME.horizontalLineSelected : THEME.horizontalLine, lineWidth: isSelected ? 4 : 2,
           lineStyle: isSelected ? LineStyle.Solid : LineStyle.Dashed,
           axisLabelVisible: true, title: line.label || "",
         });
@@ -812,7 +817,7 @@ export default function TvChart({
     const rsiMarkers: SeriesMarker<Time>[] = [];
 
     divergenceMarkers.forEach((m) => {
-      const color = divMarkerColors[m.type] || "#888888";
+      const color = divMarkerColors[m.type] || THEME.divergenceFallback;
       const isBullish = m.type.indexOf("bullish") !== -1;
 
       const priceLine = chart.addLineSeries({
@@ -845,7 +850,7 @@ export default function TvChart({
         rsiMarkers.push({ time: m.prev_date as Time, position: "inBar", color, shape: arrowShape });
         rsiMarkers.push({ time: m.structure_date as Time, position: "inBar", color, shape: arrowShape });
       }
-      priceMarkers.push({ time: m.confirmed_date as Time, position: "inBar", color: "#000000", shape: "circle" });
+      priceMarkers.push({ time: m.confirmed_date as Time, position: "inBar", color: THEME.divergenceConfirmed, shape: "circle" });
     });
 
     priceMarkers.sort((a, b) => (a.time < b.time ? -1 : a.time > b.time ? 1 : 0));
@@ -883,8 +888,8 @@ export default function TvChart({
           style={{
             position: "absolute", left: toolbarLeft, top: toolbarTop, width: TOOLBAR_WIDTH_PX, height: TOOLBAR_HEIGHT_PX,
             display: "flex", alignItems: "center", justifyContent: "center",
-            background: "#ffffff", border: "1px solid #b0b0b0", borderRadius: 6,
-            boxShadow: "0 2px 6px rgba(0,0,0,0.2)", zIndex: 10,
+            background: THEME.overlayBg, border: `1px solid ${THEME.overlayBorder}`, borderRadius: 6,
+            boxShadow: "0 2px 6px rgba(0,0,0,0.5)", zIndex: 10,
           }}
         >
           <button
@@ -906,7 +911,7 @@ export default function TvChart({
           role="alert"
           style={{
             position: "absolute", left: 8, top: 8, zIndex: 11, padding: "6px 10px", fontSize: 13,
-            background: "#fdecea", color: "#b71c1c", border: "1px solid #f5c6cb", borderRadius: 6,
+            background: THEME.errorBg, color: THEME.errorText, border: `1px solid ${THEME.errorBorder}`, borderRadius: 6,
           }}
         >
           {dragError}

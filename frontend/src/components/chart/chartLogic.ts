@@ -1,4 +1,5 @@
 import { addDays } from "./timeAxis";
+import { THEME } from "./chartTheme";
 
 // components/tv_chart/frontend/index.html(Streamlit 커스텀 컴포넌트)의 순수 로직
 // 함수들을 그대로 옮긴 것 - 캔들/거래량 색상, 날짜 포맷, 추세선 보간만 다룬다
@@ -32,14 +33,14 @@ export function formatDateWithWeekday(time: unknown): string {
   return `${WEEKDAYS_KR[d.getUTCDay()]} ${y}-${m}-${day}`;
 }
 
-export const DIM_UP = "#a8ddb8";
-export const DIM_DOWN = "#f2b8b6";
-export const VIVID_UP = "#26a69a";
-export const VIVID_DOWN = "#ef5350";
-export const VOL_DIM_UP = "rgba(168, 221, 184, 0.5)";
-export const VOL_DIM_DOWN = "rgba(242, 184, 182, 0.5)";
-export const VOL_VIVID_UP = "rgba(38, 166, 154, 0.8)";
-export const VOL_VIVID_DOWN = "rgba(239, 83, 80, 0.8)";
+export const DIM_UP = THEME.dimUp;
+export const DIM_DOWN = THEME.dimDown;
+export const VIVID_UP = THEME.up;
+export const VIVID_DOWN = THEME.down;
+export const VOL_DIM_UP = THEME.volDimUp;
+export const VOL_DIM_DOWN = THEME.volDimDown;
+export const VOL_VIVID_UP = THEME.volVividUp;
+export const VOL_VIVID_DOWN = THEME.volVividDown;
 
 export function buildCandleData(bars: Bar[], selectedDate: string | null) {
   return bars.map((bar) => {
@@ -91,11 +92,7 @@ export function zoneColorKind(top: number, bottom: number, lastClose: number | n
   return "inside";
 }
 
-export const ZONE_COLORS: Record<ZoneColorKind, { fill: string; border: string }> = {
-  below: { fill: "rgba(38, 166, 154, 0.18)", border: "rgba(38, 166, 154, 0.85)" },
-  above: { fill: "rgba(239, 83, 80, 0.18)", border: "rgba(239, 83, 80, 0.85)" },
-  inside: { fill: "rgba(245, 190, 40, 0.22)", border: "rgba(214, 158, 0, 0.9)" },
-};
+export const ZONE_COLORS: Record<ZoneColorKind, { fill: string; border: string }> = THEME.zone;
 
 // 존의 가로 범위(x1~x2, 화면 좌표)를 구한다. dateToX는 timeAxis의 날짜 -> x 변환이라 마지막 캔들
 // 오른쪽(미래) 날짜도 정확한 좌표가 나온다.
@@ -118,10 +115,7 @@ export function zoneHorizontalSpan(
 
 // 신호가 아니라 보기용 음영이다. A(EMA 꼬임)는 회색, BC(간격 축소 + 9 교차)는 연한 파랑 -
 // 존 색(초록/빨강/노랑)과 겹치지 않게 골랐다. 상승/하락은 음영이 없다.
-export const MARKET_STATE_COLORS: Record<"A" | "BC", string> = {
-  A: "rgba(120, 120, 120, 0.16)",
-  BC: "rgba(66, 133, 244, 0.14)",
-};
+export const MARKET_STATE_COLORS: Record<"A" | "BC", string> = THEME.marketState;
 
 // 블록(start~end 날짜, 둘 다 포함)의 가로 범위(x1~x2): 시작 캔들 칸의 왼쪽 가장자리 ~ 끝 캔들 칸의
 // 오른쪽 가장자리. 칸 폭의 절반 = 끝 날짜와 다음 날짜의 x 간격 / 2 (일봉 가정, 미래 구간과 같은 기준).

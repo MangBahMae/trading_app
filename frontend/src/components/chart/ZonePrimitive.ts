@@ -3,6 +3,7 @@ import type {
   SeriesAttachedParameter, SeriesType, Time,
 } from "lightweight-charts";
 import { ZONE_COLORS, zoneColorKind, zoneHorizontalSpan, type ZoneGeom } from "./chartLogic";
+import { THEME } from "./chartTheme";
 import type { TimeAxis } from "./timeAxis";
 
 export interface ZoneSpec {
@@ -102,8 +103,8 @@ export class ZonePrimitive implements ISeriesPrimitive<Time> {
         // (미래 쪽 꼭지점은 계산한 좌표에 그대로 그린다).
         const leftClipped = ctx.axis.firstDate !== null && spec.time1 < ctx.axis.firstDate;
         const half = HANDLE_SIZE_PX / 2;
-        context.fillStyle = "#ffffff";
-        context.strokeStyle = "#1565c0";
+        context.fillStyle = THEME.handleFill;
+        context.strokeStyle = THEME.handleStroke;
         context.lineWidth = 1.5;
         const drawHandle = (cx: number, cy: number) => {
           context.fillRect(cx - half, cy - half, HANDLE_SIZE_PX, HANDLE_SIZE_PX);

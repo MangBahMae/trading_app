@@ -6,6 +6,7 @@ import { getMarketState } from "../api/marketState";
 import NumberInput from "../components/NumberInput";
 import TvChart from "../components/chart/TvChart";
 import type { EmaSeriesConfig } from "../components/chart/TvChart";
+import { THEME } from "../components/chart/chartTheme";
 import LineManager from "../components/LineManager";
 import SignalPanel from "../components/SignalPanel";
 import type { DashboardResponse, DrawMode, MarketStateBlock, MarketStateResponse } from "../types";
@@ -17,10 +18,10 @@ const WINDOW_OPTIONS: Record<string, number | null> = {
 const DEFAULT_WINDOW = "최근 6개월";
 
 const EMA_STYLE: Record<string, { label: string; color: string; dashed: boolean }> = {
-  ema9: { label: "EMA9", color: "#1f77ff", dashed: false },
-  ema20: { label: "EMA20", color: "#ff8c00", dashed: false },
-  ema50: { label: "EMA50", color: "#7d3cff", dashed: false },
-  ema200: { label: "EMA200", color: "#000000", dashed: true },
+  ema9: { label: "EMA9", color: THEME.ema9, dashed: false },
+  ema20: { label: "EMA20", color: THEME.ema20, dashed: false },
+  ema50: { label: "EMA50", color: THEME.ema50, dashed: false },
+  ema200: { label: "EMA200", color: THEME.ema200, dashed: true },
 };
 
 const DRAW_MODE_OPTIONS: { label: string; value: DrawMode }[] = [
@@ -38,8 +39,8 @@ const MS_DEBOUNCE_MS = 200;
 const NO_BLOCKS: MarketStateBlock[] = []; // 토글 OFF일 때 넘기는 빈 배열(참조 고정 - 불필요한 재렌더 방지)
 
 const DIV_MARKER_COLOR: Record<string, string> = {
-  regular_bullish: "#1a9c1a",
-  regular_bearish: "#c21807",
+  regular_bullish: THEME.divergenceUp,
+  regular_bearish: THEME.divergenceDown,
 };
 
 export default function SignalScanner() {

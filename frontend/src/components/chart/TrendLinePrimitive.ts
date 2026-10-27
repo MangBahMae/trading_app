@@ -3,6 +3,7 @@ import type {
   SeriesAttachedParameter, SeriesType, Time,
 } from "lightweight-charts";
 import { trendHandlePoints, trendRayPixels, type TrendSpec } from "./chartLogic";
+import { THEME } from "./chartTheme";
 import type { TimeAxis } from "./timeAxis";
 
 export interface TrendLineSpec extends TrendSpec {
@@ -16,7 +17,7 @@ const HANDLE_SIZE_PX = 8;
 // 추세선: 이른 쪽 점에서 오른쪽 끝까지 연장한 반직선으로 그린다(백엔드 신호도 같은 규칙으로 평가). 라인 시리즈는
 // 미래 시간에 점을 넣으면 시간축에 "한 칸"만 생겨서 마지막 캔들 오른쪽 빈 공간의 위치가 틀어지므로,
 // 존처럼 프리미티브로 그려서 시간 -> x를 timeAxis(논리 인덱스 기반)로 직접 계산한다. 두 점이 같은 날이면
-// 그 날부터 price1 높이의 수평 반직선이다. 기존 모양(#c62828, 1px 점선 / 선택 시 #b71c1c, 3px 실선)을 그대로 따르고,
+// 그 날부터 price1 높이의 수평 반직선이다. 기존 모양(1px 점선 / 선택 시 3px 실선, 색은 chartTheme)을 그대로 따르고,
 // 선택되면 양 끝점에 작은 정사각형 핸들을 그린다. 끝점 드래그 중에는 setOverride()로 임시 모양을 넣어
 // 실시간으로 보여준다(저장 전).
 export class TrendLinePrimitive implements ISeriesPrimitive<Time> {
@@ -66,7 +67,7 @@ export class TrendLinePrimitive implements ISeriesPrimitive<Time> {
       const seg = trendRayPixels(spec, axis.dateToX, priceToY, mediaSize.width);
       if (!seg) return;
 
-      context.strokeStyle = spec.selected ? "#b71c1c" : "#c62828";
+      context.strokeStyle = spec.selected ? THEME.trendLineSelected : THEME.trendLine;
       context.lineWidth = spec.selected ? 3 : 1;
       context.setLineDash(spec.selected ? [] : [6, 4]);
       context.beginPath();
@@ -79,8 +80,8 @@ export class TrendLinePrimitive implements ISeriesPrimitive<Time> {
         const pts = trendHandlePoints(spec, axis.dateToX, priceToY);
         if (!pts) return;
         const half = HANDLE_SIZE_PX / 2;
-        context.fillStyle = "#ffffff";
-        context.strokeStyle = "#1565c0";
+        context.fillStyle = THEME.handleFill;
+        context.strokeStyle = THEME.handleStroke;
         context.lineWidth = 1.5;
         for (const p of [pts.p1, pts.p2]) {
           context.fillRect(p.x - half, p.y - half, HANDLE_SIZE_PX, HANDLE_SIZE_PX);

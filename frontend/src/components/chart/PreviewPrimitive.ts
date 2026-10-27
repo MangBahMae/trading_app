@@ -3,6 +3,7 @@ import type {
   SeriesAttachedParameter, SeriesType, Time,
 } from "lightweight-charts";
 import type { DrawMode } from "../../types";
+import { THEME } from "./chartTheme";
 import { rayFromScreenPoints } from "./chartLogic";
 import type { TimeAxis } from "./timeAxis";
 
@@ -83,7 +84,7 @@ export class PreviewPrimitive implements ISeriesPrimitive<Time> {
       if (mode === "horizontal") {
         if (!mouse) return;
         context.setLineDash([6, 4]);
-        context.strokeStyle = "rgba(21, 101, 192, 0.6)";
+        context.strokeStyle = THEME.preview.horizontal;
         context.beginPath();
         context.moveTo(0, mouse.y);
         context.lineTo(mediaSize.width, mouse.y);
@@ -99,7 +100,7 @@ export class PreviewPrimitive implements ISeriesPrimitive<Time> {
       if (mouse) {
         context.setLineDash([6, 4]);
         if (mode === "trend") {
-          context.strokeStyle = "rgba(198, 40, 40, 0.6)";
+          context.strokeStyle = THEME.preview.trend;
           context.beginPath();
           // 확정 후와 같은 모양: 첫 점과 마우스를 지나 오른쪽 끝까지 가는 반직선. 마우스가 첫 점과 같은 날이면
           // 확정 시 수평 반직선이 되므로 미리보기도 수평으로 그린다.
@@ -113,20 +114,20 @@ export class PreviewPrimitive implements ISeriesPrimitive<Time> {
           const y = Math.min(y1, mouse.y);
           const w = Math.abs(mouse.x - x1);
           const h = Math.abs(mouse.y - y1);
-          context.fillStyle = "rgba(33, 150, 243, 0.12)";
+          context.fillStyle = THEME.preview.zoneFill;
           context.fillRect(x, y, w, h);
-          context.strokeStyle = "rgba(33, 150, 243, 0.7)";
+          context.strokeStyle = THEME.preview.zoneBorder;
           context.strokeRect(x + 0.5, y + 0.5, Math.max(w - 1, 0), Math.max(h - 1, 0));
         }
         context.setLineDash([]);
       }
 
       // 첫 점: 주황 점 + "1"
-      context.fillStyle = "#ff9800";
+      context.fillStyle = THEME.preview.firstPoint;
       context.beginPath();
       context.arc(x1, y1, 6, 0, Math.PI * 2);
       context.fill();
-      context.fillStyle = "#ffffff";
+      context.fillStyle = THEME.preview.firstPointText;
       context.font = "bold 9px sans-serif";
       context.textAlign = "center";
       context.textBaseline = "middle";
