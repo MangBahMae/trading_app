@@ -10,6 +10,8 @@ scripts/*.py 모듈을 bare-import하지 않아서(pipeline.py 그래프와 달�
 
 실제 그어두신 BTCUSDT/1d 선을 건드리지 않도록 전용 테스트 심볼을 쓰고,
 끝나면(성공/실패 무관) 반드시 정리한다.
+(그에 더해 conftest.py가 DB 파일 자체를 테스트마다 임시 파일로 바꿔서 실제 manual_lines.db는
+전혀 건드리지 않는다.)
 """
 import importlib.util
 import sys
@@ -34,6 +36,10 @@ def _load_module(name: str, path: Path):
 original = _load_module("original_lines_store", REPO_ROOT / "scripts" / "lines_store.py")
 ported = _load_module("ported_lines_store", REPO_ROOT / "backend" / "app" / "services" / "lines_store.py")
 
+# 실제 DB 경로는 모듈을 로드한 이 시점(conftest.py의 임시 DB 치환 전)에 읽어 둔다. 테스트가 도는 동안엔
+# conftest.py가 두 모듈의 DB_PATH를 임시 파일로 바꿔 끼우므로 실제 사용자 DB(manual_lines.db)에는 쓰지 않는다.
+REAL_DB_PATHS = (original.DB_PATH, ported.DB_PATH)
+
 
 def _cleanup():
     for line in ported.list_lines(TEST_SYMBOL, TEST_INTERVAL):
@@ -48,7 +54,15 @@ def cleanup_test_lines():
 
 
 def test_original_and_ported_point_to_same_db_file():
+    # 파일을 열지 않고 경로만 비교한다 (실제 DB는 읽지도 쓰지도 않음)
+    assert REAL_DB_PATHS[0] == REAL_DB_PATHS[1]
+    assert REAL_DB_PATHS[0] == REPO_ROOT / "data" / "merged" / "manual_lines.db"
+
+
+def test_tests_run_against_a_temp_db_not_the_real_one():
+    # conftest.py의 자동 치환이 두 복사본 모두에 적용돼, 같은 임시 파일을 보고 실제 DB와 다르다
     assert original.DB_PATH == ported.DB_PATH
+    assert original.DB_PATH != REAL_DB_PATHS[0]
 
 
 def test_crud_is_shared_between_original_and_ported():
