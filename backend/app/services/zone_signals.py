@@ -12,7 +12,15 @@
    - C < B and PC >= B -> 숏 "하방 이탈"
    (방향 부호는 수평선 돌파(manual_lines.py)와 같다: 위로 넘으면 롱, 아래로 이탈하면 숏.
     다만 수평선 돌파는 "유지 중"을 매일 내고, 존 이탈은 넘어간 첫날만 낸다.)
-2) 반응 (이탈이 아닐 때):
+2) 유동성 스윕 (이탈이 아닐 때, 반응보다 먼저 판정 - 같은 날 반응 조건도 맞으면 반응 대신 스윕만 낸다):
+   존의 반대쪽 끝을 꼬리로 뚫고 몸통은 되돌아온 캔들. 시가가 존 안이어도 된다.
+   - 하방 스윕(롱 "지지 스윕"): L < B and C >= B and O >= B
+   - 상방 스윕(숏 "저항 스윕"): H > T and C <= T and O <= T
+   - first_touch_only를 적용하지 않는다 - 터치 횟수와 무관하게 매번 판정(스윕은 보통 여러 번
+     테스트한 뒤에 나온다). 직전 종가도 필요 없다.
+   - 두 조건이 한 캔들에서 동시에 맞으면(시가/종가가 모두 존 안이고 꼬리가 양쪽을 뚫음) 방향을
+     정할 수 없으므로 스윕으로 보지 않고 아래 반응 규칙으로 넘긴다.
+3) 반응 (이탈도 스윕도 아닐 때):
    - O >= T (존 위에서 시작): L <= T and C >= B -> 롱 "지지 반응"
    - O <= B (존 아래에서 시작): H >= B and C <= T -> 숏 "저항 반응"
    - B < O < T (갭으로 존 안에서 시작): PC > T면 롱 규칙, PC < B면 숏 규칙 그대로
@@ -23,7 +31,7 @@
      (롱: PC > T, 숏: PC < B)일 때만 인정한다 - 이미 존에 닿아 있던 상태(직전 종가가 존
      안)에서 다시 내려오는 날을 반복해서 세지 않는다. False면(A안, 비교/참고용) 이
      조건 없이 위 조건만으로 매일 판정한다.
-3) 존 안에 머무는 날(시가/종가/직전 종가 모두 존 안)은 위 규칙대로 하면 신호가 없다.
+4) 존 안에 머무는 날(시가/종가/직전 종가 모두 존 안)은 위 규칙대로 하면 신호가 없다.
 
 유효 기간: 캔들 날짜(UTC YYYY-MM-DD)가 time1 이후인 모든 캔들을 평가한다(time1 포함).
 time2는 사각형의 두 번째 모서리일 뿐 존의 끝이 아니다 - 존은 time1부터 오른쪽으로 끝없이
@@ -57,7 +65,15 @@ def _classify_day(o, h, l, c, pc, top, bottom, first_touch_only):
         if c < bottom and pc >= bottom:
             return "하방 이탈 (숏)", "short"
 
-    # 2) 반응
+    # 2) 유동성 스윕 (반응보다 우선, first_touch_only 무관)
+    sweep_down = l < bottom and c >= bottom and o >= bottom
+    sweep_up = h > top and c <= top and o <= top
+    if sweep_down and not sweep_up:
+        return "지지 스윕 (매수 후보)", "long"
+    if sweep_up and not sweep_down:
+        return "저항 스윕 (매도 후보)", "short"
+
+    # 3) 반응
     if o >= top:
         side = "support"
     elif o <= bottom:

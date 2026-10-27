@@ -64,8 +64,8 @@ def test_no_reaction_when_candle_does_not_reach_zone():
 
 
 def test_open_exactly_on_boundary_uses_boundary_rules():
-    assert _run([ABOVE, (110, 111, 108, 109)]) == [(1, "존 100~110 지지 반응 (매수 후보)", "long")]  # O==T
-    assert _run([BELOW, (100, 102, 94, 98)]) == [(1, "존 100~110 저항 반응 (매도 후보)", "short")]    # O==B
+    assert _run([ABOVE, (110, 110, 108, 109)]) == [(1, "존 100~110 지지 반응 (매수 후보)", "long")]  # O==T
+    assert _run([BELOW, (100, 100, 94, 98)]) == [(1, "존 100~110 저항 반응 (매도 후보)", "short")]    # O==B
 
 
 # --- 갭으로 존 안에서 시작 ---
@@ -104,8 +104,8 @@ def test_downside_exit_first_day_only():
 
 
 def test_exit_requires_close_strictly_beyond_boundary():
-    assert _run([INSIDE, (106, 112, 105, 110)]) == []   # 종가 == 상단 -> 이탈 아님
-    assert _run([INSIDE, (104, 106, 98, 100)]) == []    # 종가 == 하단 -> 이탈 아님
+    assert _run([INSIDE, (106, 110, 105, 110)]) == []   # 종가 == 상단 -> 이탈 아님
+    assert _run([INSIDE, (104, 106, 100, 100)]) == []    # 종가 == 하단 -> 이탈 아님
 
 
 def test_jump_across_whole_zone_is_exit():
@@ -175,6 +175,58 @@ def test_first_candle_without_previous_close():
     assert _run(rows, first_touch_only=True) == []                                           # B안: 직전 종가 필요
     assert _run(rows, first_touch_only=False) == [(0, "존 100~110 지지 반응 (매수 후보)", "long")]
     assert _run([(105, 106, 103, 104)], first_touch_only=False) == []                         # 갭 규칙도 직전 종가 필요
+
+
+# --- 유동성 스윕: 반대쪽 끝을 꼬리로 뚫고 몸통은 되돌아옴 (반응보다 우선, first_touch_only 무관) ---
+
+SUP_SWEEP = "존 100~110 지지 스윕 (매수 후보)"
+RES_SWEEP = "존 100~110 저항 스윕 (매도 후보)"
+
+
+def test_down_sweep_replaces_support_reaction():
+    # 존 위에서 시작, 꼬리가 하단(100) 아래로 98까지, 종가 105는 존 안 -> 반응 조건도 맞지만 스윕만 낸다
+    assert _run([ABOVE, (115, 116, 98, 105)]) == [(1, SUP_SWEEP, "long")]
+
+
+def test_up_sweep_replaces_resistance_reaction():
+    assert _run([BELOW, (95, 112, 94, 102)]) == [(1, RES_SWEEP, "short")]
+
+
+def test_sweep_is_not_limited_to_first_touch():
+    # 직전 종가가 존 안(INSIDE)이라 반응이면 first_touch_only로 막히지만 스윕은 매번 판정
+    rows = [INSIDE, (115, 116, 98, 105)]
+    assert _run(rows, first_touch_only=True) == [(1, SUP_SWEEP, "long")]
+    # 같은 모양에서 꼬리가 존 안에서 멈추면 평범한 반응이고 first_touch_only로 막힌다
+    assert _run([INSIDE, (115, 116, 101, 105)], first_touch_only=True) == []
+
+
+def test_sweep_counts_when_open_is_inside_the_zone():
+    # 시가 105(존 안), 꼬리 98, 종가 106 -> 하방 스윕 (반응은 직전 종가가 존 안이라 신호 없음이었다)
+    assert _run([INSIDE, (105, 108, 98, 106)]) == [(1, SUP_SWEEP, "long")]
+    assert _run([INSIDE, (105, 112, 104, 104)]) == [(1, RES_SWEEP, "short")]
+
+
+def test_sweep_needs_close_back_and_open_on_the_right_side():
+    # 종가가 하단 아래로 마감 = 이탈 쪽(하방 이탈 우선): 스윕 아님
+    assert _run([INSIDE, (105, 106, 90, 92)]) == [(1, "존 100~110 하방 이탈 (숏)", "short")]
+    # 시가가 하단 아래(O < B)면 하방 스윕 아님 (저항 반응 쪽)
+    assert [t for _, t, _ in _run([BELOW, (95, 102, 90, 101)])] == ["존 100~110 저항 반응 (매도 후보)"]
+
+
+def test_exit_has_priority_over_sweep():
+    # 상방 이탈(종가가 T 위, 직전 종가 <= T): 꼬리가 하단 아래여도 이탈
+    assert _run([INSIDE, (105, 120, 98, 115)]) == [(1, "존 100~110 상방 이탈 (롱)", "long")]
+
+
+def test_both_sided_wicks_inside_close_are_not_a_sweep():
+    # 시가/종가 모두 존 안, 꼬리가 양쪽 모두 뚫음 -> 방향 불명이라 스윕 아님 (직전 종가도 존 안이면 신호 없음)
+    assert _run([INSIDE, (104, 115, 95, 106)]) == []
+
+
+def test_sweep_is_evaluated_only_from_time1():
+    rows = [ABOVE, (115, 116, 98, 105)]
+    assert _run(rows, time1="2025-01-02") == [(1, SUP_SWEEP, "long")]
+    assert _run(rows, time1="2025-01-03") == []
 
 
 # --- 유효 기간 ---

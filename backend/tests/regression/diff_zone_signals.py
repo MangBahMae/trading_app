@@ -1,5 +1,6 @@
 """
-존 신호 규칙 변경(time2에서 끝 -> time1부터 오른쪽 무한 연장) 전/후 신호 diff (읽기 전용).
+존 신호 규칙 변경 전/후 신호 diff (읽기 전용). 4-1(time2에서 끝 -> 오른쪽 연장) 때 만들었고,
+4-2(유동성 스윕 추가)에서는 스윕 변경분을 분류해 보여준다.
 
 - 전: git HEAD의 zone_signals.py   후: 작업 트리의 zone_signals.py
 - 실제 DB(manual_lines.db)는 sqlite 읽기 전용으로만 연다. 쓰지 않는다.
@@ -46,31 +47,48 @@ def main():
     conn.close()
     zones = [ln for ln in lines if ln["line_type"] == "zone"]
     # 실제 존 2개는 time2 이후 가격이 다시 오지 않아 diff가 0일 수 있다 - 연장 효과를 보이는 합성 존(메모리에서만) 추가
-    zones.append({"id": 9100, "line_type": "zone", "time1": "2026-09-01", "price1": 80500.0, "time2": "2026-09-10",
-                  "price2": 79000.0, "created_at": "2026-10-27T00:00:00+00:00"})
+    for k, (t1, hi, lo) in enumerate([("2026-09-01", 80500.0, 79000.0), ("2025-06-01", 108000.0, 104000.0),
+                                       ("2024-03-01", 66000.0, 62000.0)]):
+        zones.append({"id": 9100 + k, "line_type": "zone", "time1": t1, "price1": hi, "time2": t1,
+                      "price2": lo, "created_at": "2026-10-27T00:00:00+00:00"})
     last = df["open_time"].iloc[-1].strftime("%Y-%m-%d")
-    print(f"캔들 {len(df)}개, 마지막 {last}. 존 {len(zones)}개 (실제 DB는 읽기 전용, 마지막 1개는 합성)\n")
+    print(f"캔들 {len(df)}개, 마지막 {last}. 존 {len(zones)}개 (실제 DB는 읽기 전용, id 9100~ 는 합성)\n")
 
     dates = df["open_time"].dt.strftime("%Y-%m-%d")
+    O, H, L, C = (df[c].tolist() for c in ("open", "high", "low", "close"))
     bad = 0
+    tally = {}
     for z in zones:
         b = old_zs.compute_zone_signals(df, [z])
         a = new_zs.compute_zone_signals(df, [z])
-        print(f"--- 존 id={z['id']}: {z['time1']} ~ {z['time2']}, {z['price2']:,.0f}~{z['price1']:,.0f} (created {z['created_at'][:10]})")
+        top, bot = z["price1"], z["price2"]
+        print(f"--- 존 id={z['id']}: {z['time1']} ~ {z['time2']}, {bot:,.0f}~{top:,.0f} (created {z['created_at'][:10]})")
         n_b = sum(len(v) for v in b.values())
         n_a = sum(len(v) for v in a.values())
-        removed = added = 0
         for i in range(len(df)):
             tb = [(s.direction, s.text) for s in b[i]]
             ta = [(s.direction, s.text) for s in a[i]]
             if tb == ta:
                 continue
             d = dates.iloc[i]
-            flag = "" if d > z["time2"] else "  <-- !!! time2 이하인데 바뀜"
-            bad += bool(flag)
-            removed += len([x for x in tb if x not in ta]); added += len([x for x in ta if x not in tb])
-            print(f"  {d} 전:{tb or '-'} 후:{ta or '-'}{flag}")
-        print(f"  기존 {n_b}건 -> {n_a}건 (제거 {removed}, 추가 {added})\n")
+            new_sweep = [t for _, t in ta if "스윕" in t]
+            kind = "기타"
+            if not new_sweep:
+                kind = "!!! 스윕이 아닌데 바뀜"
+                bad += 1
+            elif tb:
+                kind = "반응 대체"
+            else:
+                long_ = "지지 스윕" in new_sweep[0]
+                open_in = (bot <= O[i] < top) if long_ else (bot < O[i] <= top)
+                pc = C[i - 1] if i > 0 else None
+                outside_side = (O[i] >= top) if long_ else (O[i] <= bot)
+                not_first = outside_side and not (pc is not None and (pc > top if long_ else pc < bot))
+                kind = ("신규-시가가 존 안" if open_in else "신규-첫 터치 아니라서" if not_first else "신규-기타")
+            tally[kind] = tally.get(kind, 0) + 1
+            print(f"  {d} [{kind}] 전:{tb or '-'} 후:{ta or '-'}  (O{O[i]:,.0f} H{H[i]:,.0f} L{L[i]:,.0f} C{C[i]:,.0f})")
+        print(f"  기존 {n_b}건 -> {n_a}건")
+        print()
 
     # 하류: 존 외 신호/캔들패턴은 변하지 않아야 함
     ms = manual_lines.compute_manual_line_signals(df, lines)
@@ -78,7 +96,8 @@ def main():
           "compute_candle_pattern_signals 입력 = 수동선 신호만")
     cp = candle_patterns.compute_candle_pattern_signals(df, ms)
     print(f"  (참고) 캔들패턴 신호 {sum(len(v) for v in cp.values())}건 - 존 코드 변경과 무관")
-    print(f"\n요약: time2 이하 날짜에서 바뀐 건 {bad}건 {'(OK)' if bad == 0 else '!!!'}")
+    print()
+    print(f"요약: 분류별 건수 {tally}; 스윕이 아닌 변경 {bad}건 {'(OK)' if bad == 0 else '!!!'}")
 
 
 if __name__ == "__main__":
