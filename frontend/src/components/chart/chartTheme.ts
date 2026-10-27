@@ -10,8 +10,8 @@ export const THEME = {
   up: "#26a69a",
   down: "#ef5350",
   // 선택한 캔들만 선명하게 보이고 나머지는 흐리게 보이는 하이라이트용 (다크 배경에서 "흐림" = 어두운 쪽으로)
-  dimUp: "#245f58",
-  dimDown: "#7a3a3a",
+  dimUp: "#2f8277",
+  dimDown: "#a9504f",
   volDimUp: "rgba(38, 166, 154, 0.3)",
   volDimDown: "rgba(239, 83, 80, 0.3)",
   volVividUp: "rgba(38, 166, 154, 0.8)",

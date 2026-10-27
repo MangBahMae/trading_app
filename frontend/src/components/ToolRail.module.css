@@ -1,0 +1,62 @@
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  background: var(--surface-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.tool,
+.toolActive {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted-color);
+  cursor: pointer;
+}
+
+.tool:hover {
+  color: var(--text-color);
+  background: var(--bg-color);
+}
+
+.toolActive {
+  color: #fff;
+  background: var(--accent-color);
+}
+
+/* hover 툴팁 (오른쪽으로 펼침) */
+.tool::after,
+.toolActive::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #000;
+  color: #fff;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+  z-index: 30;
+}
+
+.tool:hover::after,
+.toolActive:hover::after,
+.tool:focus-visible::after,
+.toolActive:focus-visible::after {
+  opacity: 1;
+}

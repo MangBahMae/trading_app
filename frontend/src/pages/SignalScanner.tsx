@@ -1,14 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import {
   addHorizontalLine, addTrendLine, addZone, deleteLine, getDashboard, updateTrend, updateZone,
 } from "../api/dashboard";
 import { getMarketState } from "../api/marketState";
 import NumberInput from "../components/NumberInput";
-import TvChart from "../components/chart/TvChart";
 import type { EmaSeriesConfig } from "../components/chart/TvChart";
 import { THEME } from "../components/chart/chartTheme";
+import AppTopBar from "../components/AppTopBar";
+import ChartArea from "../components/ChartArea";
+import type { LegendToggle } from "../components/ChartLegend";
 import LineManager from "../components/LineManager";
+import PeriodBar from "../components/PeriodBar";
 import SignalPanel from "../components/SignalPanel";
+import ToolRail from "../components/ToolRail";
 import type { DashboardResponse, DrawMode, MarketStateBlock, MarketStateResponse } from "../types";
 import styles from "./SignalScanner.module.css";
 
@@ -24,12 +29,8 @@ const EMA_STYLE: Record<string, { label: string; color: string; dashed: boolean 
   ema200: { label: "EMA200", color: THEME.ema200, dashed: true },
 };
 
-const DRAW_MODE_OPTIONS: { label: string; value: DrawMode }[] = [
-  { label: "캔들 선택", value: "select" },
-  { label: "수평선 그리기 (클릭 1번)", value: "horizontal" },
-  { label: "추세선 그리기 (클릭 2번)", value: "trend" },
-  { label: "존 그리기 (클릭 2번)", value: "zone" },
-];
+// 기간 바의 짧은 글자 (접근성 이름은 WINDOW_OPTIONS의 키 그대로)
+const WINDOW_SHORT: Record<string, string> = { "최근 3개월": "3M", "최근 6개월": "6M", "최근 1년": "1Y", "전체": "전체" };
 
 // 시장 상태(횡보/추세) 기본 파라미터 - 서버 market_state.py의 DEFAULT_N/K와 같은 임시값.
 // 입력칸에서 바꾸면 바로 서버에 다시 계산을 요청한다(음영/패널이 같이 갱신).
@@ -43,7 +44,7 @@ const DIV_MARKER_COLOR: Record<string, string> = {
   regular_bearish: THEME.divergenceDown,
 };
 
-export default function SignalScanner() {
+export default function SignalScanner({ nav }: { nav: ReactNode }) {
   const [data, setData] = useState<DashboardResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -201,136 +202,131 @@ export default function SignalScanner() {
     deleteLine(lineId).then(() => loadDashboard(false));
   };
 
-  if (loading && !data) return <div className={styles.page}>불러오는 중...</div>;
-  if (error && !data) return <div className={styles.page}>오류: {error}</div>;
+  const refreshButton = (
+    <button
+      type="button"
+      className={styles.refresh}
+      onClick={() => loadDashboard(true)}
+      disabled={loading}
+      aria-label="데이터 새로고침"
+      title={loading ? "새로고침 중..." : "데이터 새로고침"}
+    >
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7"
+        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={loading ? styles.spin : undefined}>
+        <path d="M16.5 10a6.5 6.5 0 1 1-2-4.7" /><polyline points="16.5 3 16.5 6.5 13 6.5" />
+      </svg>
+    </button>
+  );
+  const topBar = (
+    <AppTopBar
+      nav={nav}
+      actions={refreshButton}
+      left={
+        <>
+          <span className={styles.symbol}>BTCUSDT · 1D</span>
+          {data && (
+            <span className={styles.caption} title="마지막으로 마감된 캔들까지만 반영">
+              데이터 범위: {data.date_range.min} ~ {data.date_range.max}
+            </span>
+          )}
+        </>
+      }
+    />
+  );
+
+  if (loading && !data) return <div className={styles.page}>{topBar}<div className={styles.message}>불러오는 중...</div></div>;
+  if (error && !data) return <div className={styles.page}>{topBar}<div className={styles.message}>오류: {error}</div></div>;
   if (!data) return null;
+
+  const legendToggles: LegendToggle[] = [
+    ...Object.keys(EMA_STYLE).map((key) => ({
+      key, label: EMA_STYLE[key].label, color: EMA_STYLE[key].color, active: showEma[key],
+      onToggle: () => setShowEma((prev) => ({ ...prev, [key]: !prev[key] })),
+    })),
+    { key: "rsi", label: "RSI", color: THEME.rsi, active: showRsi, onToggle: () => setShowRsi((v) => !v) },
+    ...(data.divergence_markers.length > 0
+      ? [{ key: "div", label: "다이버전스", color: THEME.divergenceUp, active: showDivergence, onToggle: () => setShowDivergence((v) => !v) }]
+      : []),
+    {
+      key: "ms", label: "횡보 음영", color: "#5b8def", active: showMarketState,
+      onToggle: () => setShowMarketState((v) => !v),
+    },
+  ];
+
+  const marketStateControls = showMarketState ? (
+    <>
+      <label className={styles.checkLabel} htmlFor="ms-n">N</label>
+      <NumberInput id="ms-n" className={styles.msInput} min={1} step={1} value={msN} onChange={setMsN} />
+      <label className={styles.checkLabel} htmlFor="ms-k">K</label>
+      <NumberInput id="ms-k" className={styles.msInput} min={0} step={1} value={msK} onChange={setMsK} />
+      <span className={styles.msLegend}>
+        <span className={styles.msSwatchA} /> A 꼬임
+        <span className={styles.msSwatchBC} /> BC 간격 축소+9 교차
+      </span>
+      {!msParamsValid && <span className={styles.msError}>N은 1 이상 정수, K는 0 이상 N 이하 정수여야 합니다.</span>}
+      {msError && <span className={styles.msError}>{msError}</span>}
+    </>
+  ) : null;
+
+  const drawHint =
+    drawMode === "select" ? null : (
+      <>
+        그리기 모드에서는 캔들 클릭이 신호 패널이 아니라 선 등록으로 쓰입니다. 하나를 그리면 자동으로 &quot;캔들 선택&quot;으로 돌아가며, Esc로 취소할 수 있습니다.{" "}
+        {drawMode === "trend"
+          ? "시작점과 끝점, 두 번 클릭하세요."
+          : drawMode === "zone"
+            ? "직사각형의 대각선 두 모서리를 클릭하세요. (가격 구간 + 시간 구간)"
+            : "차트를 클릭해서 가격 레벨을 지정하세요."}
+      </>
+    );
 
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
-        <div>
-          <h1>BTCUSDT 1d 통합 신호 대시보드</h1>
-          <p className={styles.caption}>
-            데이터 범위: {data.date_range.min} ~ {data.date_range.max} (마지막으로 마감된 캔들까지만 반영)
-          </p>
-        </div>
-        <button type="button" onClick={() => loadDashboard(true)} disabled={loading}>
-          {loading ? "새로고침 중..." : "데이터 새로고침"}
-        </button>
-      </div>
-
-      <div className={styles.controls}>
-        <div className={styles.controlGroup}>
-          {Object.keys(WINDOW_OPTIONS).map((label) => (
-            <label key={label} className={styles.radioLabel}>
-              <input
-                type="radio" name="window" checked={windowLabel === label}
-                onChange={() => setWindowLabel(label)}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
-
-        <div className={styles.controlGroup}>
-          {DRAW_MODE_OPTIONS.map((opt) => (
-            <label key={opt.value} className={drawMode === opt.value ? styles.radioLabelActive : styles.radioLabel}>
-              <input
-                type="radio" name="drawMode" checked={drawMode === opt.value}
-                onChange={() => setDrawMode(opt.value)}
-              />
-              {opt.label}
-            </label>
-          ))}
-        </div>
-
-        <div className={styles.controlGroup}>
-          {Object.keys(EMA_STYLE).map((key) => (
-            <label key={key} className={styles.checkLabel}>
-              <input
-                type="checkbox" checked={showEma[key]}
-                onChange={(e) => setShowEma((prev) => ({ ...prev, [key]: e.target.checked }))}
-              />
-              {EMA_STYLE[key].label}
-            </label>
-          ))}
-          <label className={styles.checkLabel}>
-            <input type="checkbox" checked={showRsi} onChange={(e) => setShowRsi(e.target.checked)} />
-            RSI
-          </label>
-          {data.divergence_markers.length > 0 && (
-            <label className={styles.checkLabel}>
-              <input type="checkbox" checked={showDivergence} onChange={(e) => setShowDivergence(e.target.checked)} />
-              다이버전스
-            </label>
-          )}
-        </div>
-
-        <div className={styles.controlGroup}>
-          <label className={styles.checkLabel}>
-            <input type="checkbox" checked={showMarketState} onChange={(e) => setShowMarketState(e.target.checked)} />
-            횡보 음영
-          </label>
-          {showMarketState && (
-            <>
-              <label className={styles.checkLabel} htmlFor="ms-n">N</label>
-              <NumberInput id="ms-n" className={styles.msInput} min={1} step={1} value={msN} onChange={setMsN} />
-              <label className={styles.checkLabel} htmlFor="ms-k">K</label>
-              <NumberInput id="ms-k" className={styles.msInput} min={0} step={1} value={msK} onChange={setMsK} />
-              <span className={styles.msLegend}>
-                <span className={styles.msSwatchA} /> A 꼬임
-                <span className={styles.msSwatchBC} /> BC 간격 축소+9 교차
-              </span>
-              {!msParamsValid && <span className={styles.msError}>N은 1 이상 정수, K는 0 이상 N 이하 정수여야 합니다.</span>}
-              {msError && <span className={styles.msError}>{msError}</span>}
-            </>
-          )}
-        </div>
-      </div>
-
-      {drawMode !== "select" && (
-        <p className={styles.drawHint}>
-          그리기 모드에서는 캔들 클릭이 신호 패널이 아니라 선 등록으로 쓰입니다. 하나를 그리면 자동으로 &quot;캔들 선택&quot;으로 돌아가며, Esc로 취소할 수 있습니다.{" "}
-          {drawMode === "trend"
-            ? "시작점과 끝점, 두 번 클릭하세요."
-            : drawMode === "zone"
-              ? "직사각형의 대각선 두 모서리를 클릭하세요. (가격 구간 + 시간 구간)"
-              : "차트를 클릭해서 가격 레벨을 지정하세요."}
-        </p>
-      )}
-
-      <div className={styles.columns}>
-        <div className={styles.left}>
-          <TvChart
-            bars={bars}
+      {topBar}
+      <div className={styles.body}>
+        <ToolRail mode={drawMode} onChange={setDrawMode} />
+        <div className={styles.chartColumn}>
+          <ChartArea
+            candles={data.candles}
             selectedDate={selectedDate}
-            height={680}
-            emaSeries={emaSeriesConfig}
-            rsiSeries={rsiSeriesConfig}
-            divergenceMarkers={visibleDivergenceMarkers}
-            divMarkerColors={DIV_MARKER_COLOR}
-            marketStateBlocks={marketStateBlocks}
-            drawMode={drawMode}
-            lines={data.manual_lines}
-            onSelectDate={setSelectedDate}
-            onAddHorizontalLine={handleAddHorizontal}
-            onAddTrendLine={handleAddTrend}
-            onAddZone={handleAddZone}
-            onFinishDrawing={() => setDrawMode("select")}
-            onDeleteLine={handleDeleteLine}
-            onUpdateZone={handleUpdateZone}
-            onUpdateTrend={handleUpdateTrend}
+            toggles={legendToggles}
+            legendExtra={marketStateControls}
+            chartProps={{
+              bars,
+              selectedDate,
+              emaSeries: emaSeriesConfig,
+              rsiSeries: rsiSeriesConfig,
+              divergenceMarkers: visibleDivergenceMarkers,
+              divMarkerColors: DIV_MARKER_COLOR,
+              marketStateBlocks,
+              drawMode,
+              lines: data.manual_lines,
+              onSelectDate: setSelectedDate,
+              onAddHorizontalLine: handleAddHorizontal,
+              onAddTrendLine: handleAddTrend,
+              onAddZone: handleAddZone,
+              onFinishDrawing: () => setDrawMode("select"),
+              onDeleteLine: handleDeleteLine,
+              onUpdateZone: handleUpdateZone,
+              onUpdateTrend: handleUpdateTrend,
+            }}
           />
-          <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} />
+          <PeriodBar
+            options={Object.keys(WINDOW_OPTIONS).map((value) => ({ value, short: WINDOW_SHORT[value] }))}
+            value={windowLabel}
+            onChange={setWindowLabel}
+            hint={drawHint}
+          />
         </div>
-        <div className={styles.right}>
+        <aside className={styles.side}>
           <SignalPanel
             candle={selectedCandle}
             signals={selectedSignals}
             marketState={showMarketState && selectedDate ? marketStateByDate.get(selectedDate) ?? null : null}
             marketStateParams={showMarketState ? marketState?.params ?? null : null}
           />
-        </div>
+          <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} />
+        </aside>
       </div>
     </div>
   );

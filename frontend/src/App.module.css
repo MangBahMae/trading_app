@@ -1,33 +1,12 @@
+/* 한 화면 고정: 위 상단 바 + 아래 본문. 스캐너는 자기 안에서 영역을 나누고, 다른 화면은 .scroll 안에서 스크롤한다. */
 .app {
-  min-height: 100vh;
-}
-
-.nav {
   display: flex;
-  gap: 4px;
-  padding: 12px 20px;
-  background: var(--surface-color);
-  border-bottom: 1px solid var(--border-color);
+  flex-direction: column;
+  height: 100dvh;
 }
 
-.navButton,
-.navButtonActive {
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  background: transparent;
-  cursor: pointer;
-  color: var(--muted-color);
-}
-
-.navButtonActive {
-  background: var(--bg-color);
-  color: var(--text-color);
-  font-weight: 600;
-  border-color: var(--border-color);
-}
-
-.navButton:hover {
-  color: var(--text-color);
+.scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
 }

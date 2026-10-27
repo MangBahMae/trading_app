@@ -1,0 +1,95 @@
+.legend {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: calc(100% - 90px);
+  pointer-events: none;
+  font-size: 0.78rem;
+}
+
+.ohlc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.date {
+  color: var(--muted-color);
+}
+
+.field {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.fieldLabel {
+  color: var(--muted-color);
+}
+
+.up {
+  color: #26a69a;
+}
+
+.down {
+  color: #ef5350;
+}
+
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.toggles > * {
+  pointer-events: auto;
+}
+
+.toggleOn,
+.toggleOff {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 7px;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: rgba(19, 23, 34, 0.7);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.toggleOn:hover,
+.toggleOff:hover {
+  border-color: var(--border-color);
+}
+
+.toggleOff {
+  color: var(--muted-color);
+}
+
+.toggleOff .swatch,
+.toggleOff .toggleText {
+  opacity: 0.45;
+}
+
+.swatch {
+  width: 10px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+/* 횡보 음영 N/K 입력칸, 색 범례, 에러 - 토글 줄 끝에 붙는 추가 컨트롤 */
+.toggles :global(input) {
+  width: 48px;
+  padding: 1px 4px;
+  font-size: 0.74rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}

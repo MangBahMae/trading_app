@@ -1,151 +1,135 @@
+/* 신호 스캐너: 한 화면 고정(스크롤 없음). 위 상단 바 / 아래 [도구 막대 | 차트 열 | 오른쪽 패널] */
 .page {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px 20px 60px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.header h1 {
-  font-size: 1.4rem;
-  margin: 0 0 4px;
-}
-
-.header button {
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  background: var(--surface-color);
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.header button:hover:not(:disabled) {
-  border-color: var(--accent-color);
-  color: var(--accent-color);
-}
-
-.caption {
-  font-size: 0.82rem;
-  color: var(--muted-color);
-  margin: 0;
-}
-
-.controls {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 12px;
-  padding: 14px 16px;
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
-.controlGroup {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+.message {
+  padding: 24px 20px;
 }
 
-.radioLabel,
-.checkLabel {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-/* 그리기 도구 토글 - 현재 선택된 도구(기본 모드 포함)를 눈에 띄게 표시한다. */
-.radioLabel {
-  padding: 4px 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.radioLabelActive {
-  composes: radioLabel;
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  color: #fff;
+.symbol {
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
-.drawHint {
-  font-size: 0.8rem;
+.caption {
+  font-size: 0.72rem;
   color: var(--muted-color);
-  margin: 0 0 12px;
 }
 
-.columns {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 20px;
-  align-items: start;
+.refresh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted-color);
+  cursor: pointer;
 }
 
-@media (max-width: 900px) {
-  .columns {
-    grid-template-columns: 1fr;
+.refresh:hover:not(:disabled) {
+  color: var(--text-color);
+  border-color: var(--accent-color);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.left {
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 14px;
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 340px;
 }
 
-.right {
-  position: sticky;
-  top: 20px;
+.chartColumn {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
 }
 
-/* 시장 상태(횡보 음영) 컨트롤 */
+/* 오른쪽 패널: 폭 고정, 패널 내부만 스크롤 */
+.side {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px;
+  border-left: 1px solid var(--border-color);
+  background: var(--bg-color);
+}
+
+@media (max-width: 900px) {
+  .page {
+    overflow-y: auto;
+  }
+
+  .body {
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-rows: 70dvh auto;
+    flex: 0 0 auto;
+  }
+
+  .side {
+    grid-column: 1 / -1;
+    overflow-y: visible;
+    border-left: none;
+  }
+}
+
+/* 범례 안의 시장 상태(횡보 음영) 컨트롤 */
+.checkLabel {
+  font-size: 0.74rem;
+  color: var(--muted-color);
+}
+
 .msInput {
-  width: 56px;
-  padding: 3px 6px;
-  font-size: 0.85rem;
+  width: 48px;
+  padding: 1px 4px;
+  font-size: 0.74rem;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .msLegend {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--muted-color);
 }
 
 .msSwatchA,
 .msSwatchBC {
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border: 1px solid var(--border-color);
   border-radius: 2px;
 }
 
 .msSwatchA {
-  background: rgba(120, 120, 120, 0.3);
+  background: rgba(160, 160, 160, 0.4);
 }
 
 .msSwatchBC {
-  background: rgba(66, 133, 244, 0.3);
+  background: rgba(66, 133, 244, 0.45);
 }
 
 .msError {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--danger-color);
 }

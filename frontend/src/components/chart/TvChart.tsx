@@ -899,7 +899,8 @@ export default function TvChart({
     : 0;
 
   return (
-    <div style={{ position: "relative", width: "100%", height: height === undefined ? "100%" : undefined }}>
+    // height 미지정: 부모(position: relative, 크기 확정)를 absolute로 꽉 채운다 - 퍼센트 높이가 flex/grid 안에서 풀리지 않는 경우를 피한다
+    <div style={height === undefined ? { position: "absolute", inset: 0 } : { position: "relative", width: "100%" }}>
       <div ref={containerRef} style={{ width: "100%", height: height === undefined ? "100%" : height }} />
       {selection && toolbarShape && !dragging && (
         <div

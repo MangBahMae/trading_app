@@ -1,0 +1,7 @@
+/* 차트가 남는 공간을 전부 채우고(TvChart가 부모 크기를 따라감), 범례는 그 위에 겹친다 */
+.area {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+}

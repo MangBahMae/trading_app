@@ -28,8 +28,8 @@ async function waitForLatestDate(): Promise<string> {
   const caption = await screen.findByText(/데이터 범위:/, {}, { timeout: 10000 });
   const last = /~\s*(\d{4}-\d{2}-\d{2})/.exec(caption.textContent ?? "")?.[1];
   expect(last).toBeTruthy();
-  // 최신 날짜가 우측 패널에 기본 선택돼 표시된다
-  await screen.findByText(last as string, {}, { timeout: 10000 });
+  // 최신 날짜가 우측 패널(과 차트 범례)에 기본 선택돼 표시된다
+  await screen.findAllByText(last as string, {}, { timeout: 10000 });
   return last as string;
 }
 
@@ -68,23 +68,33 @@ describe("신호 스캐너 화면", () => {
     render(<App />);
     await waitForLatestDate();
 
-    const yearRadio = screen.getByLabelText("최근 1년") as HTMLInputElement;
-    expect(yearRadio.checked).toBe(false);
+    // 기간 바 / 범례 토글 / 도구 막대는 role=radio·checkbox 버튼이라 접근성 이름과 toBeChecked 로 확인한다
+    const yearRadio = screen.getByRole("radio", { name: "최근 1년" });
+    expect(yearRadio).not.toBeChecked();
     await user.click(yearRadio);
-    expect(yearRadio.checked).toBe(true);
+    expect(yearRadio).toBeChecked();
+    expect(screen.getByRole("radio", { name: "최근 6개월" })).not.toBeChecked();   // 하나만 활성
 
-    const emaCheckbox = screen.getByLabelText("EMA20") as HTMLInputElement;
-    expect(emaCheckbox.checked).toBe(false);
+    const emaCheckbox = screen.getByRole("checkbox", { name: "EMA20" });
+    expect(emaCheckbox).not.toBeChecked();
     await user.click(emaCheckbox);
-    expect(emaCheckbox.checked).toBe(true);
+    expect(emaCheckbox).toBeChecked();
+    await user.click(emaCheckbox);
+    expect(emaCheckbox).not.toBeChecked();
 
-    const rsiCheckbox = screen.getByLabelText("RSI") as HTMLInputElement;
+    const rsiCheckbox = screen.getByRole("checkbox", { name: "RSI" });
     await user.click(rsiCheckbox);
-    expect(rsiCheckbox.checked).toBe(true);
+    expect(rsiCheckbox).toBeChecked();
 
-    const trendRadio = screen.getByLabelText(/추세선 그리기/) as HTMLInputElement;
+    const selectTool = screen.getByRole("radio", { name: "캔들 선택" });
+    expect(selectTool).toBeChecked();
+    const trendRadio = screen.getByRole("radio", { name: /추세선 그리기/ });
     await user.click(trendRadio);
+    expect(trendRadio).toBeChecked();
+    expect(selectTool).not.toBeChecked();
     expect(screen.getByText(/시작점과 끝점, 두 번 클릭하세요/)).toBeInTheDocument();
+    await user.click(selectTool);
+    expect(screen.queryByText(/시작점과 끝점, 두 번 클릭하세요/)).not.toBeInTheDocument();
   });
 
   it("사이드 네비게이션으로 포지션 사이징 화면과 전환된다", async () => {
@@ -99,7 +109,7 @@ describe("신호 스캐너 화면", () => {
     // 다시 호출한다(현재 구현은 화면 상태를 유지하지 않음) - 로드가 끝날 때까지 대기.
     await user.click(screen.getByRole("button", { name: "신호 스캐너" }));
     await waitFor(
-      () => expect(screen.getByText("BTCUSDT 1d 통합 신호 대시보드")).toBeInTheDocument(),
+      () => expect(screen.getByText("BTCUSDT · 1D")).toBeInTheDocument(),
       { timeout: 10000 },
     );
   });
