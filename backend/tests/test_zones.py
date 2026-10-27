@@ -231,7 +231,11 @@ def test_dashboard_existing_signals_unchanged_when_zone_exists(client):
         d: [s for s in v if s["source"] != "zone"] for d, v in with_zone["signals"].items()
     }
     non_zone = {d: v for d, v in non_zone.items() if v}
-    assert non_zone == without_zone["signals"]
+
+    def judgement(signals):  # near_zone은 존 유무에 따라 달라지는 표시용 플래그라서 비교에서 뺀다(판정은 그대로여야 함)
+        return {d: [{k: x for k, x in s.items() if k != "near_zone"} for s in v] for d, v in signals.items()}
+
+    assert judgement(non_zone) == judgement(without_zone["signals"])
 
     zone_signals_out = [s for v in with_zone["signals"].values() for s in v if s["source"] == "zone"]
     assert zone_signals_out, "존이 실제 캔들과 겹치는데 존 신호가 하나도 없음"

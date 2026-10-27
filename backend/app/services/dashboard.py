@@ -68,7 +68,7 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
 
     manual_signals = manual_lines.compute_manual_line_signals(df, lines) if lines else {}
     manual_state_signals = manual_lines.compute_manual_line_state_signals(df, lines) if lines else {}
-    candle_pattern_signals = candle_patterns.compute_candle_pattern_signals(df, manual_signals)
+    candle_pattern_signals = candle_patterns.compute_candle_pattern_signals(df, manual_signals, zones=lines)
     # 존 신호는 수동선 신호처럼 요청마다 다시 계산(1시간 캐시 밖). 캔들패턴 등 다른 신호의
     # 자리 판정에는 연결하지 않고, 기존 신호의 순서가 안 바뀌게 맨 뒤에 붙인다.
     zone_signal_map = zone_signals.compute_zone_signals(df, lines) if lines else {}
@@ -89,7 +89,7 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
                 {
                     "text": s.text, "direction": s.direction,
                     "source": s.source, "tier": s.tier, "evidence": list(s.evidence),
-                    "ref_id": s.ref_id, "ref_created_at": s.ref_created_at,
+                    "ref_id": s.ref_id, "ref_created_at": s.ref_created_at, "near_zone": s.near_zone,
                 }
                 for s in day_all
             ]

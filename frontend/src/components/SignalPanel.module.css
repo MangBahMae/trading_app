@@ -106,3 +106,22 @@
   color: var(--muted-color);
   line-height: 1.5;
 }
+
+/* 캔들 패턴 신호: 존 근처는 강조(굵게 + 배지), 존 없는 단독 신호는 흐리게 */
+.nearZone {
+  font-weight: 600;
+}
+
+.standalone {
+  opacity: 0.5;
+}
+
+.nearZoneBadge {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #1565c0;
+  background: rgba(33, 150, 243, 0.14);
+}

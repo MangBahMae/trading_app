@@ -44,6 +44,18 @@ function MarketStateBox({ row, params }: { row: MarketStateRow; params: { n: num
 
 type Tab = "all" | "long" | "short";
 
+// 캔들 패턴 신호는 존 근처(near_zone=true)가 주력이라 "존 근처" 배지로 강조하고, 존 없는 단독 신호(false)는 흐리게
+// 보인다. 그 밖의 신호(null/undefined)는 그대로. 표시만 다르고 신호 개수/판정에는 영향이 없다.
+function SignalItemRow({ signal }: { signal: SignalItem }) {
+  const cls = signal.near_zone === true ? styles.nearZone : signal.near_zone === false ? styles.standalone : undefined;
+  return (
+    <li className={cls} data-near-zone={signal.near_zone === true ? "true" : signal.near_zone === false ? "false" : undefined}>
+      - {signal.text}
+      {signal.near_zone === true && <span className={styles.nearZoneBadge}>존 근처</span>}
+    </li>
+  );
+}
+
 // app.py 우측 "신호" 패널(통합/롱/숏 탭 + 참고 지표)을 그대로 재현.
 // day_all(그날의 전체 신호)은 이미 백엔드 /api/dashboard 응답의 signals[date]에
 // pipeline + 수동 선 + 캔들패턴이 전부 합쳐져서 내려오므로, 여기서는 그걸
@@ -60,9 +72,9 @@ export default function SignalPanel({ candle, signals, marketState = null, marke
     );
   }
 
-  const longSignals = signals.filter((s) => s.direction === "long").map((s) => s.text);
-  const shortSignals = signals.filter((s) => s.direction === "short").map((s) => s.text);
-  const referenceTexts = signals.filter((s) => s.direction === "reference").map((s) => s.text);
+  const longSignals = signals.filter((s) => s.direction === "long");
+  const shortSignals = signals.filter((s) => s.direction === "short");
+  const referenceSignals = signals.filter((s) => s.direction === "reference");
 
   return (
     <div className={styles.panel}>
@@ -116,7 +128,7 @@ export default function SignalPanel({ candle, signals, marketState = null, marke
       {tab === "long" && (
         longSignals.length > 0 ? (
           <ul className={styles.signalList}>
-            {longSignals.map((s, i) => <li key={i}>- {s}</li>)}
+            {longSignals.map((s, i) => <SignalItemRow key={i} signal={s} />)}
           </ul>
         ) : (
           <p className={styles.empty}>이 날짜에 롱 신호가 없습니다.</p>
@@ -126,19 +138,19 @@ export default function SignalPanel({ candle, signals, marketState = null, marke
       {tab === "short" && (
         shortSignals.length > 0 ? (
           <ul className={styles.signalList}>
-            {shortSignals.map((s, i) => <li key={i}>- {s}</li>)}
+            {shortSignals.map((s, i) => <SignalItemRow key={i} signal={s} />)}
           </ul>
         ) : (
           <p className={styles.empty}>이 날짜에 숏 신호가 없습니다.</p>
         )
       )}
 
-      {referenceTexts.length > 0 && (
+      {referenceSignals.length > 0 && (
         <div className={styles.referenceSection}>
           <hr className={styles.divider} />
           <div className={styles.referenceLabel}>참고 지표 (카운트 제외)</div>
           <ul className={styles.signalList}>
-            {referenceTexts.map((s, i) => <li key={i}>- {s}</li>)}
+            {referenceSignals.map((s, i) => <SignalItemRow key={i} signal={s} />)}
           </ul>
         </div>
       )}

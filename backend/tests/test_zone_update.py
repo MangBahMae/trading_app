@@ -116,4 +116,7 @@ def test_dashboard_zone_signals_follow_the_updated_shape(client):
     def non_zone(data):
         return {d: [s for s in v if s["source"] != "zone"] for d, v in data["signals"].items() if any(
             s["source"] != "zone" for s in v)}
-    assert non_zone(first) == non_zone(second)
+    def judgement(signals):  # near_zone은 존 모양에 따라 달라지는 표시용 플래그라서 비교에서 뺀다
+        return {d: [{k: x for k, x in s.items() if k != "near_zone"} for s in v] for d, v in signals.items()}
+
+    assert judgement(non_zone(first)) == judgement(non_zone(second))

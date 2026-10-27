@@ -83,6 +83,8 @@ export interface SignalItem {
   // 신호를 만든 도형(존)의 id/생성일 - 존 신호만 채워지고 나머지는 null
   ref_id?: number | null;
   ref_created_at?: string | null;
+  // 캔들 패턴 신호만: 캔들 고가~저가가 (오른쪽으로 연장된) 존과 겹치면 true, 아니면 false. 그 밖의 신호는 null.
+  near_zone?: boolean | null;
 }
 
 export type DivergenceType = "regular_bullish" | "regular_bearish" | "hidden_bullish" | "hidden_bearish";

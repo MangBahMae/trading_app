@@ -22,3 +22,6 @@ class Signal(NamedTuple):
     evidence: tuple[str, ...] = ()
     ref_id: int | None = None  # 신호를 만든 도형(존)의 lines.id
     ref_created_at: str | None = None  # 그 도형의 lines.created_at (ISO 문자열)
+    # 캔들 패턴 신호만 채운다: 그 캔들의 고가~저가 범위가 (오른쪽으로 연장된) 존과 겹치면 True, 아니면 False.
+    # 캔들 패턴이 아닌 신호는 None(해당 없음). 표시용 플래그일 뿐 후보/참고 판정에는 쓰이지 않는다.
+    near_zone: bool | None = None

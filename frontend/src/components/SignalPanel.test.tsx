@@ -2,7 +2,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import SignalPanel from "./SignalPanel";
-import type { Candle, MarketStateRow } from "../types";
+import type { Candle, MarketStateRow, SignalItem } from "../types";
 
 const candle: Candle = {
   date: "2026-03-10", open: 100, high: 110, low: 90, close: 105, volume: 1,
@@ -61,5 +61,51 @@ describe("SignalPanel 시장 상태 박스", () => {
   it("시장 상태를 아직 못 받았으면 박스를 그리지 않는다", () => {
     render(<SignalPanel candle={candle} signals={[]} />);
     expect(screen.queryByTestId("market-state-box")).not.toBeInTheDocument();
+  });
+});
+
+describe("SignalPanel near_zone 표시 (캔들 패턴 신호)", () => {
+  const sig = (text: string, near_zone: boolean | null | undefined, direction: SignalItem["direction"] = "long"): SignalItem =>
+    ({ text, direction, near_zone });
+
+  it("near_zone=true는 '존 근처' 배지, false는 흐리게, null/undefined는 그대로 표시한다", async () => {
+    const { default: userEvent } = await import("@testing-library/user-event");
+    render(
+      <SignalPanel
+        candle={candle}
+        signals={[sig("도지 - 롱 후보", true), sig("망치형 - 롱 후보", false), sig("EMA50 지지", null), sig("기타", undefined)]}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "롱" }));
+
+    const near = screen.getByText(/도지 - 롱 후보/).closest("li")!;
+    expect(near).toHaveAttribute("data-near-zone", "true");
+    expect(near).toHaveTextContent("존 근처");
+
+    const alone = screen.getByText(/망치형 - 롱 후보/).closest("li")!;
+    expect(alone).toHaveAttribute("data-near-zone", "false");
+    expect(alone).not.toHaveTextContent("존 근처");
+
+    for (const t of [/EMA50 지지/, /기타/]) {
+      const li = screen.getByText(t).closest("li")!;
+      expect(li).not.toHaveAttribute("data-near-zone");
+      expect(li).not.toHaveTextContent("존 근처");
+    }
+  });
+
+  it("참고 지표 목록에도 같은 규칙이 적용되고, 롱/숏 개수는 near_zone과 무관하다", () => {
+    render(
+      <SignalPanel
+        candle={candle}
+        signals={[sig("도지 - 참고", true, "reference"), sig("도지 - 참고", false, "reference"),
+          sig("도지 - 숏 후보", false, "short"), sig("도지 - 롱 후보", true, "long")]}
+      />,
+    );
+    const items = screen.getAllByText(/도지 - 참고/).map((n) => n.closest("li")!);
+    expect(items.map((li) => li.getAttribute("data-near-zone"))).toEqual(["true", "false"]);
+    const metrics = (label: string) =>
+      screen.getAllByText(label).map((el) => el.parentElement!.textContent);
+    expect(metrics("롱")).toContain("롱1");   // 통합 탭의 롱 카운트 (후보 1건)
+    expect(metrics("숏")).toContain("숏1");
   });
 });

@@ -173,14 +173,33 @@ def _volatility_expansion_matches(vol_exp_df: pd.DataFrame, i: int) -> list[dict
     return matches
 
 
+def _near_zone_flags(df: pd.DataFrame, zones: list) -> list:
+    """캔들별로 고가~저가 범위가 존과 조금이라도 겹치는지(low <= 상단 and high >= 하단).
+    존은 time1부터 오른쪽 끝까지 연장되므로(zone_signals.py와 같은 규칙) time2는 쓰지 않는다."""
+    n = len(df)
+    flags = [False] * n
+    dates = df["open_time"].dt.strftime("%Y-%m-%d").tolist()
+    highs, lows = df["high"].tolist(), df["low"].tolist()
+    for z in zones:
+        if z.get("line_type") != "zone" or z.get("time1") is None or z.get("price2") is None:
+            continue
+        top, bottom = max(z["price1"], z["price2"]), min(z["price1"], z["price2"])
+        for i in range(n):
+            if not flags[i] and dates[i] >= z["time1"] and lows[i] <= top and highs[i] >= bottom:
+                flags[i] = True
+    return flags
+
+
 def compute_candle_pattern_signals(
-    df: pd.DataFrame, manual_signals: dict, invalidated_log: list | None = None,
+    df: pd.DataFrame, manual_signals: dict, invalidated_log: list | None = None, zones: list | None = None,
 ) -> dict:
     """모양(도지/망치형/역망치형) x 방향(롱/숏) 6종 신호.
 
     df: open_time/open/high/low/close/volume/EMA50/EMA200 컬럼을 가진 캔들 데이터프레임
         (0-based 연속 인덱스. load_dashboard_data()가 이미 EMA50/EMA200을 붙여서 넘김)
     manual_signals: compute_manual_line_signals()의 결과 - direction별로 그대로 재사용
+    zones: lines_store.list_lines()의 결과를 넘기면 모든 캔들 패턴 신호에 near_zone(True/False)을 채운다.
+        표시용 플래그일 뿐 후보/참고 판정(line_long/line_short 포함)에는 영향이 없다. 안 넘기면 None.
     invalidated_log: 리스트를 넘기면 시세분출로 무효화된 숏 케이스가 거기에 기록된다
         (롱은 이 필터 대상이 아니므로 기록 안 됨).
 
@@ -205,6 +224,7 @@ def compute_candle_pattern_signals(
             elif s.direction == "short":
                 line_short.iloc[i] = True
 
+    near_flags = _near_zone_flags(df, zones) if zones is not None else None
     ema_long = (touch_df["EMA50_signal"] == "long") | (touch_df["EMA200_signal"] == "long")
     ema_short = (touch_df["EMA50_signal"] == "short") | (touch_df["EMA200_signal"] == "short")
 
@@ -237,16 +257,17 @@ def compute_candle_pattern_signals(
             else:
                 short_result = "counted"
 
+        near = None if near_flags is None else near_flags[i]
         if fired_long:
-            signals[i].append(Signal(f"{label} - 롱 후보", "long"))
+            signals[i].append(Signal(f"{label} - 롱 후보", "long", near_zone=near))
         if short_result == "counted":
-            signals[i].append(Signal(f"{label} - 숏 후보", "short"))
+            signals[i].append(Signal(f"{label} - 숏 후보", "short", near_zone=near))
         elif short_result == "invalidated":
-            signals[i].append(Signal(f"{label} - 시세분출 무효", "reference"))
+            signals[i].append(Signal(f"{label} - 시세분출 무효", "reference", near_zone=near))
 
         # 모양은 맞았지만 추세판정(롱/숏 어느 쪽도) 조건을 하나도 못 채운 경우 -
         # 예전엔 화면에서 아예 안 보였는데, 모양 자체는 항상 표시하도록 변경.
         if not fired_long and short_result is None:
-            signals[i].append(Signal(f"{label} - 참고", "reference"))
+            signals[i].append(Signal(f"{label} - 참고", "reference", near_zone=near))
 
     return signals

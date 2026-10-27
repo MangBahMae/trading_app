@@ -32,6 +32,7 @@ class SignalItem(BaseModel):
     evidence: list[str] = []
     ref_id: int | None = None            # 신호를 만든 도형(존)의 lines.id
     ref_created_at: str | None = None    # 그 도형의 생성일(ISO) - 백테스트에서 사후 신호를 거를 때 사용
+    near_zone: bool | None = None        # 캔들 패턴 신호만: 캔들 범위가 존과 겹치는지(None = 해당 없음)
 
 
 class DivergenceMarker(BaseModel):
