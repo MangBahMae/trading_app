@@ -21,40 +21,37 @@
 (몸통 대비 꼬리 배수 방식은 몸통<=10%와 수학적으로 양립 불가라 폐기됨 -
  두 꼬리 합이 range의 90% 이상인데 "몸통의 2배 미만"은 나올 수 없었음.)
 
-추세판정 (OR, 방향 일치 필수 - 롱은 "직전 하락 완료", 숏은 "직전 상승 완료"):
-    1. N봉(1~5, 하나라도 만족하면 인정) 누적등락률 하락<=-8%(롱) 또는 상승>=+8%(숏)
-    2. sr_touch.py의 EMA50/EMA200 방향 판정 재사용 - signal="long"/"short"만 인정,
-       None(gray_zone)은 불인정 (sr_touch.py 자체 로직은 안 건드림, 그대로 재사용)
-    3. 수평선 지지/저항 근접, 방향 있게 (manual_signals의 direction 그대로 재사용)
+위치 판정 (몸통만 사용, 꼬리는 안 씀) - 2026-10 새 방식으로 교체 (N봉 ±8%/EMA 터치/선 근접은 제거):
+    몸통 상단 = max(시가, 종가), 몸통 하단 = min(시가, 종가)
+    고점 캔들: 당일 몸통 상단 > 직전 N개 캔들 몸통 상단의 최댓값 (당일 제외, 엄격 초과)
+    저점 캔들: 당일 몸통 하단 < 직전 N개 캔들 몸통 하단의 최솟값
+    N = POSITION_LOOKBACK_N (한 곳에서 바꾼다). 처음 N개 캔들은 직전 N개가 없어 고점/저점 캔들이 될 수 없다.
 
-위치판정에 스윙저점/고점 근접은 쓰지 않는다 (확정 지연으로 인한 미래참조 위험 -
-스윙 확정에는 우측 N봉이 더 필요해서, 그 시점엔 아직 몰랐을 정보이기 때문).
+신호 (모양이 도지/망치형/역망치형이면 - 모양 자체는 방향이 없다):
+    숏: 고점 캔들 t가 모양이면 t에 신호. 아니면 t+1이 모양일 때 t+1에 신호("(다음 봉)" 표시, next_bar=True).
+        둘 다 모양이면 t에서만(1번). t+1이 또 고점 캔들이면 t+1을 새 고점 캔들로 다시 판정(그 신호는 당일 신호).
+    롱: 저점 캔들 기준으로 대칭.
+    같은 캔들에서 롱과 숏이 따로 나는 경우(아웃사이드 바 등)는 둘 다 낸다.
+    미래 참조 없음: t+1 신호는 t+1 마감 시점까지의 정보(t+1의 모양, 직전 N개 몸통)만 쓴다.
+    위치판정에 스윙저점/고점은 쓰지 않는다 (확정 지연으로 인한 미래참조 위험).
 
-표시 3단계 (모양이 맞으면 항상 뭔가는 뜬다 - 예전엔 추세판정까지 통과해야만
-화면에 보였음):
-    1. 모양만 맞고 추세판정(롱/숏 둘 다) 불충족 -> "{모양} - 참고" (reference)
-    2. 모양+추세판정 충족 -> "{모양} - 롱 후보"/"{모양} - 숏 후보" (long/short, 카운트됨)
-    3. 모양+추세판정(숏) 충족했으나 시세분출로 무효화 -> "{모양} - 시세분출 무효"
-       (reference, 카운트 제외) - 롱/숏 동시 충족 시 둘 다 따로 뜰 수 있음(상호배타 아님)
+시세분출 무효: 숏 신호가 나는 캔들(당일 신호면 t, 다음 봉 신호면 t+1)이 시세분출(volatility_expansion.py)
+    구간이면 "{모양} - 숏 후보" 대신 "{모양} - 시세분출 무효"(reference, 카운트 제외)를 낸다. 롱에는 적용하지 않는다.
 
-시세분출(volatility_expansion.py) 무효화 필터는 숏 3종(도지숏/망치형숏/역망치형숏)
-에만 적용한다 - pipeline.py의 _emit_bearish_signal()과 동일한 패턴을 이 파일에
-소규모로 복제해서 씀(private 헬퍼를 다른 모듈이 직접 끌어다 쓰는 커플링을 피하기
-위함, volatility_expansion.py 자체 로직은 그대로 재사용). 롱 3종은 이번 범위에
-해당하는 대칭(하락형) 필터가 아직 없어서 미적용 - 별도 작업으로 남김.
+표시: "{모양} - 롱 후보"/"{모양} - 숏 후보"(카운트됨), 다음 봉 신호는 뒤에 " (다음 봉)".
+    신호가 안 된 모양 캔들은 아무것도 안 낸다. 예전의 "{모양} - 참고"(reference)는
+    feature_flags.ENABLE_CANDLE_REFERENCE=True일 때만 신호가 하나도 없는 모양 캔들에 낸다(기본 꺼짐, 코드는 보존).
 
-이 모듈의 신호 계산은 app.py의 언캐시드 경로에서 호출된다(pipeline.py의
-build_signals_by_date 캐시 흐름 밖) - 수평선 방향 조건이 사용자가 그은 선
-(manual_signals)에 의존해서 세션마다 동적으로 바뀌기 때문. 기존 "유효 도지"
-(doji.py의 compute_valid_doji_long, 거래량+스윙저점 조건)도 같은 이유로 캐시
-밖에 있었고 이번에 완전히 폐기, 되살리지 않는다.
+제거된 예전 조건(함수/상수는 코드에 남겨 두되 판정에는 안 씀 - 필요하면 되살릴 수 있다): N봉(1~5) 누적등락률 ±8%,
+    EMA50/EMA200 터치 방향(sr_touch.py, EMA 신호 자체는 pipeline에 그대로 있다), 수평선/추세선 근접 방향(manual_signals).
 
-번호(참고용, app.py 표시 순서): 9.도지롱 10.도지숏 11.망치형롱 12.망치형숏
-13.역망치형롱 14.역망치형숏
+이 모듈의 신호 계산은 app.py의 언캐시드 경로에서 호출된다(pipeline.py의 build_signals_by_date 캐시 흐름 밖).
+
+번호(참고용, app.py 표시 순서): 9.도지롱 10.도지숏 11.망치형롱 12.망치형숏 13.역망치형롱 14.역망치형숏
 """
 import pandas as pd
 
-import sr_touch
+import feature_flags
 import volatility_expansion
 from signal_types import Signal
 
@@ -63,8 +60,11 @@ BODY_EXT_MAX_PCT = 0.25   # 도지 확장구간 상한(15~25%) - 거래량 조�
 SYMMETRY_MIN = 1 / 3
 VOLUME_LOOKBACK = 20      # 확장구간 판정용 평균거래량 계산 기간
 VOLUME_RATIO_MIN = 1.5    # 확장구간 진입에 필요한 거래량 배수(직전 20일 평균 대비)
-TREND_PCT = 8.0
-TREND_N_RANGE = range(1, 6)
+TREND_PCT = 8.0           # (미사용: 위치 판정 교체로 제거된 N봉 추세 조건)
+TREND_N_RANGE = range(1, 6)  # (미사용)
+
+# 고점/저점 캔들 판정에 쓰는 직전 캔들 수 N - 여기 한 곳만 바꾸면 된다.
+POSITION_LOOKBACK_N = 10
 
 PATTERN_LABEL_KR = {
     "doji": "도지",
@@ -190,84 +190,92 @@ def _near_zone_flags(df: pd.DataFrame, zones: list) -> list:
     return flags
 
 
+def _position_flags(df: pd.DataFrame, n_lookback: int) -> tuple[list, list]:
+    """몸통 기준 고점/저점 캔들 플래그. 고점: 몸통 상단 > 직전 n개 몸통 상단 최댓값(엄격), 저점은 대칭."""
+    n = len(df)
+    top = df[["open", "close"]].max(axis=1).tolist()
+    bottom = df[["open", "close"]].min(axis=1).tolist()
+    is_high = [False] * n
+    is_low = [False] * n
+    for t in range(n_lookback, n):
+        is_high[t] = top[t] > max(top[t - n_lookback:t])
+        is_low[t] = bottom[t] < min(bottom[t - n_lookback:t])
+    return is_high, is_low
+
+
 def compute_candle_pattern_signals(
-    df: pd.DataFrame, manual_signals: dict, invalidated_log: list | None = None, zones: list | None = None,
+    df: pd.DataFrame, manual_signals: dict | None = None, invalidated_log: list | None = None,
+    zones: list | None = None, n_lookback: int | None = None,
 ) -> dict:
-    """모양(도지/망치형/역망치형) x 방향(롱/숏) 6종 신호.
+    """모양(도지/망치형/역망치형) x 방향(롱/숏) 신호 - 고점/저점 캔들 위치 판정(모듈 docstring 참고).
 
-    df: open_time/open/high/low/close/volume/EMA50/EMA200 컬럼을 가진 캔들 데이터프레임
-        (0-based 연속 인덱스. load_dashboard_data()가 이미 EMA50/EMA200을 붙여서 넘김)
-    manual_signals: compute_manual_line_signals()의 결과 - direction별로 그대로 재사용
-    zones: lines_store.list_lines()의 결과를 넘기면 모든 캔들 패턴 신호에 near_zone(True/False)을 채운다.
-        표시용 플래그일 뿐 후보/참고 판정(line_long/line_short 포함)에는 영향이 없다. 안 넘기면 None.
-    invalidated_log: 리스트를 넘기면 시세분출로 무효화된 숏 케이스가 거기에 기록된다
-        (롱은 이 필터 대상이 아니므로 기록 안 됨).
+    df: open_time/open/high/low/close/volume 컬럼을 가진 캔들 데이터프레임 (0-based 연속 인덱스)
+    manual_signals: 호출부 호환용으로만 남긴 인자 - 선 근접 조건이 일시 제거돼 지금은 쓰이지 않는다.
+    zones: lines_store.list_lines()의 결과를 넘기면 모든 캔들 패턴 신호에 near_zone(True/False)을 채운다
+        (신호가 나는 캔들 기준). 표시용 플래그일 뿐 판정에는 영향이 없다. 안 넘기면 None.
+    invalidated_log: 리스트를 넘기면 시세분출로 무효화된 숏 신호가 거기에 기록된다.
+    n_lookback: 고점/저점 판정 N. 안 넘기면 POSITION_LOOKBACK_N.
 
-    반환: {row_index: [Signal("도지 - 롱 후보", "long"), ...]} - 모양이 맞는 모든
-        캔들에 대해 항상 뭔가는 들어간다(참고/후보/시세분출무효 중 하나 이상).
+    반환: {row_index: [Signal("도지 - 롱 후보", "long", next_bar=False), ...]}
     """
+    n_lookback = POSITION_LOOKBACK_N if n_lookback is None else n_lookback
     df = df.reset_index(drop=True)
     n = len(df)
     signals = {i: [] for i in range(n)}
 
     shape_df = compute_candle_shape(df)
-    down_nbar, up_nbar = _compute_nbar_trend(df)
-    touch_df = sr_touch.compute_sr_touch(df)
+    shapes = shape_df["shape"].tolist()
     vol_exp_df = volatility_expansion.compute_volatility_expansion(df)
-
-    line_long = pd.Series(False, index=df.index)
-    line_short = pd.Series(False, index=df.index)
-    for i in range(n):
-        for s in manual_signals.get(i, []):
-            if s.direction == "long":
-                line_long.iloc[i] = True
-            elif s.direction == "short":
-                line_short.iloc[i] = True
-
     near_flags = _near_zone_flags(df, zones) if zones is not None else None
-    ema_long = (touch_df["EMA50_signal"] == "long") | (touch_df["EMA200_signal"] == "long")
-    ema_short = (touch_df["EMA50_signal"] == "short") | (touch_df["EMA200_signal"] == "short")
+    is_high, is_low = _position_flags(df, n_lookback)
 
-    long_trend_ok = down_nbar | ema_long | line_long
-    short_trend_ok = up_nbar | ema_short | line_short
+    # (신호 캔들 i, 방향) -> next_bar(True면 고점/저점 캔들의 다음 봉에서 난 신호)
+    events: dict[tuple[int, str], bool] = {}
+    for direction, flags in (("short", is_high), ("long", is_low)):
+        for t in range(n):
+            if not flags[t]:
+                continue
+            if shapes[t] is not None:
+                events[(t, direction)] = False
+            elif t + 1 < n and shapes[t + 1] is not None:
+                # t+1이 또 고점/저점 캔들이면 t+1 자신의 신호(당일)로 본다 - 같은 날 중복 신호가 안 생긴다
+                events.setdefault((t + 1, direction), not flags[t + 1])
 
     for i in range(n):
-        shape = shape_df["shape"].iloc[i]
+        shape = shapes[i]
         if shape is None:
             continue
         label = PATTERN_LABEL_KR[shape]
+        near = None if near_flags is None else near_flags[i]
+        emitted = False
 
-        fired_long = bool(long_trend_ok.iloc[i])
-        short_result = None  # None | "counted" | "invalidated"
-
-        if short_trend_ok.iloc[i]:
+        for direction in ("long", "short"):  # 같은 캔들에서는 롱 -> 숏 순서
+            if (i, direction) not in events:
+                continue
+            next_bar = events[(i, direction)]
+            suffix = " (다음 봉)" if next_bar else ""
+            emitted = True
+            if direction == "long":
+                signals[i].append(Signal(f"{label} - 롱 후보{suffix}", "long", near_zone=near, next_bar=next_bar))
+                continue
             matches = _volatility_expansion_matches(vol_exp_df, i)
             if matches:
-                short_result = "invalidated"
                 if invalidated_log is not None:
                     for m in matches:
                         invalidated_log.append({
                             "index": i,
                             "date": df["open_time"].iloc[i],
-                            "signal_text": f"{label} - 숏 후보",
+                            "signal_text": f"{label} - 숏 후보{suffix}",
                             "n": m["n"],
                             "cum_pct": m["cum_pct"],
                             "cum_pct_per_n": m["cum_pct_per_n"],
                         })
+                signals[i].append(Signal(f"{label} - 시세분출 무효{suffix}", "reference", near_zone=near, next_bar=next_bar))
             else:
-                short_result = "counted"
+                signals[i].append(Signal(f"{label} - 숏 후보{suffix}", "short", near_zone=near, next_bar=next_bar))
 
-        near = None if near_flags is None else near_flags[i]
-        if fired_long:
-            signals[i].append(Signal(f"{label} - 롱 후보", "long", near_zone=near))
-        if short_result == "counted":
-            signals[i].append(Signal(f"{label} - 숏 후보", "short", near_zone=near))
-        elif short_result == "invalidated":
-            signals[i].append(Signal(f"{label} - 시세분출 무효", "reference", near_zone=near))
-
-        # 모양은 맞았지만 추세판정(롱/숏 어느 쪽도) 조건을 하나도 못 채운 경우 -
-        # 예전엔 화면에서 아예 안 보였는데, 모양 자체는 항상 표시하도록 변경.
-        if not fired_long and short_result is None:
-            signals[i].append(Signal(f"{label} - 참고", "reference", near_zone=near))
+        # 신호가 안 된 모양 캔들의 "참고" 표시 - 기본 꺼짐(feature_flags.ENABLE_CANDLE_REFERENCE)
+        if not emitted and feature_flags.ENABLE_CANDLE_REFERENCE:
+            signals[i].append(Signal(f"{label} - 참고", "reference", near_zone=near, next_bar=False))
 
     return signals

@@ -25,3 +25,6 @@ class Signal(NamedTuple):
     # 캔들 패턴 신호만 채운다: 그 캔들의 고가~저가 범위가 (오른쪽으로 연장된) 존과 겹치면 True, 아니면 False.
     # 캔들 패턴이 아닌 신호는 None(해당 없음). 표시용 플래그일 뿐 후보/참고 판정에는 쓰이지 않는다.
     near_zone: bool | None = None
+    # 캔들 패턴 신호만 채운다: 고점/저점 캔들의 다음 봉(t+1)에서 나온 신호면 True, 그 캔들 자신이 고점/저점
+    # 캔들이라 당일에 난 신호면 False. 캔들 패턴이 아닌 신호는 None. 텍스트에는 " (다음 봉)"이 붙는다.
+    next_bar: bool | None = None

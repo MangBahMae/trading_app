@@ -89,7 +89,7 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
                 {
                     "text": s.text, "direction": s.direction,
                     "source": s.source, "tier": s.tier, "evidence": list(s.evidence),
-                    "ref_id": s.ref_id, "ref_created_at": s.ref_created_at, "near_zone": s.near_zone,
+                    "ref_id": s.ref_id, "ref_created_at": s.ref_created_at, "near_zone": s.near_zone, "next_bar": s.next_bar,
                 }
                 for s in day_all
             ]

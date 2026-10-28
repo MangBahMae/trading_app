@@ -85,6 +85,8 @@ export interface SignalItem {
   ref_created_at?: string | null;
   // 캔들 패턴 신호만: 캔들 고가~저가가 (오른쪽으로 연장된) 존과 겹치면 true, 아니면 false. 그 밖의 신호는 null.
   near_zone?: boolean | null;
+  // 캔들 패턴 신호만: 고점/저점 캔들의 다음 봉(t+1)에서 난 신호면 true(텍스트에도 "(다음 봉)"이 붙는다), 당일 신호면 false
+  next_bar?: boolean | null;
 }
 
 export type DivergenceType = "regular_bullish" | "regular_bearish" | "hidden_bullish" | "hidden_bearish";

@@ -17,3 +17,8 @@ ENABLE_RSI_OVERSOLD_SIGNAL = False
 
 # RSI 다이버전스 차트 마커 (카운트 신호는 아니고 차트 참고 표시)
 ENABLE_DIVERGENCE_MARKERS = False
+
+# 캔들 패턴 "참고"(reference): 모양은 맞는데 위치(고점/저점 캔들) 조건을 못 채워 신호가 안 된 모양 캔들에
+# "{모양} - 참고"를 내는 표시. 위치 판정을 새 방식으로 바꾸면서 끔(신호 안 되는 모양 캔들은 아무것도 안 냄).
+# candle_patterns.py가 `feature_flags.ENABLE_CANDLE_REFERENCE`로 읽는다.
+ENABLE_CANDLE_REFERENCE = False
