@@ -2,24 +2,15 @@
 캔들패턴 4종 (도지/망치형/역망치형) - 롱/숏 각각. 신호2(일반도지)/9(고점도지)/
 10(고점스피닝탑)을 전부 폐기하고 대체하는 통합 모듈.
 
-모양 판정 - 2단계(후보 여부 -> 모양) 구조:
-    1. 후보 여부(몸통비율, range 대비):
-       몸통비율 = |종가-시가| / (고가-저가)
-       몸통비율 <= 15%: 무조건 후보
-       15% < 몸통비율 <= 25%: 거래량 >= 직전 20일 평균거래량(당일 제외)의 1.5배
-         여야만 후보(실측 사례 2025-06-22 기준 확정). 미달이면 이 캔들은
-         망치형/역망치형/도지 어느 것도 안 됨(shape=None).
-       몸통비율 > 25%: 후보 자체가 아님.
-    2. 후보로 확정되면(둘 중 어느 구간이든) 아래로 반드시 셋 중 하나:
-       위꼬리비율 = 위꼬리 / (고가-저가), 아래꼬리비율 = 아래꼬리 / (고가-저가)
-       대칭도 = min(위꼬리비율,아래꼬리비율) / max(위꼬리비율,아래꼬리비율)
-       망치형: 대칭도 < 1/3 AND 아래꼬리비율 > 위꼬리비율
-       역망치형: 대칭도 < 1/3 AND 위꼬리비율 > 아래꼬리비율
-       도지: 그 외 전부(대칭도>=1/3 포함) - "대칭도>=1/3"을 별도로 안 걸고
-       망치형/역망치형이 아니면 도지라는 else로 처리. 15~25% 구간도 이제
-       망치형/역망치형이 나올 수 있음(예전엔 그 구간에서 도지만 가능했음).
-(몸통 대비 꼬리 배수 방식은 몸통<=10%와 수학적으로 양립 불가라 폐기됨 -
- 두 꼬리 합이 range의 90% 이상인데 "몸통의 2배 미만"은 나올 수 없었음.)
+모양 판정 (모든 비율은 캔들 범위 = 고가 - 저가 대비, 기준값은 아래 상수):
+    몸통비율 = |종가-시가| / 범위, 위꼬리비율 = 위꼬리 / 범위, 아래꼬리비율 = 아래꼬리 / 범위
+    망치형:   몸통비율 <= 35%  AND 위꼬리비율 <= 10%  AND 아래꼬리 >= 몸통 x 2
+    역망치형: 몸통비율 <= 35%  AND 아래꼬리비율 <= 10%  AND 위꼬리 >= 몸통 x 2
+    도지:     위 둘이 아니면서 몸통비율 <= 15%, 또는 15% < 몸통비율 <= 25%인데 당일 거래량 >= 직전 20일 평균거래량
+              (당일 제외)의 1.5배. 도지는 대칭도 조건이 없다 - 망치형/역망치형 조건(꼬리 10%/배수)에 못 미치는
+              몸통 15% 이하 캔들은 전부 도지가 된다.
+    망치형/역망치형에는 도지의 거래량 조건을 적용하지 않는다. 고가 == 저가(범위 0)인 캔들은 모양 없음.
+    (2026-10 이전에는 "대칭도 < 1/3이고 한쪽 꼬리가 더 길면 망치형/역망치형, 몸통 15~25%는 거래량 조건"이었다.)
 
 위치 판정 (몸통만 사용, 꼬리는 안 씀) - 2026-10 새 방식으로 교체 (N봉 ±8%/EMA 터치/선 근접은 제거):
     몸통 상단 = max(시가, 종가), 몸통 하단 = min(시가, 종가)
@@ -56,9 +47,11 @@ import feature_flags
 import volatility_expansion
 from signal_types import Signal
 
-BODY_MAX_PCT = 0.15
+BODY_MAX_PCT = 0.15       # 도지: 몸통비율 상한
 BODY_EXT_MAX_PCT = 0.25   # 도지 확장구간 상한(15~25%) - 거래량 조건 만족 시만 도지 인정
-SYMMETRY_MIN = 1 / 3
+HAMMER_BODY_MAX_PCT = 0.35         # 망치형/역망치형: 몸통비율 상한
+HAMMER_OPPOSITE_WICK_MAX_PCT = 0.10  # 망치형은 위꼬리, 역망치형은 아래꼬리 비율 상한
+HAMMER_WICK_BODY_MULT = 2          # 긴 꼬리(망치형은 아래꼬리) >= 몸통 x 이 배수
 VOLUME_LOOKBACK = 20      # 확장구간 판정용 평균거래량 계산 기간
 VOLUME_RATIO_MIN = 1.5    # 확장구간 진입에 필요한 거래량 배수(직전 20일 평균 대비)
 TREND_PCT = 8.0           # (미사용: 위치 판정 교체로 제거된 N봉 추세 조건)
@@ -99,32 +92,30 @@ def compute_candle_shape(df: pd.DataFrame) -> pd.DataFrame:
 
     shape = pd.Series([None] * len(df), dtype=object)
     for i in df.index:
+        if not nonzero_range.iloc[i]:
+            continue  # 고가 == 저가: 비율을 정의할 수 없음
         br = body_ratio.iloc[i]
+        uw, lw = upper_wick_ratio.iloc[i], lower_wick_ratio.iloc[i]
+
+        # 망치형/역망치형 - 거래량 조건 없음. 두 조건이 동시에 성립하는 캔들은 없다(몸통+두 꼬리 = 범위).
+        if br <= HAMMER_BODY_MAX_PCT:
+            if uw <= HAMMER_OPPOSITE_WICK_MAX_PCT and lw >= HAMMER_WICK_BODY_MULT * br:
+                shape.iloc[i] = "hammer"
+                continue
+            if lw <= HAMMER_OPPOSITE_WICK_MAX_PCT and uw >= HAMMER_WICK_BODY_MULT * br:
+                shape.iloc[i] = "inverted_hammer"
+                continue
+
+        # 도지 - 위 둘이 아닌 것 중 몸통 15% 이하(15~25%는 거래량 조건)
         if br > BODY_EXT_MAX_PCT:
             continue
         if br > BODY_MAX_PCT:
-            # 15~25% 확장구간 진입 자체는 거래량 조건이 있어야 함(무변경) -
-            # 미달이면 이 캔들은 후보에서 완전히 탈락(망치형/역망치형/도지 다 안 됨)
             vr = volume_ratio.iloc[i]
             if not (pd.notna(vr) and vr >= VOLUME_RATIO_MIN):
                 continue
-
-        uw, lw = upper_wick_ratio.iloc[i], lower_wick_ratio.iloc[i]
-        bigger, smaller = max(uw, lw), min(uw, lw)
-        if bigger == 0:
-            continue  # 두 꼬리 다 0(사실상 점) - 대칭도 정의 불가, 판정 제외
-        symmetry = smaller / bigger
-
-        # 망치형/역망치형 조건(대칭도<1/3 + 방향)은 무변경. 도지는 "대칭도>=1/3"을
-        # 명시적으로 체크하는 대신, 망치형도 역망치형도 아닌 나머지 전부(else)로 대체 -
-        # 결과적으로 몸통비율(+확장구간 거래량) 조건만 통과하면 항상 셋 중 하나로 분류됨.
-        # (기존엔 확장구간에서 도지만 가능했는데, 이제 망치형/역망치형도 그 구간에서 나올 수 있음)
-        if symmetry < SYMMETRY_MIN and lw > uw:
-            shape.iloc[i] = "hammer"
-        elif symmetry < SYMMETRY_MIN and uw > lw:
-            shape.iloc[i] = "inverted_hammer"
-        else:
-            shape.iloc[i] = "doji"
+        if max(uw, lw) == 0:
+            continue  # 두 꼬리 다 0(사실상 점) - 판정 제외
+        shape.iloc[i] = "doji"
 
     df["body_ratio"] = body_ratio
     df["upper_wick_ratio"] = upper_wick_ratio

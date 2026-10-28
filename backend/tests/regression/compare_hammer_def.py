@@ -1,5 +1,8 @@
 """
-망치형/역망치형 "새 정의" vs 현재 정의 비교 (읽기 전용, 앱 코드는 수정하지 않는다).
+망치형/역망치형 "새 정의" vs 예전(현재) 정의 비교 (읽기 전용, 앱 코드는 수정하지 않는다).
+
+(2026-10 새 정의가 candle_patterns.py에 적용된 뒤: "현재 정의" = 이 파일에 복사해 둔 예전 정의 기준선,
+"새 정의" = candle_patterns.compute_candle_shape 결과.)
 
 새 정의 (모든 비율은 캔들 범위 = 고가 - 저가 대비, 꼬리 배수만 몸통 대비):
 - 망치형: 몸통 <= 35%, 위꼬리 <= 10%, 아래꼬리 >= 몸통 x 2
@@ -31,23 +34,27 @@ NAME = candle_patterns.PATTERN_LABEL_KR
 PATTERNS = ("도지", "망치형", "역망치형")
 
 
-def new_shape_series(sh: pd.DataFrame) -> list:
-    """compute_candle_shape()가 계산한 비율 컬럼(body/upper/lower/volume_ratio)으로 새 정의를 적용한다."""
+def old_shape_series(sh: pd.DataFrame) -> list:
+    """예전(2026-10 이전) 모양 정의를 그대로 복사해 둔 기준선 - 비율 컬럼에서 계산한다.
+    몸통 > 25% 탈락, 15~25%는 거래량 조건, 후보면 대칭도 < 1/3 이고 한쪽 꼬리가 길면 망치형/역망치형, 나머지 도지."""
     out = []
     for i in sh.index:
         br, uw, lw = sh["body_ratio"].iloc[i], sh["upper_wick_ratio"].iloc[i], sh["lower_wick_ratio"].iloc[i]
         vr = sh["volume_ratio"].iloc[i]
-        if sh["high"].iloc[i] == sh["low"].iloc[i]:
+        if br > 0.25 or (br > 0.15 and not (pd.notna(vr) and vr >= 1.5)):
             out.append(None)
             continue
-        if br <= 0.35 and uw <= 0.10 and lw >= 2 * br:
-            out.append("hammer")
-        elif br <= 0.35 and lw <= 0.10 and uw >= 2 * br:
-            out.append("inverted_hammer")
-        elif br <= 0.15 or (br <= 0.25 and pd.notna(vr) and vr >= candle_patterns.VOLUME_RATIO_MIN):
-            out.append(None if max(uw, lw) == 0 else "doji")
-        else:
+        bigger, smaller = max(uw, lw), min(uw, lw)
+        if bigger == 0:
             out.append(None)
+            continue
+        symmetry = smaller / bigger
+        if symmetry < 1 / 3 and lw > uw:
+            out.append("hammer")
+        elif symmetry < 1 / 3 and uw > lw:
+            out.append("inverted_hammer")
+        else:
+            out.append("doji")
     return out
 
 
@@ -58,15 +65,15 @@ def main():
     df = df.reset_index(drop=True)
     dates = df["open_time"].dt.strftime("%Y-%m-%d").tolist()
     sh = candle_patterns.compute_candle_shape(df)
-    cur = [None if x is None else x for x in sh["shape"].tolist()]
-    new = new_shape_series(sh)
+    cur = old_shape_series(sh)            # 예전 정의(위에 복사해 둔 기준선)
+    new = [None if x is None else x for x in sh["shape"].tolist()]   # 앱의 현재(새) 정의
     p(f"캔들 {len(df)}개 {dates[0]} ~ {dates[-1]} | 위치 판정 N={N} (새 방식, 시세분출 필터 전)")
 
     def cnt(shapes):
         c = Counter(s for s in shapes if s)
         return {NAME[k]: c[k] for k in ("doji", "hammer", "inverted_hammer")}
 
-    p("\n== 모양 캔들 수 (현재 정의 -> 새 정의)")
+    p("\n== 모양 캔들 수 (예전 정의 -> 새 정의)")
     cc, nc = cnt(cur), cnt(new)
     for name in PATTERNS:
         p(f"  {name}: {cc[name]} -> {nc[name]}")
