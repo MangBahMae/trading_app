@@ -34,6 +34,8 @@ def classify(sig_map, dates):
             name, kind = s.text.split(" - ")
             nb = kind.endswith("(다음 봉)")
             kind = kind.replace(" (다음 봉)", "")
+            if kind.startswith("참고"):
+                kind = "참고"  # "참고 (고점/저점 아님)" 문구 접미사는 종류 비교에서 뺀다
             items[(dates[i], name, kind)] = nb
             cnt[(name, kind)] += 1
     return items, cnt

@@ -39,8 +39,9 @@
     구간이면 "{모양} - 숏 후보" 대신 "{모양} - 시세분출 무효"(reference, 카운트 제외)를 낸다. 롱에는 적용하지 않는다.
 
 표시: "{모양} - 롱 후보"/"{모양} - 숏 후보"(카운트됨), 다음 봉 신호는 뒤에 " (다음 봉)".
-    신호가 안 된 모양 캔들은 아무것도 안 낸다. 예전의 "{모양} - 참고"(reference)는
-    feature_flags.ENABLE_CANDLE_REFERENCE=True일 때만 신호가 하나도 없는 모양 캔들에 낸다(기본 꺼짐, 코드는 보존).
+    위치 조건(고점/저점 캔들)을 못 채워 신호가 하나도 안 난 모양 캔들에는 "{모양} - 참고 (고점/저점 아님)"
+    (reference, 카운트 제외, near_zone 부착)을 낸다. 같은 캔들에 신호가 났으면 참고는 안 낸다.
+    feature_flags.ENABLE_CANDLE_REFERENCE=False로 끌 수 있다(끄면 아무것도 안 낸다).
 
 제거된 예전 조건(함수/상수는 코드에 남겨 두되 판정에는 안 씀 - 필요하면 되살릴 수 있다): N봉(1~5) 누적등락률 ±8%,
     EMA50/EMA200 터치 방향(sr_touch.py, EMA 신호 자체는 pipeline에 그대로 있다), 수평선/추세선 근접 방향(manual_signals).
@@ -65,6 +66,8 @@ TREND_N_RANGE = range(1, 6)  # (미사용)
 
 # 고점/저점 캔들 판정에 쓰는 직전 캔들 수 N - 여기 한 곳만 바꾸면 된다.
 POSITION_LOOKBACK_N = 10
+
+REFERENCE_SUFFIX = "참고 (고점/저점 아님)"   # 위치 조건을 못 채운 모양 캔들의 참고 문구
 
 PATTERN_LABEL_KR = {
     "doji": "도지",
@@ -274,8 +277,8 @@ def compute_candle_pattern_signals(
             else:
                 signals[i].append(Signal(f"{label} - 숏 후보{suffix}", "short", near_zone=near, next_bar=next_bar))
 
-        # 신호가 안 된 모양 캔들의 "참고" 표시 - 기본 꺼짐(feature_flags.ENABLE_CANDLE_REFERENCE)
+        # 신호가 안 된 모양 캔들의 "참고" 표시 (feature_flags.ENABLE_CANDLE_REFERENCE로 끌 수 있다)
         if not emitted and feature_flags.ENABLE_CANDLE_REFERENCE:
-            signals[i].append(Signal(f"{label} - 참고", "reference", near_zone=near, next_bar=False))
+            signals[i].append(Signal(f"{label} - {REFERENCE_SUFFIX}", "reference", near_zone=near, next_bar=False))
 
     return signals

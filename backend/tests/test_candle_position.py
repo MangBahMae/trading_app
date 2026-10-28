@@ -29,6 +29,13 @@ import feature_flags  # noqa: E402
 import pipeline  # noqa: E402
 
 N = 3
+ORIGINAL_REFERENCE_DEFAULT = feature_flags.ENABLE_CANDLE_REFERENCE   # fixture가 바꾸기 전의 실제 기본값
+
+
+@pytest.fixture(autouse=True)
+def _reference_off_by_default_in_this_module(monkeypatch):
+    """위치 판정/신호 테스트는 신호만 본다 - 참고(reference)는 끄고, 참고 테스트가 직접 켠다."""
+    monkeypatch.setattr(feature_flags, "ENABLE_CANDLE_REFERENCE", False)
 
 
 def big(top, bottom=None):
@@ -140,16 +147,34 @@ def test_volatility_expansion_invalidates_short_same_day_and_next_bar_but_not_lo
 
 # --- 참고 (기본 꺼짐) ---
 
-def test_reference_is_off_by_default_and_only_for_shapes_without_a_signal_when_on(monkeypatch):
+def test_reference_is_on_by_default_only_for_shapes_without_a_signal_and_can_be_turned_off(monkeypatch):
     rows = BASE + [doji(1050), doji(1005), doji(1006)]    # idx3 숏 신호, idx4/5는 모양인데 신호 없음
-    off = run(rows)
-    assert 3 in off and 4 not in off and 5 not in off
-    assert feature_flags.ENABLE_CANDLE_REFERENCE is False
-
+    assert ORIGINAL_REFERENCE_DEFAULT is True                           # 실제 기본값은 켜짐
     monkeypatch.setattr(feature_flags, "ENABLE_CANDLE_REFERENCE", True)
+    ref = ("도지 - 참고 (고점/저점 아님)", "reference", False)
     on = run(rows)
-    assert on[3] == off[3]                                           # 신호가 있는 캔들에는 참고를 안 붙인다
-    assert on[4] == [("도지 - 참고", "reference", False)] and on[5] == [("도지 - 참고", "reference", False)]
+    assert on[3] == [("도지 - 숏 후보", "short", False)]               # 신호가 있는 캔들에는 참고를 안 붙인다
+    assert on[4] == [ref] and on[5] == [ref]
+    # 시세분출 무효도 신호가 난 것이므로 참고를 안 붙인다
+    assert run(RISING + [doji(140)]) == {4: [("도지 - 시세분출 무효", "reference", False)]}
+
+    monkeypatch.setattr(feature_flags, "ENABLE_CANDLE_REFERENCE", False)
+    off = run(rows)
+    assert off == {3: [("도지 - 숏 후보", "short", False)]}              # 끄면 아무것도 안 낸다
+
+
+def test_reference_keeps_near_zone_flag_and_does_not_count_as_long_or_short(monkeypatch):
+    monkeypatch.setattr(feature_flags, "ENABLE_CANDLE_REFERENCE", True)
+    zone = {"id": 1, "line_type": "zone", "time1": "2025-01-01", "price1": 1000.0, "time2": "2025-12-31",
+            "price2": 990.0, "created_at": "x"}
+    rows = BASE + [doji(995)]                                           # 고점도 저점도 아닌 도지
+    sigs = candle_patterns.compute_candle_pattern_signals(make_df(rows), None, zones=[zone], n_lookback=N)
+    s = sigs[3][0]
+    assert (s.text, s.direction, s.near_zone, s.next_bar) == ("도지 - 참고 (고점/저점 아님)", "reference", True, False)
+    far = {**zone, "price1": 2010.0, "price2": 2000.0}
+    sigs = candle_patterns.compute_candle_pattern_signals(make_df(rows), None, zones=[far], n_lookback=N)
+    assert sigs[3][0].near_zone is False
+    assert candle_patterns.compute_candle_pattern_signals(make_df(rows), None)[3][0].near_zone is None
 
 
 # --- near_zone / N 상수 ---
@@ -215,7 +240,8 @@ def client(tmp_path, monkeypatch):
     return TestClient(app)
 
 
-def test_dashboard_exposes_next_bar_only_on_candle_pattern_signals(client):
+def test_dashboard_exposes_next_bar_only_on_candle_pattern_signals(client, monkeypatch):
+    monkeypatch.setattr(feature_flags, "ENABLE_CANDLE_REFERENCE", True)
     data = client.get("/api/dashboard").json()
     items = [s for v in data["signals"].values() for s in v]
     candle = [s for s in items if s["text"].split(" - ")[0] in ("도지", "망치형", "역망치형")]
@@ -225,4 +251,5 @@ def test_dashboard_exposes_next_bar_only_on_candle_pattern_signals(client):
     assert any(s["next_bar"] for s in candle) and not all(s["next_bar"] for s in candle)
     assert all(s["next_bar"] is None for s in other)
     assert all(s["text"].endswith("(다음 봉)") == s["next_bar"] for s in candle)
-    assert not any(s["text"].endswith(" - 참고") for s in candle)           # 참고는 기본 꺼짐
+    refs = [s for s in candle if "참고" in s["text"]]
+    assert refs and all(s["text"].endswith("참고 (고점/저점 아님)") and s["direction"] == "reference" for s in refs)
