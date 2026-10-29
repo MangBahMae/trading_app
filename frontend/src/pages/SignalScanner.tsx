@@ -21,7 +21,7 @@ import styles from "./SignalScanner.module.css";
 const WINDOW_OPTIONS: Record<string, number | null> = {
   "최근 3개월": 90, "최근 6개월": 180, "최근 1년": 365, "전체": null,
 };
-const DEFAULT_WINDOW = "최근 6개월";
+const DEFAULT_WINDOW = "전체";   // 처음 열 때 전체 기간을 보여준다 (기간 바에서 3M/6M/1Y로 줄일 수 있다)
 
 const EMA_STYLE: Record<string, { label: string; color: string; dashed: boolean }> = {
   ema9: { label: "EMA9", color: THEME.ema9, dashed: false },

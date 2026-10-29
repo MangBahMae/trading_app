@@ -73,11 +73,12 @@ describe("신호 스캐너 화면", () => {
     await waitForLatestDate();
 
     // 기간 바 / 범례 토글 / 도구 막대는 role=radio·checkbox 버튼이라 접근성 이름과 toBeChecked 로 확인한다
+    expect(screen.getByRole("radio", { name: "전체" })).toBeChecked();            // 기본 기간은 전체
     const yearRadio = screen.getByRole("radio", { name: "최근 1년" });
     expect(yearRadio).not.toBeChecked();
     await user.click(yearRadio);
     expect(yearRadio).toBeChecked();
-    expect(screen.getByRole("radio", { name: "최근 6개월" })).not.toBeChecked();   // 하나만 활성
+    expect(screen.getByRole("radio", { name: "전체" })).not.toBeChecked();         // 하나만 활성
 
     const emaCheckbox = screen.getByRole("checkbox", { name: "EMA20" });
     expect(emaCheckbox).not.toBeChecked();
