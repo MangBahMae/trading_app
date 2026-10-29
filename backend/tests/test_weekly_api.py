@@ -1,6 +1,6 @@
 """
 GET /api/dashboard/weekly - 주봉 차트 + 주봉 신호. 선/존은 일봉에서 그린 것을 표시용으로만 내려주고 신호 판정에는 쓰지 않는다.
-일봉 /api/dashboard는 그대로다.
+데이터는 저장소의 고정 주봉(tests/fixtures)이라 네트워크/캐시 없이 돈다(conftest의 weekly_offline).
 """
 import sys
 from pathlib import Path
@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app" / "services")
 
 
 @pytest.fixture
-def client(tmp_path, monkeypatch):
+def client(tmp_path, monkeypatch, weekly_offline):
     monkeypatch.setattr(lines_store, "DB_PATH", tmp_path / "manual_lines.db")
     return TestClient(app)
 
@@ -30,7 +30,7 @@ def test_weekly_response_shape_and_range(client):
     import datetime as dt
     assert all(dt.date.fromisoformat(c["date"]).weekday() == 0 for c in candles)          # 전부 월요일 시작
     assert [c["date"] for c in candles] == sorted(c["date"] for c in candles)
-    assert len(candles) >= 251
+    assert len(candles) == 251 and candles[-1]["date"] == "2026-10-19"   # 고정 데이터: 2022-01-03 ~ 2026-10-19 마감 주봉
     # EMA200은 2017년부터 받은 워밍업 덕에 첫 표시 주부터 값이 있다
     assert candles[0]["ema200"] is not None and candles[0]["ema20"] is not None and candles[0]["ema9"] is not None
     assert candles[0]["rsi"] is not None
@@ -64,11 +64,3 @@ def test_daily_lines_are_shown_but_do_not_change_weekly_signals(client):
     assert [ln["line_type"] for ln in after["manual_lines"]] == ["horizontal", "zone", "trend"]
     assert any(ln["id"] == zone_id and ln["label"] for ln in after["manual_lines"])
     assert after["signals"] == before["signals"] and after["candles"] == before["candles"]   # 신호/캔들은 선과 무관
-
-
-def test_daily_endpoint_is_unchanged_and_has_daily_candles(client):
-    daily = client.get("/api/dashboard").json()
-    weekly = client.get("/api/dashboard/weekly").json()
-    assert daily["candles"][0]["date"] == "2022-01-01" and len(daily["candles"]) > 1700
-    assert not any(s["text"].startswith("주봉 ") for v in daily["signals"].values() for s in v)
-    assert len(weekly["candles"]) < len(daily["candles"]) / 5

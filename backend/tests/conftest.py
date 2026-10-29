@@ -58,3 +58,34 @@ def pytest_sessionfinish(session, exitstatus):
             reporter.write_line(msg, red=True)
         else:
             print(msg)
+
+
+# --- 고정용 주봉 데이터 (네트워크/캐시 없이 주봉 테스트가 돌도록) ---
+# data/merged/*.parquet 캐시는 git에 없어서, 새로 clone한 환경/서버에서는 Binance에서 다시 받아야 한다.
+# 주봉 테스트가 그 사실에 기대지 않게 확정 시점(2017-08-14 ~ 2026-10-19 마감 주봉 480개)의 데이터를 저장소에 둔다.
+# 과거 주봉은 바뀌지 않으므로 이 파일이 곧 "그때의 Binance 데이터"다. 갱신이 필요하면 weekly_data로 받아서 같은 모양의 CSV로 다시 저장.
+WEEKLY_FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "BTCUSDT_1w_2017-08-14_2026-10-19.csv"
+
+
+def _load_weekly_fixture():
+    import pandas as pd
+    df = pd.read_csv(WEEKLY_FIXTURE_PATH, parse_dates=["open_time", "close_time"])
+    for col in ("open_time", "close_time"):
+        df[col] = df[col].astype("datetime64[ns, UTC]")
+    return df
+
+
+@pytest.fixture(scope="session")
+def frozen_weekly_data():
+    """고정용 주봉 DataFrame(open_time/open/high/low/close/volume/close_time, UTC). 읽기 전용으로 쓰고, 고치려면 .copy()."""
+    return _load_weekly_fixture()
+
+
+@pytest.fixture
+def weekly_offline(monkeypatch, frozen_weekly_data):
+    """weekly_data.ensure_fresh_weekly_data()가 네트워크/캐시 대신 고정 데이터를 돌려주게 하고 주봉 응답 캐시를 비운다."""
+    import weekly
+    import weekly_data
+    monkeypatch.setattr(weekly_data, "ensure_fresh_weekly_data", lambda force=False: frozen_weekly_data.copy())
+    monkeypatch.setitem(weekly._cache, "data", None)
+    yield

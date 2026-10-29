@@ -195,12 +195,12 @@ def test_signals_do_not_change_when_later_weeks_are_removed():
         assert prefix == {i: v for i, v in full.items() if i < k}
 
 
-# --- 실데이터: 확정한 표와 같은 건수 ---
+# --- 고정 주봉 데이터(tests/fixtures): 확정한 표와 같은 건수 ---
 
 @pytest.fixture(scope="module")
-def real_weekly():
-    df = weekly_data.ensure_fresh_weekly_data()
-    df = df[df["open_time"] <= pd.Timestamp("2026-10-19", tz="UTC")].reset_index(drop=True)   # 확정 시점까지 마감된 주만(이후 주가 늘어도 고정)
+def real_weekly(frozen_weekly_data):
+    """저장소에 둔 고정 주봉 데이터(tests/fixtures, 2017-08-14 ~ 2026-10-19 마감 주봉) - 네트워크/캐시가 필요 없다."""
+    df = frozen_weekly_data.copy()
     for p in (20, 50, 200):
         df[f"EMA{p}"] = df["close"].ewm(span=p, adjust=False, min_periods=p).mean()
     return df
