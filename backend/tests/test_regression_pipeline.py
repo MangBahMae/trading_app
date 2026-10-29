@@ -5,8 +5,8 @@ scripts/pipeline.py(원본)과 backend/app/services/pipeline.py(이식본)이 �
 
 원본/이식본을 완전히 격리된 서브프로세스 2개로 각각 실행해서(이유는
 regression/dump_pipeline_result.py 상단 docstring 참고) JSON으로 저장한 뒤
-그 결과를 diff한다. 둘 다 저장소 루트의 같은 data/merged/*.parquet를 보므로
-입력 데이터도 완전히 동일하다.
+그 결과를 diff한다. 둘 다 저장소의 같은 고정 일봉 CSV(tests/fixtures)를 보므로
+입력 데이터도 완전히 동일하다(네트워크/캐시 불필요).
 
 [의도한 차이 - 기능1 개편 2a단계]
 이식본(backend/app/services)은 개편으로 원본(scripts/)과 아래 세 가지만 의도적으로
@@ -41,53 +41,21 @@ DUMP_SCRIPT = Path(__file__).resolve().parent / "regression" / "dump_pipeline_re
 OUTPUT_DIR = Path(__file__).resolve().parent / "regression" / "_output"
 
 
-def _prime_shared_cache():
-    """두 서브프로세스를 돌리기 전에 data/merged/*_dashboard.parquet 캐시를
-    한 번 미리 채워둔다.
-
-    이게 없으면(실제로 처음 겪은 문제): 캐시가 비어있을 때 원본/이식본 서브
-    프로세스가 각각 독립적으로 Binance 실시간 API를 호출하는데, 그 시점에
-    "오늘" 캔들이 아직 정산 중이면(장 마감 직후 짧은 기간 거래소 쪽 수치가
-    미세 조정됨) 몇 초 간격으로 호출한 두 서브프로세스가 서로 다른 close/volume
-    스냅샷을 받아서 실제로는 코드가 완전히 동일한데도 마지막 캔들 1건이 다르게
-    나왔다.
-
-    조사해보니 원인이 하나 더 있었다 - scripts/data_fetcher.py::ensure_fresh_data()의
-    기존 버그(이식 대상 코드에 원래 있던 것, 이번에 발견): 캐시 파일이 아직 없을 때
-    fetch_full_history()로 받아온 직후 "이미 최신"(latest_closed_open) 체크에 걸려
-    early return 하는데, 그 return이 df.to_parquet() 저장 코드보다 먼저라서 캐시
-    파일이 "한 번도" 디스크에 안 써진다. 그 결과 캐시가 영영 안 생기고, 호출할
-    때마다 매번 Binance에서 2022년부터 전체를 다시 받아온다(이번 포팅과 무관한
-    원본 버그 - 별도로 보고, 여기서 임의 수정하지 않음). 그래서 이 헬퍼가 받아온
-    DataFrame을 직접 캐시 경로에 저장해 우회한다 - 이후 두 서브프로세스는 이미
-    존재하는 캐시 파일을 읽고 "이미 최신"으로 판단해 재조회 없이 반환하므로,
-    완전히 동일한(고정된) 데이터를 보게 된다.
-    """
-    proc = subprocess.run(
-        [
-            sys.executable, "-c",
-            f"import sys; sys.path.insert(0, r'{SCRIPTS_DIR}'); "
-            "from data_fetcher import ensure_fresh_data; import config; "
-            "df = ensure_fresh_data(); "
-            "config.DASHBOARD_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True); "
-            "df.to_parquet(config.DASHBOARD_CACHE_PATH, index=False)",
-        ],
-        capture_output=True, text=True, encoding="utf-8", errors="replace",
-    )
-    assert proc.returncode == 0, f"캐시 프라이밍 실패\nstdout: {proc.stdout}\nstderr: {proc.stderr}"
+# 원본(scripts/)과 이식본이 보는 일봉은 저장소의 고정 CSV(tests/fixtures)다 - dump_pipeline_result.py의 --daily-fixture가
+# data_fetcher.ensure_fresh_data를 이 CSV로 바꾼다. 그래서 캐시 parquet이나 Binance가 없어도 되고(오프라인 통과),
+# 두 서브프로세스가 서로 다른 시점의 실시간 스냅샷을 받아 마지막 캔들이 다르게 나오던 문제(예전 _prime_shared_cache가 우회하던 것)도 없다.
+DAILY_FIXTURE = Path(__file__).resolve().parent / "fixtures" / "BTCUSDT_1d_2022-01-01_2026-10-28.csv"
 
 
 @pytest.fixture(scope="module")
 def original_and_ported_results():
-    _prime_shared_cache()
-
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     original_path = OUTPUT_DIR / "original.json"
     ported_path = OUTPUT_DIR / "ported.json"
 
     for source_dir, out_path in [(SCRIPTS_DIR, original_path), (SERVICES_DIR, ported_path)]:
         proc = subprocess.run(
-            [sys.executable, str(DUMP_SCRIPT), str(source_dir), str(out_path)],
+            [sys.executable, str(DUMP_SCRIPT), str(source_dir), str(out_path), "--daily-fixture", str(DAILY_FIXTURE)],
             capture_output=True, text=True, encoding="utf-8", errors="replace",
         )
         assert proc.returncode == 0, (
@@ -108,7 +76,7 @@ def ported_flags_on():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out_path = OUTPUT_DIR / "ported_flags_on.json"
     proc = subprocess.run(
-        [sys.executable, str(DUMP_SCRIPT), str(SERVICES_DIR), str(out_path), "--flags-on"],
+        [sys.executable, str(DUMP_SCRIPT), str(SERVICES_DIR), str(out_path), "--flags-on", "--daily-fixture", str(DAILY_FIXTURE)],
         capture_output=True, text=True, encoding="utf-8", errors="replace",
     )
     assert proc.returncode == 0, (

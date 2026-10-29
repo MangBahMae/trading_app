@@ -11,7 +11,9 @@ sys.modules 캐시상 "먼저 import된 쪽"만 계속 재사용하므로 두 �
 그래서 완전히 격리된 서브프로세스 2개(원본용/이식본용)로 나눠 실행한다
 (backend/tests/test_regression_pipeline.py에서 호출).
 
-사용법: python dump_pipeline_result.py <source_dir> <output_json_path> [--flags-on]
+사용법: python dump_pipeline_result.py <source_dir> <output_json_path> [--flags-on] [--daily-fixture <csv>]
+  --daily-fixture: 일봉 데이터를 Binance/캐시 대신 이 CSV(tests/fixtures)로 고정한다 - 원본/이식본이 완전히 같은 입력을
+  네트워크 없이 보게 된다(주지 않으면 예전처럼 data_fetcher가 캐시/Binance를 쓴다).
   --flags-on: 이식본(backend/app/services)의 feature_flags를 전부 True로 켠 채로 실행한다
   (플래그를 켜면 꺼두기 전 결과가 그대로 되살아나는지 확인하는 용도. 원본(scripts/)엔 해당 없음).
 """
@@ -22,6 +24,16 @@ source_dir = sys.argv[1]
 output_path = sys.argv[2]
 
 sys.path.insert(0, source_dir)
+
+if "--daily-fixture" in sys.argv:
+    # pipeline.py가 `from data_fetcher import ensure_fresh_data`로 이름을 가져가므로 pipeline을 import하기 전에 바꾼다.
+    import pandas as pd  # noqa: E402
+    import data_fetcher  # noqa: E402
+
+    _fixture = pd.read_csv(sys.argv[sys.argv.index("--daily-fixture") + 1], parse_dates=["open_time", "close_time"])
+    for _col in ("open_time", "close_time"):
+        _fixture[_col] = _fixture[_col].astype("datetime64[ns, UTC]")
+    data_fetcher.ensure_fresh_data = lambda *_a, **_k: _fixture.copy()
 
 import pipeline  # noqa: E402
 

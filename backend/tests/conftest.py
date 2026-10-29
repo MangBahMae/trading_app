@@ -64,15 +64,13 @@ def pytest_sessionfinish(session, exitstatus):
 # data/merged/*.parquet 캐시는 git에 없어서, 새로 clone한 환경/서버에서는 Binance에서 다시 받아야 한다.
 # 주봉 테스트가 그 사실에 기대지 않게 확정 시점(2017-08-14 ~ 2026-10-19 마감 주봉 480개)의 데이터를 저장소에 둔다.
 # 과거 주봉은 바뀌지 않으므로 이 파일이 곧 "그때의 Binance 데이터"다. 갱신이 필요하면 weekly_data로 받아서 같은 모양의 CSV로 다시 저장.
-WEEKLY_FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "BTCUSDT_1w_2017-08-14_2026-10-19.csv"
+import golden_support  # noqa: E402  (tests/ 폴더의 공용 도우미 - 고정 데이터 경로/로더)
+
+WEEKLY_FIXTURE_PATH = golden_support.WEEKLY_FIXTURE
 
 
 def _load_weekly_fixture():
-    import pandas as pd
-    df = pd.read_csv(WEEKLY_FIXTURE_PATH, parse_dates=["open_time", "close_time"])
-    for col in ("open_time", "close_time"):
-        df[col] = df[col].astype("datetime64[ns, UTC]")
-    return df
+    return golden_support.load_candles_csv(WEEKLY_FIXTURE_PATH)
 
 
 @pytest.fixture(scope="session")
@@ -89,3 +87,34 @@ def weekly_offline(monkeypatch, frozen_weekly_data):
     monkeypatch.setattr(weekly_data, "ensure_fresh_weekly_data", lambda force=False: frozen_weekly_data.copy())
     monkeypatch.setitem(weekly._cache, "data", None)
     yield
+
+
+# --- 고정 일봉 데이터 / 선·존 스냅샷 (네트워크, 캐시 parquet, 실제 manual_lines.db 없이 테스트가 돌도록) ---
+# 일봉 캔들은 tests/fixtures/BTCUSDT_1d_2022-01-01_2026-10-28.csv(마감된 일봉), 선/존은 manual_lines_snapshot.json.
+# 세션 시작 때 data_fetcher/pipeline의 ensure_fresh_data를 이 CSV로 바꾸고, 테스트 중 requests 호출은 막는다
+# (고정 데이터를 안 쓰는 테스트가 몰래 네트워크에 기대면 바로 실패해서 드러난다).
+@pytest.fixture(scope="session", autouse=True)
+def _offline_daily_data():
+    mp = pytest.MonkeyPatch()
+    golden_support.patch_offline_daily(mp)
+    yield
+    mp.undo()
+
+
+@pytest.fixture(scope="session")
+def frozen_daily_data():
+    """고정용 일봉 DataFrame(2022-01-01 ~ 2026-10-28 마감 일봉 1,762개, UTC). 읽기 전용으로 쓰고, 고치려면 .copy()."""
+    return golden_support.load_daily_df()
+
+
+@pytest.fixture(scope="session")
+def snapshot_lines():
+    """선/존 스냅샷 행 목록: 존 3개(id 27/28/54, 실제 DB 행) + 합성 수평선(9001)/추세선(9002)."""
+    return golden_support.load_snapshot_lines()
+
+
+@pytest.fixture
+def seed_snapshot_db(snapshot_lines):
+    """이 테스트의 임시 lines DB(_isolate_lines_db가 이미 바꿔 둔 경로)에 스냅샷 선/존을 id 그대로 채운다."""
+    golden_support.seed_lines_db(snapshot_lines)
+    return snapshot_lines
