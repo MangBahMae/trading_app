@@ -22,7 +22,7 @@ from diff_near_zone import load_head_candle_patterns  # noqa: E402
 
 DB = REPO / "data" / "merged" / "manual_lines.db"
 PATTERNS = ("도지", "망치형", "역망치형")
-CATS = ("롱 후보", "숏 후보", "참고", "시세분출 무효")
+CATS = ("롱 후보", "숏 후보", "참고", "시세분출 무효", "롱 무효", "숏 무효")
 
 
 def classify(sig_map, dates):
@@ -34,8 +34,7 @@ def classify(sig_map, dates):
             name, kind = s.text.split(" - ")
             nb = kind.endswith("(다음 봉)")
             kind = kind.replace(" (다음 봉)", "")
-            if kind.startswith("참고"):
-                kind = "참고"  # "참고 (고점/저점 아님)" 문구 접미사는 종류 비교에서 뺀다
+            kind = kind.split(" (")[0]   # "참고 (고점/저점 아님)", "롱 무효 (장대 음봉 10/20)"의 괄호 설명은 종류 비교에서 뺀다
             items[(dates[i], name, kind)] = nb
             cnt[(name, kind)] += 1
     return items, cnt
@@ -74,10 +73,23 @@ def main():
         return sum(1 for v in by.values() if len(v) == 2)
 
     p(f"\n같은 날 롱+숏 후보 동시: {both(b_items)} -> {both(a_items)}")
+
+    def both_any(items):
+        by = defaultdict(set)
+        for (d, _, kind), _nb in items.items():
+            if kind in ("롱 후보", "롱 무효"):
+                by[d].add("long")
+            elif kind in ("숏 후보", "숏 무효"):
+                by[d].add("short")
+        return sorted(d for d, v in by.items() if len(v) == 2)
+
+    both_dates = both_any(a_items)
+    p(f"같은 날 롱+숏 신호 동시(후보·무효 모두 포함): {len(both_any(b_items))} -> {len(both_dates)}")
+    p("  날짜: " + ", ".join(both_dates))
     nb = Counter(kind for (_, _, kind), v in a_items.items() if v)
     p(f"다음 봉 신호: {dict(nb)} (후 전체 {sum(1 for v in a_items.values() if v)}건)")
 
-    for kind in ("롱 후보", "숏 후보", "시세분출 무효"):
+    for kind in ("롱 후보", "숏 후보", "시세분출 무효", "롱 무효", "숏 무효"):
         bk = {k for k in b_items if k[2] == kind}
         ak = {k for k in a_items if k[2] == kind}
         p(f"\n[{kind}] 겹침 {len(bk & ak)} | 사라짐 {len(bk - ak)} | 새로 생김 {len(ak - bk)}")
