@@ -89,6 +89,9 @@ export interface SignalItem {
   next_bar?: boolean | null;
 }
 
+// 봉 간격: 1D 일봉 / 1W 주봉 (상단 바 전환)
+export type Timeframe = "1D" | "1W";
+
 export type DivergenceType = "regular_bullish" | "regular_bearish" | "hidden_bullish" | "hidden_bearish";
 
 export interface DivergenceMarker {

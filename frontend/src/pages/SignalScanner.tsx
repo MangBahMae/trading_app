@@ -10,11 +10,12 @@ import { THEME } from "../components/chart/chartTheme";
 import AppTopBar from "../components/AppTopBar";
 import ChartArea from "../components/ChartArea";
 import type { LegendToggle } from "../components/ChartLegend";
+import IntervalSwitch from "../components/IntervalSwitch";
 import LineManager from "../components/LineManager";
 import PeriodBar from "../components/PeriodBar";
 import SignalPanel from "../components/SignalPanel";
 import ToolRail from "../components/ToolRail";
-import type { DashboardResponse, DrawMode, MarketStateBlock, MarketStateResponse } from "../types";
+import type { DashboardResponse, DrawMode, MarketStateBlock, MarketStateResponse, Timeframe } from "../types";
 import styles from "./SignalScanner.module.css";
 
 const WINDOW_OPTIONS: Record<string, number | null> = {
@@ -39,13 +40,23 @@ const DEFAULT_MS_K = 4;
 const MS_DEBOUNCE_MS = 200;
 const NO_BLOCKS: MarketStateBlock[] = []; // 토글 OFF일 때 넘기는 빈 배열(참조 고정 - 불필요한 재렌더 방지)
 
+// 1W에서 기간 바 오른쪽에 보이는 안내
+const WEEKLY_HINT = "주봉: 선/존은 1D에서 그린 것을 표시만 합니다 (그리기·편집·삭제는 1D에서).";
+
 const DIV_MARKER_COLOR: Record<string, string> = {
   regular_bullish: THEME.divergenceUp,
   regular_bearish: THEME.divergenceDown,
 };
 
 export default function SignalScanner({ nav }: { nav: ReactNode }) {
-  const [data, setData] = useState<DashboardResponse | null>(null);
+  // 1D(일봉) / 1W(주봉): 데이터와 선택한 날짜는 봉 간격마다 따로 들고 있어서 전환해도 서로 안 섞이고, 1D로 돌아오면 바로 보인다.
+  const [timeframe, setTimeframe] = useState<Timeframe>("1D");
+  const [dataByTf, setDataByTf] = useState<Record<Timeframe, DashboardResponse | null>>({ "1D": null, "1W": null });
+  const [selectedByTf, setSelectedByTf] = useState<Record<Timeframe, string | null>>({ "1D": null, "1W": null });
+  const data = dataByTf[timeframe];
+  const dailyData = dataByTf["1D"];
+  const selectedDate = selectedByTf[timeframe];
+  const setSelectedDate = (date: string | null) => setSelectedByTf((prev) => ({ ...prev, [timeframe]: date }));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -56,7 +67,6 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
   });
   const [showRsi, setShowRsi] = useState(false);
   const [showDivergence, setShowDivergence] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // 시장 상태 - 신호가 아니라 차트 배경 음영 전용(횡보 구간 표시).
   // 실험 단계라 기본 OFF: 판정이 실제 차트와 잘 안 맞아 보류 중이다(코드는 그대로 둠).
@@ -68,26 +78,41 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
   const [msError, setMsError] = useState<string | null>(null);
   const msParamsValid = Number.isInteger(msN) && Number.isInteger(msK) && msN >= 1 && msK >= 0 && msK <= msN;
 
-  const loadDashboard = (refresh = false) => {
+  // which: 어느 봉 간격 데이터를 불러올지(기본 현재). onLoaded: 받아온 뒤(데이터가 저장된 같은 틱)에 실행할 일 - 전환용.
+  const loadDashboard = (refresh = false, which: Timeframe = timeframe, onLoaded?: () => void) => {
     setLoading(true);
-    getDashboard(refresh)
+    getDashboard(refresh, which)
       .then((res) => {
-        setData(res);
+        setDataByTf((prev) => ({ ...prev, [which]: res }));
         setError(null);
-        setSelectedDate((prev) => prev ?? res.candles[res.candles.length - 1]?.date ?? null);
+        setSelectedByTf((prev) => ({ ...prev, [which]: prev[which] ?? res.candles[res.candles.length - 1]?.date ?? null }));
+        onLoaded?.();
       })
       .catch((err) => setError(String(err)))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    loadDashboard(false);
+    loadDashboard(false, "1D");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 봉 간격 전환. 아직 안 받은 간격이면 받아온 뒤에 전환한다(그 동안은 화면과 줌 상태를 그대로 둔다).
+  // 1W로 들어올 때마다 다시 불러온다 - 그 사이 1D에서 그린 선/존이 바뀌었을 수 있고 1W는 표시만 하기 때문.
+  const switchTimeframe = (tf: Timeframe) => {
+    if (tf === timeframe) return;
+    setDrawMode("select");
+    if (dataByTf[tf]) {
+      setTimeframe(tf);
+      if (tf === "1W") loadDashboard(false, "1W");
+    } else {
+      loadDashboard(false, tf, () => setTimeframe(tf));
+    }
+  };
+
   // N/K가 바뀌거나 데이터가 새로 갱신되면(마지막 캔들 날짜가 바뀜) 서버에 다시 계산을 요청한다.
   // 타이핑마다 요청이 나가지 않게 짧게 디바운스하고, 늦게 도착한 옛 응답은 버린다.
-  const lastDate = data?.date_range.max ?? null;
+  const lastDate = dailyData?.date_range.max ?? null;   // 횡보 음영은 일봉 전용
   // 이미 받은 결과가 지금 N/K와 마지막 캔들 날짜에 맞으면(토글을 껐다 다시 켠 경우 등) 재사용한다.
   const marketStateUpToDate =
     marketState !== null &&
@@ -96,7 +121,7 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
     marketState.candles[marketState.candles.length - 1]?.date === lastDate;
   useEffect(() => {
     // 토글 OFF면 요청하지 않는다(보류 중인 실험 기능).
-    if (!showMarketState || lastDate === null || !msParamsValid || marketStateUpToDate) return;
+    if (timeframe !== "1D" || !showMarketState || lastDate === null || !msParamsValid || marketStateUpToDate) return;
     let stale = false;
     const timer = setTimeout(() => {
       getMarketState(msN, msK)
@@ -113,13 +138,13 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
       stale = true;
       clearTimeout(timer);
     };
-  }, [showMarketState, lastDate, msN, msK, msParamsValid, marketStateUpToDate]);
+  }, [timeframe, showMarketState, lastDate, msN, msK, msParamsValid, marketStateUpToDate]);
 
   const marketStateByDate = useMemo(
     () => new Map((marketState?.candles ?? []).map((row) => [row.date, row])),
     [marketState],
   );
-  const marketStateBlocks = showMarketState && marketState ? marketState.blocks : NO_BLOCKS;
+  const marketStateBlocks = timeframe === "1D" && showMarketState && marketState ? marketState.blocks : NO_BLOCKS;
 
   const plotCandles = useMemo(() => {
     if (!data) return [];
@@ -180,33 +205,33 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
   );
 
   const handleAddHorizontal = (price: number) => {
-    addHorizontalLine(price).then(() => loadDashboard(false));
+    addHorizontalLine(price).then(() => loadDashboard(false, "1D"));
   };
   const handleAddTrend = (time1: string, price1: number, time2: string, price2: number) => {
-    addTrendLine(time1, price1, time2, price2).then(() => loadDashboard(false));
+    addTrendLine(time1, price1, time2, price2).then(() => loadDashboard(false, "1D"));
   };
   const handleAddZone = (time1: string, price1: number, time2: string, price2: number) => {
-    addZone(time1, price1, time2, price2).then(() => loadDashboard(false));
+    addZone(time1, price1, time2, price2).then(() => loadDashboard(false, "1D"));
   };
   // 존 꼭지점 드래그 저장 - 실패하면 reject해서 TvChart가 원래 모양으로 되돌리고 에러를 보여준다.
   const handleUpdateZone = async (lineId: number, time1: string, price1: number, time2: string, price2: number) => {
     await updateZone(lineId, time1, price1, time2, price2);
-    loadDashboard(false); // 화면(존 모양, 라벨)과 신호 목록 갱신
+    loadDashboard(false, "1D"); // 화면(존 모양, 라벨)과 신호 목록 갱신
   };
   // 추세선 끝점 드래그 저장 - 존과 같은 방식(실패하면 reject해서 TvChart가 원복 + 에러 표시).
   const handleUpdateTrend = async (lineId: number, time1: string, price1: number, time2: string, price2: number) => {
     await updateTrend(lineId, time1, price1, time2, price2);
-    loadDashboard(false); // 화면(선 모양, 라벨)과 신호 목록 갱신
+    loadDashboard(false, "1D"); // 화면(선 모양, 라벨)과 신호 목록 갱신
   };
   const handleDeleteLine = (lineId: number) => {
-    deleteLine(lineId).then(() => loadDashboard(false));
+    deleteLine(lineId).then(() => loadDashboard(false, "1D"));
   };
 
   const refreshButton = (
     <button
       type="button"
       className={styles.refresh}
-      onClick={() => loadDashboard(true)}
+      onClick={() => loadDashboard(true, timeframe)}
       disabled={loading}
       aria-label="데이터 새로고침"
       title={loading ? "새로고침 중..." : "데이터 새로고침"}
@@ -223,7 +248,8 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
       actions={refreshButton}
       left={
         <>
-          <span className={styles.symbol}>BTCUSDT · 1D</span>
+          <span className={styles.symbol}>BTCUSDT · {timeframe}</span>
+          <IntervalSwitch value={timeframe} onChange={switchTimeframe} />
           {data && (
             <span className={styles.caption} title="마지막으로 마감된 캔들까지만 반영">
               데이터 범위: {data.date_range.min} ~ {data.date_range.max}
@@ -247,13 +273,15 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
     ...(data.divergence_markers.length > 0
       ? [{ key: "div", label: "다이버전스", color: THEME.divergenceUp, active: showDivergence, onToggle: () => setShowDivergence((v) => !v) }]
       : []),
-    {
-      key: "ms", label: "횡보 음영", color: "#5b8def", active: showMarketState,
-      onToggle: () => setShowMarketState((v) => !v),
-    },
+    ...(timeframe === "1D"    // 횡보 음영은 일봉 전용 실험 기능
+      ? [{
+        key: "ms", label: "횡보 음영", color: "#5b8def", active: showMarketState,
+        onToggle: () => setShowMarketState((v) => !v),
+      }]
+      : []),
   ];
 
-  const marketStateControls = showMarketState ? (
+  const marketStateControls = timeframe === "1D" && showMarketState ? (
     <>
       <label className={styles.checkLabel} htmlFor="ms-n">N</label>
       <NumberInput id="ms-n" className={styles.msInput} min={1} step={1} value={msN} onChange={setMsN} />
@@ -269,7 +297,7 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
   ) : null;
 
   const drawHint =
-    drawMode === "select" ? null : (
+    timeframe !== "1D" || drawMode === "select" ? null : (
       <>
         그리기 모드에서는 캔들 클릭이 신호 패널이 아니라 선 등록으로 쓰입니다. 하나를 그리면 자동으로 &quot;캔들 선택&quot;으로 돌아가며, Esc로 취소할 수 있습니다.{" "}
         {drawMode === "trend"
@@ -284,7 +312,7 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
     <div className={styles.page}>
       {topBar}
       <div className={styles.body}>
-        <ToolRail mode={drawMode} onChange={setDrawMode} />
+        <ToolRail mode={drawMode} onChange={setDrawMode} drawingEnabled={timeframe === "1D"} />
         <div className={styles.chartColumn}>
           <ChartArea
             candles={data.candles}
@@ -300,6 +328,8 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
               divMarkerColors: DIV_MARKER_COLOR,
               marketStateBlocks,
               drawMode,
+              readOnly: timeframe === "1W",
+              barStepDays: timeframe === "1W" ? 7 : 1,
               lines: data.manual_lines,
               onSelectDate: setSelectedDate,
               onAddHorizontalLine: handleAddHorizontal,
@@ -315,17 +345,17 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
             options={Object.keys(WINDOW_OPTIONS).map((value) => ({ value, short: WINDOW_SHORT[value] }))}
             value={windowLabel}
             onChange={setWindowLabel}
-            hint={drawHint}
+            hint={timeframe === "1W" ? WEEKLY_HINT : drawHint}
           />
         </div>
         <aside className={styles.side}>
           <SignalPanel
             candle={selectedCandle}
             signals={selectedSignals}
-            marketState={showMarketState && selectedDate ? marketStateByDate.get(selectedDate) ?? null : null}
-            marketStateParams={showMarketState ? marketState?.params ?? null : null}
+            marketState={timeframe === "1D" && showMarketState && selectedDate ? marketStateByDate.get(selectedDate) ?? null : null}
+            marketStateParams={timeframe === "1D" && showMarketState ? marketState?.params ?? null : null}
           />
-          <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} />
+          <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} readOnly={timeframe === "1W"} />
         </aside>
       </div>
     </div>

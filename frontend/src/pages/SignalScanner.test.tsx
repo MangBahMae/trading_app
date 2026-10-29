@@ -18,8 +18,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 
 vi.mock("../components/chart/TvChart", () => ({
-  default: (props: { marketStateBlocks?: unknown[] }) => (
-    <div data-testid="tv-chart-mock" data-market-blocks={props.marketStateBlocks?.length ?? -1} />
+  default: (props: { marketStateBlocks?: unknown[]; readOnly?: boolean; barStepDays?: number; bars?: unknown[] }) => (
+    <div
+      data-testid="tv-chart-mock" data-market-blocks={props.marketStateBlocks?.length ?? -1}
+      data-read-only={String(props.readOnly ?? false)} data-step-days={props.barStepDays ?? 1}
+      data-bars={props.bars?.length ?? 0}
+    />
   ),
 }));
 
@@ -220,5 +224,64 @@ describe("신호 스캐너 화면", () => {
       await new Promise((r) => setTimeout(r, 500));
       expect(marketStateRequests()).toBe(1);
     });
+  });
+});
+
+describe("1D / 1W 전환 (주봉)", () => {
+  it("기본은 1D(일봉, 편집 가능). 1W로 바꾸면 주봉 데이터와 읽기 전용 모드, 1D로 돌아오면 일봉", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await waitForLatestDate();
+    const chart = () => screen.getByTestId("tv-chart-mock");
+
+    expect(screen.getByRole("radio", { name: "1D" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "1W" })).not.toBeChecked();
+    expect(screen.getByText("BTCUSDT · 1D")).toBeInTheDocument();
+    expect(chart()).toHaveAttribute("data-read-only", "false");
+    expect(chart()).toHaveAttribute("data-step-days", "1");
+    const dailyBars = Number(chart().getAttribute("data-bars"));
+    expect(screen.getByRole("radio", { name: /추세선 그리기/ })).toBeEnabled();
+    expect(screen.getByRole("checkbox", { name: "횡보 음영" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("radio", { name: "1W" }));
+    await waitFor(() => expect(screen.getByText("BTCUSDT · 1W")).toBeInTheDocument(), { timeout: 10000 });
+    expect(screen.getByRole("radio", { name: "1W" })).toBeChecked();
+    expect(screen.getByText(/데이터 범위: 2022-01-03/)).toBeInTheDocument();         // 주봉은 2022-01-03(월요일)부터
+    expect(chart()).toHaveAttribute("data-read-only", "true");                         // 선/존은 표시만
+    expect(chart()).toHaveAttribute("data-step-days", "7");                            // 한 칸 = 7일
+    expect(Number(chart().getAttribute("data-bars"))).toBeLessThan(dailyBars / 3);     // 같은 기간이라도 주봉은 캔들이 훨씬 적다
+    expect(screen.getByRole("radio", { name: /추세선 그리기/ })).toBeDisabled();
+    expect(screen.getByRole("radio", { name: /존 그리기/ })).toBeDisabled();
+    expect(screen.getByRole("radio", { name: /수평선 그리기/ })).toBeDisabled();
+    expect(screen.getByRole("radio", { name: "캔들 선택" })).toBeEnabled();
+    expect(screen.queryByRole("checkbox", { name: "횡보 음영" })).not.toBeInTheDocument();   // 일봉 전용 실험 기능
+    expect(screen.getByRole("checkbox", { name: "EMA200" })).toBeInTheDocument();             // EMA/RSI 토글은 그대로
+    expect(screen.getByText(/주봉: 선\/존은 1D에서 그린 것을 표시만/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "삭제" })).not.toBeInTheDocument();           // 그은 선 관리에 삭제 버튼 없음
+
+    await user.click(screen.getByRole("radio", { name: "1D" }));
+    expect(screen.getByText("BTCUSDT · 1D")).toBeInTheDocument();
+    expect(chart()).toHaveAttribute("data-read-only", "false");
+    expect(chart()).toHaveAttribute("data-step-days", "1");
+    expect(Number(chart().getAttribute("data-bars"))).toBe(dailyBars);
+    expect(screen.getByRole("radio", { name: /추세선 그리기/ })).toBeEnabled();
+    expect(screen.getByRole("checkbox", { name: "횡보 음영" })).toBeInTheDocument();
+  });
+
+  it("1W 패널에는 주봉 신호만 나오고, 일봉/주봉이 선택한 날짜를 따로 들고 있다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const dailyLast = await waitForLatestDate();
+    await user.click(screen.getByRole("radio", { name: "1W" }));
+    await waitFor(() => expect(screen.getByText("BTCUSDT · 1W")).toBeInTheDocument(), { timeout: 10000 });
+    const caption = screen.getByText(/데이터 범위:/).textContent ?? "";
+    const weeklyLast = /~\s*(\d{4}-\d{2}-\d{2})/.exec(caption)?.[1] as string;
+    expect(weeklyLast <= dailyLast).toBe(true);
+    expect((await screen.findAllByText(weeklyLast)).length).toBeGreaterThan(0);       // 주봉의 마지막 주가 패널에 선택돼 있다
+    // 패널의 신호 문구는 전부 주봉 신호("주봉 ...")다 - 일봉 신호 문구가 섞여 나오지 않는다
+    const texts = Array.from(document.querySelectorAll("ul li")).map((li) => li.textContent ?? "");
+    expect(texts.every((t) => t.startsWith("- 주봉 ") || !t.startsWith("- "))).toBe(true);
+    await user.click(screen.getByRole("radio", { name: "1D" }));
+    expect((await screen.findAllByText(dailyLast)).length).toBeGreaterThan(0);          // 일봉 선택은 그대로
   });
 });

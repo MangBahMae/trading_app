@@ -34,20 +34,22 @@ export function addDays(date: string, days: number): string | null {
   return n === null ? null : dayNumberToDate(n + days);
 }
 
-// 표시 중인 캔들 날짜(오름차순)와 일수 배열.
+// 표시 중인 캔들 날짜(오름차순)와 일수 배열. stepDays는 캔들 한 칸이 나타내는 일수 - 일봉 1, 주봉 7.
+// 캔들이 있는 구간은 날짜 보간이라 stepDays와 무관하고, 첫 캔들 앞/마지막 캔들 뒤(미래) 빈 공간만 이 값으로 계산한다.
 export interface BarIndex {
   dates: string[];
   dayNumbers: number[];
+  stepDays: number;
 }
 
-export function makeBarIndex(dates: string[]): BarIndex {
-  return { dates, dayNumbers: dates.map((d) => dateToDayNumber(d) ?? NaN) };
+export function makeBarIndex(dates: string[], stepDays = 1): BarIndex {
+  return { dates, dayNumbers: dates.map((d) => dateToDayNumber(d) ?? NaN), stepDays };
 }
 
 // 날짜 -> 논리 인덱스.
 //   캔들 날짜: 그 캔들의 인덱스
-//   마지막 캔들 이후(미래): 마지막 인덱스 + 일수
-//   첫 캔들 이전: 0에서 일수만큼 뺀 음수 (예: 첫 캔들 하루 전 = -1)
+//   마지막 캔들 이후(미래): 마지막 인덱스 + 일수 / stepDays
+//   첫 캔들 이전: 0에서 (일수 / stepDays)만큼 뺀 음수 (예: 일봉에서 첫 캔들 하루 전 = -1)
 //   캔들 사이에 빠진 날: 앞뒤 캔들 사이를 일수로 보간한 소수 인덱스
 // 캔들이 없거나 날짜 형식이 틀리면 null.
 export function dateToLogical(index: BarIndex, date: string): number | null {
@@ -57,8 +59,8 @@ export function dateToLogical(index: BarIndex, date: string): number | null {
 
   const { dayNumbers } = index;
   const last = n - 1;
-  if (d >= dayNumbers[last]) return last + (d - dayNumbers[last]);
-  if (d <= dayNumbers[0]) return d - dayNumbers[0]; // 첫 캔들이면 0(-0이 아니라), 그 이전이면 음수
+  if (d >= dayNumbers[last]) return last + (d - dayNumbers[last]) / index.stepDays;
+  if (d <= dayNumbers[0]) return d === dayNumbers[0] ? 0 : (d - dayNumbers[0]) / index.stepDays; // 첫 캔들이면 0(-0이 아니라), 그 이전이면 음수
 
   // dayNumbers[lo] <= d < dayNumbers[hi] 인 lo를 이분 탐색
   let lo = 0;
@@ -73,7 +75,7 @@ export function dateToLogical(index: BarIndex, date: string): number | null {
 }
 
 // 논리 인덱스 -> 날짜. 가장 가까운 칸(반올림)으로 정한다.
-//   캔들 구간: 그 캔들의 날짜 / 마지막 이후: 마지막 캔들 날짜 + 일수 / 첫 캔들 이전(k<0): null
+//   캔들 구간: 그 캔들의 날짜 / 마지막 이후: 마지막 캔들 날짜 + (칸 수 x stepDays)일 / 첫 캔들 이전(k<0): null
 export function logicalToDate(index: BarIndex, logical: number): string | null {
   const n = index.dates.length;
   if (n === 0 || !Number.isFinite(logical)) return null;
@@ -81,7 +83,7 @@ export function logicalToDate(index: BarIndex, logical: number): string | null {
   if (k < 0) return null;
   const last = n - 1;
   if (k <= last) return index.dates[k];
-  return addDays(index.dates[last], k - last);
+  return addDays(index.dates[last], (k - last) * index.stepDays);
 }
 
 // 차트 timeScale에서 쓰는 두 함수만 뽑은 인터페이스(테스트에서 가짜로 바꿔 끼우기 위함).

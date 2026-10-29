@@ -1,11 +1,13 @@
-import type { DashboardResponse } from "../types";
+import type { DashboardResponse, Timeframe } from "../types";
 
 // 서버 배포에서는 같은 도메인의 /api/...를 상대 경로로 부른다(빈 문자열). 개발 중에는 Vite 프록시
 // (vite.config.ts)가 /api를 백엔드로 넘기고, 필요하면 VITE_API_BASE_URL로 다른 주소를 지정할 수 있다.
 const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL ?? "";
 
-export async function getDashboard(refresh = false): Promise<DashboardResponse> {
-  const resp = await fetch(`${API_BASE_URL}/api/dashboard?refresh=${refresh}`);
+// 1D는 일봉 대시보드, 1W는 주봉 대시보드(주봉 차트 + 주봉 신호, 선/존은 일봉에서 그린 것을 표시용으로)
+export async function getDashboard(refresh = false, timeframe: Timeframe = "1D"): Promise<DashboardResponse> {
+  const path = timeframe === "1W" ? "/api/dashboard/weekly" : "/api/dashboard";
+  const resp = await fetch(`${API_BASE_URL}${path}?refresh=${refresh}`);
   if (!resp.ok) {
     throw new Error(`대시보드 조회 실패: ${resp.status}`);
   }

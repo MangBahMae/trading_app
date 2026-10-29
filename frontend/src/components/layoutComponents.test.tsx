@@ -4,9 +4,11 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import AppTopBar, { AppNav } from "./AppTopBar";
 import ChartLegend, { pickLegendCandle } from "./ChartLegend";
+import IntervalSwitch from "./IntervalSwitch";
+import LineManager from "./LineManager";
 import PeriodBar from "./PeriodBar";
 import ToolRail, { DRAW_TOOLS } from "./ToolRail";
-import type { Candle } from "../types";
+import type { Candle, ManualLine } from "../types";
 
 const candle = (date: string, open: number, close: number): Candle => ({
   date, open, high: Math.max(open, close) + 5, low: Math.min(open, close) - 5, close, volume: 1,
@@ -128,5 +130,52 @@ describe("AppTopBar / AppNav", () => {
     expect(onMenu).toHaveBeenCalledWith("position-sizing");
     await userEvent.setup().click(screen.getByRole("button", { name: "매매 기록" }));
     expect(onMenu).toHaveBeenCalledWith("trade-journal");
+  });
+});
+
+describe("IntervalSwitch (1D / 1W)", () => {
+  it("1D/1W 라디오 버튼, 현재 값만 활성, 누르면 그 값으로 onChange", async () => {
+    const onChange = vi.fn();
+    render(<IntervalSwitch value="1D" onChange={onChange} />);
+    expect(screen.getByRole("radio", { name: "1D" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "1W" })).not.toBeChecked();
+    await userEvent.setup().click(screen.getByRole("radio", { name: "1W" }));
+    expect(onChange).toHaveBeenCalledWith("1W");
+  });
+});
+
+describe("ToolRail drawingEnabled=false (1W)", () => {
+  it("선택 도구만 켜져 있고 그리기 도구는 비활성이며 툴팁에 이유가 있다", async () => {
+    const onChange = vi.fn();
+    render(<ToolRail mode="select" onChange={onChange} drawingEnabled={false} />);
+    expect(screen.getByRole("radio", { name: "캔들 선택" })).toBeEnabled();
+    for (const name of [/수평선 그리기/, /추세선 그리기/, /존 그리기/]) {
+      const radio = screen.getByRole("radio", { name });
+      expect(radio).toBeDisabled();
+      expect(radio.getAttribute("data-tip")).toContain("1D에서만 그릴 수 있음");
+    }
+    await userEvent.setup().click(screen.getByRole("radio", { name: /추세선 그리기/ }));
+    expect(onChange).not.toHaveBeenCalled();
+  });
+  it("기본(1D)은 전부 활성", () => {
+    render(<ToolRail mode="select" onChange={() => {}} />);
+    for (const r of screen.getAllByRole("radio")) expect(r).toBeEnabled();
+  });
+});
+
+describe("LineManager readOnly (1W)", () => {
+  const lines: ManualLine[] = [
+    { id: 1, symbol: "BTCUSDT", interval: "1d", line_type: "horizontal", time1: null, price1: 60000, time2: null, price2: null, created_at: "x", label: "수평선 60,000" },
+  ];
+  it("읽기 전용이면 목록만 보이고 삭제 버튼이 없다, 아니면 삭제 버튼이 있다", async () => {
+    const onDelete = vi.fn();
+    const { rerender } = render(<LineManager lines={lines} onDelete={onDelete} />);
+    expect(screen.getByText(/그은 선 관리 \(1개\)/)).toBeInTheDocument();
+    await userEvent.setup().click(screen.getByRole("button", { name: "삭제" }));
+    expect(onDelete).toHaveBeenCalledWith(1);
+    rerender(<LineManager lines={lines} onDelete={onDelete} readOnly />);
+    expect(screen.getByText(/편집은 1D에서/)).toBeInTheDocument();
+    expect(screen.getByText("수평선 60,000")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "삭제" })).not.toBeInTheDocument();
   });
 });

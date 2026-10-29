@@ -104,6 +104,10 @@ interface TvChartProps {
   // 시장 상태 횡보 구간 배경 음영(신호 아님). 빈 배열이면 아무것도 안 그린다(토글 OFF).
   marketStateBlocks: MarketStateBlock[];
   drawMode: DrawMode;
+  // 1W 같은 표시 전용 화면: 그리기 모드를 무시(항상 선택)하고 선/존 선택/편집/삭제도 막는다. 선/존은 그대로 그려진다.
+  readOnly?: boolean;
+  // 캔들 한 칸이 나타내는 일수(일봉 1, 주봉 7) - 마지막 캔들 오른쪽 빈 공간의 날짜 계산에 쓴다.
+  barStepDays?: number;
   lines: ManualLine[];
   onSelectDate: (date: string) => void;
   onAddHorizontalLine: (price: number) => void;
@@ -130,7 +134,7 @@ interface TvChartProps {
 // 새로 만들지 않음 - 이게 줌/이동 상태 보존의 핵심).
 export default function TvChart({
   bars, selectedDate, height, emaSeries, rsiSeries, divergenceMarkers,
-  divMarkerColors, marketStateBlocks, drawMode, lines, onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone,
+  divMarkerColors, marketStateBlocks, drawMode, readOnly = false, barStepDays = 1, lines, onSelectDate, onAddHorizontalLine, onAddTrendLine, onAddZone,
   onFinishDrawing, onDeleteLine, onUpdateZone, onUpdateTrend, onCrosshairDate,
 }: TvChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -163,6 +167,8 @@ export default function TvChart({
   const trendPrimitivesRef = useRef<TrendLinePrimitive[]>([]);
   const marketStateRef = useRef<MarketStatePrimitive | null>(null);
   const barIndexRef = useRef<BarIndex>(makeBarIndex([]));
+  const readOnlyRef = useRef(readOnly);
+  readOnlyRef.current = readOnly;
   const firstBarTimeRef = useRef<string | null>(null);
   const lastBarTimeRef = useRef<string | null>(null);
 
@@ -570,7 +576,7 @@ export default function TvChart({
       if (mode === "select") {
         // 이미 그려진 도형을 먼저 판정한다(겹치면 가장 가까운 하나). 맞으면 도형 선택 +
         // 삭제 툴바, 아니면 선택 해제 후 기존처럼 캔들 선택.
-        if (param.point) {
+        if (param.point && !readOnlyRef.current) {
           const hit = hitTestShapes(linesRef.current, param.point, hitCoords(), HIT_TOLERANCE_PX);
           if (hit) {
             setSelection({ id: hit.id, x: hit.anchor.x, y: hit.anchor.y, width: container.clientWidth });
@@ -706,16 +712,17 @@ export default function TvChart({
 
     // 그리기 모드가 바뀌면 대기 중이던 임시 상태(첫 점, 마커, 미리보기)를 정리하고
     // 새 모드에 맞는 미리보기 상태로 맞춘다.
-    if (drawMode !== currentDrawModeRef.current) {
+    const effectiveMode: DrawMode = readOnly ? "select" : drawMode;   // 읽기 전용이면 그리기 모드는 항상 선택
+    if (effectiveMode !== currentDrawModeRef.current) {
       clearPendingDrawing();
-      currentDrawModeRef.current = drawMode;
+      currentDrawModeRef.current = effectiveMode;
       syncPreview();
     }
-    currentDrawModeRef.current = drawMode;
+    currentDrawModeRef.current = effectiveMode;
     linesRef.current = lines;
 
     // 표시 중인 캔들이 바뀌면 시간 변환(날짜 <-> 논리 인덱스)도 같이 갱신한다.
-    barIndexRef.current = makeBarIndex(bars.map((b) => b.time));
+    barIndexRef.current = makeBarIndex(bars.map((b) => b.time), barStepDays);
     const axis = axisFor(chart, barIndexRef.current);
     previewRef.current?.setAxis(axis);
     marketStateRef.current?.setData(marketStateBlocks, axis);
@@ -886,7 +893,12 @@ export default function TvChart({
       chart.timeScale().fitContent();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bars, selectedDate, emaSeries, rsiSeries, divergenceMarkers, divMarkerColors, marketStateBlocks, drawMode, lines, selectedLineId]);
+  }, [bars, selectedDate, emaSeries, rsiSeries, divergenceMarkers, divMarkerColors, marketStateBlocks, drawMode, readOnly, barStepDays, lines, selectedLineId]);
+
+  // 읽기 전용으로 바뀌면 열려 있던 도형 선택(삭제 툴바)을 닫는다.
+  useEffect(() => {
+    if (readOnly) setSelection(null);
+  }, [readOnly]);
 
   // 선택된 도형 위에 뜨는 작은 툴바(지금은 삭제 버튼 하나). 도형 위쪽에 두되 위로 공간이
   // 없으면 아래로, 좌우로는 차트 영역 안에 자른다.

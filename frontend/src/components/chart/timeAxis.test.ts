@@ -168,3 +168,42 @@ describe("createTimeAxis (x 좌표 연결)", () => {
     expect(empty.xToDate(100)).toBeNull();
   });
 });
+
+describe("주봉(칸 = 7일) 시간축", () => {
+  const weeks = ["2026-10-05", "2026-10-12", "2026-10-19"];     // 월요일 3개
+  const idx = makeBarIndex(weeks, 7);
+
+  it("캔들 날짜와 그 사이의 일봉 날짜는 날짜 보간(칸 = 7일)", () => {
+    expect(dateToLogical(idx, "2026-10-12")).toBe(1);
+    expect(dateToLogical(idx, "2026-10-15")).toBeCloseTo(1 + 3 / 7);      // 수요일 목요일쯤: 두 주 사이 3/7
+    expect(dateToLogical(idx, "2026-10-18")).toBeCloseTo(1 + 6 / 7);
+  });
+
+  it("마지막 주 오른쪽(미래)과 첫 주 왼쪽은 7일이 한 칸", () => {
+    expect(dateToLogical(idx, "2026-10-26")).toBe(3);                      // 다음 주 월요일 = 마지막 인덱스 + 1
+    expect(dateToLogical(idx, "2026-11-09")).toBe(2 + 21 / 7);             // 3주 뒤 = +3칸
+    expect(dateToLogical(idx, "2026-09-28")).toBe(-1);                     // 한 주 앞
+    expect(dateToLogical(idx, "2026-10-05")).toBe(0);
+  });
+
+  it("논리 인덱스 -> 날짜: 미래 칸은 마지막 주 + 7일 x 칸 수, 첫 주 앞은 null", () => {
+    expect(logicalToDate(idx, 1)).toBe("2026-10-12");
+    expect(logicalToDate(idx, 3)).toBe("2026-10-26");
+    expect(logicalToDate(idx, 5)).toBe("2026-11-09");
+    expect(logicalToDate(idx, -1)).toBeNull();
+  });
+
+  it("stepDays를 안 주면 일봉(1)과 같다", () => {
+    const daily = makeBarIndex(["2026-10-05", "2026-10-06"]);
+    expect(daily.stepDays).toBe(1);
+    expect(dateToLogical(daily, "2026-10-08")).toBe(3);
+    expect(logicalToDate(daily, 3)).toBe("2026-10-08");
+  });
+
+  it("createTimeAxis로 미래 날짜 <-> x 변환도 7일 칸을 따른다", () => {
+    const axis = createTimeAxis(idx, { logicalToCoordinate: (l) => 100 + 20 * l, coordinateToLogical: (x) => (x - 100) / 20 });
+    expect(axis.dateToX("2026-10-26")).toBe(160);
+    expect(axis.xToDate(160)).toBe("2026-10-26");
+    expect(axis.xToDate(200)).toBe("2026-11-09");                           // 논리 5 = 마지막 칸(2) + 3칸 = 마지막 주 + 21일
+  });
+});

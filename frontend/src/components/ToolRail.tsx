@@ -36,26 +36,32 @@ export const DRAW_TOOLS: { value: DrawMode; label: string; tip: string }[] = [
 interface Props {
   mode: DrawMode;
   onChange: (mode: DrawMode) => void;
+  // false면 그리기 도구(선택 제외)를 비활성화한다 - 1W에서는 일봉 선/존을 표시만 하고 그리지 못한다.
+  drawingEnabled?: boolean;
 }
 
 // 왼쪽 세로 도구 막대 - 그리기 모드를 아이콘 버튼으로 고른다(예전 라디오 대체). 하나만 활성.
-export default function ToolRail({ mode, onChange }: Props) {
+export default function ToolRail({ mode, onChange, drawingEnabled = true }: Props) {
   return (
     <div className={styles.rail} role="radiogroup" aria-label="그리기 도구">
-      {DRAW_TOOLS.map((tool) => (
-        <button
-          key={tool.value}
-          type="button"
-          role="radio"
-          aria-checked={mode === tool.value}
-          aria-label={tool.label}
-          data-tip={tool.tip}
-          className={mode === tool.value ? styles.toolActive : styles.tool}
-          onClick={() => onChange(tool.value)}
-        >
-          {ICONS[tool.value]}
-        </button>
-      ))}
+      {DRAW_TOOLS.map((tool) => {
+        const disabled = !drawingEnabled && tool.value !== "select";
+        return (
+          <button
+            key={tool.value}
+            type="button"
+            role="radio"
+            aria-checked={mode === tool.value}
+            aria-label={tool.label}
+            data-tip={disabled ? `${tool.tip.split(" · ")[0]} · 1D에서만 그릴 수 있음` : tool.tip}
+            disabled={disabled}
+            className={mode === tool.value ? styles.toolActive : styles.tool}
+            onClick={() => onChange(tool.value)}
+          >
+            {ICONS[tool.value]}
+          </button>
+        );
+      })}
     </div>
   );
 }
