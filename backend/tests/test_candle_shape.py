@@ -136,3 +136,39 @@ def test_real_data_matches_an_independent_implementation():
     assert sh["shape"].tolist() == expected
     counts = pd.Series(expected).value_counts()
     assert counts["doji"] > counts["hammer"] > 0 and counts["inverted_hammer"] > 0
+
+
+# --- 기준값 인자 (주봉처럼 다른 기준을 쓰는 쪽용) ---
+
+def _frame(top, bottom, volume=1.0, prior_volume=1.0, n_prior=25):
+    rows = [(50.0, 51.0, 49.0, 50.0, prior_volume)] * n_prior + [(bottom, HIGH, LOW, top, volume)]
+    df = pd.DataFrame(rows, columns=["open", "high", "low", "close", "volume"])
+    df["open_time"] = pd.date_range("2025-01-01", periods=len(df), freq="D", tz="UTC")
+    return df
+
+
+def test_default_params_equal_the_module_constants_and_give_the_same_result():
+    p = candle_patterns.default_shape_params()
+    assert (p.body_max, p.body_ext_max, p.hammer_body_max, p.hammer_opposite_wick_max, p.hammer_wick_body_mult,
+            p.volume_lookback, p.volume_ratio_min) == (0.15, 0.25, 0.35, 0.10, 2, 20, 1.5)
+    df = _frame(top=90, bottom=70)
+    assert candle_patterns.compute_candle_shape(df)["shape"].tolist() ==         candle_patterns.compute_candle_shape(df, p)["shape"].tolist()
+
+
+def test_default_params_follow_the_module_constants_at_call_time(monkeypatch):
+    df = _frame(top=90, bottom=70)                                   # 망치형(몸통 20%, 위꼬리 10%)
+    assert candle_patterns.compute_candle_shape(df)["shape"].iloc[-1] == "hammer"
+    monkeypatch.setattr(candle_patterns, "HAMMER_OPPOSITE_WICK_MAX_PCT", 0.05)
+    assert candle_patterns.compute_candle_shape(df)["shape"].iloc[-1] is None
+
+
+def test_explicit_params_override_the_defaults_without_touching_them():
+    from dataclasses import replace
+    df = _frame(top=90, bottom=70)
+    strict = replace(candle_patterns.default_shape_params(), hammer_opposite_wick_max=0.05)
+    assert candle_patterns.compute_candle_shape(df, strict)["shape"].iloc[-1] is None
+    assert candle_patterns.compute_candle_shape(df)["shape"].iloc[-1] == "hammer"      # 기본은 그대로
+    short_lookback = replace(candle_patterns.default_shape_params(), volume_lookback=5)
+    wide = _frame(top=70, bottom=50, volume=2.0, n_prior=6)                            # 몸통 20%: 거래량 룩백이 짧을 때만 평균이 생긴다
+    assert candle_patterns.compute_candle_shape(wide)["shape"].iloc[-1] is None        # 기본 20봉: 평균 NaN -> 탈락
+    assert candle_patterns.compute_candle_shape(wide, short_lookback)["shape"].iloc[-1] == "doji"

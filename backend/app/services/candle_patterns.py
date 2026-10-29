@@ -60,6 +60,8 @@
 
 번호(참고용, app.py 표시 순서): 9.도지롱 10.도지숏 11.망치형롱 12.망치형숏 13.역망치형롱 14.역망치형숏
 """
+from dataclasses import dataclass
+
 import pandas as pd
 
 import feature_flags
@@ -99,7 +101,30 @@ PATTERN_LABEL_KR = {
 }
 
 
-def compute_candle_shape(df: pd.DataFrame) -> pd.DataFrame:
+@dataclass(frozen=True)
+class ShapeParams:
+    """모양 판정 기준값 묶음. compute_candle_shape(df, params)에 넘기면 그 값으로 판정한다(주봉처럼 다른 기준을 쓰는 쪽용).
+    안 넘기면 default_shape_params() - 호출 시점의 모듈 상수(일봉 기준)로 만든다."""
+    body_max: float             # 도지: 몸통비율 상한
+    body_ext_max: float         # 도지 확장구간 상한(거래량 조건)
+    hammer_body_max: float      # 망치형/역망치형 몸통비율 상한
+    hammer_opposite_wick_max: float  # 반대쪽 꼬리비율 상한
+    hammer_wick_body_mult: float     # 긴 꼬리 >= 몸통 x 배수
+    volume_lookback: int        # 확장구간 평균거래량 기간(봉 수)
+    volume_ratio_min: float     # 확장구간 거래량 배수
+
+
+def default_shape_params() -> ShapeParams:
+    """현재 모듈 상수(일봉 기준)로 만든 기본 기준값. 호출 시점에 읽으므로 테스트가 모듈 상수를 바꿔도 따라간다."""
+    return ShapeParams(
+        body_max=BODY_MAX_PCT, body_ext_max=BODY_EXT_MAX_PCT, hammer_body_max=HAMMER_BODY_MAX_PCT,
+        hammer_opposite_wick_max=HAMMER_OPPOSITE_WICK_MAX_PCT, hammer_wick_body_mult=HAMMER_WICK_BODY_MULT,
+        volume_lookback=VOLUME_LOOKBACK, volume_ratio_min=VOLUME_RATIO_MIN,
+    )
+
+
+def compute_candle_shape(df: pd.DataFrame, params: ShapeParams | None = None) -> pd.DataFrame:
+    params = default_shape_params() if params is None else params
     df = df.reset_index(drop=True).copy()
 
     body = (df["close"] - df["open"]).abs()
@@ -117,7 +142,7 @@ def compute_candle_shape(df: pd.DataFrame) -> pd.DataFrame:
 
     # 확장구간(몸통 15~25%) 도지 판정용 거래량배수 - 당일 자신은 평균에서 제외(shift(1))
     # 해서 순수 과거 20일 평균과만 비교(미래참조 아님). 앞 20봉은 자연히 NaN.
-    avg_volume = df["volume"].shift(1).rolling(VOLUME_LOOKBACK).mean()
+    avg_volume = df["volume"].shift(1).rolling(params.volume_lookback).mean()
     volume_ratio = df["volume"] / avg_volume
 
     shape = pd.Series([None] * len(df), dtype=object)
@@ -128,20 +153,20 @@ def compute_candle_shape(df: pd.DataFrame) -> pd.DataFrame:
         uw, lw = upper_wick_ratio.iloc[i], lower_wick_ratio.iloc[i]
 
         # 망치형/역망치형 - 거래량 조건 없음. 두 조건이 동시에 성립하는 캔들은 없다(몸통+두 꼬리 = 범위).
-        if br <= HAMMER_BODY_MAX_PCT:
-            if uw <= HAMMER_OPPOSITE_WICK_MAX_PCT and lw >= HAMMER_WICK_BODY_MULT * br:
+        if br <= params.hammer_body_max:
+            if uw <= params.hammer_opposite_wick_max and lw >= params.hammer_wick_body_mult * br:
                 shape.iloc[i] = "hammer"
                 continue
-            if lw <= HAMMER_OPPOSITE_WICK_MAX_PCT and uw >= HAMMER_WICK_BODY_MULT * br:
+            if lw <= params.hammer_opposite_wick_max and uw >= params.hammer_wick_body_mult * br:
                 shape.iloc[i] = "inverted_hammer"
                 continue
 
         # 도지 - 위 둘이 아닌 것 중 몸통 15% 이하(15~25%는 거래량 조건)
-        if br > BODY_EXT_MAX_PCT:
+        if br > params.body_ext_max:
             continue
-        if br > BODY_MAX_PCT:
+        if br > params.body_max:
             vr = volume_ratio.iloc[i]
-            if not (pd.notna(vr) and vr >= VOLUME_RATIO_MIN):
+            if not (pd.notna(vr) and vr >= params.volume_ratio_min):
                 continue
         if max(uw, lw) == 0:
             continue  # 두 꼬리 다 0(사실상 점) - 판정 제외
