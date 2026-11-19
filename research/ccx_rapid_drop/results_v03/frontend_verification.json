@@ -1,0 +1,22 @@
+{
+  "source": "frontend agent actual command results",
+  "server": "fixed_fixture, feature ON, temporary manual and trades DBs, port 8000",
+  "commands": [
+    {"command": "npx vitest run src/pages/PositionSizing.test.tsx", "exit_code": 0, "passed": 3},
+    {"command": "npx vitest run", "exit_code": 0, "files": 13, "passed": 154, "failed": 0, "seconds": 53.32},
+    {"command": "npx tsc --noEmit -p .", "exit_code": 0},
+    {"command": "npm run lint", "exit_code": 0, "errors": 0, "warnings": 3},
+    {"command": "npm run build", "exit_code": 0, "vite": "8.3.1", "modules_transformed": 73}
+  ],
+  "real_api_integration": "SignalScannerRapidDropApi.test.tsx calls the actual API; only canvas is mocked in jsdom",
+  "initial_failure": "Existing PositionSizing global negative assertion matched a valid 405,000 KRW caption. The 3 USDT positive check was retained and the negative check was narrowed to a USDT result; target and complete suites then passed.",
+  "existing_lint_warnings": [
+    {"file": "frontend/src/components/ChartLegend.tsx", "line": 14, "rule": "react(only-export-components)"},
+    {"file": "frontend/src/components/ToolRail.tsx", "line": 29, "rule": "react(only-export-components)"},
+    {"file": "frontend/src/pages/PositionSizing.tsx", "line": 33, "rule": "react(set-state-in-effect)"}
+  ],
+  "browser_observed": "Native Edge: existing chart/counts and separated experiment panel, fixed dataset label, acceleration/window status and support unconfirmed displayed.",
+  "browser_synthetic_candidate_verified": false,
+  "computer_use_blocker": "Computer Use stopped because it could not confidently determine the current browser URL on Windows. No further UI actions or bypass were attempted.",
+  "synthetic_http_checked_separately": true
+}

@@ -1,0 +1,17 @@
+﻿{
+    "checked":  53,
+    "original_trades_bytes_recovered":  false,
+    "differences":  [
+                        {
+                            "path":  "data/trades.db",
+                            "before":  "d44bf4158f7393cbd0bc35b268dbf4539de032adb2485e9ed6187167cffbe393",
+                            "after":  "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06"
+                        }
+                    ],
+    "trades_current_rows":  0,
+    "actual_db_recovery_writes":  0,
+    "baseline_matches":  false,
+    "trades_integrity":  "ok (read-only forensic check)",
+    "status":  "original trades.db byte preservation failed; other protected files unchanged",
+    "isolated_suite_additional_db_changes":  0
+}
