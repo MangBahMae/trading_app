@@ -1,0 +1,10 @@
+{
+  "protected_files_checked": 230,
+  "changed": [],
+  "supplied_research_changed": [],
+  "user_files": {
+    ".vscode/settings.json": "d7c4c5969a13be89c26b96373e811c72455b9bcc938c3e2ee1de236c55773289",
+    "data/trades.db": "d44bf4158f7393cbd0bc35b268dbf4539de032adb2485e9ed6187167cffbe393",
+    "data/merged/manual_lines.db": "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372"
+  }
+}

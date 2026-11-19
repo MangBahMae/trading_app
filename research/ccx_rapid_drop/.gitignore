@@ -1,0 +1,2 @@
+# 전체 봉 원문 출력은 로컬에 보관하고 요약·사건 목록·검사 증거만 커밋한다.
+results/observations.jsonl
