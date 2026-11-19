@@ -13,6 +13,7 @@ def main() -> None:
     p.add_argument('--repo', required=True, type=Path, help='신뢰하는 CoinCloudX checkout 경로')
     p.add_argument('--config', required=True, type=Path)
     p.add_argument('--levels', type=Path, help='당시 이용 가능했던 지지 구간 버전 JSON 목록. 생략 시 []')
+    p.add_argument('--output', type=Path, help='UTF-8 JSONL 저장 경로. 생략하면 표준 출력')
     args = p.parse_args()
     repo = args.repo.resolve()
     # 운영 API, DB, 시세 수집, 기존 신호 파이프라인을 호출하지 않는다.
@@ -26,15 +27,21 @@ def main() -> None:
     cfg = Config(**json.loads(args.config.read_text(encoding='utf-8')))
     raw = json.loads(args.levels.read_text(encoding='utf-8')) if args.levels else []
     levels = [Level(x['key'], x['bottom'], x['top'], date.fromisoformat(x['known_from']),
-                    date.fromisoformat(x['through'])) for x in raw]
+                    date.fromisoformat(x['through']), x.get('support_id')) for x in raw]
     frame = pd.read_csv(fixture)
     frame['open_time'] = pd.to_datetime(frame['open_time'], utc=True)
     # 이 실행기는 현재 진행 중인 봉이 없는 고정 fixture 전용이다.
     shaped = compute_candle_shape(frame)
     bars = [Bar(row.open_time.date(), row.open, row.high, row.low, row.close, row.volume,
                 row.shape if isinstance(row.shape, str) else None) for row in shaped.itertuples()]
-    for obs in analyze(bars, levels, cfg):
-        print(json.dumps(asdict(obs), ensure_ascii=False, default=str, allow_nan=False))
+    observations = analyze(bars, levels, cfg)
+    output = args.output.open('w', encoding='utf-8', newline='\n') if args.output else sys.stdout
+    try:
+        for obs in observations:
+            print(json.dumps(asdict(obs), ensure_ascii=False, default=str, allow_nan=False), file=output)
+    finally:
+        if args.output:
+            output.close()
 
 
 if __name__ == '__main__':
