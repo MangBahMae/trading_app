@@ -1,0 +1,12 @@
+{
+  "slope_bars": 2,
+  "min_drop_per_bar": 0.02,
+  "min_acceleration": 0.01,
+  "context_bars": 3,
+  "volume_bars": 3,
+  "volume_multiple": 2,
+  "large_red_body": 0.04,
+  "rebound": 0.03,
+  "tolerance": 0.01,
+  "max_age": 8
+}
