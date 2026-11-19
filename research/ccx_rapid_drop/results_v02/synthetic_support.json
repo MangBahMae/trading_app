@@ -1,0 +1,2358 @@
+{
+  "purpose": "실제 지지 데이터와 분리한 합성 OHLCV·지지 기능 검사",
+  "cases": [
+    {
+      "name": "first_doji",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 6,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "first_hammer",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 97.2,
+          "low": 93,
+          "close": 96.8,
+          "volume": 300,
+          "shape": "hammer"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "hammer",
+          "reference_price": 96.8,
+          "reference_bottom": 95.832,
+          "reference_top": 97.768,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 6,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "first_inverted_hammer",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 103,
+          "low": 96.8,
+          "close": 97.5,
+          "volume": 300,
+          "shape": "inverted_hammer"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "inverted_hammer",
+          "reference_price": 97.5,
+          "reference_bottom": 96.525,
+          "reference_top": 98.475,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 6,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "retest_doji",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-07",
+          "open": 97,
+          "high": 103,
+          "low": 96,
+          "close": 102,
+          "volume": 80,
+          "shape": null
+        },
+        {
+          "day": "2022-01-08",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 90,
+          "shape": "doji"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_5a79167c94c64e1cd77842ec",
+          "kind": "bounce_observed",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": null,
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.48000000000000004,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_aa20e1370392b5e7e216d835",
+          "kind": "retest_observed",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_1665593231c9d467a023d36c",
+          "kind": "support_reaction_while_tracking",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 8,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "retest_hammer",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-07",
+          "open": 97,
+          "high": 103,
+          "low": 96,
+          "close": 102,
+          "volume": 80,
+          "shape": null
+        },
+        {
+          "day": "2022-01-08",
+          "open": 98,
+          "high": 98.2,
+          "low": 93,
+          "close": 97.5,
+          "volume": 90,
+          "shape": "hammer"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_5a79167c94c64e1cd77842ec",
+          "kind": "bounce_observed",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": null,
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.48000000000000004,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_aa20e1370392b5e7e216d835",
+          "kind": "retest_observed",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "hammer",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": true,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_1665593231c9d467a023d36c",
+          "kind": "support_reaction_while_tracking",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "hammer",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": true,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 8,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "retest_inverted_hammer",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-07",
+          "open": 97,
+          "high": 103,
+          "low": 96,
+          "close": 102,
+          "volume": 80,
+          "shape": null
+        },
+        {
+          "day": "2022-01-08",
+          "open": 97,
+          "high": 103,
+          "low": 96.8,
+          "close": 97.5,
+          "volume": 90,
+          "shape": "inverted_hammer"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_5a79167c94c64e1cd77842ec",
+          "kind": "bounce_observed",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": null,
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.48000000000000004,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_aa20e1370392b5e7e216d835",
+          "kind": "retest_observed",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "inverted_hammer",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_1665593231c9d467a023d36c",
+          "kind": "support_reaction_while_tracking",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "inverted_hammer",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 8,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "far_close",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-07",
+          "open": 97,
+          "high": 103,
+          "low": 96,
+          "close": 102,
+          "volume": 80,
+          "shape": null
+        },
+        {
+          "day": "2022-01-08",
+          "open": 115,
+          "high": 120.5,
+          "low": 96,
+          "close": 120,
+          "volume": 90,
+          "shape": "hammer"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_5a79167c94c64e1cd77842ec",
+          "kind": "bounce_observed",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": null,
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.48000000000000004,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_aa20e1370392b5e7e216d835",
+          "kind": "retest_observed",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "hammer",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_1665593231c9d467a023d36c",
+          "kind": "support_reaction_while_tracking",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "hammer",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 8,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "overlap",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 102,
+          "high": 110,
+          "low": 73,
+          "close": 97,
+          "volume": 350,
+          "shape": "doji"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_6fc0bc918847f3c0baa0b0b2",
+          "kind": "volume_red_watch_only",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_b3d74b350203868701176f05",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "volume_red",
+          "support_id": "rd02_b3d74b350203868701176f05",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.5,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": 1.0,
+          "volume_red_anchor_id": "rd02_b3d74b350203868701176f05",
+          "volume_red_anchor_day": "2022-01-06",
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_0920748f315319a1441abe72",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_b3d74b350203868701176f05",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "volume_red",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.5,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": 1.0,
+          "volume_red_anchor_id": "rd02_b3d74b350203868701176f05",
+          "volume_red_anchor_day": "2022-01-06",
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 6,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "while_tracking",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 98,
+          "low": 89,
+          "close": 91,
+          "volume": 350,
+          "shape": null
+        },
+        {
+          "day": "2022-01-07",
+          "open": 91,
+          "high": 93,
+          "low": 87,
+          "close": 91,
+          "volume": 1000,
+          "shape": "doji"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 90,
+          "top": 92,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_6fc0bc918847f3c0baa0b0b2",
+          "kind": "volume_red_watch_only",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_b3d74b350203868701176f05",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "volume_red",
+          "support_id": "rd02_b3d74b350203868701176f05",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": null,
+          "reference_price": 91,
+          "reference_bottom": 90.09,
+          "reference_top": 91.91,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.5,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": 1.0,
+          "volume_red_anchor_id": "rd02_b3d74b350203868701176f05",
+          "volume_red_anchor_day": "2022-01-06",
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_d264be59eae703085f254379",
+          "kind": "support_reaction_while_tracking",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_b3d74b350203868701176f05",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "volume_red",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 90,
+          "support_top": 92,
+          "manual_support_ids": [],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 91,
+          "reference_bottom": 90.09,
+          "reference_top": 91.91,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": true,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 5.454545454545454,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": 2.857142857142857,
+          "volume_red_anchor_id": "rd02_b3d74b350203868701176f05",
+          "volume_red_anchor_day": "2022-01-06",
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 7,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "new_after_loss",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-07",
+          "open": 91,
+          "high": 93,
+          "low": 88,
+          "close": 91,
+          "volume": 1000,
+          "shape": "doji"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 96,
+          "top": 98,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        },
+        {
+          "key": "lower2",
+          "bottom": 90,
+          "top": 92,
+          "known_from": "2022-01-07",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_d1dc5338e2ddc0858c62d2fc",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_60b51a2791f1210460e0bad6",
+          "kind": "anchor_lost_on_close",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_bdb96cebe329efe15e2407d9",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower",
+            "lower2"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "below_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": false,
+          "lower_wick_tests_reference": false,
+          "first_wick_undercut": true,
+          "wick_recovered_on_close": false,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 6.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_c7b971e1f77f4f9a401f182c",
+          "kind": "support_break_observed",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_c31d7ccbfc5de3510917efc2",
+          "anchor_day": "2022-01-07",
+          "anchor_source": "support_break",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower",
+            "lower2"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": false,
+          "shape": "doji",
+          "reference_price": 91,
+          "reference_bottom": 90.09,
+          "reference_top": 91.91,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 6.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_db83de0659a91927a05781fc",
+          "kind": "support_reaction_after_invalidation",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_8a3149bcb080417339788a9e",
+          "anchor_day": "2022-01-07",
+          "anchor_source": "support_reversal",
+          "support_id": "lower2",
+          "support_version_id": "lower2",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 90,
+          "support_top": 92,
+          "manual_support_ids": [
+            "lower2"
+          ],
+          "evaluated_support_ids": [
+            "lower",
+            "lower2"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": "rd02_bdb96cebe329efe15e2407d9",
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 91,
+          "reference_bottom": 90.09,
+          "reference_top": 91.91,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 6.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 7,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "break_and_recovery",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-07",
+          "open": 97,
+          "high": 103,
+          "low": 96,
+          "close": 102,
+          "volume": 80,
+          "shape": null
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 100,
+          "top": 101,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_162cd9e76888c715789c4bcb",
+          "kind": "support_break_observed",
+          "day": "2022-01-05",
+          "anchor_id": "rd02_ec013eedee42b0ed4e606b9d",
+          "anchor_day": "2022-01-05",
+          "anchor_source": "support_break",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 100,
+          "support_top": 101,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": false,
+          "shape": null,
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 1.0,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_38ab290c945d4e196f970be1",
+          "kind": "reversal_observed",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_0bb2563e9c5207331c2d433d",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "reversal_observation",
+          "support_id": null,
+          "support_version_id": null,
+          "support_source": "known_no_reaction",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": false,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_b88382bbe79325ad809a7c69",
+          "kind": "support_recovery_trap_watch",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_ec013eedee42b0ed4e606b9d",
+          "anchor_day": "2022-01-05",
+          "anchor_source": "support_break",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 100,
+          "support_top": 101,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": "rd02_162cd9e76888c715789c4bcb",
+          "previous_anchor_id": null,
+          "tracking_anchor": false,
+          "shape": null,
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 0.48000000000000004,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 7,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "initial_below",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 113,
+          "low": 96,
+          "close": 112,
+          "volume": 400,
+          "shape": null
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 110,
+          "top": 111,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_4b51d0fdbcd84e867d276f5e",
+          "kind": "support_reclaim_without_observed_break",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_6c696e35ce45dab3ab01538c",
+          "anchor_day": "2022-01-01",
+          "anchor_source": "initial_below_support",
+          "support_id": "lower",
+          "support_version_id": "lower",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 110,
+          "support_top": 111,
+          "manual_support_ids": [
+            "lower"
+          ],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": false,
+          "shape": null,
+          "reference_price": 108,
+          "reference_bottom": 106.92,
+          "reference_top": 109.08,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": false,
+          "first_wick_undercut": true,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 4.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 6,
+      "extension_days": 32,
+      "mismatches": 0
+    },
+    {
+      "name": "known_no_reaction",
+      "source": "synthetic_only",
+      "bars": [
+        {
+          "day": "2022-01-01",
+          "open": 108,
+          "high": 109,
+          "low": 107,
+          "close": 108,
+          "volume": 100,
+          "shape": "doji"
+        },
+        {
+          "day": "2022-01-02",
+          "open": 108,
+          "high": 109,
+          "low": 106,
+          "close": 107,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-03",
+          "open": 107,
+          "high": 108,
+          "low": 105,
+          "close": 106,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-04",
+          "open": 106,
+          "high": 107,
+          "low": 101,
+          "close": 102,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-05",
+          "open": 102,
+          "high": 103,
+          "low": 96,
+          "close": 97,
+          "volume": 100,
+          "shape": null
+        },
+        {
+          "day": "2022-01-06",
+          "open": 97,
+          "high": 99,
+          "low": 94,
+          "close": 97,
+          "volume": 300,
+          "shape": "doji"
+        }
+      ],
+      "levels": [
+        {
+          "key": "lower",
+          "bottom": 10,
+          "top": 11,
+          "known_from": "2022-01-01",
+          "through": "2022-01-31",
+          "support_id": null
+        }
+      ],
+      "events": [
+        {
+          "id": "rd02_38ab290c945d4e196f970be1",
+          "kind": "reversal_observed",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_0bb2563e9c5207331c2d433d",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "reversal_observation",
+          "support_id": null,
+          "support_version_id": null,
+          "support_source": "known_no_reaction",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [],
+          "evaluated_support_ids": [
+            "lower"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": false,
+          "shape": "doji",
+          "reference_price": 97,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "prefixes": 6,
+      "extension_days": 32,
+      "mismatches": 0
+    }
+  ]
+}
