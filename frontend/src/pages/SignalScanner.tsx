@@ -4,6 +4,7 @@ import {
   addHorizontalLine, addTrendLine, addZone, deleteLine, getDashboard, updateTrend, updateZone,
 } from "../api/dashboard";
 import { getMarketState } from "../api/marketState";
+import { useRapidDrop } from "../hooks/useRapidDrop";
 import NumberInput from "../components/NumberInput";
 import type { EmaSeriesConfig } from "../components/chart/TvChart";
 import { THEME } from "../components/chart/chartTheme";
@@ -67,6 +68,8 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
   });
   const [showRsi, setShowRsi] = useState(false);
   const [showDivergence, setShowDivergence] = useState(false);
+  const [showRapidDrop, setShowRapidDrop] = useState(false);
+  const rapidDrop = useRapidDrop(showRapidDrop, timeframe === "1D", selectedDate, dailyData);
 
   // 시장 상태 - 신호가 아니라 차트 배경 음영 전용(횡보 구간 표시).
   // 실험 단계라 기본 OFF: 판정이 실제 차트와 잘 안 맞아 보류 중이다(코드는 그대로 둠).
@@ -279,6 +282,10 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
         onToggle: () => setShowMarketState((v) => !v),
       }]
       : []),
+    ...(timeframe === "1D"
+      ? [{ key: "rapid-drop", label: "급락 대응 · 실험", color: "#efad76", active: showRapidDrop,
+        onToggle: () => setShowRapidDrop((value) => !value) }]
+      : []),
   ];
 
   const marketStateControls = timeframe === "1D" && showMarketState ? (
@@ -354,6 +361,10 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
             signals={selectedSignals}
             marketState={timeframe === "1D" && showMarketState && selectedDate ? marketStateByDate.get(selectedDate) ?? null : null}
             marketStateParams={timeframe === "1D" && showMarketState ? marketState?.params ?? null : null}
+            rapidDropEnabled={timeframe === "1D" && showRapidDrop}
+            rapidDrop={rapidDrop.data}
+            rapidDropLoading={rapidDrop.loading}
+            rapidDropError={rapidDrop.error}
           />
           <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} readOnly={timeframe === "1W"} />
         </aside>

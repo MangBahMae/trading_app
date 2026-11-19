@@ -23,3 +23,7 @@ ENABLE_DIVERGENCE_MARKERS = False
 # 위치 판정을 새 방식으로 바꿀 때 한 번 껐다가 다시 켰다(False로 두면 신호 안 되는 모양 캔들은 아무것도 안 낸다).
 # candle_patterns.py가 `feature_flags.ENABLE_CANDLE_REFERENCE`로 읽는다.
 ENABLE_CANDLE_REFERENCE = True
+
+# 기본 OFF인 독립 실험 API. 기존 신호에는 합산하지 않는다.
+import os
+ENABLE_RAPID_DROP_SIGNALS = os.environ.get('CCX_ENABLE_RAPID_DROP_SIGNALS', '0') == '1'

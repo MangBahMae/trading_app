@@ -1,0 +1,22 @@
+.section {
+  border-top: 1px solid var(--border-color);
+  margin-top: 14px;
+  padding-top: 12px;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.section h3 { font-size: 0.9rem; margin: 0 0 6px; }
+.section h4 { font-size: 0.78rem; margin: 12px 0 5px; }
+.note, .meta { color: var(--muted-color); line-height: 1.5; margin: 4px 0; }
+.meta { font-size: 0.72rem; }
+.market { background: var(--bg-color); border-radius: 6px; padding: 8px; line-height: 1.6; }
+.warning, .cautions { color: #efad76; }
+.synthetic { border: 1px solid #efad76; color: #efad76; padding: 6px 8px; border-radius: 5px; font-weight: 600; }
+.list { list-style: none; padding: 0; margin: 0; }
+.signal { border-left: 2px solid var(--accent-color); margin: 8px 0; padding: 2px 0 2px 8px; }
+.signalTitle { display: flex; align-items: baseline; gap: 6px; justify-content: space-between; font-weight: 600; }
+.badge { flex: 0 0 auto; font-size: 0.66rem; color: var(--muted-color); border: 1px solid var(--border-color); padding: 1px 4px; border-radius: 4px; }
+.details { font-size: 0.73rem; margin-top: 6px; line-height: 1.6; }
+.details summary { cursor: pointer; color: var(--muted-color); }
+.details ul, .cautions { padding-left: 16px; margin: 5px 0; }

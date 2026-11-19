@@ -23,6 +23,9 @@ import lines_store  # noqa: E402,F401  (dashboard.py가 쓰는 것과 같은 bar
 
 REAL_DB_PATH = Path(lines_store.DB_PATH)
 
+from app.services import trades as trades_service  # noqa: E402
+REAL_TRADES_DB_PATH = Path(trades_service.DB_PATH)
+
 
 def _sha256(path: Path) -> str | None:
     try:
@@ -41,11 +44,33 @@ def _isolate_lines_db(tmp_path, monkeypatch):
     yield tmp_db
 
 
+@pytest.fixture(autouse=True)
+def _isolate_rapid_drop_history(tmp_path, monkeypatch):
+    """새 지지 이력도 테스트별 임시 경로만 사용한다."""
+    monkeypatch.setenv('CCX_RAPID_DROP_SUPPORT_HISTORY', str(tmp_path / 'support_versions.jsonl'))
+
+
+@pytest.fixture(scope='session', autouse=True)
+def _isolate_trades_db_for_entire_session(tmp_path_factory):
+    """기존 test_trades의 모듈 종료 정리까지 임시 DB만 사용한다."""
+    mp = pytest.MonkeyPatch()
+    mp.setattr(trades_service, 'DB_PATH', tmp_path_factory.mktemp('trades-session') / 'trades.db')
+    yield
+    mp.undo()
+
+
 def pytest_sessionstart(session):
     session.config._real_lines_db_hash = _sha256(REAL_DB_PATH)
+    session.config._real_trades_db_hash = _sha256(REAL_TRADES_DB_PATH)
 
 
 def pytest_sessionfinish(session, exitstatus):
+    trades_before = getattr(session.config, '_real_trades_db_hash', None)
+    if trades_before != _sha256(REAL_TRADES_DB_PATH):
+        session.exitstatus = pytest.ExitCode.TESTS_FAILED
+        reporter = session.config.pluginmanager.get_plugin('terminalreporter')
+        if reporter:
+            reporter.write_line('실제 사용자 매매 DB가 변경됐습니다. 테스트 격리를 확인하세요.', red=True)
     before = getattr(session.config, "_real_lines_db_hash", None)
     after = _sha256(REAL_DB_PATH)
     if before != after:
