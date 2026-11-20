@@ -1,0 +1,24 @@
+test_accel_and_warmup (test_rapid_drop.TestRapidDrop.test_accel_and_warmup) ... ok
+test_anchor_expires (test_rapid_drop.TestRapidDrop.test_anchor_expires) ... ok
+test_bad_bars_and_config (test_rapid_drop.TestRapidDrop.test_bad_bars_and_config) ... ok
+test_big_red_not_bottom_foresight (test_rapid_drop.TestRapidDrop.test_big_red_not_bottom_foresight) ... ok
+test_broken_old_support_not_buy (test_rapid_drop.TestRapidDrop.test_broken_old_support_not_buy) ... ok
+test_close_break_cancels (test_rapid_drop.TestRapidDrop.test_close_break_cancels) ... ok
+test_direct_doji (test_rapid_drop.TestRapidDrop.test_direct_doji) ... ok
+test_fixture_excerpt_speed_only (test_rapid_drop.TestRapidDrop.test_fixture_excerpt_speed_only) ... ok
+test_future_bars_do_not_change_history (test_rapid_drop.TestRapidDrop.test_future_bars_do_not_change_history) ... ok
+test_later_drawn_or_expired_zone (test_rapid_drop.TestRapidDrop.test_later_drawn_or_expired_zone) ... ok
+test_lower_new_zone_not_double_bottom (test_rapid_drop.TestRapidDrop.test_lower_new_zone_not_double_bottom) ... ok
+test_no_retest_without_bounce (test_rapid_drop.TestRapidDrop.test_no_retest_without_bounce) ... ok
+test_no_same_bar_bounce_and_retest (test_rapid_drop.TestRapidDrop.test_no_same_bar_bounce_and_retest) ... ok
+test_no_zero_volume_division (test_rapid_drop.TestRapidDrop.test_no_zero_volume_division) ... ok
+test_reclaim_from_below_is_not_support_test (test_rapid_drop.TestRapidDrop.test_reclaim_from_below_is_not_support_test) ... ok
+test_retest_without_shape_not_erased (test_rapid_drop.TestRapidDrop.test_retest_without_shape_not_erased) ... ok
+test_steady_steep_is_not_acceleration (test_rapid_drop.TestRapidDrop.test_steady_steep_is_not_acceleration) ... ok
+test_unshaped_retest_can_later_show_preferred_shape (test_rapid_drop.TestRapidDrop.test_unshaped_retest_can_later_show_preferred_shape) ... ok
+test_wick_and_close_recovery (test_rapid_drop.TestRapidDrop.test_wick_and_close_recovery) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.007s
+
+OK

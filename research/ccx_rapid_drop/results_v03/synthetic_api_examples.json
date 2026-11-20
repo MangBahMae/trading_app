@@ -1,0 +1,251 @@
+{
+  "source": "synthetic_demo",
+  "actual_manual_support": false,
+  "examples": [
+    {
+      "date": "2022-01-06",
+      "data_source": "synthetic_demo",
+      "market": {
+        "accelerating_down": true,
+        "observation_window": true,
+        "last_acceleration_date": "2022-01-06",
+        "previous_speed": -0.02392801058881755,
+        "recent_speed": -0.03554796084186511
+      },
+      "support": {
+        "status": "known",
+        "known_versions": 1,
+        "recording_started_at": "2022-01-01T00:00:00.000000Z",
+        "unsupported_line_ids": [],
+        "warnings": [
+          "기록 시작 이전의 도형 좌표·사용 가능 시점은 확인하지 못했습니다."
+        ]
+      },
+      "signals": [
+        {
+          "id": "rd02_d3bba0795211ebfea1603249",
+          "type": "acceleration_warning",
+          "title": "현재 하락 가속 경고",
+          "direction": "warning",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": null,
+          "anchor_day": null,
+          "reference": {
+            "price": null,
+            "bottom": null,
+            "top": null,
+            "source": "market",
+            "support_id": null,
+            "support_version_id": null
+          },
+          "evidence": [
+            "현재 인접한 두 구간의 하락 속도가 기존 실험 기준상 가속됐습니다."
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "롱 후보 발생 여부와 별도로 유지되는 시장 경고입니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": []
+        },
+        {
+          "id": "rd02_aea4e5d99677471ab549cd65",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_59b7639cbb4d3a1233969b18",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 95.0,
+            "bottom": 94.05,
+            "top": 95.95,
+            "source": "support_reaction_close",
+            "support_id": "manual:1",
+            "support_version_id": "manual:1:v979415ec234a659e830d"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 95.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 manual:1 / manual:1:v979415ec234a659e830d · 94.0~96.0",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_1be1c7966208e7e7a81f47ff"
+          ]
+        }
+      ],
+      "maintained_candidates": []
+    },
+    {
+      "date": "2022-01-07",
+      "data_source": "synthetic_demo",
+      "market": {
+        "accelerating_down": false,
+        "observation_window": true,
+        "last_acceleration_date": "2022-01-06",
+        "previous_speed": -0.044364057804342154,
+        "recent_speed": 0.01522960374235422
+      },
+      "support": {
+        "status": "known",
+        "known_versions": 1,
+        "recording_started_at": "2022-01-01T00:00:00.000000Z",
+        "unsupported_line_ids": [],
+        "warnings": [
+          "기록 시작 이전의 도형 좌표·사용 가능 시점은 확인하지 못했습니다."
+        ]
+      },
+      "signals": [],
+      "maintained_candidates": [
+        {
+          "id": "rd02_aea4e5d99677471ab549cd65",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_59b7639cbb4d3a1233969b18",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 95.0,
+            "bottom": 94.05,
+            "top": 95.95,
+            "source": "support_reaction_close",
+            "support_id": "manual:1",
+            "support_version_id": "manual:1:v979415ec234a659e830d"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 95.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 manual:1 / manual:1:v979415ec234a659e830d · 94.0~96.0",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_1be1c7966208e7e7a81f47ff"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2022-01-08",
+      "data_source": "synthetic_demo",
+      "market": {
+        "accelerating_down": false,
+        "observation_window": true,
+        "last_acceleration_date": "2022-01-06",
+        "previous_speed": -0.03554796084186511,
+        "recent_speed": 0.0026246779430718725
+      },
+      "support": {
+        "status": "known",
+        "known_versions": 1,
+        "recording_started_at": "2022-01-01T00:00:00.000000Z",
+        "unsupported_line_ids": [],
+        "warnings": [
+          "기록 시작 이전의 도형 좌표·사용 가능 시점은 확인하지 못했습니다."
+        ]
+      },
+      "signals": [
+        {
+          "id": "rd02_bb73ad54c02dd481e652b07a",
+          "type": "retest_long",
+          "title": "롱 후보 · 재지지 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-08",
+          "confirmed_at": "2022-01-09T00:00:00+00:00",
+          "anchor_id": "rd02_59b7639cbb4d3a1233969b18",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 95.0,
+            "bottom": 94.05,
+            "top": 95.95,
+            "source": "automatic_reference",
+            "support_id": "rd02_59b7639cbb4d3a1233969b18",
+            "support_version_id": null
+          },
+          "evidence": [
+            "망치형 · retest_observed",
+            "기준 봉 2022-01-06 · 95.00",
+            "직전 평균 대비 거래량 0.562배 · 고거래량 미해당/미확인",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "이전 봉까지 반등 확인 2022-01-07",
+            "종가가 기존 허용대 안에서 마감",
+            "첫 꼬리 하회 True · 종가 회복 True"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [
+            "rd02_aea4e5d99677471ab549cd65"
+          ],
+          "event_ids": [
+            "rd02_822b8a32efade38922ce494c"
+          ]
+        }
+      ],
+      "maintained_candidates": [
+        {
+          "id": "rd02_aea4e5d99677471ab549cd65",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_59b7639cbb4d3a1233969b18",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 95.0,
+            "bottom": 94.05,
+            "top": 95.95,
+            "source": "support_reaction_close",
+            "support_id": "manual:1",
+            "support_version_id": "manual:1:v979415ec234a659e830d"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 95.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 manual:1 / manual:1:v979415ec234a659e830d · 94.0~96.0",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_1be1c7966208e7e7a81f47ff"
+          ]
+        }
+      ]
+    }
+  ]
+}

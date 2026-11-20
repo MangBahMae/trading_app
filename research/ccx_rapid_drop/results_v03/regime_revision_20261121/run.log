@@ -1,0 +1,14 @@
+전후 전체 계산 완료: 164 → 260개 API 신호
+지속 구간 접두 구간 200/1762 통과
+지속 구간 접두 구간 400/1762 통과
+지속 구간 접두 구간 600/1762 통과
+지속 구간 접두 구간 800/1762 통과
+지속 구간 접두 구간 1000/1762 통과
+지속 구간 접두 구간 1200/1762 통과
+지속 구간 접두 구간 1400/1762 통과
+지속 구간 접두 구간 1600/1762 통과
+지속 구간 접두 구간 1762/1762 통과
+합성 지지 접두 구간 8/8 통과
+{"new_counts": {"acceleration_warning": 148, "brake_watch": 96, "retest_watch": 14, "retest_long": 1, "candidate_expired": 1}, "diff": {"retained": 16, "added": 96, "removed": 0, "reclassified": 148}, "phases": {"insufficient": 2, "normal": 2, "active": 504, "eased": 1254}, "invariance": {"prefixes": 1762, "historical_state_comparisons": 1553203, "history_prefix_tips_checked": 1762, "shape_recomputed_each_prefix": true, "future_days": 32, "future_support_injected": true, "mismatches": 0}}
+
+Report-only refinement: {"report_title_separation": {"retained": 16, "added": 96, "removed": 0, "reclassified": 0, "relabeled": 148}, "calculation_sources_unchanged": true}

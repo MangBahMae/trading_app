@@ -29,6 +29,7 @@ import manual_lines  # noqa: E402
 import candle_patterns  # noqa: E402
 import zone_signals  # noqa: E402
 import market_state  # noqa: E402
+import feature_flags  # noqa: E402
 from config import SYMBOL, INTERVAL  # noqa: E402
 
 EMA_COLS = ["EMA9", "EMA20", "EMA50", "EMA200"]
@@ -115,27 +116,52 @@ def get_dashboard_data(force_refresh: bool = False) -> dict:
 
 
 def add_horizontal_line(price: float) -> int:
-    return lines_store.add_horizontal_line(SYMBOL, INTERVAL, price)
+    line_id = lines_store.add_horizontal_line(SYMBOL, INTERVAL, price)
+    _record_rapid_drop_supports()
+    return line_id
 
 
 def add_trend_line(time1: str, price1: float, time2: str, price2: float) -> int:
-    return lines_store.add_trend_line(SYMBOL, INTERVAL, time1, price1, time2, price2)
+    line_id = lines_store.add_trend_line(SYMBOL, INTERVAL, time1, price1, time2, price2)
+    _record_rapid_drop_supports()
+    return line_id
 
 
 def update_trend(line_id: int, time1: str, price1: float, time2: str, price2: float) -> bool:
-    return lines_store.update_trend(line_id, time1, price1, time2, price2)
+    updated = lines_store.update_trend(line_id, time1, price1, time2, price2)
+    if updated:
+        _record_rapid_drop_supports()
+    return updated
 
 
 def add_zone(time1: str, price1: float, time2: str, price2: float) -> int:
-    return lines_store.add_zone(SYMBOL, INTERVAL, time1, time2, price1, price2)
+    line_id = lines_store.add_zone(SYMBOL, INTERVAL, time1, time2, price1, price2)
+    _record_rapid_drop_supports()
+    return line_id
 
 
 def update_zone(line_id: int, time1: str, price1: float, time2: str, price2: float) -> bool:
-    return lines_store.update_zone(line_id, time1, time2, price1, price2)
+    updated = lines_store.update_zone(line_id, time1, time2, price1, price2)
+    if updated:
+        _record_rapid_drop_supports()
+    return updated
 
 
 def delete_line(line_id: int) -> None:
     lines_store.delete_line(line_id)
+    _record_rapid_drop_supports()
+
+
+def _record_rapid_drop_supports() -> None:
+    if not feature_flags.ENABLE_RAPID_DROP_SIGNALS:
+        return
+    from app.services import rapid_drop_signals
+    try:
+        rapid_drop_signals.capture_support_snapshot()
+    except Exception as exc:
+        # 기존 저장은 끝났다. 재시도 중복 생성을 유발하지 않고 이력 실패를 로그에 남긴다.
+        import logging
+        logging.getLogger(__name__).warning('급락 지지 이력 기록 실패 · 지지 미확인: %s', exc)
 
 
 def get_market_state(n: int, k: int) -> dict:

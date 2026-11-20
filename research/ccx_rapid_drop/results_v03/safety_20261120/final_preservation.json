@@ -1,0 +1,78 @@
+﻿{
+    "at_utc":  "2026-11-20T06:03:08.9168497Z",
+    "after_verification_servers_stopped":  true,
+    "protected_file_slots":  10,
+    "additional_changes":  [
+
+                           ],
+    "current_backup":  [
+                           {
+                               "path":  "data/merged/manual_lines.db",
+                               "source_sha256":  "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372",
+                               "backup_sha256":  "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372",
+                               "matches_current_backup":  true
+                           },
+                           {
+                               "path":  "data/trades.db",
+                               "source_sha256":  "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06",
+                               "backup_sha256":  "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06",
+                               "matches_current_backup":  true
+                           }
+                       ],
+    "files":  {
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\merged\\manual_lines.db":  {
+                                                                                                       "exists":  true,
+                                                                                                       "bytes":  16384,
+                                                                                                       "sha256":  "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372"
+                                                                                                   },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\merged\\manual_lines.db-journal":  {
+                                                                                                               "exists":  false,
+                                                                                                               "bytes":  null,
+                                                                                                               "sha256":  null
+                                                                                                           },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\merged\\manual_lines.db-shm":  {
+                                                                                                           "exists":  false,
+                                                                                                           "bytes":  null,
+                                                                                                           "sha256":  null
+                                                                                                       },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\merged\\manual_lines.db-wal":  {
+                                                                                                           "exists":  false,
+                                                                                                           "bytes":  null,
+                                                                                                           "sha256":  null
+                                                                                                       },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\rapid_drop_support_versions.jsonl":  {
+                                                                                                                 "exists":  false,
+                                                                                                                 "bytes":  null,
+                                                                                                                 "sha256":  null
+                                                                                                             },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\rapid_drop_support_versions.jsonl.lock":  {
+                                                                                                                      "exists":  false,
+                                                                                                                      "bytes":  null,
+                                                                                                                      "sha256":  null
+                                                                                                                  },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\trades.db":  {
+                                                                                         "exists":  true,
+                                                                                         "bytes":  12288,
+                                                                                         "sha256":  "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06"
+                                                                                     },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\trades.db-journal":  {
+                                                                                                 "exists":  false,
+                                                                                                 "bytes":  null,
+                                                                                                 "sha256":  null
+                                                                                             },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\trades.db-shm":  {
+                                                                                             "exists":  false,
+                                                                                             "bytes":  null,
+                                                                                             "sha256":  null
+                                                                                         },
+                  "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\data\\trades.db-wal":  {
+                                                                                             "exists":  false,
+                                                                                             "bytes":  null,
+                                                                                             "sha256":  null
+                                                                                         }
+              },
+    "original_preincident_trades_sha256":  "d44bf4158f7393cbd0bc35b268dbf4539de032adb2485e9ed6187167cffbe393",
+    "original_preincident_backup_found":  false,
+    "original_recovery_and_data_impact":  "unconfirmed",
+    "preincident_byte_preservation_claim":  false
+}

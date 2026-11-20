@@ -1,0 +1,59 @@
+{
+  "at": "2026-11-20T05:55:40.197632+00:00",
+  "files": {
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db": {
+      "exists": true,
+      "bytes": 16384,
+      "sha256": "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372"
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-journal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-shm": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-wal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\rapid_drop_support_versions.jsonl": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\rapid_drop_support_versions.jsonl.lock": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db": {
+      "exists": true,
+      "bytes": 12288,
+      "sha256": "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06"
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-journal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-shm": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-wal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    }
+  },
+  "current_private_backup_matches": {
+    "data/merged/manual_lines.db": true,
+    "data/trades.db": true
+  }
+}

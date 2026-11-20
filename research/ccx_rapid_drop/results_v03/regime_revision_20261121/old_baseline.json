@@ -1,0 +1,24 @@
+{
+  "commit": "869df6183c59cd81fc6236114cd4d9f0d637a6b9",
+  "bars": 1762,
+  "source_hashes": {
+    "research/ccx_rapid_drop/rapid_drop.py": "9920c45ba5e050b15fa852a183b49f3e7f908805358b0b537e8765204948fb59",
+    "backend/app/services/rapid_drop_signals.py": "ae31174c05ca3ede621e66f5a222b3acabda8fe295c41306eb672369cfd41dd6",
+    "backend/app/services/candle_patterns.py": "3ba5d158eed6593c456cdaf36e3399c181e4ae7b192343d29ac65421e54fd722",
+    "research/ccx_rapid_drop/example_config.json": "d8eea7c4e24d13361ec1f46e65b1e5468e2e46f3d9dbbeb4b63cf2acaea19714"
+  },
+  "signal_counts": {
+    "acceleration_warning": 148,
+    "retest_watch": 14,
+    "retest_long": 1,
+    "candidate_expired": 1
+  },
+  "raw_event_counts": {
+    "reversal_observed": 71,
+    "volume_red_watch_only": 22,
+    "anchor_lost_on_close": 11,
+    "bounce_observed": 12,
+    "retest_observed": 17,
+    "anchor_expired": 11
+  }
+}

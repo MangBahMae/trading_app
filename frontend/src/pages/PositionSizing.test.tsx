@@ -111,6 +111,8 @@ describe("포지션 사이징 화면 - 실시간 반응성", () => {
       },
       { timeout: 5000 },
     );
-    expect(screen.queryByText(/405,000/)).not.toBeInTheDocument();
+    // 환율 폴백 1,350원에서는 정상 원화 캡션이 405,000원이다.
+    // 원화 표시를 오탐하지 않고 잘못된 USDT 계산 결과만 검사한다.
+    expect(screen.queryByText(/^405,000(?:\.0+)? USDT$/)).not.toBeInTheDocument();
   });
 });

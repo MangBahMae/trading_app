@@ -1,7 +1,7 @@
 """매매 계획/기록(기능 2, Phase 2-1) API 검증.
 
-data/trades.db는 실제 사용자 데이터가 쌓일 파일이라, 여기서 만든 테스트
-레코드는 전부 끝나면 삭제한다(테스트 자체 id를 추적해 정리).
+conftest.py가 세션 전체와 이 모듈의 종료 정리까지 임시 매매 DB로 격리한다.
+이 테스트의 생성·삭제와 정리는 실제 data/trades.db에 접근하면 안 된다.
 """
 from fastapi.testclient import TestClient
 

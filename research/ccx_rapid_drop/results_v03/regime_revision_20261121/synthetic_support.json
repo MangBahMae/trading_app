@@ -1,0 +1,902 @@
+{
+  "source": "synthetic_only",
+  "levels": [
+    {
+      "key": "synthetic_only",
+      "bottom": 96,
+      "top": 98,
+      "known_from": "2022-01-01",
+      "through": "2022-02-28",
+      "support_id": null
+    }
+  ],
+  "timeline": {
+    "2022-01-01": {
+      "market": {
+        "phase": "insufficient",
+        "strong_drop": null,
+        "accelerating_now": null,
+        "accelerating_down": null,
+        "observation_window": false,
+        "last_acceleration_date": null,
+        "previous_speed": null,
+        "recent_speed": null,
+        "episode_id": null,
+        "episode_start": null,
+        "eased_on": null,
+        "previous_low_close": null,
+        "episode_low_close": null,
+        "new_closing_low": null,
+        "stable_bars": 0,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [],
+      "summary": {
+        "title": "신호 없음",
+        "badge": null,
+        "caution": null
+      },
+      "raw_events": [],
+      "maintained_candidates": [],
+      "history": [],
+      "manual_support_status": "known",
+      "known_versions": 1
+    },
+    "2022-01-02": {
+      "market": {
+        "phase": "insufficient",
+        "strong_drop": null,
+        "accelerating_now": null,
+        "accelerating_down": null,
+        "observation_window": false,
+        "last_acceleration_date": null,
+        "previous_speed": null,
+        "recent_speed": null,
+        "episode_id": null,
+        "episode_start": null,
+        "eased_on": null,
+        "previous_low_close": null,
+        "episode_low_close": null,
+        "new_closing_low": null,
+        "stable_bars": 0,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [],
+      "summary": {
+        "title": "신호 없음",
+        "badge": null,
+        "caution": null
+      },
+      "raw_events": [],
+      "maintained_candidates": [],
+      "history": [],
+      "manual_support_status": "known",
+      "known_versions": 1
+    },
+    "2022-01-03": {
+      "market": {
+        "phase": "normal",
+        "strong_drop": false,
+        "accelerating_now": null,
+        "accelerating_down": null,
+        "observation_window": false,
+        "last_acceleration_date": null,
+        "previous_speed": null,
+        "recent_speed": -0.00934606650607626,
+        "episode_id": null,
+        "episode_start": null,
+        "eased_on": null,
+        "previous_low_close": null,
+        "episode_low_close": null,
+        "new_closing_low": null,
+        "stable_bars": 0,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [],
+      "summary": {
+        "title": "신호 없음",
+        "badge": null,
+        "caution": null
+      },
+      "raw_events": [],
+      "maintained_candidates": [],
+      "history": [],
+      "manual_support_status": "known",
+      "known_versions": 1
+    },
+    "2022-01-04": {
+      "market": {
+        "phase": "active",
+        "strong_drop": true,
+        "accelerating_now": null,
+        "accelerating_down": null,
+        "observation_window": true,
+        "last_acceleration_date": null,
+        "previous_speed": null,
+        "recent_speed": -0.02392801058881755,
+        "episode_id": "rd02_bb87ccbcc8bf259a83e715ef",
+        "episode_start": "2022-01-04",
+        "eased_on": null,
+        "previous_low_close": null,
+        "episode_low_close": 102.0,
+        "new_closing_low": null,
+        "stable_bars": 0,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [],
+      "summary": {
+        "title": "신호 없음",
+        "badge": null,
+        "caution": null
+      },
+      "raw_events": [],
+      "maintained_candidates": [],
+      "history": [],
+      "manual_support_status": "known",
+      "known_versions": 1
+    },
+    "2022-01-05": {
+      "market": {
+        "phase": "active",
+        "strong_drop": true,
+        "accelerating_now": true,
+        "accelerating_down": true,
+        "observation_window": true,
+        "last_acceleration_date": "2022-01-05",
+        "previous_speed": -0.00934606650607626,
+        "recent_speed": -0.044364057804342154,
+        "episode_id": "rd02_bb87ccbcc8bf259a83e715ef",
+        "episode_start": "2022-01-04",
+        "eased_on": null,
+        "previous_low_close": 102.0,
+        "episode_low_close": 97.0,
+        "new_closing_low": true,
+        "stable_bars": 0,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [
+        {
+          "id": "rd02_38233ba4861acce4d4c8b6c4",
+          "type": "acceleration_warning",
+          "title": "추가 가속 경고",
+          "direction": "warning",
+          "occurred_on": "2022-01-05",
+          "confirmed_at": "2022-01-06T00:00:00+00:00",
+          "anchor_id": null,
+          "anchor_day": null,
+          "reference": {
+            "price": null,
+            "bottom": null,
+            "top": null,
+            "source": "market",
+            "support_id": null,
+            "support_version_id": null
+          },
+          "evidence": [
+            "현재 인접한 두 구간의 하락 속도가 기존 실험 기준상 가속됐습니다."
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "롱 후보 발생 여부와 별도로 유지되는 시장 경고입니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": []
+        }
+      ],
+      "summary": {
+        "title": "신호 없음",
+        "badge": null,
+        "caution": null
+      },
+      "raw_events": [],
+      "maintained_candidates": [],
+      "history": [
+        {
+          "id": "rd02_38233ba4861acce4d4c8b6c4",
+          "type": "acceleration_warning",
+          "title": "추가 가속 경고",
+          "direction": "warning",
+          "occurred_on": "2022-01-05",
+          "confirmed_at": "2022-01-06T00:00:00+00:00",
+          "anchor_id": null,
+          "anchor_day": null,
+          "reference": {
+            "price": null,
+            "bottom": null,
+            "top": null,
+            "source": "market",
+            "support_id": null,
+            "support_version_id": null
+          },
+          "evidence": [
+            "현재 인접한 두 구간의 하락 속도가 기존 실험 기준상 가속됐습니다."
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "롱 후보 발생 여부와 별도로 유지되는 시장 경고입니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": []
+        }
+      ],
+      "manual_support_status": "known",
+      "known_versions": 1
+    },
+    "2022-01-06": {
+      "market": {
+        "phase": "active",
+        "strong_drop": true,
+        "accelerating_now": false,
+        "accelerating_down": false,
+        "observation_window": true,
+        "last_acceleration_date": "2022-01-05",
+        "previous_speed": -0.02392801058881755,
+        "recent_speed": -0.025130917390444155,
+        "episode_id": "rd02_bb87ccbcc8bf259a83e715ef",
+        "episode_start": "2022-01-04",
+        "eased_on": null,
+        "previous_low_close": 97.0,
+        "episode_low_close": 97.0,
+        "new_closing_low": false,
+        "stable_bars": 0,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [
+        {
+          "id": "rd02_ffcda756744c3750d0487381",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "support_reaction_close",
+            "support_id": "synthetic_only",
+            "support_version_id": "synthetic_only"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 synthetic_only / synthetic_only · 96~98",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_fc9e20fdf08420b5da3f5b31"
+          ]
+        }
+      ],
+      "summary": {
+        "title": "롱 후보 · 첫 제동",
+        "badge": "new",
+        "caution": null
+      },
+      "raw_events": [
+        {
+          "id": "rd02_fc9e20fdf08420b5da3f5b31",
+          "kind": "first_support_reaction",
+          "day": "2022-01-06",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "synthetic_only",
+          "support_version_id": "synthetic_only",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "synthetic_only"
+          ],
+          "evaluated_support_ids": [
+            "synthetic_only"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "doji",
+          "reference_price": 97.0,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": null,
+          "volume_ratio_recent": 3.0,
+          "volume_high_recent": true,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "maintained_candidates": [],
+      "history": [
+        {
+          "id": "rd02_38233ba4861acce4d4c8b6c4",
+          "type": "acceleration_warning",
+          "title": "추가 가속 경고",
+          "direction": "warning",
+          "occurred_on": "2022-01-05",
+          "confirmed_at": "2022-01-06T00:00:00+00:00",
+          "anchor_id": null,
+          "anchor_day": null,
+          "reference": {
+            "price": null,
+            "bottom": null,
+            "top": null,
+            "source": "market",
+            "support_id": null,
+            "support_version_id": null
+          },
+          "evidence": [
+            "현재 인접한 두 구간의 하락 속도가 기존 실험 기준상 가속됐습니다."
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "롱 후보 발생 여부와 별도로 유지되는 시장 경고입니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": []
+        },
+        {
+          "id": "rd02_ffcda756744c3750d0487381",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "support_reaction_close",
+            "support_id": "synthetic_only",
+            "support_version_id": "synthetic_only"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 synthetic_only / synthetic_only · 96~98",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_fc9e20fdf08420b5da3f5b31"
+          ]
+        }
+      ],
+      "manual_support_status": "known",
+      "known_versions": 1
+    },
+    "2022-01-07": {
+      "market": {
+        "phase": "active",
+        "strong_drop": false,
+        "accelerating_now": false,
+        "accelerating_down": false,
+        "observation_window": true,
+        "last_acceleration_date": "2022-01-05",
+        "previous_speed": -0.044364057804342154,
+        "recent_speed": 0.02513091739044415,
+        "episode_id": "rd02_bb87ccbcc8bf259a83e715ef",
+        "episode_start": "2022-01-04",
+        "eased_on": null,
+        "previous_low_close": 97.0,
+        "episode_low_close": 97.0,
+        "new_closing_low": false,
+        "stable_bars": 1,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [],
+      "summary": {
+        "title": "롱 후보 · 첫 제동",
+        "badge": "maintained",
+        "caution": null
+      },
+      "raw_events": [
+        {
+          "id": "rd02_925035d1c3dfcce9966912ad",
+          "kind": "bounce_observed",
+          "day": "2022-01-07",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_2cb464210fae0634fbfe222f",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "synthetic_only"
+          ],
+          "evaluated_support_ids": [
+            "synthetic_only"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": null,
+          "reference_price": 97.0,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "above_reference_band",
+          "close_far_rebounded": true,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": false,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.48000000000000004,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "maintained_candidates": [
+        {
+          "id": "rd02_ffcda756744c3750d0487381",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "support_reaction_close",
+            "support_id": "synthetic_only",
+            "support_version_id": "synthetic_only"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 synthetic_only / synthetic_only · 96~98",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_fc9e20fdf08420b5da3f5b31"
+          ]
+        }
+      ],
+      "history": [
+        {
+          "id": "rd02_38233ba4861acce4d4c8b6c4",
+          "type": "acceleration_warning",
+          "title": "추가 가속 경고",
+          "direction": "warning",
+          "occurred_on": "2022-01-05",
+          "confirmed_at": "2022-01-06T00:00:00+00:00",
+          "anchor_id": null,
+          "anchor_day": null,
+          "reference": {
+            "price": null,
+            "bottom": null,
+            "top": null,
+            "source": "market",
+            "support_id": null,
+            "support_version_id": null
+          },
+          "evidence": [
+            "현재 인접한 두 구간의 하락 속도가 기존 실험 기준상 가속됐습니다."
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "롱 후보 발생 여부와 별도로 유지되는 시장 경고입니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": []
+        },
+        {
+          "id": "rd02_ffcda756744c3750d0487381",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "support_reaction_close",
+            "support_id": "synthetic_only",
+            "support_version_id": "synthetic_only"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 synthetic_only / synthetic_only · 96~98",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_fc9e20fdf08420b5da3f5b31"
+          ]
+        }
+      ],
+      "manual_support_status": "known",
+      "known_versions": 1
+    },
+    "2022-01-08": {
+      "market": {
+        "phase": "active",
+        "strong_drop": false,
+        "accelerating_now": false,
+        "accelerating_down": false,
+        "observation_window": true,
+        "last_acceleration_date": "2022-01-05",
+        "previous_speed": -0.025130917390444155,
+        "recent_speed": 0.002570699750209326,
+        "episode_id": "rd02_bb87ccbcc8bf259a83e715ef",
+        "episode_start": "2022-01-04",
+        "eased_on": null,
+        "previous_low_close": 97.0,
+        "episode_low_close": 97.0,
+        "new_closing_low": false,
+        "stable_bars": 2,
+        "stable_bars_required": 3,
+        "strong_speed_threshold": -0.02,
+        "ease_speed_threshold": -0.01,
+        "acceleration_delta": 0.01
+      },
+      "signals": [
+        {
+          "id": "rd02_53ca91d8e527b6c8cd7cc080",
+          "type": "retest_long",
+          "title": "롱 후보 · 재지지 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-08",
+          "confirmed_at": "2022-01-09T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "automatic_reference",
+            "support_id": "rd02_2cb464210fae0634fbfe222f",
+            "support_version_id": null
+          },
+          "evidence": [
+            "망치형 · retest_observed",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 0.562배 · 고거래량 미해당/미확인",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "이전 봉까지 반등 확인 2022-01-07",
+            "종가가 기존 허용대 안에서 마감",
+            "첫 꼬리 하회 True · 종가 회복 True"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [
+            "rd02_ffcda756744c3750d0487381"
+          ],
+          "event_ids": [
+            "rd02_0c241d16576bf9cdd06ec7f2"
+          ]
+        }
+      ],
+      "summary": {
+        "title": "롱 후보 · 재지지",
+        "badge": "new",
+        "caution": null
+      },
+      "raw_events": [
+        {
+          "id": "rd02_0c241d16576bf9cdd06ec7f2",
+          "kind": "retest_observed",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "rd02_2cb464210fae0634fbfe222f",
+          "support_version_id": null,
+          "support_source": "automatic_reference",
+          "manual_support_status": "known",
+          "support_bottom": null,
+          "support_top": null,
+          "manual_support_ids": [
+            "synthetic_only"
+          ],
+          "evaluated_support_ids": [
+            "synthetic_only"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "hammer",
+          "reference_price": 97.0,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": true,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        },
+        {
+          "id": "rd02_f4bfce6098bce7b092cf6a5d",
+          "kind": "support_reaction_while_tracking",
+          "day": "2022-01-08",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "anchor_source": "support_reversal",
+          "support_id": "synthetic_only",
+          "support_version_id": "synthetic_only",
+          "support_source": "manual",
+          "manual_support_status": "known",
+          "support_bottom": 96,
+          "support_top": 98,
+          "manual_support_ids": [
+            "synthetic_only"
+          ],
+          "evaluated_support_ids": [
+            "synthetic_only"
+          ],
+          "related_event_id": null,
+          "previous_anchor_id": null,
+          "tracking_anchor": true,
+          "shape": "hammer",
+          "reference_price": 97.0,
+          "reference_bottom": 96.03,
+          "reference_top": 97.97,
+          "close_location": "within_reference_band",
+          "close_far_rebounded": false,
+          "range_tests_reference": true,
+          "lower_wick_tests_reference": true,
+          "first_wick_undercut": true,
+          "wick_recovered_on_close": true,
+          "bounce_confirmed_on": "2022-01-07",
+          "volume_ratio_recent": 0.5625,
+          "volume_high_recent": false,
+          "volume_ratio_anchor_red": null,
+          "volume_red_anchor_id": null,
+          "volume_red_anchor_day": null,
+          "entry_status": "not_evaluated"
+        }
+      ],
+      "maintained_candidates": [
+        {
+          "id": "rd02_ffcda756744c3750d0487381",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "support_reaction_close",
+            "support_id": "synthetic_only",
+            "support_version_id": "synthetic_only"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 synthetic_only / synthetic_only · 96~98",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_fc9e20fdf08420b5da3f5b31"
+          ]
+        }
+      ],
+      "history": [
+        {
+          "id": "rd02_38233ba4861acce4d4c8b6c4",
+          "type": "acceleration_warning",
+          "title": "추가 가속 경고",
+          "direction": "warning",
+          "occurred_on": "2022-01-05",
+          "confirmed_at": "2022-01-06T00:00:00+00:00",
+          "anchor_id": null,
+          "anchor_day": null,
+          "reference": {
+            "price": null,
+            "bottom": null,
+            "top": null,
+            "source": "market",
+            "support_id": null,
+            "support_version_id": null
+          },
+          "evidence": [
+            "현재 인접한 두 구간의 하락 속도가 기존 실험 기준상 가속됐습니다."
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "롱 후보 발생 여부와 별도로 유지되는 시장 경고입니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": []
+        },
+        {
+          "id": "rd02_ffcda756744c3750d0487381",
+          "type": "first_brake_long",
+          "title": "롱 후보 · 첫 제동 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-06",
+          "confirmed_at": "2022-01-07T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "support_reaction_close",
+            "support_id": "synthetic_only",
+            "support_version_id": "synthetic_only"
+          },
+          "evidence": [
+            "도지 · first_support_reaction",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 3.000배 · 고거래량 해당",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "당시 알려진 수동 지지 synthetic_only / synthetic_only · 96~98",
+            "유효성 기준은 추적 기준 봉 종가 주변의 자동 기준대입니다. 출처 support_reversal"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [],
+          "event_ids": [
+            "rd02_fc9e20fdf08420b5da3f5b31"
+          ]
+        },
+        {
+          "id": "rd02_53ca91d8e527b6c8cd7cc080",
+          "type": "retest_long",
+          "title": "롱 후보 · 재지지 반응",
+          "direction": "long",
+          "occurred_on": "2022-01-08",
+          "confirmed_at": "2022-01-09T00:00:00+00:00",
+          "anchor_id": "rd02_2cb464210fae0634fbfe222f",
+          "anchor_day": "2022-01-06",
+          "reference": {
+            "price": 97.0,
+            "bottom": 96.03,
+            "top": 97.97,
+            "source": "automatic_reference",
+            "support_id": "rd02_2cb464210fae0634fbfe222f",
+            "support_version_id": null
+          },
+          "evidence": [
+            "망치형 · retest_observed",
+            "기준 봉 2022-01-06 · 97.00",
+            "직전 평균 대비 거래량 0.562배 · 고거래량 미해당/미확인",
+            "기준 장대음봉 대비 거래량 기준 장대음봉 없음",
+            "이전 봉까지 반등 확인 2022-01-07",
+            "종가가 기존 허용대 안에서 마감",
+            "첫 꼬리 하회 True · 종가 회복 True"
+          ],
+          "cautions": [
+            "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+            "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+            "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+            "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+          ],
+          "previous_candidate_ids": [
+            "rd02_ffcda756744c3750d0487381"
+          ],
+          "event_ids": [
+            "rd02_0c241d16576bf9cdd06ec7f2"
+          ]
+        }
+      ],
+      "manual_support_status": "known",
+      "known_versions": 1
+    }
+  },
+  "invariance": {
+    "prefixes": 8,
+    "historical_state_comparisons": 36,
+    "history_prefix_tips_checked": 8,
+    "shape_recomputed_each_prefix": true,
+    "future_days": 32,
+    "future_support_injected": true,
+    "mismatches": 0
+  }
+}

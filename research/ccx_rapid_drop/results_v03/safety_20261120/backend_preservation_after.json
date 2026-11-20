@@ -1,0 +1,132 @@
+{
+  "command": [
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\backend\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "tests",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp",
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\research\\ccx_rapid_drop\\results_v03\\safety_20261120\\.tmp_backend_full_support_history"
+  ],
+  "test_exit_code": 0,
+  "protected_file_slots": 10,
+  "additional_changes": [],
+  "unchanged_since_current_backup": true,
+  "current_private_backup_matches_before": {
+    "data/merged/manual_lines.db": true,
+    "data/trades.db": true
+  },
+  "current_private_backup_matches_after": {
+    "data/merged/manual_lines.db": true,
+    "data/trades.db": true
+  },
+  "original_preincident_trades_sha256": "d44bf4158f7393cbd0bc35b268dbf4539de032adb2485e9ed6187167cffbe393",
+  "preincident_byte_preservation_claim": false,
+  "before": {
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db": {
+      "exists": true,
+      "bytes": 16384,
+      "sha256": "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372"
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-journal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-shm": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-wal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\rapid_drop_support_versions.jsonl": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\rapid_drop_support_versions.jsonl.lock": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db": {
+      "exists": true,
+      "bytes": 12288,
+      "sha256": "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06"
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-journal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-shm": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-wal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    }
+  },
+  "after": {
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db": {
+      "exists": true,
+      "bytes": 16384,
+      "sha256": "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372"
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-journal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-shm": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\merged\\manual_lines.db-wal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\rapid_drop_support_versions.jsonl": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\rapid_drop_support_versions.jsonl.lock": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db": {
+      "exists": true,
+      "bytes": 12288,
+      "sha256": "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06"
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-journal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-shm": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    },
+    "C:\\Users\\tlgns\\Desktop\\\ud2b8\ub808\uc774\ub529\uc571\\trading_app\\data\\trades.db-wal": {
+      "exists": false,
+      "bytes": null,
+      "sha256": null
+    }
+  }
+}
