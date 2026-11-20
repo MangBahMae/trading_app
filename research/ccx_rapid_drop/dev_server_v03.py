@@ -14,6 +14,7 @@ sys.path.insert(0, str(REPO/'backend/tests'))
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--synthetic', action='store_true', help='합성 OHLCV와 합성 지지로 표시 검사')
+    parser.add_argument('--port', type=int, default=8000, help='격리 검증 서버의 로컬 포트')
     args = parser.parse_args()
     os.environ['CCX_ENABLE_RAPID_DROP_SIGNALS'] = '1'
     import pandas as pd
@@ -54,7 +55,7 @@ def main():
             journal.record_snapshot(rapid_drop_signals.read_manual_lines(), observed_at=datetime(2022,1,1,tzinfo=timezone.utc))
         from app.main import app
         print(f'검증 입력={rapid_drop_signals.DATA_SOURCE}; 사용자 DB 미사용', flush=True)
-        uvicorn.run(app, host='127.0.0.1', port=8000)
+        uvicorn.run(app, host='127.0.0.1', port=args.port)
 
 
 if __name__ == '__main__':

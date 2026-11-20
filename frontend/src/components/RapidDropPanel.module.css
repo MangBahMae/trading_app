@@ -11,6 +11,10 @@
 .note, .meta { color: var(--muted-color); line-height: 1.5; margin: 4px 0; }
 .meta { font-size: 0.72rem; }
 .market { background: var(--bg-color); border-radius: 6px; padding: 8px; line-height: 1.6; }
+.phase { color: var(--muted-color); }
+.summaryTitle { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.caution { color: #efad76; margin: 4px 0 0; font-size: 0.73rem; }
+.marketDetails { color: var(--muted-color); }
 .warning, .cautions { color: #efad76; }
 .synthetic { border: 1px solid #efad76; color: #efad76; padding: 6px 8px; border-radius: 5px; font-weight: 600; }
 .list { list-style: none; padding: 0; margin: 0; }
@@ -20,3 +24,4 @@
 .details { font-size: 0.73rem; margin-top: 6px; line-height: 1.6; }
 .details summary { cursor: pointer; color: var(--muted-color); }
 .details ul, .cautions { padding-left: 16px; margin: 5px 0; }
+.rawData { font-size: 0.68rem; white-space: pre-wrap; overflow-wrap: anywhere; }

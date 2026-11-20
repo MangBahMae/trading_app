@@ -48,7 +48,7 @@ describe("기존 신호 스캐너의 급락 대응 연결", () => {
     expect(rapidMock).not.toHaveBeenCalled();
     expect(screen.queryByTestId("rapid-drop-panel")).not.toBeInTheDocument();
     await user.click(screen.getByRole("checkbox", { name: "급락 대응 · 실험" }));
-    await screen.findByText("롱 후보 · 첫 제동 반응");
+    await screen.findByText("롱 후보 · 첫 제동");
     expect(rapidMock).toHaveBeenCalledWith("2022-01-06", expect.any(AbortSignal));
     expect(screen.getByTestId("rapid-drop-panel")).toHaveTextContent("합성 데이터 · 검증용");
     const label = screen.getAllByText("롱").find((node) => node.tagName !== "BUTTON");
@@ -59,7 +59,7 @@ describe("기존 신호 스캐너의 급락 대응 연결", () => {
     const user = userEvent.setup();
     await loaded();
     await user.click(screen.getByRole("checkbox", { name: "급락 대응 · 실험" }));
-    await screen.findByText("롱 후보 · 첫 제동 반응");
+    await screen.findByText("롱 후보 · 첫 제동");
     const before = rapidMock.mock.calls.length;
     await user.click(screen.getByRole("radio", { name: "1W" }));
     await waitFor(() => expect(screen.getByRole("radio", { name: "1W" })).toBeChecked());
@@ -76,8 +76,9 @@ describe("기존 신호 스캐너의 급락 대응 연결", () => {
     await user.click(screen.getByRole("checkbox", { name: "급락 대응 · 실험" }));
     await user.click(screen.getByRole("button", { name: "합성 차트 1월 5일 선택" }));
     await waitFor(() => expect(rapidMock).toHaveBeenCalledTimes(2));
-    await screen.findByText("롱 후보 · 첫 제동 반응");
-    await act(async () => resolveOld(rapidResponse({ signals: [{ ...rapidResponse().signals[0], title: "오래된 응답" }] })));
+    await screen.findByText("롱 후보 · 첫 제동");
+    await act(async () => resolveOld(rapidResponse({ summary: { title: "오래된 응답", badge: "new", caution: null },
+      signals: [{ ...rapidResponse().signals[0], title: "오래된 응답" }] })));
     expect(screen.queryByText("오래된 응답")).not.toBeInTheDocument();
   });
 
@@ -85,7 +86,7 @@ describe("기존 신호 스캐너의 급락 대응 연결", () => {
     const user = userEvent.setup();
     await loaded();
     await user.click(screen.getByRole("checkbox", { name: "급락 대응 · 실험" }));
-    await screen.findByText("롱 후보 · 첫 제동 반응");
+    await screen.findByText("롱 후보 · 첫 제동");
     const before = rapidMock.mock.calls.length;
     await user.click(screen.getByRole("button", { name: "데이터 새로고침" }));
     await waitFor(() => expect(rapidMock).toHaveBeenCalledTimes(before + 1));

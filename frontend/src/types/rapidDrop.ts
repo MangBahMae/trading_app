@@ -22,6 +22,15 @@ export interface RapidDropSignal {
   event_ids: string[];
 }
 
+export type RapidDropPhase = "insufficient" | "normal" | "active" | "eased";
+
+export interface RapidDropRawEvent {
+  id: string;
+  kind: string;
+  day: string;
+  [field: string]: unknown;
+}
+
 export interface RapidDropResponse {
   enabled: boolean;
   schema_version: "0.3";
@@ -30,7 +39,26 @@ export interface RapidDropResponse {
   date: string;
   data_source: string;
   policy_source: string;
+  summary: {
+    title: string;
+    badge: "new" | "maintained" | null;
+    caution: string | null;
+  };
   market: {
+    phase: RapidDropPhase;
+    accelerating_now: boolean | null;
+    strong_drop: boolean | null;
+    episode_id: string | null;
+    episode_start: string | null;
+    episode_low_close: number | null;
+    previous_low_close: number | null;
+    new_closing_low: boolean | null;
+    eased_on: string | null;
+    stable_bars: number;
+    stable_bars_required: number | null;
+    strong_speed_threshold: number | null;
+    ease_speed_threshold: number | null;
+    acceleration_delta: number | null;
     accelerating_down: boolean | null;
     observation_window: boolean;
     last_acceleration_date: string | null;
@@ -46,5 +74,7 @@ export interface RapidDropResponse {
   };
   signals: RapidDropSignal[];
   maintained_candidates: RapidDropSignal[];
+  history: RapidDropSignal[];
+  raw_events: RapidDropRawEvent[];
   warnings: string[];
 }

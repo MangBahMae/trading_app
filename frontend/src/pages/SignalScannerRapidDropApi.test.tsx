@@ -1,4 +1,5 @@
-// 실제 백엔드(:8000)와 기존 패널의 연결 검사. 캔버스만 jsdom 제한으로 대체한다.
+// 실제 로컬 백엔드(CCX_TEST_API_PORT, 기본 8000)와 기존 패널의 연결 검사.
+// 캔버스만 jsdom 제한으로 대체한다.
 // 합성 신호를 주입하지 않으며 실제 응답의 enabled/data_source를 그대로 화면과 비교한다.
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -32,9 +33,18 @@ describe("급락 대응 실제 API → 기존 패널", () => {
     if (!expected.enabled) {
       expect(panel).toHaveTextContent("서버에서 급락 대응 실험 기능이 꺼져 있습니다.");
     } else {
+      const summary = screen.getByTestId("rapid-drop-summary");
+      expect(summary).toHaveTextContent(expected.summary.title);
+      if (expected.summary.caution) expect(summary).toHaveTextContent(expected.summary.caution);
+      expect(panel.querySelector("[data-signal-id]")).toBeNull();
+      await user.click(screen.getByText("전체 사건·근거·기록 보기"));
+      await screen.findByText("시장 판정 상세");
       for (const signal of [...expected.signals, ...expected.maintained_candidates]) {
         expect(panel).toHaveTextContent(signal.title);
         expect(panel.querySelector(`[data-signal-id="${signal.id}"]`)).not.toBeNull();
+      }
+      for (const event of expected.raw_events) {
+        expect(panel.querySelector(`[data-event-id="${event.id}"]`)).not.toBeNull();
       }
       expect(panel).toHaveTextContent(expected.support.status === "unconfirmed" ? "지지 미확인" : "확인된 지지 버전");
       if (expected.data_source === "synthetic_demo") expect(panel).toHaveTextContent("합성 데이터 · 검증용");

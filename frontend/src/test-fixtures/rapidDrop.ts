@@ -13,9 +13,14 @@ export const rapidSignal = (patch: Partial<RapidDropSignal> = {}): RapidDropSign
 export const rapidResponse = (patch: Partial<RapidDropResponse> = {}): RapidDropResponse => ({
   enabled: true, schema_version: "0.3", symbol: "BTCUSDT", interval: "1d", date: "2022-01-06",
   data_source: "synthetic_demo", policy_source: "급락 대응 v0.3 검증용 초안",
-  market: { accelerating_down: true, observation_window: true, last_acceleration_date: "2022-01-05",
+  summary: { title: "롱 후보 · 첫 제동", badge: "new", caution: "급락 경고가 남아 있습니다." },
+  market: { phase: "active", accelerating_now: true, strong_drop: true,
+    episode_id: "synthetic-episode", episode_start: "2022-01-05", episode_low_close: 95,
+    previous_low_close: 97, new_closing_low: true, eased_on: null, stable_bars: 0, stable_bars_required: 3,
+    strong_speed_threshold: -0.02, ease_speed_threshold: -0.01, acceleration_delta: 0.01,
+    accelerating_down: true, observation_window: true, last_acceleration_date: "2022-01-05",
     previous_speed: -0.01, recent_speed: -0.03 },
   support: { status: "known", known_versions: 1, recording_started_at: "2022-01-01T00:00:00+00:00",
     unsupported_line_ids: [], warnings: [] },
-  signals: [rapidSignal()], maintained_candidates: [], warnings: [], ...patch,
+  signals: [rapidSignal()], maintained_candidates: [], history: [rapidSignal()], raw_events: [], warnings: [], ...patch,
 });
