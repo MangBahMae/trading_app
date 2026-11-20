@@ -167,14 +167,18 @@ def test_same_bar_bounce_does_not_issue_a_retest_candidate():
     assert not signals(row, 'retest_long')
 
 
-def test_expiry_links_only_issued_candidates_and_does_not_issue_untracked_new_reaction():
+def test_expiry_ends_the_old_candidate_but_active_episode_allows_a_new_basis():
     cfg = replace(svc.config(), context_bars=2, max_age=1)
     timeline = svc.build_timeline(synthetic_frame(DOJI, BOUNCE, DOJI), (known_support(),), cfg)
     first, = signals(timeline['2022-01-06'], 'first_brake_long')
     expired, = signals(timeline['2022-01-08'], 'candidate_expired')
     assert expired['previous_candidate_ids'] == [first['id']]
     assert expired['direction'] == 'reference'
-    assert not longs(timeline['2022-01-08'])
+    replacement, = longs(timeline['2022-01-08'])
+    assert replacement['type'] == 'first_brake_long'
+    assert replacement['anchor_id'] != expired['anchor_id']
+    assert replacement['previous_candidate_ids'] == [first['id']]
+    assert timeline['2022-01-08']['market']['phase'] == 'active'
     assert not timeline['2022-01-08']['maintained_candidates']
 
 
@@ -197,22 +201,31 @@ def test_same_day_old_loss_and_new_reaction_keep_old_record_and_link_real_previo
     assert new['reference']['support_version_id'] == 'lower:v1'
     assert old in row['history']
     assert old['occurred_on'] == '2022-01-06'
+    assert row['summary'] == dict(title='이전 후보 무효 → 새 롱 후보 · 첫 제동', badge='new', caution=None)
+    assert row['market']['phase'] == 'active'
 
 
-def test_acceleration_and_observation_window_are_separate_and_candidates_do_not_clear_warning():
-    core, cfg = svc.engine(), svc.config()
-    frame = synthetic_frame(DOJI, DOJI)
-    shaped = svc.dashboard.candle_patterns.compute_candle_shape(frame)
-    bars = [core.Bar(r.open_time.date(), r.open, r.high, r.low, r.close, r.volume, r.shape) for r in shaped.itertuples()]
-    rows = core.analyze(bars, (known_support(),), cfg)
-    rows[5] = replace(rows[5], accelerating_down=True)
-    rows[6] = replace(rows[6], accelerating_down=False)
-    timeline = svc.project_observations(rows, cfg)
-    assert signals(timeline['2022-01-06'], 'first_brake_long')
-    assert signals(timeline['2022-01-06'], 'acceleration_warning')
-    assert timeline['2022-01-06']['market']['accelerating_down'] is True
-    assert timeline['2022-01-07']['market']['accelerating_down'] is False
-    assert timeline['2022-01-07']['market']['observation_window'] is True
+def test_first_candidate_and_a_single_doji_do_not_end_the_market_episode():
+    timeline = svc.build_timeline(synthetic_frame((95, 97, 92, 95, 300), DOJI), (known_support(bottom=94, top=96),))
+    first = timeline['2022-01-06']
+    assert signals(first, 'first_brake_long') and signals(first, 'acceleration_warning')
+    assert first['market']['phase'] == 'active' and first['market']['accelerating_now']
+    later = timeline['2022-01-07']
+    assert later['market']['phase'] == 'active' and not later['market']['accelerating_now']
+    assert later['maintained_candidates'] == longs(first)
+    assert later['summary']['badge'] == 'maintained'
+
+
+@pytest.mark.parametrize(('levels', 'caution'), [(False, '지지 미확인'), (True, '확인된 지지 반응 없음')])
+def test_reversal_without_valid_support_is_only_a_brake_observation(levels, caution):
+    supports = (known_support(bottom=50, top=52),) if levels else ()
+    frame = synthetic_frame(DOJI)
+    row = svc.build_timeline(frame, supports)['2022-01-06']
+    watch, = signals(row, 'brake_watch')
+    assert watch['direction'] == 'reference' and not longs(row)
+    assert watch['event_ids'][0] in [event['id'] for event in row['raw_events']]
+    assert watch['reference']['price'] is None
+    assert row['summary'] == dict(title='첫 제동 관찰', badge='new', caution=caution)
 
 
 def test_confirmed_trap_and_unproven_recovery_are_reference_only():

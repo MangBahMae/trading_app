@@ -8,7 +8,7 @@ import re
 import subprocess
 import sys
 from collections import Counter
-from dataclasses import asdict, replace
+from dataclasses import asdict, fields, replace
 from datetime import timedelta
 from pathlib import Path
 from time import perf_counter
@@ -56,7 +56,10 @@ def load_v01(bars, cfg):
     sys.modules[module.__name__] = module
     exec(compile(source, f'git:{BASE}:rapid_drop.py', 'exec'), module.__dict__)
     old_bars = [module.Bar(**asdict(b)) for b in bars]
-    return module.analyze(old_bars, (), module.Config(**asdict(cfg))), hashlib.sha256(source).hexdigest()
+    # 신규 구간 설정을 예전 Config에 전달하지 않는다. 공통 실험값만 비교한다.
+    values = asdict(cfg)
+    old_values = {field.name: values[field.name] for field in fields(module.Config)}
+    return module.analyze(old_bars, (), module.Config(**old_values)), hashlib.sha256(source).hexdigest()
 
 
 def compare_events(old, current):
@@ -154,7 +157,8 @@ def main():
     from test_review import existing_shapes
 
     cfg = Config(**json.loads((HERE/'example_config.json').read_text(encoding='utf-8')))
-    assert asdict(cfg) == json.loads(git('show', f'{BASE}:research/ccx_rapid_drop/example_config.json'))
+    old_config = json.loads(git('show', f'{BASE}:research/ccx_rapid_drop/example_config.json'))
+    assert {name: asdict(cfg)[name] for name in old_config} == old_config
     assert json.loads((HERE/'levels.example.json').read_text(encoding='utf-8')) == []
     frame = pd.read_csv(FIXTURE)
     frame['open_time'] = pd.to_datetime(frame['open_time'], utc=True)
@@ -250,7 +254,9 @@ def main():
             stderr_bytes=len(replay.stderr), cli_matches_engine=True),
         fixture=dict(path=FIXTURE.relative_to(REPO).as_posix(), sha256=digest(FIXTURE),
                      bars=len(bars), first_day=str(bars[0].day), last_day=str(bars[-1].day)),
-        config=asdict(cfg), config_unchanged_from_v01=True, config_status='검증되지 않은 비교용 실험값; 최적화 없음',
+        config=asdict(cfg), legacy_config_unchanged_from_v01=True,
+        added_config_fields={name: value for name, value in asdict(cfg).items() if name not in old_config},
+        config_status='검증되지 않은 비교용 실험값; 최적화 없음',
         shape_function=dict(path='backend/app/services/candle_patterns.py', sha256=digest(REPO/'backend/app/services/candle_patterns.py'),
                             parameters=asdict(default_shape_params())),
         actual_support_count=0, manual_support_unconfirmed_rows=len(full),

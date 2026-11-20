@@ -52,6 +52,9 @@ def closed_frame(frame, now=None):
 
 
 def _reference(event):
+    if event.kind == 'reversal_observed' and not event.tracking_anchor:
+        return dict(price=None, bottom=None, top=None, source=event.support_source,
+                    support_id=None, support_version_id=None)
     if event.kind in ('support_recovery_trap_watch', 'support_reclaim_without_observed_break'):
         return dict(price=event.support_bottom, bottom=event.support_bottom, top=event.support_top,
                     source='manual_support', support_id=event.support_id, support_version_id=event.support_version_id)
@@ -71,7 +74,8 @@ def _signal(kind, day, event=None, prior=(), evidence=(), cautions=(), identity=
     titles = {'first_brake_long': '롱 후보 · 첫 제동 반응', 'retest_long': '롱 후보 · 재지지 반응',
               'candidate_invalidated': '기존 롱 후보 무효 · 기준 종가 이탈', 'candidate_expired': '롱 후보 관찰 만료',
               'support_recovery_trap': '이탈 후 회복 · 트랩 후보', 'recovery_observed': '이탈 기록 없는 회복 관찰',
-              'acceleration_warning': '현재 하락 가속 경고', 'retest_watch': '재시험 접촉 · 관찰'}
+              'acceleration_warning': '추가 가속 경고', 'retest_watch': '재시험 접촉 · 관찰',
+              'brake_watch': '첫 제동 관찰'}
     return dict(id=identity or engine().stable_id('signal-v03', day, kind, event.id if event else ''),
         type=kind, title=titles[kind], direction='long' if kind in ('first_brake_long', 'retest_long') else
         'warning' if kind in ('acceleration_warning', 'candidate_invalidated') else 'reference',
@@ -80,6 +84,56 @@ def _signal(kind, day, event=None, prior=(), evidence=(), cautions=(), identity=
         reference=_reference(event) if event else dict(price=None, bottom=None, top=None, source='market', support_id=None, support_version_id=None),
         evidence=list(evidence), cautions=[*CAUTIONS, *cautions], previous_candidate_ids=list(prior),
         event_ids=([event.id]+([event.related_event_id] if event.related_event_id else [])) if event else [])
+
+
+SUMMARY_LABELS = {
+    'candidate_invalidated': '후보 무효', 'candidate_expired': '관찰 만료',
+    'retest_long': '롱 후보 · 재지지', 'first_brake_long': '롱 후보 · 첫 제동',
+    'support_recovery_trap': '트랩 관찰', 'recovery_observed': '회복 관찰',
+    'brake_watch': '첫 제동 관찰', 'retest_watch': '재시험 접촉 관찰',
+}
+
+
+def _summary(signals, maintained, caution):
+    # 당일 종료와 신규 후보가 겹치면 두 사건을 같은 줄에 남긴다.
+    kinds = {s['type'] for s in signals}
+    new_longs = [kind for kind in ('retest_long', 'first_brake_long') if kind in kinds]
+    ended = [kind for kind in ('candidate_invalidated', 'candidate_expired') if kind in kinds]
+    if ended and new_longs:
+        end_label = '·'.join(SUMMARY_LABELS[kind] for kind in ended)
+        new_label = ' / '.join(SUMMARY_LABELS[kind] for kind in new_longs)
+        return dict(title=f'이전 {end_label} → 새 {new_label}', badge='new', caution=caution)
+    for kind in SUMMARY_LABELS:
+        if kind in kinds:
+            return dict(title=SUMMARY_LABELS[kind], badge='new', caution=caution)
+    if maintained:
+        # 유지 후보 중 가장 최근에 발행한 후보를 대표로 표시한다.
+        return dict(title=SUMMARY_LABELS[maintained[-1]['type']], badge='maintained', caution=caution)
+    return dict(title='신호 없음', badge=None, caution=caution)
+
+
+def _market(row, cfg, last_acceleration=None):
+    def day_string(value):
+        return value.isoformat() if value else None
+
+    phase = row.regime_phase if row else 'insufficient'
+    accelerating = row.accelerating_down if row else None
+    no_new_low = row.regime_no_new_closing_low if row else None
+    return dict(
+        phase=phase, strong_drop=row.strong_down if row else None,
+        accelerating_now=accelerating, accelerating_down=accelerating,
+        observation_window=phase == 'active', last_acceleration_date=day_string(last_acceleration),
+        previous_speed=row.previous_speed if row else None, recent_speed=row.recent_speed if row else None,
+        episode_id=row.regime_id if row else None, episode_start=day_string(row.regime_started_on) if row else None,
+        eased_on=day_string(row.regime_eased_on) if row else None,
+        previous_low_close=row.regime_previous_lowest_close if row else None,
+        episode_low_close=row.regime_lowest_close if row else None,
+        new_closing_low=None if no_new_low is None else not no_new_low,
+        stable_bars=row.regime_recovery_streak if row else 0, stable_bars_required=cfg.regime_ease_bars if cfg else None,
+        strong_speed_threshold=-cfg.min_drop_per_bar if cfg else None,
+        ease_speed_threshold=-cfg.regime_ease_drop_per_bar if cfg else None,
+        acceleration_delta=cfg.min_acceleration if cfg else None,
+    )
 
 
 def project_observations(observations, cfg, prices=None):
@@ -111,6 +165,10 @@ def project_observations(observations, cfg, prices=None):
             and x.close_location == 'within_reference_band' and (not x.first_wick_undercut or x.wick_recovered_on_close)}
         for event in row.events:
             kind = None
+            if event.kind == 'reversal_observed' and row.regime_phase == 'active':
+                support_note = '지지 미확인' if event.support_source == 'unconfirmed' else '확인된 지지 반응 없음'
+                today.append(_signal('brake_watch', row.day, event, evidence=[
+                    f'{SHAPES[event.shape]} · {support_note}', *_volumes(event)]))
             if (event.kind in FIRST and event.tracking_anchor and event.support_source == 'manual'
                     and event.shape in engine().REVERSALS and event.anchor_id not in terminal and event.anchor_id not in eligible):
                 kind, key = 'first_brake_long', ('first_brake_long', event.anchor_id, event.support_version_id)
@@ -145,11 +203,15 @@ def project_observations(observations, cfg, prices=None):
                 today.append(_signal(kind, row.day, event, evidence=[f'수동 지지 {event.support_id} / 버전 {event.support_version_id}',
                     f'연결 이탈 사건 {event.related_event_id or "없음"}'], cautions=['회복만으로 자동 롱이나 매도 전환을 만들지 않습니다.']))
         history.extend(today)
-        by_date[str(row.day)] = dict(market=dict(accelerating_down=row.accelerating_down,
-            observation_window=last_acceleration is not None and (row.day-last_acceleration).days < cfg.context_bars,
-            last_acceleration_date=str(last_acceleration) if last_acceleration else None,
-            previous_speed=row.previous_speed, recent_speed=row.recent_speed), signals=today,
-            maintained_candidates=[c for c in active.values() if c['occurred_on'] < str(row.day)],
+        maintained = [c for c in active.values() if c['occurred_on'] < str(row.day)]
+        caution = None
+        if row.manual_support_status == 'unconfirmed' and (row.regime_phase == 'active' or today or maintained):
+            caution = '지지 미확인'
+        elif any(e.support_source == 'known_no_reaction' for e in row.events if e.kind == 'reversal_observed'):
+            caution = '확인된 지지 반응 없음'
+        by_date[str(row.day)] = dict(market=_market(row, cfg, last_acceleration), signals=today,
+            summary=_summary(today, maintained, caution), raw_events=[vars(e).copy() for e in row.events],
+            maintained_candidates=maintained,
             history=list(history), manual_support_status=row.manual_support_status, known_versions=len(row.support_evaluations))
     return by_date
 
@@ -180,7 +242,7 @@ def response_for_date(day: date, now=None):
     from app.services import rapid_drop_support_history as journal
     empty = dict(enabled=False, schema_version='0.3', symbol='BTCUSDT', interval='1d', date=str(day),
         data_source=DATA_SOURCE, policy_source=POLICY_SOURCE,
-        market=dict(accelerating_down=None, observation_window=False, last_acceleration_date=None, previous_speed=None, recent_speed=None),
+        market=_market(None, None), summary=_summary([], [], None), raw_events=[],
         support=dict(status='unconfirmed', known_versions=0, recording_started_at=None, unsupported_line_ids=[], warnings=[]),
         signals=[], maintained_candidates=[], history=[], warnings=[])
     if not dashboard.feature_flags.ENABLE_RAPID_DROP_SIGNALS:
@@ -200,7 +262,7 @@ def response_for_date(day: date, now=None):
     levels = [engine().Level(x['key'], x['bottom'], x['top'], date.fromisoformat(x['known_from']),
                             date.fromisoformat(x['through']), x.get('support_id')) for x in support['levels']]
     state = build_timeline(df, levels)[str(day)]
-    return {**empty, 'enabled': True, 'market': state['market'],
+    return {**empty, 'enabled': True, 'market': state['market'], 'summary': state['summary'], 'raw_events': state['raw_events'],
         'support': dict(status=state['manual_support_status'], known_versions=state['known_versions'],
             recording_started_at=support.get('recording_started_at'),
             unsupported_line_ids=[int(x) for x in support.get('unsupported_line_ids', [])], warnings=support.get('warnings', [])),

@@ -1,4 +1,4 @@
-"""급락 대응 관찰기 v0.2. 마감 일봉의 사실만 기록한다. 주문·DB·손익 모델은 없다."""
+"""급락 대응 단일 관찰 엔진. 강한 하락 구간과 추가 가속을 구분하며 주문·DB는 없다."""
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
@@ -9,6 +9,7 @@ from statistics import fmean
 from typing import Literal, Sequence
 
 Shape = Literal['doji', 'hammer', 'inverted_hammer'] | None
+RegimePhase = Literal['insufficient', 'normal', 'active', 'eased']
 REVERSALS = frozenset({'doji', 'hammer', 'inverted_hammer'})
 EVENT_KINDS = (
     'volume_red_watch_only', 'first_support_reaction', 'support_reaction_while_tracking',
@@ -56,9 +57,11 @@ class Config:
     rebound: float
     tolerance: float
     max_age: int
+    regime_ease_drop_per_bar: float = 0.01
+    regime_ease_bars: int = 3
 
     def __post_init__(self) -> None:
-        for x in (self.slope_bars, self.volume_bars, self.context_bars, self.max_age):
+        for x in (self.slope_bars, self.volume_bars, self.context_bars, self.max_age, self.regime_ease_bars):
             if type(x) is not int or x < 1:
                 raise ValueError('봉 수는 양의 정수여야 합니다.')
         for x in (self.min_drop_per_bar, self.min_acceleration, self.large_red_body, self.rebound):
@@ -66,6 +69,8 @@ class Config:
                 raise ValueError('속도·몸통·반등 기준은 0~1 사이 양수입니다.')
         if not (0 <= self.tolerance < self.rebound) or not isfinite(self.volume_multiple) or self.volume_multiple <= 0:
             raise ValueError('재시험 허용 폭은 반등 기준보다 작고, 거래량 배수는 양수여야 합니다.')
+        if not isfinite(self.regime_ease_drop_per_bar) or not 0 < self.regime_ease_drop_per_bar < self.min_drop_per_bar:
+            raise ValueError('급락 완화 속도 기준은 0보다 크고 강한 하락 기준보다 작아야 합니다.')
 
 
 def stable_id(*parts: object) -> str:
@@ -153,6 +158,17 @@ class Observation:
     active_anchor_source: str | None
     reaction_levels: tuple[str, ...]
     unrecovered_levels: tuple[str, ...]
+    strong_down: bool | None = None
+    regime_phase: RegimePhase = 'insufficient'
+    regime_id: str | None = None
+    regime_started_on: date | None = None
+    regime_eased_on: date | None = None
+    regime_started_today: bool = False
+    regime_eased_today: bool = False
+    regime_recovery_streak: int = 0
+    regime_previous_lowest_close: float | None = None
+    regime_lowest_close: float | None = None
+    regime_no_new_closing_low: bool | None = None
     schema_version: str = '0.2'
 
     @property
@@ -180,7 +196,12 @@ def analyze(bars: Sequence[Bar], levels: Sequence[Level], cfg: Config) -> list[O
     out: list[Observation] = []
     anchor: Anchor | None = None
     last_invalid: Anchor | None = None
-    last_fast: int | None = None
+    regime_phase: RegimePhase = 'insufficient'
+    regime_id: str | None = None
+    regime_started_on: date | None = None
+    regime_eased_on: date | None = None
+    regime_recovery_streak = 0
+    regime_lowest_close: float | None = None
     previous: dict[str, float] = {}
     breaks: dict[str, tuple[Anchor, str]] = {}
     below_initial: dict[str, Anchor] = {}
@@ -192,13 +213,33 @@ def analyze(bars: Sequence[Bar], levels: Sequence[Level], cfg: Config) -> list[O
                 or not (0 < b.low <= min(b.open, b.close) <= max(b.open, b.close) <= b.high) or b.volume < 0):
             raise ValueError(f'잘못된 캔들: {b.day}')
         prev = recent = accel = None
+        if i >= n:
+            recent = log(b.close / bars[i-n].close) / n
+        strong_down = recent <= -cfg.min_drop_per_bar if recent is not None else None
         if i >= 2*n:
             prev = log(bars[i-n].close / bars[i-2*n].close) / n
-            recent = log(b.close / bars[i-n].close) / n
-            accel = recent <= -cfg.min_drop_per_bar and recent <= prev - cfg.min_acceleration
-            if accel:
-                last_fast = i
-        in_context = last_fast is not None and i - last_fast < cfg.context_bars
+            accel = bool(strong_down and recent <= prev - cfg.min_acceleration)
+        regime_started_today = regime_eased_today = False
+        previous_lowest = None
+        no_new_closing_low = None
+        if strong_down and regime_phase != 'active':
+            regime_phase, regime_id = 'active', stable_id('decline-regime', b.day)
+            regime_started_on, regime_eased_on = b.day, None
+            regime_recovery_streak, regime_lowest_close = 0, b.close
+            regime_started_today = True
+        elif regime_phase == 'active':
+            # 오늘 종가를 먼저 최저값에 넣으면 새 저점도 '갱신 없음'으로 오판한다.
+            previous_lowest = regime_lowest_close
+            no_new_closing_low = b.close >= previous_lowest
+            recovering = recent > -cfg.regime_ease_drop_per_bar and no_new_closing_low
+            regime_recovery_streak = regime_recovery_streak + 1 if recovering else 0
+            if regime_recovery_streak >= cfg.regime_ease_bars:
+                regime_phase, regime_eased_on = 'eased', b.day
+                regime_eased_today = True
+            regime_lowest_close = min(previous_lowest, b.close)
+        elif regime_phase == 'insufficient' and recent is not None:
+            regime_phase = 'normal'
+        regime_active = regime_phase == 'active'
         avg = fmean(x.volume for x in bars[i-cfg.volume_bars:i]) if i >= cfg.volume_bars else None
         ratio = b.volume / avg if avg is not None and avg > 0 else None
         volume_high = ratio is not None and ratio >= cfg.volume_multiple
@@ -294,12 +335,12 @@ def analyze(bars: Sequence[Bar], levels: Sequence[Level], cfg: Config) -> list[O
             support_rows.append(SupportEvaluation(s.identity, s.key, s.bottom, s.top, status))
 
         # 한 기준만 추적하지만 새 반전과 새 장대음봉의 사실 기록은 가리지 않는다.
-        evaluation_context = in_context or start_anchor is not None
+        evaluation_context = regime_active or start_anchor is not None
         heavy_red = evaluation_context and volume_high and (b.open-b.close)/b.open >= cfg.large_red_body
-        reversal = evaluation_context and b.shape in REVERSALS
+        reversal = regime_active and b.shape in REVERSALS
         prior_active = anchor
         created: Anchor | None = None
-        if anchor is None and in_context:
+        if anchor is None and regime_active:
             if heavy_red:
                 created = make_anchor(b, 'volume_red')
             elif reversal and reactions:
@@ -330,5 +371,11 @@ def analyze(bars: Sequence[Bar], levels: Sequence[Level], cfg: Config) -> list[O
             events=tuple(events), active_anchor_id=anchor.id if anchor else None,
             active_anchor_day=anchor.bar.day if anchor else None, active_anchor_source=anchor.source if anchor else None,
             reaction_levels=tuple(s.key for s in reactions),
-            unrecovered_levels=tuple(sorted(set(breaks) | set(below_initial)))))
+            unrecovered_levels=tuple(sorted(set(breaks) | set(below_initial))),
+            strong_down=strong_down, regime_phase=regime_phase, regime_id=regime_id,
+            regime_started_on=regime_started_on, regime_eased_on=regime_eased_on,
+            regime_started_today=regime_started_today, regime_eased_today=regime_eased_today,
+            regime_recovery_streak=regime_recovery_streak,
+            regime_previous_lowest_close=previous_lowest, regime_lowest_close=regime_lowest_close,
+            regime_no_new_closing_low=no_new_closing_low))
     return out
