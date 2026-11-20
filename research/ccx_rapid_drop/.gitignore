@@ -3,4 +3,6 @@ results/observations.jsonl
 results_v02/observations*.jsonl
 .tmp_support_history_tests*/
 results_v03/.tmp*/
+results_v03/.tmp*
+results_v03/**/.tmp*/
 results_v03/*.jsonl
