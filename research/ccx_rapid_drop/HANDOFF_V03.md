@@ -1,5 +1,44 @@
 # 급락 대응 신호 v0.3 다음 기기 인계
 
+## 2026-11-21 현재 브랜치에서 재현
+
+`feat/rapid-drop-signals-v03`의 Draft PR #1을 사용한다. `869df61` 이후 단일 연구 엔진에 급락 지속·추가 가속·3봉 완화 판정이 들어갔고, 기존 패널은 대표 신호와 상세 보기로 나뉘었다. 기본 기능 플래그는 OFF다. 비교용 설정은 `example_config.json`에 있다. 날짜별 기준 결과는 [전후 비교](results_v03/regime_revision_20261121/REPORT.md), 이번 회귀와 DB 보호 결과는 [작업 보고](REPORT_V03.md)에 있다.
+
+저장소 루트에서 아래 명령으로 고정 일봉 API를 실행한다. 매매 DB·수동선 DB·지지 이력과 그 부속 파일은 실행기 임시 디렉터리에 생성된다. 합성 검증에는 같은 명령 끝에 `--synthetic`을 붙인다.
+
+```powershell
+& .\backend\.venv\Scripts\python.exe -B .\research\ccx_rapid_drop\dev_server_v03.py --port 18703
+```
+
+별도 터미널에서 프런트를 시작하고 BTCUSDT 일봉 차트의 **급락 대응 · 실험**을 켠 뒤 날짜를 선택한다. 2026-06-06은 급락 지속과 첫 제동 관찰·지지 미확인, 2026-02-09는 급락 완화, 2023-06-11은 신규 재지지 후보다. 이 개정판의 연결 검사는 실제 HTTP와 jsdom으로 수행했다. 이전 Edge 캡처는 아래 11월 20일 기록에 있다.
+
+```powershell
+Set-Location frontend
+$env:VITE_API_BASE_URL = 'http://127.0.0.1:18703'
+npm.cmd run dev -- --host 127.0.0.1 --port 5173 --strictPort
+```
+
+검사 재현 명령은 저장소 루트에서 시작한다. 프런트 전체 검사는 위 **고정 일봉 API**가 실행 중인 상태에서 진행한다. 전후 비교는 새 출력 경로를 사용한다.
+
+```powershell
+Push-Location backend
+& .\.venv\Scripts\python.exe -B -m pytest tests -q -p no:cacheprovider
+Pop-Location
+& .\backend\.venv\Scripts\python.exe -B -m unittest discover -s research/ccx_rapid_drop -p 'test*.py'
+$resultDir = Join-Path ([IO.Path]::GetTempPath()) ('ccx-regime-' + [guid]::NewGuid())
+& .\backend\.venv\Scripts\python.exe -B .\research\ccx_rapid_drop\compare_regime_revision.py --output-dir $resultDir
+Set-Location frontend
+$env:CCX_TEST_API_PORT = '18703'
+.\node_modules\.bin\vitest.cmd run
+.\node_modules\.bin\tsc.cmd --noEmit -p .
+npm.cmd run lint
+npm.cmd run build
+```
+
+이번 실행의 전후 보호 파일은 10개 모두 일치했다. 사고 전 원본 복구와 기존 데이터 영향은 미확인 상태다. 당시 상황과 후속 안전 점검은 아래에 날짜순으로 보존한다. 아래 초기 실행 명령·수치는 해당 시점의 기록이다.
+
+## 이전 기기 인계 기록
+
 브랜치 `feat/rapid-drop-signals-v03`, v0.2 기준 `aefe83ef583f1ae76129208ef3133cf089dfc610` 포함. 최종 SHA·원격 확인·Draft PR 주소는 작업 완료 응답을 참고한다. 기존 `.vscode/settings.json`과 수동 도형 DB는 유지했지만, **실제 매매 DB는 기존 회귀 테스트의 생성/삭제로 원본 해시가 바뀌었고 확정 복구하지 못했다.** `REPORT_V03.md` 사고 기록부터 읽는다.
 
 2026-11-20 보완: Draft PR [#1](https://github.com/MangBahMae/trading_app/pull/1)을 유지한다. 추가 실행 전에 현재 DB 사본을 Git 제외 경로에 보존했다. 현재 trades `f046…`/manual `c14d…`는 전체 회귀와 격리 서버 종료 후에도 사본과 같다. 보호 파일 10슬롯의 추가 변경은 0이다. **이 사본은 사고 전 `d44b…` 백업이 아니며 원본 복구·데이터 영향 미확인 상태는 계속된다.** 현재 0행을 원래 빈 DB의 증거로 사용하지 않는다. 실제 DB를 덮어쓰지 않는다.

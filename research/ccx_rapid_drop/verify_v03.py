@@ -12,6 +12,32 @@ sys.path.insert(0, str(REPO/'backend'))
 sys.path.insert(0, str(REPO/'backend/tests'))
 
 
+def verify_timeline_invariance(svc, df, levels=(), full=None, future_days=32, label='v0.3'):
+    """정책별 후보 날짜를 가정하지 않는 순수 검증. 실제 DB와 API 저장 경로는 호출하지 않는다."""
+    import pandas as pd
+    full = full if full is not None else svc.build_timeline(df, levels)
+    full_values = list(full.values())
+    canonical = [{k: v for k, v in state.items() if k != 'history'} for state in full_values]
+    comparisons = 0
+    for k in range(1, len(df)+1):
+        part = svc.build_timeline(df.iloc[:k].copy(), levels)
+        values = list(part.values())
+        assert [{name: value for name, value in state.items() if name != 'history'} for state in values] == canonical[:k], k
+        assert values[-1]['history'] == full_values[k-1]['history'], k
+        comparisons += k
+        if k % 200 == 0 or k == len(df):
+            print(f'{label} 접두 구간 {k}/{len(df)} 통과', flush=True)
+    future = df.iloc[[-1]*future_days].copy().reset_index(drop=True)
+    future['open_time'] = pd.date_range(df.open_time.iloc[-1]+pd.Timedelta(days=1), periods=future_days, tz='UTC')
+    future['close_time'] = future.open_time+pd.Timedelta(days=1)-pd.Timedelta(milliseconds=1)
+    future_level = svc.engine().Level('future_invariance_only', 1, 2,
+        future.open_time.iloc[0].date(), future.open_time.iloc[-1].date())
+    extended = svc.build_timeline(pd.concat([df, future], ignore_index=True), (*levels, future_level))
+    assert {day: extended[day] for day in full} == full
+    return dict(prefixes=len(df), historical_state_comparisons=comparisons, history_prefix_tips_checked=len(df),
+                shape_recomputed_each_prefix=True, future_days=future_days, future_support_injected=True, mismatches=0)
+
+
 def main():
     import pandas as pd
     import golden_support
@@ -28,22 +54,7 @@ def main():
     expired = next(s for s in full['2023-06-14']['signals'] if s['type'] == 'candidate_expired')
     assert expired['previous_candidate_ids'] == [candidates[0]['id']]
     assert not full['2023-06-14']['maintained_candidates']
-    comparisons = 0
-    canonical = [{k:v for k,v in state.items() if k != 'history'} for state in full.values()]
-    for k in range(1, len(df)+1):
-        part = svc.build_timeline(df.iloc[:k].copy())
-        values = list(part.values())
-        assert [{name:value for name,value in state.items() if name != 'history'} for state in values] == canonical[:k], k
-        assert values[-1]['history'] == list(full.values())[k-1]['history'], k
-        comparisons += k
-        if k % 200 == 0 or k == len(df):
-            print(f'v0.3 접두 구간 {k}/{len(df)} 통과', flush=True)
-    future = df.iloc[[-1]*32].copy().reset_index(drop=True)
-    future['open_time'] = pd.date_range(df.open_time.iloc[-1]+pd.Timedelta(days=1), periods=32, tz='UTC')
-    future['close_time'] = future.open_time+pd.Timedelta(days=1)-pd.Timedelta(milliseconds=1)
-    future_level = svc.engine().Level('future', 1, 2, future.open_time.iloc[0].date(), future.open_time.iloc[-1].date())
-    extended = svc.build_timeline(pd.concat([df, future], ignore_index=True), (future_level,))
-    assert {d:extended[d] for d in full} == full
+    invariance = verify_timeline_invariance(svc, df, full=full)
     baseline = json.loads((results/'baseline.json').read_text(encoding='utf-8-sig'))
     changed = [x['path'] for x in baseline['protected_files']
                if hashlib.sha256((REPO/x['path']).read_bytes()).hexdigest() != x['sha256']]
@@ -55,8 +66,7 @@ def main():
     summary = dict(base_commit='aefe83ef583f1ae76129208ef3133cf089dfc610', bars=len(df), actual_support_count=0,
         source='fixed_fixture', counts=dict(counts), new_candidates=candidates,
         candidate_maintained_dates=[d for d,state in full.items() if state['maintained_candidates']],
-        invariance=dict(prefixes=len(df), historical_state_comparisons=comparisons, history_prefix_tips_checked=len(df),
-                        shape_recomputed_each_prefix=True, future_days=32, future_support_injected=True, mismatches=0),
+        invariance=invariance,
         preservation=dict(checked=len(baseline['protected_files']), changed=changed),
         unverified=['실제 지지에서의 첫 반응 및 회복: 과거 좌표 버전 이력 없음',
                     '외부 앱의 관찰 사이 편집 시각 복원', '후보의 수익성·체결 가능성'])

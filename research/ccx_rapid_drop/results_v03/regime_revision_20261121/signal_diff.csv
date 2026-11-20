@@ -1,0 +1,261 @@
+status,day,old_kind,new_kind,old_id,new_id,old_title,new_title,old_anchor_day,new_anchor_day,reason,old_observation_window,new_phase
+relabeled,2022-01-05,acceleration_warning,acceleration_warning,rd02_38233ba4861acce4d4c8b6c4,rd02_38233ba4861acce4d4c8b6c4,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-01-06,acceleration_warning,acceleration_warning,rd02_d3bba0795211ebfea1603249,rd02_d3bba0795211ebfea1603249,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-01-20,acceleration_warning,acceleration_warning,rd02_06958ae8a6805edf54012c9d,rd02_06958ae8a6805edf54012c9d,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-01-21,acceleration_warning,acceleration_warning,rd02_794165ad77da9cd545eacb2f,rd02_794165ad77da9cd545eacb2f,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-01-22,acceleration_warning,acceleration_warning,rd02_ca1d1d7ba2f9a5a8efff204e,rd02_ca1d1d7ba2f9a5a8efff204e,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-02-02,acceleration_warning,acceleration_warning,rd02_9c0646d46724e5aea4bd167e,rd02_9c0646d46724e5aea4bd167e,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-02-11,acceleration_warning,acceleration_warning,rd02_874716dd22e0c635331aa27a,rd02_874716dd22e0c635331aa27a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-02-17,acceleration_warning,acceleration_warning,rd02_715aaad2a99408a09d6c40ba,rd02_715aaad2a99408a09d6c40ba,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-02-18,acceleration_warning,acceleration_warning,rd02_81b2245a6c4084f2cb7ef916,rd02_81b2245a6c4084f2cb7ef916,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-02-21,acceleration_warning,acceleration_warning,rd02_b94168fca41c84bab1e723a5,rd02_b94168fca41c84bab1e723a5,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-03-03,acceleration_warning,acceleration_warning,rd02_307889beb9cf61cc808924d3,rd02_307889beb9cf61cc808924d3,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-03-04,acceleration_warning,acceleration_warning,rd02_7ad96d4b7f594941ea332b97,rd02_7ad96d4b7f594941ea332b97,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-03-05,acceleration_warning,acceleration_warning,rd02_b0ee5528051ed22a09116d24,rd02_b0ee5528051ed22a09116d24,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-03-11,acceleration_warning,acceleration_warning,rd02_d47c916f2c6c8bc871c508a7,rd02_d47c916f2c6c8bc871c508a7,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-03-31,acceleration_warning,acceleration_warning,rd02_668ce878a708bcea7ec46710,rd02_668ce878a708bcea7ec46710,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-04-06,acceleration_warning,acceleration_warning,rd02_d15f1e94cb0deb2e7a3eac25,rd02_d15f1e94cb0deb2e7a3eac25,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-04-07,acceleration_warning,acceleration_warning,rd02_0105188640b764d20e248f7d,rd02_0105188640b764d20e248f7d,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-04-11,acceleration_warning,acceleration_warning,rd02_81ce350644806728685c03fe,rd02_81ce350644806728685c03fe,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-04-12,acceleration_warning,acceleration_warning,rd02_5da7c21c8a421de9c9dea194,rd02_5da7c21c8a421de9c9dea194,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2022-04-14,retest_watch,retest_watch,rd02_e961be8f6745bdcee2c61516,rd02_e961be8f6745bdcee2c61516,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2022-04-11,2022-04-11,동일 발생 사실·기준·후보 연결 유지,True,active
+retained,2022-04-15,retest_watch,retest_watch,rd02_c32c3859fa6dd08fe223918f,rd02_c32c3859fa6dd08fe223918f,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2022-04-11,2022-04-11,동일 발생 사실·기준·후보 연결 유지,False,eased
+retained,2022-04-17,retest_watch,retest_watch,rd02_91c429f3da51c923ca90e943,rd02_91c429f3da51c923ca90e943,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2022-04-11,2022-04-11,동일 발생 사실·기준·후보 연결 유지,False,eased
+retained,2022-04-18,retest_watch,retest_watch,rd02_10005feae1530880e1a52c31,rd02_10005feae1530880e1a52c31,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2022-04-11,2022-04-11,동일 발생 사실·기준·후보 연결 유지,False,eased
+relabeled,2022-04-22,acceleration_warning,acceleration_warning,rd02_fbe14a0b22e6bd1566a198fd,rd02_fbe14a0b22e6bd1566a198fd,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-04-30,acceleration_warning,acceleration_warning,rd02_f00fa4ac59f7ed5a4a308f6e,rd02_f00fa4ac59f7ed5a4a308f6e,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-05-06,acceleration_warning,acceleration_warning,rd02_f3520c5a97eb9ff4d4efdc88,rd02_f3520c5a97eb9ff4d4efdc88,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-05-09,acceleration_warning,acceleration_warning,rd02_b6b9ba81ec75e6600c444ec3,rd02_b6b9ba81ec75e6600c444ec3,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-05-10,acceleration_warning,acceleration_warning,rd02_c6030668e71b00afa7bc1d5e,rd02_c6030668e71b00afa7bc1d5e,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2022-05-11,retest_watch,retest_watch,rd02_f277db37e611585cc9d176a0,rd02_f277db37e611585cc9d176a0,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2022-05-09,2022-05-09,동일 발생 사실·기준·후보 연결 유지,True,active
+relabeled,2022-06-01,acceleration_warning,acceleration_warning,rd02_df0bab7e59fcfced6b1f42d6,rd02_df0bab7e59fcfced6b1f42d6,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-06-02,acceleration_warning,acceleration_warning,rd02_3332385ee1e7a8a0d72f5938,rd02_3332385ee1e7a8a0d72f5938,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-06-11,acceleration_warning,acceleration_warning,rd02_d8e542fcdbd500409e7fcef2,rd02_d8e542fcdbd500409e7fcef2,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-06-12,acceleration_warning,acceleration_warning,rd02_cb1768f0d00b43a58fd1fb97,rd02_cb1768f0d00b43a58fd1fb97,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-06-13,acceleration_warning,acceleration_warning,rd02_4644783762a378fb568f6175,rd02_4644783762a378fb568f6175,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-06-14,acceleration_warning,acceleration_warning,rd02_8b6cfec40b91fdd7f891fc89,rd02_8b6cfec40b91fdd7f891fc89,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-06-17,acceleration_warning,acceleration_warning,rd02_191983d21cebb87b54833f27,rd02_191983d21cebb87b54833f27,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-07-11,acceleration_warning,acceleration_warning,rd02_b35e6eb48be8aaabd560b327,rd02_b35e6eb48be8aaabd560b327,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-07-12,acceleration_warning,acceleration_warning,rd02_dad11ad8092f06429c0f2534,rd02_dad11ad8092f06429c0f2534,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-07-25,acceleration_warning,acceleration_warning,rd02_a49ee08c9374aaed346e6743,rd02_a49ee08c9374aaed346e6743,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-07-26,acceleration_warning,acceleration_warning,rd02_a92d2caad3ce57ffe66d7a4d,rd02_a92d2caad3ce57ffe66d7a4d,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-08-19,acceleration_warning,acceleration_warning,rd02_f60b6bb62a0793feece1d6d4,rd02_f60b6bb62a0793feece1d6d4,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-08-20,acceleration_warning,acceleration_warning,rd02_1e9559b01c56a54d377d9d68,rd02_1e9559b01c56a54d377d9d68,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-08-26,acceleration_warning,acceleration_warning,rd02_abab0ebb0b6fcbef1c4d3f2d,rd02_abab0ebb0b6fcbef1c4d3f2d,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-08-27,acceleration_warning,acceleration_warning,rd02_b75e8dbf41d3503d172613a8,rd02_b75e8dbf41d3503d172613a8,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-09-06,acceleration_warning,acceleration_warning,rd02_ba27e7b56b34c5cf8e4edc95,rd02_ba27e7b56b34c5cf8e4edc95,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-09-13,acceleration_warning,acceleration_warning,rd02_921d20cda00bbb3ef74c4158,rd02_921d20cda00bbb3ef74c4158,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-09-14,acceleration_warning,acceleration_warning,rd02_505f5e8196febb0f58b4dde3,rd02_505f5e8196febb0f58b4dde3,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-09-21,acceleration_warning,acceleration_warning,rd02_9fe2ec1d7b79bc68d6f6e1a0,rd02_9fe2ec1d7b79bc68d6f6e1a0,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-11-08,acceleration_warning,acceleration_warning,rd02_0c4f16b297d9b70575d30804,rd02_0c4f16b297d9b70575d30804,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-11-09,acceleration_warning,acceleration_warning,rd02_ad48657c7b8e74c943513d62,rd02_ad48657c7b8e74c943513d62,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-11-13,acceleration_warning,acceleration_warning,rd02_38bcbf46b8ce826ee6119819,rd02_38bcbf46b8ce826ee6119819,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-11-21,acceleration_warning,acceleration_warning,rd02_0a5e5a3365f3128a663a7972,rd02_0a5e5a3365f3128a663a7972,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2022-12-16,acceleration_warning,acceleration_warning,rd02_31a27c99889e9cbbffdac1b4,rd02_31a27c99889e9cbbffdac1b4,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-02-09,acceleration_warning,acceleration_warning,rd02_1c43297f78e2b948a798ecee,rd02_1c43297f78e2b948a798ecee,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-02-10,acceleration_warning,acceleration_warning,rd02_fd372646b0e32deb6cc372ad,rd02_fd372646b0e32deb6cc372ad,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-03-03,acceleration_warning,acceleration_warning,rd02_d4f0578214950ccaa740a230,rd02_d4f0578214950ccaa740a230,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-03-04,acceleration_warning,acceleration_warning,rd02_9684135a836b41d2156c3c19,rd02_9684135a836b41d2156c3c19,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-03-09,acceleration_warning,acceleration_warning,rd02_2ec81b1baa4471b1e346a8aa,rd02_2ec81b1baa4471b1e346a8aa,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-03-10,acceleration_warning,acceleration_warning,rd02_bdd8ad9cf677b682986b1033,rd02_bdd8ad9cf677b682986b1033,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-04-20,acceleration_warning,acceleration_warning,rd02_12cd02c92e0eab0f62035da1,rd02_12cd02c92e0eab0f62035da1,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-04-21,acceleration_warning,acceleration_warning,rd02_24ab124cd3eef848cd026c52,rd02_24ab124cd3eef848cd026c52,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-05-01,acceleration_warning,acceleration_warning,rd02_6fef6ba89213dde3dce10d60,rd02_6fef6ba89213dde3dce10d60,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-05-08,acceleration_warning,acceleration_warning,rd02_fe4c951e2c007920ec751721,rd02_fe4c951e2c007920ec751721,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-06-05,acceleration_warning,acceleration_warning,rd02_8f99e0b01668de1593e31b23,rd02_8f99e0b01668de1593e31b23,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2023-06-10,retest_watch,retest_watch,rd02_89aa663a6d8c2e838afb444c,rd02_89aa663a6d8c2e838afb444c,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2023-06-05,2023-06-05,동일 발생 사실·기준·후보 연결 유지,False,active
+retained,2023-06-11,retest_long,retest_long,rd02_daf68fa48b8165a47c975cb5,rd02_daf68fa48b8165a47c975cb5,롱 후보 · 재지지 반응,롱 후보 · 재지지 반응,2023-06-05,2023-06-05,동일 발생 사실·기준·후보 연결 유지,False,active
+retained,2023-06-14,candidate_expired,candidate_expired,rd02_6594aca96960caee16ed1585,rd02_6594aca96960caee16ed1585,롱 후보 관찰 만료,롱 후보 관찰 만료,2023-06-05,2023-06-05,동일 발생 사실·기준·후보 연결 유지,False,active
+relabeled,2023-08-17,acceleration_warning,acceleration_warning,rd02_97a5332a20c4988128eced64,rd02_97a5332a20c4988128eced64,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-08-18,acceleration_warning,acceleration_warning,rd02_faa12ecdd5974accbcbe49a9,rd02_faa12ecdd5974accbcbe49a9,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-08-31,acceleration_warning,acceleration_warning,rd02_7aac0114063d6de1e252bdf1,rd02_7aac0114063d6de1e252bdf1,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-09-01,acceleration_warning,acceleration_warning,rd02_8d2649ae8988c0a544ce9665,rd02_8d2649ae8988c0a544ce9665,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-11-14,acceleration_warning,acceleration_warning,rd02_a085aa53a738758c66862e5d,rd02_a085aa53a738758c66862e5d,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-11-21,acceleration_warning,acceleration_warning,rd02_980dc8dd21c357b02951a5d1,rd02_980dc8dd21c357b02951a5d1,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-12-11,acceleration_warning,acceleration_warning,rd02_d288911c3c90b14848601cfd,rd02_d288911c3c90b14848601cfd,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2023-12-12,acceleration_warning,acceleration_warning,rd02_550450c25de4d7fd792ee3cb,rd02_550450c25de4d7fd792ee3cb,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2023-12-14,retest_watch,retest_watch,rd02_55a571a06b1f084d9b2dfe13,rd02_55a571a06b1f084d9b2dfe13,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2023-12-11,2023-12-11,동일 발생 사실·기준·후보 연결 유지,True,active
+retained,2023-12-16,retest_watch,retest_watch,rd02_0d1cc02bec27fc771c7cd49e,rd02_0d1cc02bec27fc771c7cd49e,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2023-12-11,2023-12-11,동일 발생 사실·기준·후보 연결 유지,False,active
+retained,2023-12-17,retest_watch,retest_watch,rd02_27b09d2b40bd28a8644ecc4f,rd02_27b09d2b40bd28a8644ecc4f,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2023-12-11,2023-12-11,동일 발생 사실·기준·후보 연결 유지,False,active
+retained,2023-12-18,retest_watch,retest_watch,rd02_ec79644e79386f43809cff08,rd02_ec79644e79386f43809cff08,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2023-12-11,2023-12-11,동일 발생 사실·기준·후보 연결 유지,False,eased
+relabeled,2024-01-12,acceleration_warning,acceleration_warning,rd02_0540b9031e1b39579bda12c2,rd02_0540b9031e1b39579bda12c2,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-01-13,acceleration_warning,acceleration_warning,rd02_22d2a3eaba9fa5e4ec0acc71,rd02_22d2a3eaba9fa5e4ec0acc71,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-01-18,acceleration_warning,acceleration_warning,rd02_7a12900bd07a6d474af35522,rd02_7a12900bd07a6d474af35522,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-01-22,acceleration_warning,acceleration_warning,rd02_051a40703b38a2aa372a7e6c,rd02_051a40703b38a2aa372a7e6c,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-01-23,acceleration_warning,acceleration_warning,rd02_85afffb12abe483a93149ddf,rd02_85afffb12abe483a93149ddf,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-03-15,acceleration_warning,acceleration_warning,rd02_4261100fe88253cbdb1724e5,rd02_4261100fe88253cbdb1724e5,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-03-16,acceleration_warning,acceleration_warning,rd02_cb4cdd0e02855722c94c0561,rd02_cb4cdd0e02855722c94c0561,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-03-19,acceleration_warning,acceleration_warning,rd02_d4b8ceaac0eaa09400e1b55c,rd02_d4b8ceaac0eaa09400e1b55c,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-03-22,acceleration_warning,acceleration_warning,rd02_6c515e51bc749c41f1bae19b,rd02_6c515e51bc749c41f1bae19b,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-04-02,acceleration_warning,acceleration_warning,rd02_a4e7b16fc727a7ec2876e25e,rd02_a4e7b16fc727a7ec2876e25e,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-04-03,acceleration_warning,acceleration_warning,rd02_6ecec30eb17dcac005f8f5e2,rd02_6ecec30eb17dcac005f8f5e2,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2024-04-05,retest_watch,retest_watch,rd02_8d7726a2f38b774754466303,rd02_8d7726a2f38b774754466303,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2024-04-02,2024-04-02,동일 발생 사실·기준·후보 연결 유지,True,active
+relabeled,2024-04-12,acceleration_warning,acceleration_warning,rd02_d07f929236201da6a0da644c,rd02_d07f929236201da6a0da644c,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-04-13,acceleration_warning,acceleration_warning,rd02_d51bbfdf7022e5181f7d664a,rd02_d51bbfdf7022e5181f7d664a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-05-01,acceleration_warning,acceleration_warning,rd02_c496cbffb0aebc80833c294a,rd02_c496cbffb0aebc80833c294a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-06-24,acceleration_warning,acceleration_warning,rd02_8af89b88782a7a99f84f0a6a,rd02_8af89b88782a7a99f84f0a6a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-07-03,acceleration_warning,acceleration_warning,rd02_685c64adb47d03d4df20c1b6,rd02_685c64adb47d03d4df20c1b6,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-07-04,acceleration_warning,acceleration_warning,rd02_ad2b55bd279cbb430b310182,rd02_ad2b55bd279cbb430b310182,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-08-03,acceleration_warning,acceleration_warning,rd02_e0460d49182629fbf9439213,rd02_e0460d49182629fbf9439213,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-08-05,acceleration_warning,acceleration_warning,rd02_cd789ffd3bea7b6fdf9ff74c,rd02_cd789ffd3bea7b6fdf9ff74c,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2024-08-07,retest_watch,retest_watch,rd02_ab661e305457cee0ad96d3e3,rd02_ab661e305457cee0ad96d3e3,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2024-08-05,2024-08-05,동일 발생 사실·기준·후보 연결 유지,True,active
+relabeled,2024-08-15,acceleration_warning,acceleration_warning,rd02_fd78bb8ecf59ddbacb7f4c41,rd02_fd78bb8ecf59ddbacb7f4c41,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-08-27,acceleration_warning,acceleration_warning,rd02_58e3c6386936458fdd4c5498,rd02_58e3c6386936458fdd4c5498,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-08-28,acceleration_warning,acceleration_warning,rd02_abc4f4dee9f399bb2c063258,rd02_abc4f4dee9f399bb2c063258,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-09-06,acceleration_warning,acceleration_warning,rd02_76214e14b784d7a611d78969,rd02_76214e14b784d7a611d78969,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-10-01,acceleration_warning,acceleration_warning,rd02_92b43f9c787c8af3635d3756,rd02_92b43f9c787c8af3635d3756,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-11-01,acceleration_warning,acceleration_warning,rd02_fc82b0a60eb6ea9c08ee1d5f,rd02_fc82b0a60eb6ea9c08ee1d5f,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-11-25,acceleration_warning,acceleration_warning,rd02_d32b7c9abe7d3397c2746b3f,rd02_d32b7c9abe7d3397c2746b3f,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-11-26,acceleration_warning,acceleration_warning,rd02_4b91458a584f9651e0ac2e88,rd02_4b91458a584f9651e0ac2e88,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-12-10,acceleration_warning,acceleration_warning,rd02_7e5e173e4389c1e12fb37674,rd02_7e5e173e4389c1e12fb37674,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-12-18,acceleration_warning,acceleration_warning,rd02_772b33f60a2d8a3398d73de3,rd02_772b33f60a2d8a3398d73de3,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-12-19,acceleration_warning,acceleration_warning,rd02_2536f80403a9955533ae1664,rd02_2536f80403a9955533ae1664,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2024-12-27,acceleration_warning,acceleration_warning,rd02_2fa024a026268471c213ed5b,rd02_2fa024a026268471c213ed5b,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-01-08,acceleration_warning,acceleration_warning,rd02_9045e7aa906156bd4bcc497c,rd02_9045e7aa906156bd4bcc497c,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-01-09,acceleration_warning,acceleration_warning,rd02_6d2b7232736df79c5339b577,rd02_6d2b7232736df79c5339b577,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-02-02,acceleration_warning,acceleration_warning,rd02_9958489c616bdc0e1f27509f,rd02_9958489c616bdc0e1f27509f,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-02-05,acceleration_warning,acceleration_warning,rd02_f0c31cf0dddd9df165e82a34,rd02_f0c31cf0dddd9df165e82a34,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-02-24,acceleration_warning,acceleration_warning,rd02_6979bb184f80ac7203d6855a,rd02_6979bb184f80ac7203d6855a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-02-25,acceleration_warning,acceleration_warning,rd02_ee16e956cce7cd32005ccccc,rd02_ee16e956cce7cd32005ccccc,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-02-26,acceleration_warning,acceleration_warning,rd02_752c59381f969cb0ab2fa1fb,rd02_752c59381f969cb0ab2fa1fb,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-03-04,acceleration_warning,acceleration_warning,rd02_f1fae46b6db02bbab38d12b9,rd02_f1fae46b6db02bbab38d12b9,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-03-07,acceleration_warning,acceleration_warning,rd02_113c7428b88d4b86ed01c968,rd02_113c7428b88d4b86ed01c968,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-03-08,acceleration_warning,acceleration_warning,rd02_5b294e95170ae1eb50aaf715,rd02_5b294e95170ae1eb50aaf715,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-03-09,acceleration_warning,acceleration_warning,rd02_7c3e77e0616ff5246f20a757,rd02_7c3e77e0616ff5246f20a757,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-03-10,acceleration_warning,acceleration_warning,rd02_b75449a61e7e4ebecadb2d28,rd02_b75449a61e7e4ebecadb2d28,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-03-29,acceleration_warning,acceleration_warning,rd02_2f875b9639545ea0b4229caf,rd02_2f875b9639545ea0b4229caf,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-04-06,acceleration_warning,acceleration_warning,rd02_2a18303667c5b8aeb0f1e986,rd02_2a18303667c5b8aeb0f1e986,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-04-07,acceleration_warning,acceleration_warning,rd02_6f9afec9abd0770cd009c77a,rd02_6f9afec9abd0770cd009c77a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-06-12,acceleration_warning,acceleration_warning,rd02_a93aa558eb1ebb88d143dd8a,rd02_a93aa558eb1ebb88d143dd8a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-08-15,acceleration_warning,acceleration_warning,rd02_b3497722f26af3e4db4ab98a,rd02_b3497722f26af3e4db4ab98a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-08-25,acceleration_warning,acceleration_warning,rd02_c98e98f81560088523d03cfe,rd02_c98e98f81560088523d03cfe,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-10-10,acceleration_warning,acceleration_warning,rd02_2f6c3281c5590b35fd5c0f2d,rd02_2f6c3281c5590b35fd5c0f2d,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-10-11,acceleration_warning,acceleration_warning,rd02_c0df34d311f8e1fa6334e7af,rd02_c0df34d311f8e1fa6334e7af,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-10-16,acceleration_warning,acceleration_warning,rd02_2384e49ed054e22388a39b51,rd02_2384e49ed054e22388a39b51,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-10-30,acceleration_warning,acceleration_warning,rd02_dddee5db39d888b6f5f77cd1,rd02_dddee5db39d888b6f5f77cd1,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-11-04,acceleration_warning,acceleration_warning,rd02_4c68fffbbc1a6e320e20350e,rd02_4c68fffbbc1a6e320e20350e,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2025-11-11,retest_watch,retest_watch,rd02_8a0cdbbc96dea455b25aa8a4,rd02_8a0cdbbc96dea455b25aa8a4,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2025-11-04,2025-11-04,동일 발생 사실·기준·후보 연결 유지,False,eased
+relabeled,2025-11-12,acceleration_warning,acceleration_warning,rd02_c2b3f11cb3652ebc326ee2e5,rd02_c2b3f11cb3652ebc326ee2e5,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+retained,2025-11-12,retest_watch,retest_watch,rd02_941ca1c8187bfc3dc596105e,rd02_941ca1c8187bfc3dc596105e,재시험 접촉 · 관찰,재시험 접촉 · 관찰,2025-11-04,2025-11-04,동일 발생 사실·기준·후보 연결 유지,True,active
+relabeled,2025-11-14,acceleration_warning,acceleration_warning,rd02_7a42d82103e4d1030f5594f2,rd02_7a42d82103e4d1030f5594f2,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-11-20,acceleration_warning,acceleration_warning,rd02_eb38962ed8fbf0a2256b33e7,rd02_eb38962ed8fbf0a2256b33e7,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-11-21,acceleration_warning,acceleration_warning,rd02_a6ee4c57edcecf2f8ce31d1d,rd02_a6ee4c57edcecf2f8ce31d1d,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-12-01,acceleration_warning,acceleration_warning,rd02_f28a09717c618e04e57e08e2,rd02_f28a09717c618e04e57e08e2,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2025-12-05,acceleration_warning,acceleration_warning,rd02_45cb8263b850ae9dfd10eaca,rd02_45cb8263b850ae9dfd10eaca,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-01-20,acceleration_warning,acceleration_warning,rd02_0109c842a9060dc400df935b,rd02_0109c842a9060dc400df935b,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-01-29,acceleration_warning,acceleration_warning,rd02_59149213c84bcd8c7b034aaf,rd02_59149213c84bcd8c7b034aaf,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-01-30,acceleration_warning,acceleration_warning,rd02_7eb2014a1a08855550991e23,rd02_7eb2014a1a08855550991e23,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-02-01,acceleration_warning,acceleration_warning,rd02_c884be6d0f0f9118b876e4da,rd02_c884be6d0f0f9118b876e4da,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-02-04,acceleration_warning,acceleration_warning,rd02_16189bc3481e7a436e20edf6,rd02_16189bc3481e7a436e20edf6,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-02-05,acceleration_warning,acceleration_warning,rd02_c835cafb5b112709fdb41890,rd02_c835cafb5b112709fdb41890,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-02-11,acceleration_warning,acceleration_warning,rd02_d9a5024ba3cd4ac6456aedac,rd02_d9a5024ba3cd4ac6456aedac,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-02-23,acceleration_warning,acceleration_warning,rd02_d594087a3f72ec7ee3212630,rd02_d594087a3f72ec7ee3212630,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-02-24,acceleration_warning,acceleration_warning,rd02_94babdba09a2134b84a3a1ed,rd02_94babdba09a2134b84a3a1ed,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-03-06,acceleration_warning,acceleration_warning,rd02_60998637fd6d65b49372c3be,rd02_60998637fd6d65b49372c3be,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-03-07,acceleration_warning,acceleration_warning,rd02_8d14c362243c5059f3d7b44a,rd02_8d14c362243c5059f3d7b44a,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-03-18,acceleration_warning,acceleration_warning,rd02_905262d7e4db60ad4b4f2774,rd02_905262d7e4db60ad4b4f2774,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-03-19,acceleration_warning,acceleration_warning,rd02_b6c14fc6f2fe1f6a197c6c71,rd02_b6c14fc6f2fe1f6a197c6c71,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-03-27,acceleration_warning,acceleration_warning,rd02_b91dd829794fbb603e48eaf3,rd02_b91dd829794fbb603e48eaf3,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-04-19,acceleration_warning,acceleration_warning,rd02_16399dc6e6901da9aa7475f4,rd02_16399dc6e6901da9aa7475f4,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-06-02,acceleration_warning,acceleration_warning,rd02_7d02eaa925b755d3c77bed42,rd02_7d02eaa925b755d3c77bed42,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-06-03,acceleration_warning,acceleration_warning,rd02_9bc165c7bff82e52122b7c5b,rd02_9bc165c7bff82e52122b7c5b,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-06-18,acceleration_warning,acceleration_warning,rd02_03ce7b21b935f7f6205364ab,rd02_03ce7b21b935f7f6205364ab,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-06-24,acceleration_warning,acceleration_warning,rd02_a9baf0ce33bb9b16182c2190,rd02_a9baf0ce33bb9b16182c2190,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-06-25,acceleration_warning,acceleration_warning,rd02_2e3ce70e15bfd3686b47ec65,rd02_2e3ce70e15bfd3686b47ec65,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+relabeled,2026-10-08,acceleration_warning,acceleration_warning,rd02_8f95da7a56fc08f72bc4ee79,rd02_8f95da7a56fc08f72bc4ee79,현재 하락 가속 경고,추가 가속 경고,,,표시명만 변경; ID·유형·발생일·판정은 동일: 현재 하락 가속 경고 → 추가 가속 경고,True,active
+added,2022-01-08,,brake_watch,,rd02_6c79c8cb767ad186a559585d,,첫 제동 관찰,,2022-01-08,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-01-09,,brake_watch,,rd02_bff641cfe08f55a6b66c22ac,,첫 제동 관찰,,2022-01-09,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-01-10,,brake_watch,,rd02_ac92aa0c3dc633dd8ea38181,,첫 제동 관찰,,2022-01-10,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-01-24,,brake_watch,,rd02_de012dcde72537f1d1d53326,,첫 제동 관찰,,2022-01-24,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-02-12,,brake_watch,,rd02_45f685aca14855f4bedc791d,,첫 제동 관찰,,2022-02-12,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-02-19,,brake_watch,,rd02_cb930c254b1d1ba81124c1de,,첫 제동 관찰,,2022-02-19,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-03-12,,brake_watch,,rd02_d084859bf5467fe67be010ac,,첫 제동 관찰,,2022-03-12,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-04-24,,brake_watch,,rd02_7e72de89ab25174d37117d37,,첫 제동 관찰,,2022-04-24,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-05-02,,brake_watch,,rd02_604985d248b80a79a3b662ce,,첫 제동 관찰,,2022-05-02,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-05-12,,brake_watch,,rd02_c44c6dca7dac3f743810e0d2,,첫 제동 관찰,,2022-05-12,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-05-13,,brake_watch,,rd02_2bbd7c55519e2dc905857f88,,첫 제동 관찰,,2022-05-13,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-06-05,,brake_watch,,rd02_3359990fd0bfd510f8604018,,첫 제동 관찰,,2022-06-05,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-06-14,,brake_watch,,rd02_586f01198bb590d4157abea2,,첫 제동 관찰,,2022-06-14,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-06-15,,brake_watch,,rd02_a99186b7a7abf58eeb826ff1,,첫 제동 관찰,,2022-06-15,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-06-17,,brake_watch,,rd02_6299623573a24b7fdc453e5f,,첫 제동 관찰,,2022-06-17,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-06-20,,brake_watch,,rd02_d89fdfb124cef66fdb91b793,,첫 제동 관찰,,2022-06-20,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-07-02,,brake_watch,,rd02_e76f50edbb274bc11004268a,,첫 제동 관찰,,2022-07-02,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-07-03,,brake_watch,,rd02_a23a34e4a8bd02541e6af94c,,첫 제동 관찰,,2022-07-03,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-07-26,,brake_watch,,rd02_8be5566422234bff7d127653,,첫 제동 관찰,,2022-07-26,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-08-22,,brake_watch,,rd02_cefd62532d22d6347843422c,,첫 제동 관찰,,2022-08-22,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-09-08,,brake_watch,,rd02_e19834bec33c5a8c2a2de1ed,,첫 제동 관찰,,2022-09-06,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-09-14,,brake_watch,,rd02_408ee39e18a44504cb5003f8,,첫 제동 관찰,,2022-09-06,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-09-19,,brake_watch,,rd02_1cc30a09ecf4675a6964a003,,첫 제동 관찰,,2022-09-19,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2022-09-23,,brake_watch,,rd02_74623bd88069e09e46b40fb7,,첫 제동 관찰,,2022-09-23,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2022-09-27,,brake_watch,,rd02_5068baddee7b8c35915a6dd1,,첫 제동 관찰,,2022-09-27,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-02-25,,brake_watch,,rd02_275bd982c51e5d079a154086,,첫 제동 관찰,,2023-02-25,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-02-27,,brake_watch,,rd02_e839ef5ab305ab8562efc7f8,,첫 제동 관찰,,2023-02-27,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-03-04,,brake_watch,,rd02_af0dfd8e75178745dac075e4,,첫 제동 관찰,,2023-03-04,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2023-03-06,,brake_watch,,rd02_913ff429531e55f8c666c48f,,첫 제동 관찰,,2023-03-06,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2023-03-10,,brake_watch,,rd02_7f621ab68d30635be6d4da08,,첫 제동 관찰,,2023-03-10,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2023-05-09,,brake_watch,,rd02_d7388062e9e5d08cdb3fb751,,첫 제동 관찰,,2023-05-09,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2023-05-10,,brake_watch,,rd02_a536db40e279dffd4bbda93c,,첫 제동 관찰,,2023-05-10,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2023-05-12,,brake_watch,,rd02_e530ea1fde11f74d14ce83b7,,첫 제동 관찰,,2023-05-12,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-05-13,,brake_watch,,rd02_eb11e1b7301ee8100111306d,,첫 제동 관찰,,2023-05-13,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-06-09,,brake_watch,,rd02_466ace9f6ca7a12274696878,,첫 제동 관찰,,2023-06-05,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-06-11,,brake_watch,,rd02_28f2d49436506518f7889c3c,,첫 제동 관찰,,2023-06-05,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-06-12,,brake_watch,,rd02_a0a52e21dca63de8983e1f46,,첫 제동 관찰,,2023-06-05,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-06-13,,brake_watch,,rd02_141a3763db27b8db2db50c49,,첫 제동 관찰,,2023-06-05,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-08-19,,brake_watch,,rd02_b81a2581fde9cea59469a768,,첫 제동 관찰,,2023-08-19,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2023-11-18,,brake_watch,,rd02_380978babf2c5b095261235b,,첫 제동 관찰,,2023-11-18,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2023-11-23,,brake_watch,,rd02_83c6a6d0d1cb127e7082e842,,첫 제동 관찰,,2023-11-23,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2023-12-14,,brake_watch,,rd02_a6d6646c3b48382985569051,,첫 제동 관찰,,2023-12-11,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-01-13,,brake_watch,,rd02_e5a5d2f0f487e3d7a5c45f86,,첫 제동 관찰,,2024-01-13,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-01-20,,brake_watch,,rd02_64e3e098c3322ce264cfba4d,,첫 제동 관찰,,2024-01-20,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-03-23,,brake_watch,,rd02_397d027332b30e77498c04cc,,첫 제동 관찰,,2024-03-23,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-04-05,,brake_watch,,rd02_53a4abd992bf94ab6076cd0c,,첫 제동 관찰,,2024-04-02,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-04-16,,brake_watch,,rd02_1205830baaafa4cdb59cef80,,첫 제동 관찰,,2024-04-16,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2024-04-19,,brake_watch,,rd02_c17b651519a10341e3f6aca8,,첫 제동 관찰,,2024-04-19,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2024-07-05,,brake_watch,,rd02_a8eca658d1153fbc303e80df,,첫 제동 관찰,,2024-07-04,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-07-08,,brake_watch,,rd02_f9535443232171fbd1516a79,,첫 제동 관찰,,2024-07-08,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2024-07-10,,brake_watch,,rd02_ed09678aa10e84aa20408c79,,첫 제동 관찰,,2024-07-10,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2024-08-29,,brake_watch,,rd02_2bd3d1edfca043806981287e,,첫 제동 관찰,,2024-08-27,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-08-30,,brake_watch,,rd02_7e846465f35b76f7ccd1d4a7,,첫 제동 관찰,,2024-08-27,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-10-02,,brake_watch,,rd02_c49b4c8bd576791b670a4d67,,첫 제동 관찰,,2024-10-02,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-10-03,,brake_watch,,rd02_d66cd42f438cbc053bda2a7d,,첫 제동 관찰,,2024-10-03,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-11-02,,brake_watch,,rd02_e26f481d15dd2b4d706583bd,,첫 제동 관찰,,2024-11-02,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-11-03,,brake_watch,,rd02_bf4c634fc6217e788ba83ebb,,첫 제동 관찰,,2024-11-03,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-11-28,,brake_watch,,rd02_eb65c30966a117774507b621,,첫 제동 관찰,,2024-11-28,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-12-20,,brake_watch,,rd02_d73b2e4061901320066d77b1,,첫 제동 관찰,,2024-12-20,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2024-12-23,,brake_watch,,rd02_6ca0dc9a72fbd1d3db686213,,첫 제동 관찰,,2024-12-23,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-01-11,,brake_watch,,rd02_2b6ec53f9864cb033b3a10a2,,첫 제동 관찰,,2025-01-11,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-02-06,,brake_watch,,rd02_592f244ef070145d4e1e0468,,첫 제동 관찰,,2025-02-06,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-02-07,,brake_watch,,rd02_47477b18b5c6fecbad6d670b,,첫 제동 관찰,,2025-02-07,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-02-08,,brake_watch,,rd02_a0e81c54e36253867a85d16e,,첫 제동 관찰,,2025-02-08,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-02-09,,brake_watch,,rd02_a846b12304cb064cfe1a378c,,첫 제동 관찰,,2025-02-09,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-02-27,,brake_watch,,rd02_2cdd6a8aa98e1cd539bb1566,,첫 제동 관찰,,2025-02-27,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-02-28,,brake_watch,,rd02_8c1db40fd0e4eb918eba1549,,첫 제동 관찰,,2025-02-28,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-03-04,,brake_watch,,rd02_8b8cfb3b69927934f11c55d5,,첫 제동 관찰,,2025-03-04,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-03-06,,brake_watch,,rd02_4122475e973e3e197fc6ee45,,첫 제동 관찰,,2025-03-06,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-03-30,,brake_watch,,rd02_0983d5bb77b38a70b1939da6,,첫 제동 관찰,,2025-03-30,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-03-31,,brake_watch,,rd02_3946f2d44af1538348ff5b46,,첫 제동 관찰,,2025-03-31,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-04-07,,brake_watch,,rd02_be2292b4dfecc6aaf2c4b494,,첫 제동 관찰,,2025-04-07,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-06-13,,brake_watch,,rd02_8994fbf1edf9d9233530dae9,,첫 제동 관찰,,2025-06-13,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-06-15,,brake_watch,,rd02_461a4eb57d124f9db8951c92,,첫 제동 관찰,,2025-06-15,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-06-22,,brake_watch,,rd02_7c37e79cda5d4e2066466e75,,첫 제동 관찰,,2025-06-22,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-08-16,,brake_watch,,rd02_fbdd0235d35e95625b4ab50d,,첫 제동 관찰,,2025-08-16,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-08-17,,brake_watch,,rd02_057b5ffaa95d7c7eecf4c0a8,,첫 제동 관찰,,2025-08-17,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-10-13,,brake_watch,,rd02_7c3d5f6b25de0ed3f4ec5054,,첫 제동 관찰,,2025-10-13,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-11-18,,brake_watch,,rd02_51b8dc5af905e8b648d4ecde,,첫 제동 관찰,,2025-11-18,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-11-19,,brake_watch,,rd02_498d88819c12b3c6ace196fe,,첫 제동 관찰,,2025-11-19,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-11-21,,brake_watch,,rd02_a0f056d70c2bdbd165f2f26f,,첫 제동 관찰,,2025-11-21,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-12-06,,brake_watch,,rd02_b3a992a7b52a4d230ab62e6d,,첫 제동 관찰,,2025-12-01,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2025-12-08,,brake_watch,,rd02_7884dbad410ffc7204ec932a,,첫 제동 관찰,,2025-12-01,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2025-12-18,,brake_watch,,rd02_034c2d6745d2040fe28f3bd1,,첫 제동 관찰,,2025-12-18,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2026-01-22,,brake_watch,,rd02_f32fbc649d28c627f4e88840,,첫 제동 관찰,,2026-01-20,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2026-01-23,,brake_watch,,rd02_2c24e0e0d52f02e24e556385,,첫 제동 관찰,,2026-01-20,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2026-01-30,,brake_watch,,rd02_bfc46b3ecbc361a970f70324,,첫 제동 관찰,,2026-01-29,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2026-03-24,,brake_watch,,rd02_838ee82a261b755ade768598,,첫 제동 관찰,,2026-03-24,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2026-03-28,,brake_watch,,rd02_b8bb774f2a6ce298cd76b459,,첫 제동 관찰,,2026-03-28,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2026-06-04,,brake_watch,,rd02_ab64cf427ebe290dadd400c7,,첫 제동 관찰,,2026-06-04,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2026-06-06,,brake_watch,,rd02_4ff1b187f854ac3077d66130,,첫 제동 관찰,,2026-06-06,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2026-06-08,,brake_watch,,rd02_8731b5dce9a21babbc99671b,,첫 제동 관찰,,2026-06-08,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2026-06-10,,brake_watch,,rd02_8e0702eddcf64c1630cfab47,,첫 제동 관찰,,2026-06-10,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2026-06-12,,brake_watch,,rd02_80056885ec218514693d18a1,,첫 제동 관찰,,2026-06-12,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,False,active
+added,2026-06-26,,brake_watch,,rd02_1fbc3b651ee988cdeb259b53,,첫 제동 관찰,,2026-06-26,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
+added,2026-06-27,,brake_watch,,rd02_3845c4c81a53d2ebf17838cd,,첫 제동 관찰,,2026-06-27,active 구간의 지지 미확인 반전 모양을 첫 제동 관찰로 표시,True,active
