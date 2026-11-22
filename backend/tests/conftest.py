@@ -11,6 +11,7 @@ DB 경로에 (전용 심볼 "__TEST__"로) 쓰고 지웠는데, 행은 정리돼
 그리고 세션이 끝날 때 실제 DB 파일이 바뀌었는지 확인해서, 어떤 테스트가 또 실제 DB에 쓰면 눈에 띄게 알린다.
 """
 import hashlib
+import os
 import sys
 from pathlib import Path
 
@@ -22,6 +23,9 @@ sys.path.insert(0, str(SERVICES_DIR))
 import lines_store  # noqa: E402,F401  (dashboard.py가 쓰는 것과 같은 bare 모듈 객체 - 먼저 로드해 둔다)
 
 REAL_DB_PATH = Path(lines_store.DB_PATH)
+
+from app.services import trades as trades_service  # noqa: E402
+REAL_TRADES_DB_PATH = Path(trades_service.DB_PATH)
 
 
 def _sha256(path: Path) -> str | None:
@@ -41,14 +45,51 @@ def _isolate_lines_db(tmp_path, monkeypatch):
     yield tmp_db
 
 
+@pytest.fixture(autouse=True)
+def _isolate_rapid_drop_history(tmp_path, monkeypatch):
+    """새 지지 이력도 테스트별 임시 경로만 사용한다."""
+    monkeypatch.setenv('CCX_RAPID_DROP_SUPPORT_HISTORY', str(tmp_path / 'support_versions.jsonl'))
+
+
+@pytest.fixture(scope='session', autouse=True)
+def _isolate_trades_db_for_entire_session(tmp_path_factory):
+    """기존 test_trades의 모듈 종료 정리까지 임시 DB만 사용한다."""
+    mp = pytest.MonkeyPatch()
+    mp.setattr(trades_service, 'DB_PATH', tmp_path_factory.mktemp('trades-session') / 'trades.db')
+    yield
+    mp.undo()
+
+
 def pytest_sessionstart(session):
     session.config._real_lines_db_hash = _sha256(REAL_DB_PATH)
+    session.config._real_trades_db_hash = _sha256(REAL_TRADES_DB_PATH)
+    # 개인 지지 이력과 SQLite 보조 파일도 존재/부재까지 보호한다.
+    history = Path(os.environ.get('CCX_RAPID_DROP_SUPPORT_HISTORY',
+                   REAL_TRADES_DB_PATH.parent / 'rapid_drop_support_versions.jsonl'))
+    related = [Path(str(db) + suffix) for db in (REAL_DB_PATH, REAL_TRADES_DB_PATH)
+               for suffix in ('-wal', '-shm', '-journal')]
+    related += [history, Path(str(history) + '.lock')]
+    session.config._real_related_hashes = {str(path): _sha256(path) for path in related}
 
 
 def pytest_sessionfinish(session, exitstatus):
+    related = getattr(session.config, '_real_related_hashes', {})
+    changed_related = [path for path, before in related.items() if _sha256(Path(path)) != before]
+    if changed_related:
+        session.exitstatus = pytest.ExitCode.TESTS_FAILED
+        reporter = session.config.pluginmanager.get_plugin('terminalreporter')
+        if reporter:
+            reporter.write_line('실제 사용자 DB 보조 파일/지지 이력이 변경됐습니다: ' + ', '.join(changed_related), red=True)
+    trades_before = getattr(session.config, '_real_trades_db_hash', None)
+    if trades_before != _sha256(REAL_TRADES_DB_PATH):
+        session.exitstatus = pytest.ExitCode.TESTS_FAILED
+        reporter = session.config.pluginmanager.get_plugin('terminalreporter')
+        if reporter:
+            reporter.write_line('실제 사용자 매매 DB가 변경됐습니다. 테스트 격리를 확인하세요.', red=True)
     before = getattr(session.config, "_real_lines_db_hash", None)
     after = _sha256(REAL_DB_PATH)
     if before != after:
+        session.exitstatus = pytest.ExitCode.TESTS_FAILED
         reporter = session.config.pluginmanager.get_plugin("terminalreporter")
         msg = (
             f"경고: 테스트 실행 중 실제 DB({REAL_DB_PATH})가 바뀌었습니다. "

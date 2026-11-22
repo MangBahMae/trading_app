@@ -1,6 +1,13 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
+// 기존 기본값은 유지하되 격리 검증 서버의 포트만 선택한다. 외부 호스트는 받지 않는다.
+const apiPortValue = process.env.CCX_TEST_API_PORT ?? "8000";
+if (!/^\d{1,5}$/.test(apiPortValue) || Number(apiPortValue) < 1 || Number(apiPortValue) > 65535) {
+  throw new Error("CCX_TEST_API_PORT는 1~65535 범위의 로컬 포트여야 합니다.");
+}
+const testApiBaseUrl = `http://localhost:${Number(apiPortValue)}`;
+
 export default defineConfig({
   plugins: [react()],
   test: {
@@ -15,6 +22,6 @@ export default defineConfig({
     testTimeout: 15000,
     // 테스트(jsdom)에는 Vite 개발 서버 프록시가 없어서 상대 경로 fetch가 안 된다 - 실제로 떠 있는
     // 백엔드 주소를 직접 알려준다.
-    env: { VITE_API_BASE_URL: "http://localhost:8000" },
+    env: { VITE_API_BASE_URL: testApiBaseUrl },
   },
 });

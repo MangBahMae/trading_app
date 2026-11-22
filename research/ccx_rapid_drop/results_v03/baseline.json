@@ -1,0 +1,220 @@
+﻿{
+    "base_commit":  "aefe83ef583f1ae76129208ef3133cf089dfc610",
+    "existing_uncommitted":  [
+                                 ".vscode/settings.json"
+                             ],
+    "protected_files":  [
+                            {
+                                "sha256":  "d7c4c5969a13be89c26b96373e811c72455b9bcc938c3e2ee1de236c55773289",
+                                "path":  ".vscode/settings.json"
+                            },
+                            {
+                                "sha256":  "a2082bbf18a0c93a7e58e15fba8e3ffe2986b968858861b83a1d692c41fdb77d",
+                                "path":  "app.py"
+                            },
+                            {
+                                "sha256":  "3ba5d158eed6593c456cdaf36e3399c181e4ae7b192343d29ac65421e54fd722",
+                                "path":  "backend/app/services/candle_patterns.py"
+                            },
+                            {
+                                "sha256":  "01c9753467dcddfdb2c9586084d7bf2b926afb294236666c61892745a05a4ca0",
+                                "path":  "backend/tests/fixtures/BTCUSDT_1d_2022-01-01_2026-10-28.csv"
+                            },
+                            {
+                                "sha256":  "4b8557e3a13e25a0abc10e26f71427864e5a5b83480987bfaa2fd244eebd171c",
+                                "path":  "backend/tests/fixtures/BTCUSDT_1w_2017-08-14_2026-10-19.csv"
+                            },
+                            {
+                                "sha256":  "e8b9120dbabddd1f1c7b325c87ce650841f3412c63300ab1fc744f9d136419cd",
+                                "path":  "backend/tests/fixtures/manual_lines_snapshot.json"
+                            },
+                            {
+                                "sha256":  "c33529d73b611ec2462a4bf2567e2cc4e9a557c145532d5dd82a8ce5a5466cee",
+                                "path":  "backend/tests/golden/daily_golden.json"
+                            },
+                            {
+                                "sha256":  "eb5831c5dbfc2835cbe34c92253cf07c8944586cf10a02da86b9a6657e03dae6",
+                                "path":  "components/tv_chart/__init__.py"
+                            },
+                            {
+                                "sha256":  "c4f8b9ef0d549fde4aeb24aef593dc293cbaeb65a1fde4d84bf2be9593c0b343",
+                                "path":  "components/tv_chart/frontend/index.html"
+                            },
+                            {
+                                "sha256":  "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372",
+                                "path":  "data/merged/manual_lines.db"
+                            },
+                            {
+                                "sha256":  "d44bf4158f7393cbd0bc35b268dbf4539de032adb2485e9ed6187167cffbe393",
+                                "path":  "data/trades.db"
+                            },
+                            {
+                                "sha256":  "d8eea7c4e24d13361ec1f46e65b1e5468e2e46f3d9dbbeb4b63cf2acaea19714",
+                                "path":  "research/ccx_rapid_drop/example_config.json"
+                            },
+                            {
+                                "sha256":  "9920c45ba5e050b15fa852a183b49f3e7f908805358b0b537e8765204948fb59",
+                                "path":  "research/ccx_rapid_drop/rapid_drop.py"
+                            },
+                            {
+                                "sha256":  "01ff3c4544023a61d5f836673d2405ffa3f21da0a95f831534a6ea3ee37c21b9",
+                                "path":  "scripts/_disabled/exhaustion_v2_experimental.py"
+                            },
+                            {
+                                "sha256":  "b389da458234150fdeb71a74a0989d70055818a173e4c6f31824e085ec3e5b39",
+                                "path":  "scripts/_disabled/plot_exhaustion_compare.py"
+                            },
+                            {
+                                "sha256":  "635756d022aa063630780eae2205bc259c27e7ba2e30e3ed9ad637b259f699cd",
+                                "path":  "scripts/analyze_volatility_expansion_filter.py"
+                            },
+                            {
+                                "sha256":  "37422c48af487cf516ddd43c06e9a95366eef543ddc157056464e7a4eb64ca64",
+                                "path":  "scripts/bearish_engulfing.py"
+                            },
+                            {
+                                "sha256":  "be02302507cb3f8dfc55864432eebc6ded905fa833357f4b1ea6c08cada01528",
+                                "path":  "scripts/candle_patterns.py"
+                            },
+                            {
+                                "sha256":  "6ffa6725a2d7fd3a9f95532c5102b9e464c7e1436f385ced15a878e91d371210",
+                                "path":  "scripts/config.py"
+                            },
+                            {
+                                "sha256":  "c2cab4cd0f270bec7fcbabfe79c66b8f7e5d0baed157c1756ca47be9ea8c3e53",
+                                "path":  "scripts/data_fetcher.py"
+                            },
+                            {
+                                "sha256":  "5433a3a2329eeb713a1b8530e89f18a356cd8a061dc58579ed9bd78f2d299027",
+                                "path":  "scripts/diagnose_bullish_suspicion_baserate.py"
+                            },
+                            {
+                                "sha256":  "b51b06afac0f56dbb55101d5b41b025de0cb14d838110447d7e7675c69bbdd06",
+                                "path":  "scripts/diagnose_bullish_suspicion_direction.py"
+                            },
+                            {
+                                "sha256":  "2b7edd99bc00db60b4cc00d05ecbbb982a04ddd917ba7eb338f88573edade499",
+                                "path":  "scripts/diagnose_bullish_suspicion_ratchet.py"
+                            },
+                            {
+                                "sha256":  "fa89461a7e7814d743732b8be98c24dbd9d176978e25cd281eb4782e9273665d",
+                                "path":  "scripts/diagnose_exhaustion.py"
+                            },
+                            {
+                                "sha256":  "4bca39b06c8e2b2883cd20c13f4c078eba7db3c7b91d83c4af7f8b7eeb19c414",
+                                "path":  "scripts/diagnose_exhaustion_mfe_mae.py"
+                            },
+                            {
+                                "sha256":  "866ea7afea4c35d71a2e6ab8a70d2663d1e98ce9dc421bbb5f3c6144f4fd34ac",
+                                "path":  "scripts/diagnose_exhaustion_novolume.py"
+                            },
+                            {
+                                "sha256":  "cc7792100706007d4ce55b1ea1566c9a02269b730e1a6c62fe0f706978fa1c8a",
+                                "path":  "scripts/diagnose_ma_regime_bullish.py"
+                            },
+                            {
+                                "sha256":  "a9017523db56bbc5ef6769c2c5a9c30386d259f8faf239c183af5b9e59636e77",
+                                "path":  "scripts/diagnose_sr_touch.py"
+                            },
+                            {
+                                "sha256":  "7f6e039fb3a7e4c10076ffe3a43b6091f41d07a3343d8e45e1f8ff091ca76d1e",
+                                "path":  "scripts/divergence.py"
+                            },
+                            {
+                                "sha256":  "16f035e42c1b0ff78af74c1e55b13fc9217a4808c694c353c57e449463c37c5e",
+                                "path":  "scripts/dow_theory.py"
+                            },
+                            {
+                                "sha256":  "4592966bcf5106d96bbffa537aaed52b7811b64e997f11602e35a4c03f556271",
+                                "path":  "scripts/exhaustion.py"
+                            },
+                            {
+                                "sha256":  "1e940ddf1fa010b61f0dedea34c38fdd8b583828ba806c3c76f18bf1d9436dbc",
+                                "path":  "scripts/lines_store.py"
+                            },
+                            {
+                                "sha256":  "befd8a34a99148185725e0c2b46b83d15bb07925dc4a325cdf7f381322369f4e",
+                                "path":  "scripts/load_data.py"
+                            },
+                            {
+                                "sha256":  "bc03bc24b619b11a39cb0ec61d15dbc829cc05b06febe611ca3cdec740a1ef83",
+                                "path":  "scripts/ma_regime.py"
+                            },
+                            {
+                                "sha256":  "98665d69e983e639d48fd394c51c926a8b460a5fc28bbd85ab5ef5efcfc0eb99",
+                                "path":  "scripts/manual_lines.py"
+                            },
+                            {
+                                "sha256":  "d6dd56d631b3889ca81b147ad0571cad77b2caf9c1470f6caafbcbc75b346d7c",
+                                "path":  "scripts/pipeline.py"
+                            },
+                            {
+                                "sha256":  "36385e5e20ddedffe91292921fa38e754d715248911b03957a0e9c733c9f4b98",
+                                "path":  "scripts/plot_bearish_engulfing.py"
+                            },
+                            {
+                                "sha256":  "7d329f58e548d5f22edfb24f937c489cd3cb88d12d80b605f7387aac52edf388",
+                                "path":  "scripts/plot_dow.py"
+                            },
+                            {
+                                "sha256":  "e5d465fa59087aec8471c833cdd52b79828850ee5a6020e58da186a2ed5cd78b",
+                                "path":  "scripts/plot_exhaustion.py"
+                            },
+                            {
+                                "sha256":  "9924e86128701ec8abaa81f466b48b18f04f7946101f6225457bbf1acce1f96d",
+                                "path":  "scripts/plot_ma_regime.py"
+                            },
+                            {
+                                "sha256":  "df03abfe80817b2a0ff52cab58e2e543190e57d3a86622a7b79836301c7a63e4",
+                                "path":  "scripts/plot_rsi.py"
+                            },
+                            {
+                                "sha256":  "9bc8363dccaa0aa6ec86e71f12f9d3bc2526a58633b34668af6a1a94ff26a068",
+                                "path":  "scripts/plot_rsi_ob_os.py"
+                            },
+                            {
+                                "sha256":  "4e1f31722a518b4e1c4b5b81b0d679c12656e939ba442067a53e08ccc4d7fd4f",
+                                "path":  "scripts/plot_rsi_swings.py"
+                            },
+                            {
+                                "sha256":  "d86f0f17ca70f98c4dbc3fe9d11f4f667d318e1177597b0f098395eca35235c1",
+                                "path":  "scripts/plot_sr_touch.py"
+                            },
+                            {
+                                "sha256":  "cb80959f9e7ed0bdb6fa4835bac53cf93be0a8bb9d3e2310d47d0856012ee3cf",
+                                "path":  "scripts/plot_swings.py"
+                            },
+                            {
+                                "sha256":  "af91a5be18d601d1c2005466a1f9f4288b1865b9195eb10438d4e0fd4fc75e45",
+                                "path":  "scripts/position_sizing.py"
+                            },
+                            {
+                                "sha256":  "e1e317b0d7e939fd12226fcad0456d14eef2990c3c30e9f9ed5a380d8994d54a",
+                                "path":  "scripts/rsi.py"
+                            },
+                            {
+                                "sha256":  "672f016e825dc0ddf2b456e74da252900370570638f011cde643cb553398f74d",
+                                "path":  "scripts/rsi_overbought_oversold.py"
+                            },
+                            {
+                                "sha256":  "51e5c915c377d498edde6e00d4876bacf09b0e52e53694c8a3e823df84f84fb5",
+                                "path":  "scripts/rsi_swings.py"
+                            },
+                            {
+                                "sha256":  "7ddc91f6b85013872984e1bc5f187f6d1711b0f70988b46682ff69a19f3f3995",
+                                "path":  "scripts/signal_types.py"
+                            },
+                            {
+                                "sha256":  "e08a9e90519ae83edb12a42d5f0eeb58e7839384d87a52d7bae323b8e1502c90",
+                                "path":  "scripts/sr_touch.py"
+                            },
+                            {
+                                "sha256":  "b7e8db7329d135d115e8267db1f5ad537e51457edb75fd95592305392226a87b",
+                                "path":  "scripts/swing_points.py"
+                            },
+                            {
+                                "sha256":  "fffeed643601dba4684512542c6c4add4e9a137a6b0d867b929773f5e8fbb221",
+                                "path":  "scripts/volatility_expansion.py"
+                            }
+                        ]
+}

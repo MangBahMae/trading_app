@@ -1,0 +1,94 @@
+﻿{
+    "base_commit":  "aefe83ef583f1ae76129208ef3133cf089dfc610",
+    "bars":  1762,
+    "actual_support_count":  0,
+    "source":  "fixed_fixture",
+    "counts":  {
+                   "acceleration_warning":  148,
+                   "retest_watch":  14,
+                   "retest_long":  1,
+                   "candidate_expired":  1
+               },
+    "new_candidates":  [
+                           {
+                               "id":  "rd02_daf68fa48b8165a47c975cb5",
+                               "type":  "retest_long",
+                               "title":  "롱 후보 · 재지지 반응",
+                               "direction":  "long",
+                               "occurred_on":  "2023-06-11",
+                               "confirmed_at":  "2023-06-12T00:00:00+00:00",
+                               "anchor_id":  "rd02_081afb626bd7db67a6806657",
+                               "anchor_day":  "2023-06-05",
+                               "reference":  {
+                                                 "price":  25728.2,
+                                                 "bottom":  25470.918,
+                                                 "top":  25985.482,
+                                                 "source":  "automatic_reference",
+                                                 "support_id":  "rd02_081afb626bd7db67a6806657",
+                                                 "support_version_id":  null
+                                             },
+                               "evidence":  [
+                                                "도지 · retest_observed",
+                                                "기준 봉 2023-06-05 · 25,728.20",
+                                                "직전 평균 대비 거래량 0.726배 · 고거래량 미해당/미확인",
+                                                "기준 장대음봉 대비 거래량 0.456배",
+                                                "이전 봉까지 반등 확인 2023-06-06",
+                                                "종가가 기존 허용대 안에서 마감",
+                                                "첫 꼬리 하회 False · 종가 회복 True"
+                                            ],
+                               "cautions":  [
+                                                "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+                                                "기존 독립 신호의 근거 개수에 합산하지 않습니다.",
+                                                "기존 독립 캔들 신호의 장대음봉 무효 규칙과 다른 실험 정책입니다.",
+                                                "거래량은 근거이며 새로운 필수 조건이 아닙니다."
+                                            ],
+                               "previous_candidate_ids":  [
+
+                                                          ],
+                               "event_ids":  [
+                                                 "rd02_fa029124fee8a07292938741"
+                                             ]
+                           }
+                       ],
+    "candidate_maintained_dates":  [
+                                       "2023-06-12",
+                                       "2023-06-13"
+                                   ],
+    "invariance":  {
+                       "prefixes":  1762,
+                       "historical_state_comparisons":  1553203,
+                       "history_prefix_tips_checked":  1762,
+                       "shape_recomputed_each_prefix":  true,
+                       "future_days":  32,
+                       "future_support_injected":  true,
+                       "mismatches":  0
+                   },
+    "preservation":  {
+                         "checked":  53,
+                         "original_trades_bytes_recovered":  false,
+                         "differences":  [
+                                             {
+                                                 "path":  "data/trades.db",
+                                                 "before":  "d44bf4158f7393cbd0bc35b268dbf4539de032adb2485e9ed6187167cffbe393",
+                                                 "after":  "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06"
+                                             }
+                                         ],
+                         "trades_current_rows":  0,
+                         "actual_db_recovery_writes":  0,
+                         "baseline_matches":  false,
+                         "trades_integrity":  "ok (read-only forensic check)",
+                         "status":  "original trades.db byte preservation failed; other protected files unchanged",
+                         "isolated_suite_additional_db_changes":  0
+                     },
+    "unverified":  [
+                       "실제 지지에서의 첫 반응 및 회복: 과거 좌표 버전 이력 없음",
+                       "외부 앱의 관찰 사이 편집 시각 복원",
+                       "후보의 수익성·체결 가능성"
+                   ],
+    "replay_time_preservation_before_legacy_tests":  {
+                                                         "checked":  53,
+                                                         "changed":  [
+
+                                                                     ]
+                                                     }
+}

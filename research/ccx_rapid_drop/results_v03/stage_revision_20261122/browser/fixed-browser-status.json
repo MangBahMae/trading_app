@@ -1,0 +1,15 @@
+{
+  "preview_url": "http://127.0.0.1:18737",
+  "selected_date": "2024-09-11",
+  "previous_selected_date": "2026-10-28",
+  "viewport": {
+    "width": 1440,
+    "height": 960
+  },
+  "page_errors": [],
+  "blocked_requests": [],
+  "request_failures": [],
+  "expected_aborted_requests": [],
+  "unexpected_request_failures": [],
+  "browser": "Playwright Chromium headless"
+}

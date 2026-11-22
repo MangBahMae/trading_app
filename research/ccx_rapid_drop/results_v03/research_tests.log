@@ -1,0 +1,51 @@
+test_accel_and_warmup (test_rapid_drop.TestRapidDrop.test_accel_and_warmup) ... ok
+test_anchor_expires (test_rapid_drop.TestRapidDrop.test_anchor_expires) ... ok
+test_bad_bars_and_config (test_rapid_drop.TestRapidDrop.test_bad_bars_and_config) ... ok
+test_big_red_not_bottom_foresight (test_rapid_drop.TestRapidDrop.test_big_red_not_bottom_foresight) ... ok
+test_broken_old_support_not_buy (test_rapid_drop.TestRapidDrop.test_broken_old_support_not_buy) ... ok
+test_close_break_cancels (test_rapid_drop.TestRapidDrop.test_close_break_cancels) ... ok
+test_direct_doji (test_rapid_drop.TestRapidDrop.test_direct_doji) ... ok
+test_fixture_excerpt_speed_only (test_rapid_drop.TestRapidDrop.test_fixture_excerpt_speed_only) ... ok
+test_future_bars_do_not_change_history (test_rapid_drop.TestRapidDrop.test_future_bars_do_not_change_history) ... ok
+test_later_drawn_or_expired_zone (test_rapid_drop.TestRapidDrop.test_later_drawn_or_expired_zone) ... ok
+test_lower_new_zone_not_double_bottom (test_rapid_drop.TestRapidDrop.test_lower_new_zone_not_double_bottom) ... ok
+test_no_retest_without_bounce (test_rapid_drop.TestRapidDrop.test_no_retest_without_bounce) ... ok
+test_no_same_bar_bounce_and_retest (test_rapid_drop.TestRapidDrop.test_no_same_bar_bounce_and_retest) ... ok
+test_no_zero_volume_division (test_rapid_drop.TestRapidDrop.test_no_zero_volume_division) ... ok
+test_reclaim_from_below_is_not_support_test (test_rapid_drop.TestRapidDrop.test_reclaim_from_below_is_not_support_test) ... ok
+test_retest_without_shape_not_erased (test_rapid_drop.TestRapidDrop.test_retest_without_shape_not_erased) ... ok
+test_steady_steep_is_not_acceleration (test_rapid_drop.TestRapidDrop.test_steady_steep_is_not_acceleration) ... ok
+test_unshaped_retest_can_later_show_preferred_shape (test_rapid_drop.TestRapidDrop.test_unshaped_retest_can_later_show_preferred_shape) ... ok
+test_wick_and_close_recovery (test_rapid_drop.TestRapidDrop.test_wick_and_close_recovery) ... ok
+test_auto_reference_never_claims_manual_support (test_review.TestReview.test_auto_reference_never_claims_manual_support) ... ok
+test_close_in_band_and_above_band_are_different (test_review.TestReview.test_close_in_band_and_above_band_are_different) ... ok
+test_confirmed_break_and_recovery_trap_are_linked (test_review.TestReview.test_confirmed_break_and_recovery_trap_are_linked) ... ok
+test_empty_levels_are_unconfirmed_not_known_negative (test_review.TestReview.test_empty_levels_are_unconfirmed_not_known_negative) ... ok
+test_expired_anchor_cannot_generate_a_retest (test_review.TestReview.test_expired_anchor_cannot_generate_a_retest) ... ok
+test_expired_broken_level_disappears (test_review.TestReview.test_expired_broken_level_disappears) ... ok
+test_far_close_records_wick_contact_and_no_entry (test_review.TestReview.test_far_close_records_wick_contact_and_no_entry) ... ok
+test_future_level_and_future_coordinate_version_do_not_change_past (test_review.TestReview.test_future_level_and_future_coordinate_version_do_not_change_past) ... ok
+test_ids_are_unique_and_independent_of_level_input_order (test_review.TestReview.test_ids_are_unique_and_independent_of_level_input_order) ... ok
+test_initial_below_support_does_not_fabricate_a_break (test_review.TestReview.test_initial_below_support_does_not_fabricate_a_break) ... ok
+test_known_support_without_reaction_is_explicit (test_review.TestReview.test_known_support_without_reaction_is_explicit) ... ok
+test_live_red_anchor_does_not_hide_support_reversal (test_review.TestReview.test_live_red_anchor_does_not_hide_support_reversal) ... ok
+test_low_volume_is_metadata_not_a_new_required_gate (test_review.TestReview.test_low_volume_is_metadata_not_a_new_required_gate) ... ok
+test_new_red_fact_does_not_replace_tracked_anchor (test_review.TestReview.test_new_red_fact_does_not_replace_tracked_anchor) ... ok
+test_no_same_bar_retest_even_when_the_wick_touches (test_review.TestReview.test_no_same_bar_retest_even_when_the_wick_touches) ... ok
+test_old_invalidation_and_new_reaction_keep_their_own_refs (test_review.TestReview.test_old_invalidation_and_new_reaction_keep_their_own_refs) ... ok
+test_overlapping_versions_and_duplicate_keys_are_rejected (test_review.TestReview.test_overlapping_versions_and_duplicate_keys_are_rejected) ... ok
+test_partial_zone_recovery_is_not_full_recovery (test_review.TestReview.test_partial_zone_recovery_is_not_full_recovery) ... ok
+test_red_and_reversal_are_both_preserved (test_review.TestReview.test_red_and_reversal_are_both_preserved) ... ok
+test_retest_and_loss_are_both_facts (test_review.TestReview.test_retest_and_loss_are_both_facts) ... ok
+test_shaped_retest_does_not_consume_reference_as_an_entry (test_review.TestReview.test_shaped_retest_does_not_consume_reference_as_an_entry) ... ok
+test_stable_id_has_unambiguous_part_boundaries (test_review.TestReview.test_stable_id_has_unambiguous_part_boundaries) ... ok
+test_support_known_and_through_are_inclusive (test_review.TestReview.test_support_known_and_through_are_inclusive) ... ok
+test_three_existing_shapes_at_first_support (test_review.TestReview.test_three_existing_shapes_at_first_support) ... ok
+test_three_existing_shapes_at_retest (test_review.TestReview.test_three_existing_shapes_at_retest) ... ok
+test_version_change_does_not_inherit_unknown_old_break (test_review.TestReview.test_version_change_does_not_inherit_unknown_old_break) ... ok
+test_zero_volume_ratios_are_unavailable (test_review.TestReview.test_zero_volume_ratios_are_unavailable) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 0.116s
+
+OK

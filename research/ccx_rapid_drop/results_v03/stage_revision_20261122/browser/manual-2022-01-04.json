@@ -1,0 +1,343 @@
+{
+  "enabled": true,
+  "schema_version": "0.3",
+  "symbol": "BTCUSDT",
+  "interval": "1d",
+  "date": "2022-01-04",
+  "data_source": "synthetic_demo",
+  "policy_source": "rapid-drop-v03-draft/2026-11-22 · research/ccx_rapid_drop/example_config.json",
+  "market": {
+    "phase": "sharp_drop",
+    "strong_drop": true,
+    "accelerating_now": null,
+    "accelerating_down": null,
+    "previous_speed": null,
+    "recent_speed": -0.02591253393229301,
+    "observation_window": true,
+    "last_acceleration_date": null,
+    "episode_id": "rd02_2ee495696332f6501d521f5e",
+    "episode_start": "2022-01-03",
+    "last_drop_date": "2022-01-04",
+    "recovery_line": 99,
+    "post_drop_bars": 0,
+    "price_recovery_streak": 0,
+    "speed_stable_count": 0,
+    "exit_reason": null,
+    "reworsened": false,
+    "strong_speed_threshold": -0.02,
+    "ease_speed_threshold": -0.01,
+    "acceleration_delta": 0.01
+  },
+  "summary": {
+    "title": "롱 후보 · 수동 지지 첫 반응",
+    "badge": "new",
+    "caution": null
+  },
+  "active_anchors": [
+    {
+      "id": "rd02_cbfa7b84512a0f816261fee6",
+      "day": "2022-01-04",
+      "source": "manual",
+      "reference_price": 94,
+      "initial_low": 93.0,
+      "bottom": 94.0,
+      "top": 94.0,
+      "bounced_on": null,
+      "support_id": "manual:1",
+      "support_version_id": "manual:1:v0a4a5b23b956c99e50f7"
+    }
+  ],
+  "raw_events": [
+    {
+      "id": "rd02_fbe70cedffedc786d86e801a",
+      "kind": "first_support_reaction",
+      "day": "2022-01-04",
+      "anchor_id": "rd02_cbfa7b84512a0f816261fee6",
+      "anchor_day": "2022-01-04",
+      "anchor_source": "manual",
+      "support_id": "manual:1",
+      "support_version_id": "manual:1:v0a4a5b23b956c99e50f7",
+      "support_source": "manual",
+      "manual_support_status": "known",
+      "support_bottom": 94.0,
+      "support_top": 94.0,
+      "manual_support_ids": [
+        "manual:1"
+      ],
+      "evaluated_support_ids": [
+        "manual:1"
+      ],
+      "related_event_id": null,
+      "previous_anchor_id": null,
+      "tracking_anchor": true,
+      "shape": "doji",
+      "reference_price": 94,
+      "reference_bottom": 94.0,
+      "reference_top": 94.0,
+      "close_location": "within_reference_band",
+      "close_far_rebounded": false,
+      "range_tests_reference": true,
+      "lower_wick_tests_reference": true,
+      "first_wick_undercut": false,
+      "wick_recovered_on_close": true,
+      "bounce_confirmed_on": null,
+      "volume_ratio_recent": 1.0,
+      "volume_high_recent": false,
+      "volume_ratio_anchor_red": 1.0,
+      "volume_red_anchor_id": "rd02_fb2261c56cdafd25168f1841",
+      "volume_red_anchor_day": "2022-01-03",
+      "entry_status": "not_evaluated",
+      "candidate_id": null,
+      "lifecycle_id": null,
+      "previous_candidate_ids": [],
+      "candidate_reaction_low": null,
+      "anchor_initial_low": 93.0,
+      "terminal_reason": null
+    },
+    {
+      "id": "rd02_1a31014679dabe0417231266",
+      "kind": "manual_first_long",
+      "day": "2022-01-04",
+      "anchor_id": "rd02_cbfa7b84512a0f816261fee6",
+      "anchor_day": "2022-01-04",
+      "anchor_source": "manual",
+      "support_id": "manual:1",
+      "support_version_id": "manual:1:v0a4a5b23b956c99e50f7",
+      "support_source": "manual",
+      "manual_support_status": "known",
+      "support_bottom": 94.0,
+      "support_top": 94.0,
+      "manual_support_ids": [
+        "manual:1"
+      ],
+      "evaluated_support_ids": [
+        "manual:1"
+      ],
+      "related_event_id": null,
+      "previous_anchor_id": null,
+      "tracking_anchor": true,
+      "shape": "doji",
+      "reference_price": 94,
+      "reference_bottom": 94.0,
+      "reference_top": 94.0,
+      "close_location": "within_reference_band",
+      "close_far_rebounded": false,
+      "range_tests_reference": true,
+      "lower_wick_tests_reference": true,
+      "first_wick_undercut": false,
+      "wick_recovered_on_close": true,
+      "bounce_confirmed_on": null,
+      "volume_ratio_recent": 1.0,
+      "volume_high_recent": false,
+      "volume_ratio_anchor_red": 1.0,
+      "volume_red_anchor_id": "rd02_fb2261c56cdafd25168f1841",
+      "volume_red_anchor_day": "2022-01-03",
+      "entry_status": "candidate_only",
+      "candidate_id": "rd02_f39c1ee4f43ff4a306a442a5",
+      "lifecycle_id": "rd02_f39c1ee4f43ff4a306a442a5",
+      "previous_candidate_ids": [],
+      "candidate_reaction_low": 93.0,
+      "anchor_initial_low": 93.0,
+      "terminal_reason": null
+    },
+    {
+      "id": "rd02_b0e7bd66813ba37914a2412c",
+      "kind": "reversal_observed",
+      "day": "2022-01-04",
+      "anchor_id": null,
+      "anchor_day": null,
+      "anchor_source": null,
+      "support_id": "manual:1",
+      "support_version_id": "manual:1:v0a4a5b23b956c99e50f7",
+      "support_source": "manual",
+      "manual_support_status": "known",
+      "support_bottom": 94.0,
+      "support_top": 94.0,
+      "manual_support_ids": [
+        "manual:1"
+      ],
+      "evaluated_support_ids": [
+        "manual:1"
+      ],
+      "related_event_id": null,
+      "previous_anchor_id": null,
+      "tracking_anchor": false,
+      "shape": "doji",
+      "reference_price": null,
+      "reference_bottom": null,
+      "reference_top": null,
+      "close_location": "unavailable",
+      "close_far_rebounded": null,
+      "range_tests_reference": false,
+      "lower_wick_tests_reference": false,
+      "first_wick_undercut": false,
+      "wick_recovered_on_close": null,
+      "bounce_confirmed_on": null,
+      "volume_ratio_recent": 1.0,
+      "volume_high_recent": false,
+      "volume_ratio_anchor_red": 1.0,
+      "volume_red_anchor_id": "rd02_fb2261c56cdafd25168f1841",
+      "volume_red_anchor_day": "2022-01-03",
+      "entry_status": "not_evaluated",
+      "candidate_id": null,
+      "lifecycle_id": null,
+      "previous_candidate_ids": [],
+      "candidate_reaction_low": null,
+      "anchor_initial_low": null,
+      "terminal_reason": null
+    }
+  ],
+  "support": {
+    "status": "known",
+    "known_versions": 1,
+    "recording_started_at": "2022-01-01T00:00:00.000000Z",
+    "unsupported_line_ids": [],
+    "warnings": [
+      "기록 시작 이전의 도형 좌표·사용 가능 시점은 확인하지 못했습니다."
+    ]
+  },
+  "signals": [
+    {
+      "id": "rd02_f39c1ee4f43ff4a306a442a5",
+      "type": "manual_first_long",
+      "title": "롱 후보 · 수동 지지 첫 반응",
+      "direction": "long",
+      "occurred_on": "2022-01-04",
+      "confirmed_at": "2022-01-05T00:00:00+00:00",
+      "anchor_id": "rd02_cbfa7b84512a0f816261fee6",
+      "anchor_day": "2022-01-04",
+      "reference": {
+        "price": 94,
+        "bottom": 94.0,
+        "top": 94.0,
+        "source": "manual_support",
+        "support_id": "manual:1",
+        "support_version_id": "manual:1:v0a4a5b23b956c99e50f7"
+      },
+      "reaction_low": 93.0,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.000배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 1.000배",
+        "수동 지지 manual:1 · 버전 manual:1:v0a4a5b23b956c99e50f7 · 94.0~94.0",
+        "기준 봉 저가 93.00",
+        "거래량 비교 장대음봉 2022-01-03"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_1a31014679dabe0417231266"
+      ]
+    },
+    {
+      "id": "rd02_bbf8c6d02dc9df2b644d111d",
+      "type": "brake_watch",
+      "title": "도지 관찰",
+      "direction": "reference",
+      "occurred_on": "2022-01-04",
+      "confirmed_at": "2022-01-05T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": 94.0,
+        "top": 94.0,
+        "source": "manual_support",
+        "support_id": "manual:1",
+        "support_version_id": "manual:1:v0a4a5b23b956c99e50f7"
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.000배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 1.000배",
+        "수동 지지 manual:1 · 버전 manual:1:v0a4a5b23b956c99e50f7 · 94.0~94.0",
+        "거래량 비교 장대음봉 2022-01-03"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_b0e7bd66813ba37914a2412c"
+      ]
+    }
+  ],
+  "maintained_candidates": [],
+  "history": [
+    {
+      "id": "rd02_f39c1ee4f43ff4a306a442a5",
+      "type": "manual_first_long",
+      "title": "롱 후보 · 수동 지지 첫 반응",
+      "direction": "long",
+      "occurred_on": "2022-01-04",
+      "confirmed_at": "2022-01-05T00:00:00+00:00",
+      "anchor_id": "rd02_cbfa7b84512a0f816261fee6",
+      "anchor_day": "2022-01-04",
+      "reference": {
+        "price": 94,
+        "bottom": 94.0,
+        "top": 94.0,
+        "source": "manual_support",
+        "support_id": "manual:1",
+        "support_version_id": "manual:1:v0a4a5b23b956c99e50f7"
+      },
+      "reaction_low": 93.0,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.000배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 1.000배",
+        "수동 지지 manual:1 · 버전 manual:1:v0a4a5b23b956c99e50f7 · 94.0~94.0",
+        "기준 봉 저가 93.00",
+        "거래량 비교 장대음봉 2022-01-03"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_1a31014679dabe0417231266"
+      ]
+    },
+    {
+      "id": "rd02_bbf8c6d02dc9df2b644d111d",
+      "type": "brake_watch",
+      "title": "도지 관찰",
+      "direction": "reference",
+      "occurred_on": "2022-01-04",
+      "confirmed_at": "2022-01-05T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": 94.0,
+        "top": 94.0,
+        "source": "manual_support",
+        "support_id": "manual:1",
+        "support_version_id": "manual:1:v0a4a5b23b956c99e50f7"
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.000배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 1.000배",
+        "수동 지지 manual:1 · 버전 manual:1:v0a4a5b23b956c99e50f7 · 94.0~94.0",
+        "거래량 비교 장대음봉 2022-01-03"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_b0e7bd66813ba37914a2412c"
+      ]
+    }
+  ],
+  "warnings": []
+}

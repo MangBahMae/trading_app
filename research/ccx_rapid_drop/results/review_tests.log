@@ -1,0 +1,15 @@
+test_duplicate_keys_are_rejected (test_review.TestReview.test_duplicate_keys_are_rejected) ... ok
+test_empty_levels_cannot_validate_direct_doji (test_review.TestReview.test_empty_levels_cannot_validate_direct_doji) ... ok
+test_expired_broken_level_disappears (test_review.TestReview.test_expired_broken_level_disappears) ... ok
+test_far_above_reference_close_still_preferred_current_behavior (test_review.TestReview.test_far_above_reference_close_still_preferred_current_behavior) ... ok
+test_future_levels_do_not_change_past (test_review.TestReview.test_future_levels_do_not_change_past) ... ok
+test_live_red_anchor_suppresses_new_doji_current_behavior (test_review.TestReview.test_live_red_anchor_suppresses_new_doji_current_behavior) ... ok
+test_old_and_new_anchor_share_one_day_field_current_behavior (test_review.TestReview.test_old_and_new_anchor_share_one_day_field_current_behavior) ... ok
+test_red_priority_over_support_doji_current_behavior (test_review.TestReview.test_red_priority_over_support_doji_current_behavior) ... ok
+test_support_known_and_through_are_inclusive (test_review.TestReview.test_support_known_and_through_are_inclusive) ... ok
+test_synthetic_support_path_with_existing_shapes (test_review.TestReview.test_synthetic_support_path_with_existing_shapes) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.212s
+
+OK

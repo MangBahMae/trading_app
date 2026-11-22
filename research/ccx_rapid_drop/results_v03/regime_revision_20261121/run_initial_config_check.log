@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "research/ccx_rapid_drop/compare_regime_revision.py", line 346, in <module>
+    main()
+    ~~~~^^
+  File "research/ccx_rapid_drop/compare_regime_revision.py", line 285, in main
+    assert json.loads((REPO/CONFIG_PATH).read_text(encoding='utf-8')) == json.loads(git_bytes(CONFIG_PATH))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

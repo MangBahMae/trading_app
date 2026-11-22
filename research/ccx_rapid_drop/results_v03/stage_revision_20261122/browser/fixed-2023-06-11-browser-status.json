@@ -1,0 +1,53 @@
+{
+  "preview_url": "http://127.0.0.1:18737",
+  "selected_date": "2023-06-11",
+  "previous_selected_date": "2026-10-28",
+  "viewport": {
+    "width": 3200,
+    "height": 960
+  },
+  "canvas_selection_attempts": [
+    {
+      "offset": 1369,
+      "selected_date": "2024-06-12"
+    },
+    {
+      "offset": 684,
+      "selected_date": "2023-03-23"
+    },
+    {
+      "offset": 1026,
+      "selected_date": "2023-11-01"
+    },
+    {
+      "offset": 855,
+      "selected_date": "2023-07-13"
+    },
+    {
+      "offset": 769,
+      "selected_date": "2023-05-18"
+    },
+    {
+      "offset": 812,
+      "selected_date": "2023-06-15"
+    },
+    {
+      "offset": 790,
+      "selected_date": "2023-05-31"
+    },
+    {
+      "offset": 801,
+      "selected_date": "2023-06-08"
+    },
+    {
+      "offset": 806,
+      "selected_date": "2023-06-11"
+    }
+  ],
+  "page_errors": [],
+  "blocked_requests": [],
+  "request_failures": [],
+  "expected_aborted_requests": [],
+  "unexpected_request_failures": [],
+  "browser": "Playwright Chromium headless"
+}

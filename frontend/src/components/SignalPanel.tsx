@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { Candle, MarketStateRow, SignalItem } from "../types";
+import type { RapidDropResponse } from "../types/rapidDrop";
+import RapidDropPanel from "./RapidDropPanel";
 import styles from "./SignalPanel.module.css";
 
 interface Props {
@@ -8,6 +10,10 @@ interface Props {
   // 그날의 시장 상태(신호 아님, 차트 음영과 같은 판정). 아직 못 받았으면 null.
   marketState?: MarketStateRow | null;
   marketStateParams?: { n: number; k: number } | null;
+  rapidDropEnabled?: boolean;
+  rapidDrop?: RapidDropResponse | null;
+  rapidDropLoading?: boolean;
+  rapidDropError?: string | null;
 }
 
 const fmt1 = (v: number | null) => (v === null ? "-" : v.toLocaleString("en-US", { maximumFractionDigits: 1 }));
@@ -60,7 +66,8 @@ function SignalItemRow({ signal }: { signal: SignalItem }) {
 // day_all(그날의 전체 신호)은 이미 백엔드 /api/dashboard 응답의 signals[date]에
 // pipeline + 수동 선 + 캔들패턴이 전부 합쳐져서 내려오므로, 여기서는 그걸
 // direction별로 나누기만 한다.
-export default function SignalPanel({ candle, signals, marketState = null, marketStateParams = null }: Props) {
+export default function SignalPanel({ candle, signals, marketState = null, marketStateParams = null,
+  rapidDropEnabled = false, rapidDrop = null, rapidDropLoading = false, rapidDropError = null }: Props) {
   const [tab, setTab] = useState<Tab>("all");
 
   if (!candle) {
@@ -154,6 +161,7 @@ export default function SignalPanel({ candle, signals, marketState = null, marke
           </ul>
         </div>
       )}
+      {rapidDropEnabled ? <RapidDropPanel data={rapidDrop} loading={rapidDropLoading} error={rapidDropError} /> : null}
     </div>
   );
 }

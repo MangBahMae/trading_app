@@ -1,0 +1,552 @@
+{
+  "base_commit": "04e4ad9a52e78e1de3c718925cf5525f49c99d00",
+  "bars": 1762,
+  "actual_support_count": 0,
+  "source": "fixed_fixture",
+  "old_native_mapping": "active 전체=기존 경고, eased/normal=경보 해제 대응값, 실제 관찰 단계 없음",
+  "old_speed_mapping": "비교용 진단: active+strong=강한 경고, active+비strong=관찰 대응, eased/normal=일반 대응; 구안의 실제 UI 상태 아님",
+  "state_metrics": {
+    "old_native": {
+      "phase_days": {
+        "insufficient": 2,
+        "normal": 1256,
+        "sharp_drop": 504
+      },
+      "warning_runs": {
+        "complete": {
+          "n": 79,
+          "minimum": 3,
+          "median": 5,
+          "p90": 12,
+          "maximum": 17,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "observed_lower_bound": {
+          "n": 79,
+          "minimum": 3,
+          "median": 5,
+          "p90": 12,
+          "maximum": 17,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "left_censored": 0,
+        "right_censored": 0
+      },
+      "episodes": {
+        "count": 79,
+        "complete": 79,
+        "right_censored": 0,
+        "left_censored": 0,
+        "warning_days_per_complete_episode": {
+          "n": 79,
+          "minimum": 3,
+          "median": 5,
+          "p90": 12,
+          "maximum": 17,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "bars_to_observation": null,
+        "observation_not_reached": null,
+        "observation_stage_not_modelled": true,
+        "bars_to_normal": {
+          "n": 79,
+          "minimum": 3,
+          "median": 5,
+          "p90": 12,
+          "maximum": 17,
+          "p90_method": "empirical_nearest_rank"
+        }
+      },
+      "post_drop_recurrence_3": null,
+      "normal_return_recurrence_3": {
+        "transitions": 79,
+        "complete_denominator": 79,
+        "numerator": 17,
+        "rate": 0.21518987341772153,
+        "censored": 0,
+        "censored_early_hits": 0,
+        "horizon": 3,
+        "issue_bar_excluded": true,
+        "observation_risk_stops_at_normal": false
+      }
+    },
+    "old_speed_mapping": {
+      "phase_days": {
+        "insufficient": 2,
+        "normal": 1256,
+        "sharp_drop": 169,
+        "post_drop": 335
+      },
+      "warning_runs": {
+        "complete": {
+          "n": 99,
+          "minimum": 1,
+          "median": 2,
+          "p90": 3,
+          "maximum": 5,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "observed_lower_bound": {
+          "n": 99,
+          "minimum": 1,
+          "median": 2,
+          "p90": 3,
+          "maximum": 5,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "left_censored": 0,
+        "right_censored": 0
+      },
+      "episodes": {
+        "count": 79,
+        "complete": 79,
+        "right_censored": 0,
+        "left_censored": 0,
+        "warning_days_per_complete_episode": {
+          "n": 79,
+          "minimum": 1,
+          "median": 2,
+          "p90": 5,
+          "maximum": 7,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "bars_to_observation": {
+          "n": 79,
+          "minimum": 1,
+          "median": 1,
+          "p90": 3,
+          "maximum": 5,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "observation_not_reached": 0,
+        "observation_stage_not_modelled": false,
+        "bars_to_normal": {
+          "n": 79,
+          "minimum": 3,
+          "median": 5,
+          "p90": 12,
+          "maximum": 17,
+          "p90_method": "empirical_nearest_rank"
+        }
+      },
+      "post_drop_recurrence_3": {
+        "transitions": 99,
+        "complete_denominator": 99,
+        "numerator": 13,
+        "rate": 0.13131313131313133,
+        "censored": 0,
+        "censored_early_hits": 0,
+        "horizon": 3,
+        "issue_bar_excluded": true,
+        "observation_risk_stops_at_normal": true
+      },
+      "normal_return_recurrence_3": {
+        "transitions": 79,
+        "complete_denominator": 79,
+        "numerator": 17,
+        "rate": 0.21518987341772153,
+        "censored": 0,
+        "censored_early_hits": 0,
+        "horizon": 3,
+        "issue_bar_excluded": true,
+        "observation_risk_stops_at_normal": false
+      }
+    },
+    "new_native": {
+      "phase_days": {
+        "insufficient": 2,
+        "normal": 1375,
+        "sharp_drop": 169,
+        "post_drop": 216
+      },
+      "warning_runs": {
+        "complete": {
+          "n": 99,
+          "minimum": 1,
+          "median": 2,
+          "p90": 3,
+          "maximum": 5,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "observed_lower_bound": {
+          "n": 99,
+          "minimum": 1,
+          "median": 2,
+          "p90": 3,
+          "maximum": 5,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "left_censored": 0,
+        "right_censored": 0
+      },
+      "episodes": {
+        "count": 88,
+        "complete": 88,
+        "right_censored": 0,
+        "left_censored": 0,
+        "warning_days_per_complete_episode": {
+          "n": 88,
+          "minimum": 1,
+          "median": 2.0,
+          "p90": 4,
+          "maximum": 7,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "bars_to_observation": {
+          "n": 88,
+          "minimum": 1,
+          "median": 1.0,
+          "p90": 3,
+          "maximum": 5,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "observation_not_reached": 0,
+        "observation_stage_not_modelled": false,
+        "bars_to_normal": {
+          "n": 88,
+          "minimum": 2,
+          "median": 4.0,
+          "p90": 7,
+          "maximum": 10,
+          "p90_method": "empirical_nearest_rank"
+        }
+      },
+      "post_drop_recurrence_3": {
+        "transitions": 99,
+        "complete_denominator": 99,
+        "numerator": 11,
+        "rate": 0.1111111111111111,
+        "censored": 0,
+        "censored_early_hits": 0,
+        "horizon": 3,
+        "issue_bar_excluded": true,
+        "observation_risk_stops_at_normal": true
+      },
+      "normal_return_recurrence_3": {
+        "transitions": 88,
+        "complete_denominator": 88,
+        "numerator": 19,
+        "rate": 0.2159090909090909,
+        "censored": 0,
+        "censored_early_hits": 0,
+        "horizon": 3,
+        "issue_bar_excluded": true,
+        "observation_risk_stops_at_normal": false
+      }
+    }
+  },
+  "old_signal_counts": {
+    "acceleration_warning": 148,
+    "brake_watch": 96,
+    "retest_watch": 14,
+    "retest_long": 1,
+    "candidate_expired": 1
+  },
+  "new_signal_counts": {
+    "acceleration_warning": 148,
+    "brake_watch": 73,
+    "strong_recovery_observed": 11,
+    "retest_watch": 7,
+    "auto_retest_long": 1,
+    "wick_recovery": 1,
+    "candidate_expired": 1
+  },
+  "old_strong_days": 169,
+  "old_additional_acceleration_days": 148,
+  "new_strong_days": 169,
+  "new_additional_acceleration_days": 148,
+  "candidate_metrics": {
+    "old": {
+      "issued_records": 1,
+      "unique_ids": 1,
+      "duplicate_ids": 0,
+      "duplicate_semantic_keys": 0,
+      "complete_denominator": 1,
+      "censored": 0,
+      "horizon": 5,
+      "max_high_distance_pct": {
+        "n": 1,
+        "minimum": 2.28519742107689,
+        "median": 2.28519742107689,
+        "p90": 2.28519742107689,
+        "maximum": 2.28519742107689,
+        "p90_method": "empirical_nearest_rank"
+      },
+      "min_low_distance_pct": {
+        "n": 1,
+        "minimum": -4.341470094173506,
+        "median": -4.341470094173506,
+        "p90": -4.341470094173506,
+        "maximum": -4.341470094173506,
+        "p90_method": "empirical_nearest_rank"
+      },
+      "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+    },
+    "new": {
+      "issued_records": 1,
+      "unique_ids": 1,
+      "duplicate_ids": 0,
+      "duplicate_semantic_keys": 0,
+      "complete_denominator": 1,
+      "censored": 0,
+      "horizon": 5,
+      "max_high_distance_pct": {
+        "n": 1,
+        "minimum": 2.28519742107689,
+        "median": 2.28519742107689,
+        "p90": 2.28519742107689,
+        "maximum": 2.28519742107689,
+        "p90_method": "empirical_nearest_rank"
+      },
+      "min_low_distance_pct": {
+        "n": 1,
+        "minimum": -4.341470094173506,
+        "median": -4.341470094173506,
+        "p90": -4.341470094173506,
+        "maximum": -4.341470094173506,
+        "p90_method": "empirical_nearest_rank"
+      },
+      "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+    }
+  },
+  "candidate_metrics_by_family": {
+    "old": {
+      "manual_first_long": {
+        "issued_records": 0,
+        "unique_ids": 0,
+        "duplicate_ids": 0,
+        "duplicate_semantic_keys": 0,
+        "complete_denominator": 0,
+        "censored": 0,
+        "horizon": 5,
+        "max_high_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "min_low_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+      },
+      "manual_retest_long": {
+        "issued_records": 0,
+        "unique_ids": 0,
+        "duplicate_ids": 0,
+        "duplicate_semantic_keys": 0,
+        "complete_denominator": 0,
+        "censored": 0,
+        "horizon": 5,
+        "max_high_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "min_low_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+      },
+      "auto_retest_long": {
+        "issued_records": 1,
+        "unique_ids": 1,
+        "duplicate_ids": 0,
+        "duplicate_semantic_keys": 0,
+        "complete_denominator": 1,
+        "censored": 0,
+        "horizon": 5,
+        "max_high_distance_pct": {
+          "n": 1,
+          "minimum": 2.28519742107689,
+          "median": 2.28519742107689,
+          "p90": 2.28519742107689,
+          "maximum": 2.28519742107689,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "min_low_distance_pct": {
+          "n": 1,
+          "minimum": -4.341470094173506,
+          "median": -4.341470094173506,
+          "p90": -4.341470094173506,
+          "maximum": -4.341470094173506,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+      }
+    },
+    "new": {
+      "manual_first_long": {
+        "issued_records": 0,
+        "unique_ids": 0,
+        "duplicate_ids": 0,
+        "duplicate_semantic_keys": 0,
+        "complete_denominator": 0,
+        "censored": 0,
+        "horizon": 5,
+        "max_high_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "min_low_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+      },
+      "manual_retest_long": {
+        "issued_records": 0,
+        "unique_ids": 0,
+        "duplicate_ids": 0,
+        "duplicate_semantic_keys": 0,
+        "complete_denominator": 0,
+        "censored": 0,
+        "horizon": 5,
+        "max_high_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "min_low_distance_pct": {
+          "n": 0,
+          "minimum": null,
+          "median": null,
+          "p90": null,
+          "maximum": null,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+      },
+      "auto_retest_long": {
+        "issued_records": 1,
+        "unique_ids": 1,
+        "duplicate_ids": 0,
+        "duplicate_semantic_keys": 0,
+        "complete_denominator": 1,
+        "censored": 0,
+        "horizon": 5,
+        "max_high_distance_pct": {
+          "n": 1,
+          "minimum": 2.28519742107689,
+          "median": 2.28519742107689,
+          "p90": 2.28519742107689,
+          "maximum": 2.28519742107689,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "min_low_distance_pct": {
+          "n": 1,
+          "minimum": -4.341470094173506,
+          "median": -4.341470094173506,
+          "p90": -4.341470094173506,
+          "maximum": -4.341470094173506,
+          "p90_method": "empirical_nearest_rank"
+        },
+        "future_used_for": "evaluation_only; no fills/returns/fees/position model"
+      }
+    }
+  },
+  "signal_diff_counts": {
+    "retained": 154,
+    "added": 14,
+    "removed": 32,
+    "reclassified": 1,
+    "reference_updated": 73
+  },
+  "raw_event_diff_counts": {
+    "retained": 73,
+    "added": 26,
+    "removed": 23,
+    "reclassified": 0,
+    "reference_updated": 73
+  },
+  "matched_id_changes": {
+    "api": 80,
+    "engine": 146
+  },
+  "phase_oracle": {
+    "rows": 1762,
+    "mismatches": 0,
+    "recovery_anchor": "A=C[h-2]",
+    "strong_bar_cannot_end_warning": true,
+    "price_end": "C>=A on two consecutive bars after h",
+    "speed_end": "t-h>=3 and today v>-.01 and at least two of latest three v>-.01",
+    "new_closing_low_not_required": true
+  },
+  "duplicates": {
+    "history_ids": 242,
+    "candidate_keys": 1,
+    "duplicate_ids": 0,
+    "reissued_candidates": 0,
+    "invalid_candidate_links": 0
+  },
+  "invariance": {
+    "prefixes": 1762,
+    "historical_state_comparisons": 1553203,
+    "history_prefix_tips_checked": 1762,
+    "shape_recomputed_each_prefix": true,
+    "future_days": 32,
+    "future_support_injected": true,
+    "mismatches": 0
+  },
+  "synthetic_invariance": {
+    "prefixes": 8,
+    "historical_state_comparisons": 36,
+    "history_prefix_tips_checked": 8,
+    "shape_recomputed_each_prefix": true,
+    "future_days": 32,
+    "future_support_injected": true,
+    "mismatches": 0
+  },
+  "current_source_hashes": {
+    "research/ccx_rapid_drop/rapid_drop.py": "ce76f6d1eaba70141134c67bf9cfa5462b0ab9e99b69175ee620e7cc7a8cc21e",
+    "backend/app/services/rapid_drop_signals.py": "1de8c388e9976d3e89c1259d3c9c0b81cccbeca61ece1c41f15bbf2614c7fb3f",
+    "backend/app/services/candle_patterns.py": "3ba5d158eed6593c456cdaf36e3399c181e4ae7b192343d29ac65421e54fd722",
+    "research/ccx_rapid_drop/example_config.json": "0999b5ab953615aea49054b98b5db67fdd382cabb96947ebbab42e83cf504a85"
+  },
+  "old_source_hashes": {
+    "research/ccx_rapid_drop/rapid_drop.py": "b126adfde911077ae6982eb4eb246cbc757a97ac76e58e1a6f07fb8e61c9cca0",
+    "backend/app/services/rapid_drop_signals.py": "a8eead3b8e471433ceb4f3c8cead35b86ff2e79dc76d0b20bbe2a6c68c6cd085",
+    "backend/app/services/candle_patterns.py": "3ba5d158eed6593c456cdaf36e3399c181e4ae7b192343d29ac65421e54fd722",
+    "research/ccx_rapid_drop/example_config.json": "4530e52864585246ee2203a827a25edf33e0b7f8f2d46772dd5de6c21d8334bd"
+  },
+  "preserved_historical_evidence": {
+    "results_v03/baseline.json": "eb59db97870602921e0020fed9a9d08ad6d643a682df731f5dbeb5e3d6abd876",
+    "results_v03/preservation.json": "305d68279da10d50afff66adb0379ece285eba7c02dff8ffc9be6f6cd18d5223",
+    "results_v03/backend_tests.log": "53ab8570633a3a24523c4c6a03e413e5850cc10a84fbd186a95cb8fc91882c40",
+    "results_v03/full_replay.json": "1f919f9583c26d7838b2b369ac1cf376a271000843439aa7ff7f5c8910c491a4",
+    "results_v03/signals.csv": "e5f27d55d16eaf3ddda678e0bf2662d02db1293253774a70974c0b31eb6a8905"
+  },
+  "future_evaluation": "following five bars only; isolated from signal/state inputs",
+  "db_access": "sqlite3.connect blocked; no user DB read/write",
+  "unverified": [
+    "실제 수동 지지 경로",
+    "체결 가능성·손익·비용·수익성"
+  ],
+  "incident_status": "기존 D44→F046 해시 불일치 증거 보존; 사고 전 보존 성공 아님"
+}

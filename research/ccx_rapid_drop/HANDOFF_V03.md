@@ -1,0 +1,140 @@
+# 급락 대응 신호 v0.3 다음 기기 인계
+
+## 2026-11-22 현재 브랜치에서 재현
+
+다음 기기에서는 `feat/rapid-drop-signals-v03`을 받아 Draft PR #1의 head와 `git rev-parse HEAD`를 대조한다. 이번 비교 기준은 `04e4ad9a52e78e1de3c718925cf5525f49c99d00`이다. [변경된 시장·후보 규칙](README.md)과 [고정 일봉 평가](results_v03/stage_revision_20261122/REPORT.md)를 참고한다. 이전 기기의 개인 DB나 현재 수동 좌표를 과거 날짜의 지지 이력으로 사용하지 않는다.
+
+검사 전 해당 기기의 매매 DB·수동선 DB·각 DB의 WAL/SHM/journal·지지 이력과 lock의 존재와 SHA-256을 기록한다. 존재하는 파일은 Git 밖의 비공개 경로에 복사해 해시를 확인한다. 표준 검사와 아래 검증 서버는 이 파일들을 임시 경로로 격리한다. 검사가 끝난 뒤 서버를 닫고 같은 경로들을 다시 대조한다. 기존 매매 DB 사고 경위는 아래 기록에 보존했다.
+
+저장소 루트에서 고정 일봉 API를 실행한다. 선택한 포트는 비어 있어야 한다.
+
+```powershell
+& .\backend\.venv\Scripts\python.exe -B research/ccx_rapid_drop/dev_server_v03.py --port 18731
+```
+
+다른 터미널에서 화면을 연다.
+
+```powershell
+Set-Location frontend
+$env:VITE_API_BASE_URL = 'http://127.0.0.1:18731'
+npm.cmd run dev -- --host 127.0.0.1 --port 5173 --strictPort
+```
+
+브라우저에서 `http://127.0.0.1:5173`으로 접속해 BTCUSDT 1D의 **급락 대응 · 실험**을 켜고 일봉을 클릭한다. 고정 일봉 2023-06-11에서는 시장이 일반이어도 자동 기준대 재시험 후보가 보인다. 합성 예시는 서버를 종료한 뒤 같은 서버 명령에 `--doji-example manual` 또는 `--doji-example unknown`을 붙여 재현한다. 2022-01-04의 종가 94 도지와 다음 날 종가 90을 선택한다. 수동선 가격은 94이며 두 모드의 OHLCV는 동일하다. 예시는 화면에 **합성 데이터 · 검증용**으로 표시된다.
+
+검사와 비교는 저장소 루트에서 시작한다. 프런트 전체 검사에는 고정 모드의 로컬 서버를 사용한다.
+
+현행 계산의 전후 평가 진입점은 `compare_stage_revision.py`다. 아래 이전 기기 기록의 `run_audit.py`와 `verify_v03.py` 직접 실행 명령은 당시 스키마·후보 유형·실행 디렉터리를 전제로 한다. 과거 결과를 재현할 때는 해당 커밋을 별도 체크아웃한 뒤 새 출력 경로를 사용한다.
+
+```powershell
+Push-Location backend
+& .\.venv\Scripts\python.exe -B -m pytest tests -q -p no:cacheprovider
+Pop-Location
+& .\backend\.venv\Scripts\python.exe -B -m unittest discover -s research/ccx_rapid_drop -p 'test*.py'
+$resultDir = Join-Path ([IO.Path]::GetTempPath()) ('ccx-stage-' + [guid]::NewGuid())
+& .\backend\.venv\Scripts\python.exe -B -u research/ccx_rapid_drop/compare_stage_revision.py --output-dir $resultDir
+Set-Location frontend
+$env:CCX_TEST_API_PORT = '18731'
+.\node_modules\.bin\vitest.cmd run
+.\node_modules\.bin\tsc.cmd --noEmit -p .
+npm.cmd run lint
+npm.cmd run build
+```
+
+## 2026-11-21 이전 브랜치의 재현 기록
+
+`feat/rapid-drop-signals-v03`의 Draft PR #1을 사용한다. `869df61` 이후 단일 연구 엔진에 급락 지속·추가 가속·3봉 완화 판정이 들어갔고, 기존 패널은 대표 신호와 상세 보기로 나뉘었다. 기본 기능 플래그는 OFF다. 비교용 설정은 `example_config.json`에 있다. 날짜별 기준 결과는 [전후 비교](results_v03/regime_revision_20261121/REPORT.md), 이번 회귀와 DB 보호 결과는 [작업 보고](REPORT_V03.md)에 있다.
+
+저장소 루트에서 아래 명령으로 고정 일봉 API를 실행한다. 매매 DB·수동선 DB·지지 이력과 그 부속 파일은 실행기 임시 디렉터리에 생성된다. 합성 검증에는 같은 명령 끝에 `--synthetic`을 붙인다.
+
+```powershell
+& .\backend\.venv\Scripts\python.exe -B .\research\ccx_rapid_drop\dev_server_v03.py --port 18703
+```
+
+별도 터미널에서 프런트를 시작하고 BTCUSDT 일봉 차트의 **급락 대응 · 실험**을 켠 뒤 날짜를 선택한다. 2026-06-06은 급락 지속과 첫 제동 관찰·지지 미확인, 2026-02-09는 급락 완화, 2023-06-11은 신규 재지지 후보다. 이 개정판의 연결 검사는 실제 HTTP와 jsdom으로 수행했다. 이전 Edge 캡처는 아래 11월 20일 기록에 있다.
+
+```powershell
+Set-Location frontend
+$env:VITE_API_BASE_URL = 'http://127.0.0.1:18703'
+npm.cmd run dev -- --host 127.0.0.1 --port 5173 --strictPort
+```
+
+검사 재현 명령은 저장소 루트에서 시작한다. 프런트 전체 검사는 위 **고정 일봉 API**가 실행 중인 상태에서 진행한다. 전후 비교는 새 출력 경로를 사용한다.
+
+```powershell
+Push-Location backend
+& .\.venv\Scripts\python.exe -B -m pytest tests -q -p no:cacheprovider
+Pop-Location
+& .\backend\.venv\Scripts\python.exe -B -m unittest discover -s research/ccx_rapid_drop -p 'test*.py'
+$resultDir = Join-Path ([IO.Path]::GetTempPath()) ('ccx-regime-' + [guid]::NewGuid())
+& .\backend\.venv\Scripts\python.exe -B .\research\ccx_rapid_drop\compare_regime_revision.py --output-dir $resultDir
+Set-Location frontend
+$env:CCX_TEST_API_PORT = '18703'
+.\node_modules\.bin\vitest.cmd run
+.\node_modules\.bin\tsc.cmd --noEmit -p .
+npm.cmd run lint
+npm.cmd run build
+```
+
+이번 실행의 전후 보호 파일은 10개 모두 일치했다. 사고 전 원본 복구와 기존 데이터 영향은 미확인 상태다. 당시 상황과 후속 안전 점검은 아래에 날짜순으로 보존한다. 아래 초기 실행 명령·수치는 해당 시점의 기록이다.
+
+## 이전 기기 인계 기록
+
+브랜치 `feat/rapid-drop-signals-v03`, v0.2 기준 `aefe83ef583f1ae76129208ef3133cf089dfc610` 포함. 최종 SHA·원격 확인·Draft PR 주소는 작업 완료 응답을 참고한다. 기존 `.vscode/settings.json`과 수동 도형 DB는 유지했지만, **실제 매매 DB는 기존 회귀 테스트의 생성/삭제로 원본 해시가 바뀌었고 확정 복구하지 못했다.** `REPORT_V03.md` 사고 기록부터 읽는다.
+
+2026-11-20 보완: Draft PR [#1](https://github.com/MangBahMae/trading_app/pull/1)을 유지한다. 추가 실행 전에 현재 DB 사본을 Git 제외 경로에 보존했다. 현재 trades `f046…`/manual `c14d…`는 전체 회귀와 격리 서버 종료 후에도 사본과 같다. 보호 파일 10슬롯의 추가 변경은 0이다. **이 사본은 사고 전 `d44b…` 백업이 아니며 원본 복구·데이터 영향 미확인 상태는 계속된다.** 현재 0행을 원래 빈 DB의 증거로 사용하지 않는다. 실제 DB를 덮어쓰지 않는다.
+
+현재 안전 증거는 `results_v03/safety_20261120/`의 전후/최종 보존 JSON과 `backend_tests.log`, 실제 Edge 화면은 [BROWSER_VERIFICATION.md](results_v03/safety_20261120/BROWSER_VERIFICATION.md) 및 `screenshots/`를 확인한다. 고정 6/11 신규·6/12~13 유지·6/14 만료와 합성 첫 후보+경고·반복 접촉 중복 방지·무효·동일 지지 버전 회복·다음 날 중복 부재를 실제 캔버스 클릭으로 확인했다. 과거 원본 보존 실패 기록은 지우지 않았다.
+
+```powershell
+git status --short --branch
+git fetch origin
+git switch feat/rapid-drop-signals-v03
+git merge --ff-only origin/feat/rapid-drop-signals-v03
+git rev-parse HEAD
+git ls-remote origin refs/heads/feat/rapid-drop-signals-v03
+```
+
+기본 기능은 OFF다. 연구 엔진은 `research/ccx_rapid_drop/rapid_drop.py` 한 파일이며 운영용 사본은 없다. API 정책은 `backend/app/services/rapid_drop_signals.py`, 수동 지지 버전은 `rapid_drop_support_history.py`, 표시 흐름은 `SignalScanner` → `useRapidDrop` → `SignalPanel` → `RapidDropPanel`이다. 먼저 `REPORT_V03.md`와 `results_v03/full_replay.json`을 읽는다.
+
+운영 앱에서 실험을 켜려면 백엔드 시작 전에 `CCX_ENABLE_RAPID_DROP_SIGNALS=1`을 설정하고, 일봉 차트 범례의 `급락 대응 · 실험` 토글을 켠다. 기존 독립 신호 집계에 합산되지 않는다. 선택 날짜 GET `/api/rapid-drop?date=YYYY-MM-DD`만 호출하며 판단은 백엔드에서 한다.
+
+개발 검증은 사용자 DB를 쓰지 않는 별도 실행기로 재현한다. 저장소 루트에서:
+
+```powershell
+Set-Location research/ccx_rapid_drop
+& ../../backend/.venv/Scripts/python.exe -B -u dev_server_v03.py
+# 합성 검증은 위 서버를 중지한 뒤 별도로 실행한다.
+& ../../backend/.venv/Scripts/python.exe -B -u dev_server_v03.py --synthetic
+```
+
+다른 터미널에서는 `frontend`에서 `npm run dev -- --host 127.0.0.1`로 실행한다. 고정 모드는 실제 API 프런트 회귀용이며 합성 모드로 기존 전체 테스트를 대체하지 않는다. 합성 화면에는 `합성 데이터 · 검증용` 배지가 있어야 한다. 초기 턴에는 URL 확인 정책으로 실제 합성 화면 자동화가 중지됐고 우회하지 않았다. 11/20 새 검증에서 로컬 URL이 확인되는 전용 Edge 창을 사용해 실제 화면을 완료했다. 이번 검증 서버는 종료한 상태다.
+
+합성 입력은 12봉이다. 2022-01-06 첫 후보+가속 경고, 1/8 재지지 신규, 1/9 새 롱 없이 두 후보 유지, 1/10 두 발행 후보 무효 및 접촉 관찰, 1/11 트랩 관찰만, 1/12 새 사건 없음이다. 실제 과거 수동 지지 검증으로 보고하지 않는다. 날짜 선택은 차트 캔들 클릭이며 우측 패널 날짜로 확인한다. 고정 데이터는 3M→전체로 전체 범위를 맞춘 뒤 시간축 확대/가로 스크롤로 2023년 6월을 선택할 수 있다.
+
+검사 재현:
+
+```powershell
+# research/ccx_rapid_drop에서
+& ../../backend/.venv/Scripts/python.exe -B -u run_checks_v03.py
+& ../../backend/.venv/Scripts/python.exe -B -u verify_v03.py
+# --synthetic 검증 서버가 떠 있을 때만
+& ../../backend/.venv/Scripts/python.exe -B verify_api_v03.py
+# frontend에서, 고정 검증 서버 :8000 사용
+npx vitest run
+npx tsc --noEmit -p .
+npm run lint
+npm run build
+```
+
+확인된 환경은 Python 3.13.2, pandas 3.0.5, numpy 2.5.2, Vite 8.3.1이다. 백엔드 전체 367개, 연구 46개, 프런트 154개 통과. 타입·빌드 통과, lint 오류 0·기존 경고 3개다. 고정 전체 1,762봉에서 실제 수동 지지 없이 신규 재지지 후보 2023-06-11 한 번, 6/12·13 유지, 6/14 만료다. 이는 거래·수익성이 아니다.
+
+위 숫자는 초기 v0.3 실행이다. 11/20 안전 보완 후 backend 전체는 **396개 통과**(guard 29개 포함, 기존 경고 1개)했다. manual 해시 불일치도 실패 처리하며 양 DB의 보조 파일과 개인 지지 이력/lock 생성·삭제·변경까지 검사한다. 기존 실패 종료 상태도 지우지 않는다. 세션 trades 격리는 모듈 종료 정리까지 유지한다. 프런트·엔진·판정 설정은 이번에 수정하지 않아 타입/lint/빌드/프런트·연구·전체 접두 검사를 다시 실행하지 않았다. 초기 로그를 새 실행 결과로 덮어쓰지 않는다. 이후 재실행 로그는 새 날짜 디렉터리에 보관한다.
+
+현재 `verify_v03.py`의 마지막 원기기 보존 assert는 매매 DB의 원본 SHA 불일치로 실패한다. 계산/접두 구간 결과는 사고 전에 생성된 `full_replay.json`과 신호 테스트로 구분해서 확인한다. 이 원기기 manifest를 다른 기기의 개인 파일 보존 증거로 사용하지 않는다. 원본 매매 DB 백업이 없으므로 현재 파일을 삭제하거나 추측으로 덮어쓰지 않는다. `run_checks_v03.py`는 보완한 세션 임시 DB와 실제 파일 시작/종료 해시 가드로 추가 변경 없이 통과했다.
+
+새 수동 좌표 이력은 기본 `data/rapid_drop_support_versions.jsonl`이며 `CCX_RAPID_DROP_SUPPORT_HISTORY`로 경로를 선택한다. 원본 DB를 덮어쓰지 않는 별도 개인 파일이고 Git에서 제외한다. 다음 기기에 이력이 없으면 과거를 추측하지 않고 지지 미확인으로 시작한다. `created_at`만으로 이력을 복원하거나 현재 도형을 과거에 적용하지 않는다. 기록 시작 이전, 외부 편집의 관찰 사이 실제 시각, 추세선 판정은 확인할 수 없다. 손상 이력은 덮어쓰지 않는다.
+
+실제 과거 수동 지지에서의 첫 후보·트랩, 운영 실시간 입력의 후보 표시, 체결·성과는 미검증이다. 기능 OFF·주봉의 추가 실제 브라우저 검사는 하지 않았으며 기존 자동 회귀와 구분한다. 후보 발생 기록과 상태 종료를 별도로 보존하고 종료는 실제 이전 후보 ID에 연결한다. 현재 규칙은 검증용 초안이다. main 병합·운영 배포·실제 주문은 승인 범위가 아니다.
+
+다음 기기에서도 테스트·서버 시작 전에 그 기기의 trades/manual DB 및 sidecar·지지 이력을 먼저 별도 보존하고 해시를 기록한다. 이번 비공개 사본은 Git에 없으며 사본 경로 포인터도 제외했다. 이 기기의 manifest를 다른 기기 원본 증거로 사용하지 않는다. 사고 전 원본과 일치하는 백업을 별도로 확보하면 **사본끼리** 비교해 복구·영향을 조사하고, 확인되지 않은 파일로 실제 DB를 덮어쓰지 않는다.

@@ -1,0 +1,971 @@
+﻿{
+    "base_commit":  "f9ade54ee9691eff75cca7ed719cff47ce75132b",
+    "protected_files":  [
+                            {
+                                "sha256":  "dd0b9ff9d344ddc06caab948bb0ae71d5c56ebd1997e87dc8465b27d3fbbe631",
+                                "path":  ".gitattributes"
+                            },
+                            {
+                                "sha256":  "94dd8b2997d393d75a801b1898c28997f22cc8c5e8e3e14f73f53053a8cf063d",
+                                "path":  ".github/workflows/deploy.yml"
+                            },
+                            {
+                                "sha256":  "1675c0d4a57e0022acd07e154651909193a119146cc862613e196e73809a8344",
+                                "path":  ".gitignore"
+                            },
+                            {
+                                "sha256":  "d7c4c5969a13be89c26b96373e811c72455b9bcc938c3e2ee1de236c55773289",
+                                "path":  ".vscode/settings.json"
+                            },
+                            {
+                                "sha256":  "6511fb6d36be8fce75109d90d11749fe8b8b28e0994089d55de91d96b78e8bdb",
+                                "path":  "AGENTS.md"
+                            },
+                            {
+                                "sha256":  "a2082bbf18a0c93a7e58e15fba8e3ffe2986b968858861b83a1d692c41fdb77d",
+                                "path":  "app.py"
+                            },
+                            {
+                                "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                "path":  "backend/app/__init__.py"
+                            },
+                            {
+                                "sha256":  "f77ea89be281b0912e5a2f42293fc511422d79ff8d4bf1999183a69bd56edd50",
+                                "path":  "backend/app/main.py"
+                            },
+                            {
+                                "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                "path":  "backend/app/routers/__init__.py"
+                            },
+                            {
+                                "sha256":  "bce2d34b4cdd4cfc13a8f6f7e0d08646516bce519cced6829b2fb5f464a00532",
+                                "path":  "backend/app/routers/dashboard.py"
+                            },
+                            {
+                                "sha256":  "6ef425f19934f03224d86f0db1505fae3ce69903577d3aedce1d9e2618fdc115",
+                                "path":  "backend/app/routers/lines.py"
+                            },
+                            {
+                                "sha256":  "dcd35efcb4da6744efd60595842380d59f694567f84073a7d7e76cdcc70c2f99",
+                                "path":  "backend/app/routers/market_state.py"
+                            },
+                            {
+                                "sha256":  "5fec89c0b3254700831382bc7ba28bfe6525d9b22c585c16b87a755145f9788d",
+                                "path":  "backend/app/routers/position_sizing.py"
+                            },
+                            {
+                                "sha256":  "5a6a9ca34ef29c70bc911378ba398092a277c04327d73c99a607ddaa6a71eb00",
+                                "path":  "backend/app/routers/trades.py"
+                            },
+                            {
+                                "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                "path":  "backend/app/schemas/__init__.py"
+                            },
+                            {
+                                "sha256":  "1232b0805ba07a11d96ecf83c70a1973a870b17141e5d2a50e35f789a00ffe76",
+                                "path":  "backend/app/schemas/dashboard.py"
+                            },
+                            {
+                                "sha256":  "88c9015f3c712b37a47a75635ec83addbd315479f275418a5f8b4d71dc2ade6a",
+                                "path":  "backend/app/schemas/market_state.py"
+                            },
+                            {
+                                "sha256":  "0bbb361cc39b96303439597063ea13004a7fdcb4396b8282ffb682d5b41a7410",
+                                "path":  "backend/app/schemas/position_sizing.py"
+                            },
+                            {
+                                "sha256":  "c5d0380e8a5d1593ea4f4249e9795d23d217e2599221ad1f23fc9fd93b3e1ff4",
+                                "path":  "backend/app/schemas/trades.py"
+                            },
+                            {
+                                "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                                "path":  "backend/app/services/__init__.py"
+                            },
+                            {
+                                "sha256":  "37422c48af487cf516ddd43c06e9a95366eef543ddc157056464e7a4eb64ca64",
+                                "path":  "backend/app/services/bearish_engulfing.py"
+                            },
+                            {
+                                "sha256":  "3ba5d158eed6593c456cdaf36e3399c181e4ae7b192343d29ac65421e54fd722",
+                                "path":  "backend/app/services/candle_patterns.py"
+                            },
+                            {
+                                "sha256":  "21267bd140ded2ff1b9d51dc4e71392943cf617786500e82c76449ae25fddcd9",
+                                "path":  "backend/app/services/config.py"
+                            },
+                            {
+                                "sha256":  "52d9d1ddf820075deadf506202848a8de45a0c9f9c33d7c6221c41a5c17d1783",
+                                "path":  "backend/app/services/dashboard.py"
+                            },
+                            {
+                                "sha256":  "c2cab4cd0f270bec7fcbabfe79c66b8f7e5d0baed157c1756ca47be9ea8c3e53",
+                                "path":  "backend/app/services/data_fetcher.py"
+                            },
+                            {
+                                "sha256":  "7f6e039fb3a7e4c10076ffe3a43b6091f41d07a3343d8e45e1f8ff091ca76d1e",
+                                "path":  "backend/app/services/divergence.py"
+                            },
+                            {
+                                "sha256":  "16f035e42c1b0ff78af74c1e55b13fc9217a4808c694c353c57e449463c37c5e",
+                                "path":  "backend/app/services/dow_theory.py"
+                            },
+                            {
+                                "sha256":  "4592966bcf5106d96bbffa537aaed52b7811b64e997f11602e35a4c03f556271",
+                                "path":  "backend/app/services/exhaustion.py"
+                            },
+                            {
+                                "sha256":  "04041d1e18070f7e17f1e62a41d8617d7d8e04c6d27d650d78ccae7d31fbdc43",
+                                "path":  "backend/app/services/feature_flags.py"
+                            },
+                            {
+                                "sha256":  "04ed0ad3da21ecd7e70a58c85c8d1048faea0d1ea8bbe621c57ca868565080da",
+                                "path":  "backend/app/services/lines_store.py"
+                            },
+                            {
+                                "sha256":  "bc03bc24b619b11a39cb0ec61d15dbc829cc05b06febe611ca3cdec740a1ef83",
+                                "path":  "backend/app/services/ma_regime.py"
+                            },
+                            {
+                                "sha256":  "14c0bd2927b00612fbb2576445d0a9a10c6b274e9f03f5af57cdb9c3a74e5090",
+                                "path":  "backend/app/services/manual_lines.py"
+                            },
+                            {
+                                "sha256":  "2f99794474ec67aed034d593f0b88c46f64e218937eff092b6a19427553c4ce8",
+                                "path":  "backend/app/services/market_state.py"
+                            },
+                            {
+                                "sha256":  "2ae379a3b94ac02c864c3fd183d6d35acff8bd9601e82d181c4e862185a19682",
+                                "path":  "backend/app/services/pipeline.py"
+                            },
+                            {
+                                "sha256":  "7239c9b45c150ab528705710168086994e66a18522874c1c095742ccc90036f8",
+                                "path":  "backend/app/services/position_sizing.py"
+                            },
+                            {
+                                "sha256":  "e1e317b0d7e939fd12226fcad0456d14eef2990c3c30e9f9ed5a380d8994d54a",
+                                "path":  "backend/app/services/rsi.py"
+                            },
+                            {
+                                "sha256":  "672f016e825dc0ddf2b456e74da252900370570638f011cde643cb553398f74d",
+                                "path":  "backend/app/services/rsi_overbought_oversold.py"
+                            },
+                            {
+                                "sha256":  "51e5c915c377d498edde6e00d4876bacf09b0e52e53694c8a3e823df84f84fb5",
+                                "path":  "backend/app/services/rsi_swings.py"
+                            },
+                            {
+                                "sha256":  "de6948c0a696030dd6bc9fef192d33b8be21f8c0aba5d92327c1c2a704462ec5",
+                                "path":  "backend/app/services/signal_types.py"
+                            },
+                            {
+                                "sha256":  "71160eac8009ecf816728a6d5c4241f3ae3485d31c30caa30e9f503a5867a898",
+                                "path":  "backend/app/services/sr_touch.py"
+                            },
+                            {
+                                "sha256":  "b7e8db7329d135d115e8267db1f5ad537e51457edb75fd95592305392226a87b",
+                                "path":  "backend/app/services/swing_points.py"
+                            },
+                            {
+                                "sha256":  "8f9a9cb07ccfe46371d93ddf056abca2e0237ca73b3c36d00ca16bb9427a59c6",
+                                "path":  "backend/app/services/trades.py"
+                            },
+                            {
+                                "sha256":  "fffeed643601dba4684512542c6c4add4e9a137a6b0d867b929773f5e8fbb221",
+                                "path":  "backend/app/services/volatility_expansion.py"
+                            },
+                            {
+                                "sha256":  "018d2719157eb695a3336d09b0c52c7dada9d2252facca7241c50b5ec7b5b918",
+                                "path":  "backend/app/services/weekly.py"
+                            },
+                            {
+                                "sha256":  "98928ff752cca031a0688581d6a2d1989778c9d32494fabe3f55ec6172e9c972",
+                                "path":  "backend/app/services/weekly_data.py"
+                            },
+                            {
+                                "sha256":  "954a824d27106498419fe112458e27503d85ad0022c6d93ca0a3770a104942fb",
+                                "path":  "backend/app/services/weekly_signals.py"
+                            },
+                            {
+                                "sha256":  "e1d4e1e4bc0ef5f1c46de14e486de36100cc019d7092626c15ebc864cf732afe",
+                                "path":  "backend/app/services/zone_signals.py"
+                            },
+                            {
+                                "sha256":  "07e12af78809b103a9e003b9bf24f9718928fa263046b37bf3ebc9ebbf802ceb",
+                                "path":  "backend/pytest.ini"
+                            },
+                            {
+                                "sha256":  "0446bbca5730d6cb54d9bcbf415df82c355fb0cf62f2a48c18adc8a973302634",
+                                "path":  "backend/requirements.txt"
+                            },
+                            {
+                                "sha256":  "7287141dd467f9158bef60ecebec79e7b755a127f5b902043284348a3c0f9920",
+                                "path":  "backend/tests/conftest.py"
+                            },
+                            {
+                                "sha256":  "01c9753467dcddfdb2c9586084d7bf2b926afb294236666c61892745a05a4ca0",
+                                "path":  "backend/tests/fixtures/BTCUSDT_1d_2022-01-01_2026-10-28.csv"
+                            },
+                            {
+                                "sha256":  "4b8557e3a13e25a0abc10e26f71427864e5a5b83480987bfaa2fd244eebd171c",
+                                "path":  "backend/tests/fixtures/BTCUSDT_1w_2017-08-14_2026-10-19.csv"
+                            },
+                            {
+                                "sha256":  "e8b9120dbabddd1f1c7b325c87ce650841f3412c63300ab1fc744f9d136419cd",
+                                "path":  "backend/tests/fixtures/manual_lines_snapshot.json"
+                            },
+                            {
+                                "sha256":  "c33529d73b611ec2462a4bf2567e2cc4e9a557c145532d5dd82a8ce5a5466cee",
+                                "path":  "backend/tests/golden/daily_golden.json"
+                            },
+                            {
+                                "sha256":  "9d306151d246324537b5028f6009cb0fff80e773302b9bfbfddd4660701c8070",
+                                "path":  "backend/tests/golden_support.py"
+                            },
+                            {
+                                "sha256":  "44359dd40c90f11611c0faf33841c30822600400012fedd5d244ccd9dd7165f8",
+                                "path":  "backend/tests/regen_golden.py"
+                            },
+                            {
+                                "sha256":  "9da8f4c64d7cbdcd75e36672caa93caa418d2cfe9166a5970f98fda5e378e674",
+                                "path":  "backend/tests/regression/compare_candle_position.py"
+                            },
+                            {
+                                "sha256":  "f8d752324143e93bf4b0189076d7d8e1abdf607210f7551041d79a45b42840fc",
+                                "path":  "backend/tests/regression/compare_hammer_def.py"
+                            },
+                            {
+                                "sha256":  "763844c8018a67edb48eef16ccfa2746e84076156d1b5b4a6cc53f54ca206ca0",
+                                "path":  "backend/tests/regression/diff_candle_position.py"
+                            },
+                            {
+                                "sha256":  "95b3366708665c8b067bb4f843882812e73ba669c1edec4f9b7b307a60d65dfc",
+                                "path":  "backend/tests/regression/diff_manual_line_signals.py"
+                            },
+                            {
+                                "sha256":  "0c4ea214d7d390bdb58914b4c24d5292bf85c08bd7a6c9296d0e2133127383b8",
+                                "path":  "backend/tests/regression/diff_near_zone.py"
+                            },
+                            {
+                                "sha256":  "984850a823334d3f89f63e9a589918ca1ff266a096005735e3e20f356062eafd",
+                                "path":  "backend/tests/regression/diff_zone_signals.py"
+                            },
+                            {
+                                "sha256":  "31375e1f58f3ed6e87da10baa6c9002e72951f000c58e15b135f36d658b88baa",
+                                "path":  "backend/tests/regression/dump_pipeline_result.py"
+                            },
+                            {
+                                "sha256":  "cdf3e1f09c844e97833659ef368f38e48ca553b0c4568c7cccc92e3cddf8d64c",
+                                "path":  "backend/tests/test_candle_position.py"
+                            },
+                            {
+                                "sha256":  "0ccd4edb013aa305895fd654d311c64ebd5b5252f84abf7e027de75378fe1cfc",
+                                "path":  "backend/tests/test_candle_shape.py"
+                            },
+                            {
+                                "sha256":  "0ea4da561a06e8d31221f4cc95eb76becb9234e6b2a4be3d7165b51799606ed3",
+                                "path":  "backend/tests/test_daily_api.py"
+                            },
+                            {
+                                "sha256":  "766e52518235db7b0b2ed175453c6b8e9a0afeb909e39dcd302f316046eebc45",
+                                "path":  "backend/tests/test_daily_golden.py"
+                            },
+                            {
+                                "sha256":  "10e5446a825bc4680072671ce0bd2b272506d3e64849e719771571622ffe5b61",
+                                "path":  "backend/tests/test_direction_by_open.py"
+                            },
+                            {
+                                "sha256":  "f4165e5a6e71145c000d25ff889d978d291679fe4c5ade713e55b64bea58b0e6",
+                                "path":  "backend/tests/test_future_dates.py"
+                            },
+                            {
+                                "sha256":  "886933d9bdccaaec126b47c1383bf8d78fdb29db942daf28c5b84ea4cfdc5c1d",
+                                "path":  "backend/tests/test_lines_crud.py"
+                            },
+                            {
+                                "sha256":  "6b304640051dc220cd602c55a79d0ac602fd8a5bbae9e0936dc2be1ab8491307",
+                                "path":  "backend/tests/test_market_state.py"
+                            },
+                            {
+                                "sha256":  "0345a47e668ec56ff30cc63d6ece166128a291f9e12d7a06febefed1b7fa2f53",
+                                "path":  "backend/tests/test_near_zone.py"
+                            },
+                            {
+                                "sha256":  "b546646b8ba6c4ffd69b22c429274c0711fde82cbface8c84cad53c53ed2b05a",
+                                "path":  "backend/tests/test_position_sizing.py"
+                            },
+                            {
+                                "sha256":  "a4aa352bef6e95ede55ff01e68d3d69e76784341ac2b6b72d17541b6451900c7",
+                                "path":  "backend/tests/test_regression_pipeline.py"
+                            },
+                            {
+                                "sha256":  "47a604dcd6265500a1c80f12d4219396eeecbfa522739be898a9920a4fb4dc84",
+                                "path":  "backend/tests/test_trades.py"
+                            },
+                            {
+                                "sha256":  "ff2f2f27fe81fad9403437dc05075dbd379844ffc964f47420a7daed21240e21",
+                                "path":  "backend/tests/test_trend_breakout.py"
+                            },
+                            {
+                                "sha256":  "8863ee92d34a83af2e5a0bc077d5c2d60891235ca9359fe0716fbf6729fead4c",
+                                "path":  "backend/tests/test_trend_update.py"
+                            },
+                            {
+                                "sha256":  "0381479bb1afe7ecc0f6a05af48ef6e2d7ba51d2c77d721521692bcd0da22d98",
+                                "path":  "backend/tests/test_weekly_api.py"
+                            },
+                            {
+                                "sha256":  "fbc1cd672cbe40dcb3e021f4b65aade2353fce66886d470fb00b65edebb8f571",
+                                "path":  "backend/tests/test_weekly_data.py"
+                            },
+                            {
+                                "sha256":  "0814eae5f9045cea8e3db1599640eb4acbff843e8ca9e28552bdf2c527267516",
+                                "path":  "backend/tests/test_weekly_signals.py"
+                            },
+                            {
+                                "sha256":  "7543b60d4c2f4b460c3b7adb963b55c812ca729cb71ee66f1bcd7aa2609a7b99",
+                                "path":  "backend/tests/test_zone_signals.py"
+                            },
+                            {
+                                "sha256":  "75bd71c018ff2cb1dfd3816420bb98e1361c9e0fee898c6fe76aebc2435bd0bc",
+                                "path":  "backend/tests/test_zone_update.py"
+                            },
+                            {
+                                "sha256":  "07e44a78048c40cc4926c185284b625c9b8895660c101092994fcfa8d5f3cafc",
+                                "path":  "backend/tests/test_zones.py"
+                            },
+                            {
+                                "sha256":  "eb5831c5dbfc2835cbe34c92253cf07c8944586cf10a02da86b9a6657e03dae6",
+                                "path":  "components/tv_chart/__init__.py"
+                            },
+                            {
+                                "sha256":  "c4f8b9ef0d549fde4aeb24aef593dc293cbaeb65a1fde4d84bf2be9593c0b343",
+                                "path":  "components/tv_chart/frontend/index.html"
+                            },
+                            {
+                                "sha256":  "3a3eb1b723d944deb4dbef5ae361bbe39340a17fe987fe22e397ef03dca268d2",
+                                "path":  "data/BTCUSDT-1d-2025-01.zip"
+                            },
+                            {
+                                "sha256":  "27cfde08c9eb8e3801fb049e3be351a3e50ab46abd8553c24023fa98ea5e919e",
+                                "path":  "data/BTCUSDT-1d-2025-02.zip"
+                            },
+                            {
+                                "sha256":  "5874e405f55c46f040de1a8ea9daae583dc12b5bcaef6078b21aae9c627cedcc",
+                                "path":  "data/BTCUSDT-1d-2025-03.zip"
+                            },
+                            {
+                                "sha256":  "8068a571425857cb0f5f71f75e733d3bc1e731362a09f84f835bbea6e087aeb2",
+                                "path":  "data/BTCUSDT-1d-2025-04.zip"
+                            },
+                            {
+                                "sha256":  "2b87aa0c63641ba1e954855bcfed96d7fc4eb21efe7936f354ff74e8e06cfcea",
+                                "path":  "data/BTCUSDT-1d-2025-05.zip"
+                            },
+                            {
+                                "sha256":  "dc4bbe2c75f04372b909febe8e6b379b053f88423d78cdb3ad8b0be3a66d6ede",
+                                "path":  "data/BTCUSDT-1d-2025-06.zip"
+                            },
+                            {
+                                "sha256":  "1ea64a346f6be0aaf455eb1ce107e6d38367164d97d0dd3719b9f9bb239796f4",
+                                "path":  "data/BTCUSDT-1d-2025-07.zip"
+                            },
+                            {
+                                "sha256":  "6720b573210cfbb98765f4a0de6826033d203fda42a6c8364455144b703ceace",
+                                "path":  "data/BTCUSDT-1d-2025-08.zip"
+                            },
+                            {
+                                "sha256":  "9934e6d98a90139039bb070a90ba409ff1832ad80116920adcf088090ce4c996",
+                                "path":  "data/BTCUSDT-1d-2025-09.zip"
+                            },
+                            {
+                                "sha256":  "3597639a18f343c768e374157e8bd08dd046bb33693495ff4e13380abac1260e",
+                                "path":  "data/BTCUSDT-1d-2025-10.zip"
+                            },
+                            {
+                                "sha256":  "9eded1225f9e3f3d4f127fad46111eb403553c1125cf6d11995e69d91d037290",
+                                "path":  "data/BTCUSDT-1d-2025-11.zip"
+                            },
+                            {
+                                "sha256":  "b12a106198f3be3ba5916195f75c1c6d34d8e5302ab77b8fd7c4b1b58b6144f4",
+                                "path":  "data/BTCUSDT-1d-2025-12.zip"
+                            },
+                            {
+                                "sha256":  "b7775ddec3ddd3edafc6ad5abcc94d6ab8b8f063a0911d8a3f3daae6a8bbad2e",
+                                "path":  "data/BTCUSDT-1d-2026-01.zip"
+                            },
+                            {
+                                "sha256":  "f8806308002477a1a28d6cc55ec9ea7bd91bfd4b44c04500d9fc4aec50fd9464",
+                                "path":  "data/BTCUSDT-1d-2026-02.zip"
+                            },
+                            {
+                                "sha256":  "b81fb1942f9653564f355e3bd62dc06e0552d1c64bc966f7dce5a9c1f8780c47",
+                                "path":  "data/BTCUSDT-1d-2026-03.zip"
+                            },
+                            {
+                                "sha256":  "1f7da05da9f9a8f30945bde41872ca649c61d6e6e324e916f4c3cbafa0a9276a",
+                                "path":  "data/BTCUSDT-1d-2026-04.zip"
+                            },
+                            {
+                                "sha256":  "978936e8f1f80b570248f8d4478d6fe08d94b98bc1c7d372feb27573ff466cde",
+                                "path":  "data/BTCUSDT-1d-2026-05.zip"
+                            },
+                            {
+                                "sha256":  "7020d4d850a875b93f0b0fa6df4a4c36ab615273e2ab03f9e896852330dad77e",
+                                "path":  "data/BTCUSDT-1d-2026-06.zip"
+                            },
+                            {
+                                "sha256":  "74ddc3e39aae9445b9f9dae00d53fe2ce6ff503ee469417e207a8f5970bad11a",
+                                "path":  "data/BTCUSDT-1d-2026-07.zip"
+                            },
+                            {
+                                "sha256":  "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372",
+                                "path":  "data/merged/manual_lines.db"
+                            },
+                            {
+                                "sha256":  "d44bf4158f7393cbd0bc35b268dbf4539de032adb2485e9ed6187167cffbe393",
+                                "path":  "data/trades.db"
+                            },
+                            {
+                                "sha256":  "215e0125e6d89c4d7bd56d1bfe01b99f78560b62388349b61cc5aff7061650f7",
+                                "path":  "deploy/deploy_backend.sh"
+                            },
+                            {
+                                "sha256":  "4f25efc924533536adcf99e71434238b83691252f859db024c486b51ea896f1d",
+                                "path":  "deploy/README.md"
+                            },
+                            {
+                                "sha256":  "4924b9013ce0b9a0f00de1c1e2b00b96093be90d595fbd3d133f5330c5aab250",
+                                "path":  "docs/CURRENT_STATE.md"
+                            },
+                            {
+                                "sha256":  "6bd4a6f465e6bf09289f251dd958a2f902934b3332d593f159359f5e32b04473",
+                                "path":  "docs/golden_tests.md"
+                            },
+                            {
+                                "sha256":  "b543e5013408b800c94c662028991fb5fdbdcd2685b354a84cd55380d15656d9",
+                                "path":  "docs/weekly_signals.md"
+                            },
+                            {
+                                "sha256":  "ca52756d0b6fa93a9ff20e5a31bdeaeb1a02b45494191c7c2f67a443be905832",
+                                "path":  "docs/트레이딩앱 기획.docx"
+                            },
+                            {
+                                "sha256":  "fe718e7babb14f3cbad2d97f08889b9ce5215ed3fe0e43b2b8cfbfb3b9b844e8",
+                                "path":  "frontend/.gitignore"
+                            },
+                            {
+                                "sha256":  "b4d344818a1e1bf43997e4744a9153c8eef770c98b58229cd86363dabb85ded4",
+                                "path":  "frontend/.oxlintrc.json"
+                            },
+                            {
+                                "sha256":  "c489ca10e39dee2c944678c7cbe29c05c1464f0d3ad331829be0616dfe292ada",
+                                "path":  "frontend/index.html"
+                            },
+                            {
+                                "sha256":  "e5a11f861c9b88888c380f1f16784a8d5dfe4be38d9c794015de787ebb15e36d",
+                                "path":  "frontend/package.json"
+                            },
+                            {
+                                "sha256":  "2937493d858ad9cd03baa53af334f33db3fe5255000114759234eb1813a92390",
+                                "path":  "frontend/package-lock.json"
+                            },
+                            {
+                                "sha256":  "61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66",
+                                "path":  "frontend/public/favicon.svg"
+                            },
+                            {
+                                "sha256":  "b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a",
+                                "path":  "frontend/public/icons.svg"
+                            },
+                            {
+                                "sha256":  "fa8aac78b8be1993010b57f41000a243ecba006f6731513fe4ec91e788bf2517",
+                                "path":  "frontend/README.md"
+                            },
+                            {
+                                "sha256":  "6878343000cc45f0db4be89194d052d67e61406bc0cf87feede47af0b294eb32",
+                                "path":  "frontend/src/api/client.ts"
+                            },
+                            {
+                                "sha256":  "f3df8371e4d7dba74e07e0910ca7dba4331be0f03301126bbec5f1d01ad04aea",
+                                "path":  "frontend/src/api/dashboard.ts"
+                            },
+                            {
+                                "sha256":  "fdcb7dbdc22ca5014b5de3ed840b1541fb1a6f5320cf1ffd3d7ba7a0f28d0a7a",
+                                "path":  "frontend/src/api/marketState.ts"
+                            },
+                            {
+                                "sha256":  "da5a437caa36408e3a0964ec8c81612b4bd3d0b55aeb7a8ef9bb1e5f25b8b53e",
+                                "path":  "frontend/src/api/trades.ts"
+                            },
+                            {
+                                "sha256":  "6e25a776d3e8102da5bacb3cb99f4a5fc662a2e01e6143140671a556d28c3d5c",
+                                "path":  "frontend/src/App.css"
+                            },
+                            {
+                                "sha256":  "acf97403fbe0583fdd96892f042c00445cb60710366bfff46d1952080a3e8697",
+                                "path":  "frontend/src/App.module.css"
+                            },
+                            {
+                                "sha256":  "26ee11a447c945641c432c11ebd7003b784c202a324fb2c7f605c86172981a6d",
+                                "path":  "frontend/src/App.tsx"
+                            },
+                            {
+                                "sha256":  "881ffbcaafc212e49addad08846a5b82761355fa20624253af3477ba33262c5c",
+                                "path":  "frontend/src/assets/hero.png"
+                            },
+                            {
+                                "sha256":  "35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5",
+                                "path":  "frontend/src/assets/react.svg"
+                            },
+                            {
+                                "sha256":  "5be21acd42eb7b896e517f4e0f0f11eb5c5d9e54fbbcebe9453f033008fcca6f",
+                                "path":  "frontend/src/assets/vite.svg"
+                            },
+                            {
+                                "sha256":  "283e560c300460ac56bc2a0dccaab17738a9e6b755afdc5adb588db9ec448278",
+                                "path":  "frontend/src/components/AppTopBar.module.css"
+                            },
+                            {
+                                "sha256":  "f7fc9ca57c44deef1d7026e3ace5d524121f2f153dfc37e0b987da91139af060",
+                                "path":  "frontend/src/components/AppTopBar.tsx"
+                            },
+                            {
+                                "sha256":  "3b8ba3ddf2c5f3a3b33d9be4da7c744c0fc85f4be11527f9d9f207eb8a46ce42",
+                                "path":  "frontend/src/components/chart/chartLogic.test.ts"
+                            },
+                            {
+                                "sha256":  "2fd7eb09b616a817e5660ce832f299c6bb1e7a6ae44454423a0291ed4774f708",
+                                "path":  "frontend/src/components/chart/chartLogic.ts"
+                            },
+                            {
+                                "sha256":  "6aae487d3f738d190fa844bd6b2088c110d5c96a8b1ab4cf7f5dc92e52ae9062",
+                                "path":  "frontend/src/components/chart/chartTheme.ts"
+                            },
+                            {
+                                "sha256":  "77c95672b6a15d0be80d0bfa829d937413b655ef3182d5f4783c666c9b3fb35f",
+                                "path":  "frontend/src/components/chart/MarketStatePrimitive.ts"
+                            },
+                            {
+                                "sha256":  "3899a6aed3b4ebdc830ce0493a1ff92a50342d72cb8484aa1ebdf1a46d5450f1",
+                                "path":  "frontend/src/components/chart/PreviewPrimitive.ts"
+                            },
+                            {
+                                "sha256":  "5d4c4274e90f21c84c2355f430b41aa65160ffd974b810450c676c3ec15aeac4",
+                                "path":  "frontend/src/components/chart/timeAxis.test.ts"
+                            },
+                            {
+                                "sha256":  "32ab751b394840d8baede9952bbadd63363617deab1b0283eb30e59099224264",
+                                "path":  "frontend/src/components/chart/timeAxis.ts"
+                            },
+                            {
+                                "sha256":  "c513766a21d1a9a1c83c5f020b8e38ec66451dff9f36d79dff7d0faed3b6c39e",
+                                "path":  "frontend/src/components/chart/TrendLinePrimitive.ts"
+                            },
+                            {
+                                "sha256":  "9b93bbe5ebdca059089a85b91c84855a41323ad0199c09fcd3d9c734cc1c1924",
+                                "path":  "frontend/src/components/chart/TvChart.tsx"
+                            },
+                            {
+                                "sha256":  "8ab9f03d5fa82c57faa0cec208380b76645690e6d060e9f226c4b3e05424c9ea",
+                                "path":  "frontend/src/components/chart/ZonePrimitive.ts"
+                            },
+                            {
+                                "sha256":  "76bea8f8a3c8fae9aa1dba9cf63a67c9ee17ff145307fc63a1d28d15f595fdaa",
+                                "path":  "frontend/src/components/ChartArea.module.css"
+                            },
+                            {
+                                "sha256":  "549bab7497cd3f1ec6b91a79a10933d16572c783402d95402f439bf3192b81d5",
+                                "path":  "frontend/src/components/ChartArea.tsx"
+                            },
+                            {
+                                "sha256":  "851742aebf07c9ae2e11cb683d5ee272929551e9d27badc3bdb17450df2c1f55",
+                                "path":  "frontend/src/components/ChartLegend.module.css"
+                            },
+                            {
+                                "sha256":  "71fc0f5730114fd8856fc76e0897424d5b38a768fa460fb224c7fb4af9041357",
+                                "path":  "frontend/src/components/ChartLegend.tsx"
+                            },
+                            {
+                                "sha256":  "d969838213fd516f2ebcb5bcc0ea6de207ef9fd8ccfdbc2b1072089ceae7a0a7",
+                                "path":  "frontend/src/components/IntervalSwitch.module.css"
+                            },
+                            {
+                                "sha256":  "4e9b207886f9ef2bba5fb501e0c09053925d4b27077c2ae7f3ede3ca3c2b4291",
+                                "path":  "frontend/src/components/IntervalSwitch.tsx"
+                            },
+                            {
+                                "sha256":  "3146c5607a3fd339fac26ff234bc83bf08812395f9c4c533da9a4e70f04709f0",
+                                "path":  "frontend/src/components/layoutComponents.test.tsx"
+                            },
+                            {
+                                "sha256":  "b190fb2c807c9fec5ebcefb01e44d594341f958b026371a3ad48e778ad24fb69",
+                                "path":  "frontend/src/components/LineManager.module.css"
+                            },
+                            {
+                                "sha256":  "e7f8289a037f4bec8f60a2252da2b63e8d98f7e9738cd17841379d3d98af1e07",
+                                "path":  "frontend/src/components/LineManager.tsx"
+                            },
+                            {
+                                "sha256":  "3640888f2fd91a405c9978ebf65bd0917c362b88e81e9c92af4de0bb86638503",
+                                "path":  "frontend/src/components/NumberInput.test.tsx"
+                            },
+                            {
+                                "sha256":  "f9b4c134562a5cb998bcef8afcefdbffb2f26dd73d645344c49287fecf682f75",
+                                "path":  "frontend/src/components/NumberInput.tsx"
+                            },
+                            {
+                                "sha256":  "e2b4662a7bfe7f849221ecebbccd31fc737cfe484e717cce9d938d820039af0e",
+                                "path":  "frontend/src/components/PeriodBar.module.css"
+                            },
+                            {
+                                "sha256":  "654b1be75d8ac13fa38f6f4bf3ca951c49acddd5bf14deeeb918ce19b4562ad1",
+                                "path":  "frontend/src/components/PeriodBar.tsx"
+                            },
+                            {
+                                "sha256":  "4a2cba847f63ae67c247d326cd39a0ac8b46314d4e4c34118ea31d8c11edf379",
+                                "path":  "frontend/src/components/PriceWeightList.module.css"
+                            },
+                            {
+                                "sha256":  "2f06b70126b9e65410425c3632326b8322d23e5d591df40c79cdc5c0740e5f3a",
+                                "path":  "frontend/src/components/PriceWeightList.tsx"
+                            },
+                            {
+                                "sha256":  "045a8a52736f3c8bad6fb2354d8ea7f929b909b1957266ab21d8dcb218ee3a67",
+                                "path":  "frontend/src/components/SignalPanel.module.css"
+                            },
+                            {
+                                "sha256":  "99f09a9f82cdf5abefbe811d077dde07e95e94f64e26e6575f02d7f743eea80d",
+                                "path":  "frontend/src/components/SignalPanel.test.tsx"
+                            },
+                            {
+                                "sha256":  "36ee44bd04adef21a6a1876cf133ee7aafc3c84af1d7b2aeff69b40d6a4b3cc5",
+                                "path":  "frontend/src/components/SignalPanel.tsx"
+                            },
+                            {
+                                "sha256":  "b570cbcf882e559c5130adb380b92484b10397095e3ea874c1078d93d8ede0a3",
+                                "path":  "frontend/src/components/ToolRail.module.css"
+                            },
+                            {
+                                "sha256":  "470d27c98f250b8e5c2861cb43b5cfa74c1e9921aa83474f7a5a3129b9668d8b",
+                                "path":  "frontend/src/components/ToolRail.tsx"
+                            },
+                            {
+                                "sha256":  "0c4fcaf5abdb6e9ed0d306db27def0378939f62df508d9810659b5b057f4504f",
+                                "path":  "frontend/src/components/trade/ExitList.tsx"
+                            },
+                            {
+                                "sha256":  "ad98a162b86b1e5581b35e62426a0ec0789d061a1229ebe763111877e40f7319",
+                                "path":  "frontend/src/components/trade/TradeCloseForm.tsx"
+                            },
+                            {
+                                "sha256":  "d93d9e1444c6cc6166e70c2eb609de41ec74b321f9797c0a270ae104ddd28af9",
+                                "path":  "frontend/src/components/trade/TradeDetail.module.css"
+                            },
+                            {
+                                "sha256":  "3c4ed7c3e9c6d26adff8a438bbaecb0623c9fb200efa7b7e1c5ac889edcffb45",
+                                "path":  "frontend/src/components/trade/TradeDetail.tsx"
+                            },
+                            {
+                                "sha256":  "3e28f27303b56880b7328fdc83d5ccd2a5035365c4451ec1943bd6500be37bb9",
+                                "path":  "frontend/src/components/trade/TradeForm.module.css"
+                            },
+                            {
+                                "sha256":  "3c4480ca2555764f394adcc2702a6a32af8ca65459bd1222edb05efa189c6be2",
+                                "path":  "frontend/src/components/trade/TradeList.module.css"
+                            },
+                            {
+                                "sha256":  "dc95536e473f96f175767520f412e81c79e4fea3575ccb81a3eed7ef3c0ca98e",
+                                "path":  "frontend/src/components/trade/TradeList.tsx"
+                            },
+                            {
+                                "sha256":  "51b9a41baa3e7f132d9377e928604613fda126c911ac09657a100a352dc7a3fd",
+                                "path":  "frontend/src/components/trade/TradePlanForm.tsx"
+                            },
+                            {
+                                "sha256":  "5b5deb48e736d2ea961779d3bf6ca0bcff044a5b9df56a9792b7726ab74dff10",
+                                "path":  "frontend/src/index.css"
+                            },
+                            {
+                                "sha256":  "6e9e5807fcbd48b75a96db5cbef36c996262196be42e6d4760dc86babbe61ad2",
+                                "path":  "frontend/src/main.tsx"
+                            },
+                            {
+                                "sha256":  "15e481dec276c3ad60f2bc0c9986c3b1a62cd46a426dd0abe8432e66448abd95",
+                                "path":  "frontend/src/pages/PositionSizing.module.css"
+                            },
+                            {
+                                "sha256":  "0a7eca51e3e629ce1e179bdd7d5a443d729b2166713c54439fe09324fcae820d",
+                                "path":  "frontend/src/pages/PositionSizing.test.tsx"
+                            },
+                            {
+                                "sha256":  "b89f20c3695206621f33495133ad8b939ef10a42416dffc04e6297fba26f88f4",
+                                "path":  "frontend/src/pages/PositionSizing.tsx"
+                            },
+                            {
+                                "sha256":  "d3a99b59d537ccda902e912dbc19b140b9d0ef3529dd59c4e125d2ccd6417cf1",
+                                "path":  "frontend/src/pages/SignalScanner.module.css"
+                            },
+                            {
+                                "sha256":  "1b9198b3fc5359dee5aacd0b2426f05f1be37c10bfef68983d8fe01322d45861",
+                                "path":  "frontend/src/pages/SignalScanner.test.tsx"
+                            },
+                            {
+                                "sha256":  "7c7e0ed0ddf633b9171df67b6d74eff08dc4ee53151e29b239af84d015bfd4f5",
+                                "path":  "frontend/src/pages/SignalScanner.tsx"
+                            },
+                            {
+                                "sha256":  "430dce5461b51585433160fe5d6d7e1c027e8c14f2a030581e28c0e2bbb0f259",
+                                "path":  "frontend/src/pages/TradeJournal.module.css"
+                            },
+                            {
+                                "sha256":  "f1d6816796d6d5a5521b8993cdc21964f432f0ad208efddf48c2b3a3e6cc27d7",
+                                "path":  "frontend/src/pages/TradeJournal.test.tsx"
+                            },
+                            {
+                                "sha256":  "00693bf3bacb1edb5f1ded21f92a56291238eebb05880478954ec7e2d3e8e525",
+                                "path":  "frontend/src/pages/TradeJournal.tsx"
+                            },
+                            {
+                                "sha256":  "15a7442809327f9c47800ac485a2c29a269885d52cdbde4f68cb42ecbd9d7576",
+                                "path":  "frontend/src/test-setup.ts"
+                            },
+                            {
+                                "sha256":  "ebab417ac097c4cc9a6b72910c47487a5856bd6ff555b5b420f6857b9c7bd6a8",
+                                "path":  "frontend/src/types.ts"
+                            },
+                            {
+                                "sha256":  "8e78bc4f870facb2abca3cc52b77c1e8f8232b885ff0ec26aa1ea6b2a97d8bd5",
+                                "path":  "frontend/src/utils/krwFormat.ts"
+                            },
+                            {
+                                "sha256":  "8e5d12ba330e7d86409edec74b95451e0db22ee09b9426c94b5bf817571eddb0",
+                                "path":  "frontend/tsconfig.app.json"
+                            },
+                            {
+                                "sha256":  "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808",
+                                "path":  "frontend/tsconfig.json"
+                            },
+                            {
+                                "sha256":  "d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8",
+                                "path":  "frontend/tsconfig.node.json"
+                            },
+                            {
+                                "sha256":  "999d1ae825e34a173404f6a26be5cb7026166d257ced744ef0225d2bb2570548",
+                                "path":  "frontend/vite.config.ts"
+                            },
+                            {
+                                "sha256":  "2fb1fcadb93c6c73929599b3935bcf7c3c37dbf9e3bbe35cffbb790bff106bf0",
+                                "path":  "frontend/vitest.config.ts"
+                            },
+                            {
+                                "sha256":  "5f2ea54d40bfd811c36f158530c44badaf358fdbfd6b3092098c10514fed0afb",
+                                "path":  "requirements.txt"
+                            },
+                            {
+                                "sha256":  "01ff3c4544023a61d5f836673d2405ffa3f21da0a95f831534a6ea3ee37c21b9",
+                                "path":  "scripts/_disabled/exhaustion_v2_experimental.py"
+                            },
+                            {
+                                "sha256":  "b389da458234150fdeb71a74a0989d70055818a173e4c6f31824e085ec3e5b39",
+                                "path":  "scripts/_disabled/plot_exhaustion_compare.py"
+                            },
+                            {
+                                "sha256":  "635756d022aa063630780eae2205bc259c27e7ba2e30e3ed9ad637b259f699cd",
+                                "path":  "scripts/analyze_volatility_expansion_filter.py"
+                            },
+                            {
+                                "sha256":  "37422c48af487cf516ddd43c06e9a95366eef543ddc157056464e7a4eb64ca64",
+                                "path":  "scripts/bearish_engulfing.py"
+                            },
+                            {
+                                "sha256":  "be02302507cb3f8dfc55864432eebc6ded905fa833357f4b1ea6c08cada01528",
+                                "path":  "scripts/candle_patterns.py"
+                            },
+                            {
+                                "sha256":  "6ffa6725a2d7fd3a9f95532c5102b9e464c7e1436f385ced15a878e91d371210",
+                                "path":  "scripts/config.py"
+                            },
+                            {
+                                "sha256":  "c2cab4cd0f270bec7fcbabfe79c66b8f7e5d0baed157c1756ca47be9ea8c3e53",
+                                "path":  "scripts/data_fetcher.py"
+                            },
+                            {
+                                "sha256":  "5433a3a2329eeb713a1b8530e89f18a356cd8a061dc58579ed9bd78f2d299027",
+                                "path":  "scripts/diagnose_bullish_suspicion_baserate.py"
+                            },
+                            {
+                                "sha256":  "b51b06afac0f56dbb55101d5b41b025de0cb14d838110447d7e7675c69bbdd06",
+                                "path":  "scripts/diagnose_bullish_suspicion_direction.py"
+                            },
+                            {
+                                "sha256":  "2b7edd99bc00db60b4cc00d05ecbbb982a04ddd917ba7eb338f88573edade499",
+                                "path":  "scripts/diagnose_bullish_suspicion_ratchet.py"
+                            },
+                            {
+                                "sha256":  "fa89461a7e7814d743732b8be98c24dbd9d176978e25cd281eb4782e9273665d",
+                                "path":  "scripts/diagnose_exhaustion.py"
+                            },
+                            {
+                                "sha256":  "4bca39b06c8e2b2883cd20c13f4c078eba7db3c7b91d83c4af7f8b7eeb19c414",
+                                "path":  "scripts/diagnose_exhaustion_mfe_mae.py"
+                            },
+                            {
+                                "sha256":  "866ea7afea4c35d71a2e6ab8a70d2663d1e98ce9dc421bbb5f3c6144f4fd34ac",
+                                "path":  "scripts/diagnose_exhaustion_novolume.py"
+                            },
+                            {
+                                "sha256":  "cc7792100706007d4ce55b1ea1566c9a02269b730e1a6c62fe0f706978fa1c8a",
+                                "path":  "scripts/diagnose_ma_regime_bullish.py"
+                            },
+                            {
+                                "sha256":  "a9017523db56bbc5ef6769c2c5a9c30386d259f8faf239c183af5b9e59636e77",
+                                "path":  "scripts/diagnose_sr_touch.py"
+                            },
+                            {
+                                "sha256":  "7f6e039fb3a7e4c10076ffe3a43b6091f41d07a3343d8e45e1f8ff091ca76d1e",
+                                "path":  "scripts/divergence.py"
+                            },
+                            {
+                                "sha256":  "16f035e42c1b0ff78af74c1e55b13fc9217a4808c694c353c57e449463c37c5e",
+                                "path":  "scripts/dow_theory.py"
+                            },
+                            {
+                                "sha256":  "4592966bcf5106d96bbffa537aaed52b7811b64e997f11602e35a4c03f556271",
+                                "path":  "scripts/exhaustion.py"
+                            },
+                            {
+                                "sha256":  "1e940ddf1fa010b61f0dedea34c38fdd8b583828ba806c3c76f18bf1d9436dbc",
+                                "path":  "scripts/lines_store.py"
+                            },
+                            {
+                                "sha256":  "befd8a34a99148185725e0c2b46b83d15bb07925dc4a325cdf7f381322369f4e",
+                                "path":  "scripts/load_data.py"
+                            },
+                            {
+                                "sha256":  "bc03bc24b619b11a39cb0ec61d15dbc829cc05b06febe611ca3cdec740a1ef83",
+                                "path":  "scripts/ma_regime.py"
+                            },
+                            {
+                                "sha256":  "98665d69e983e639d48fd394c51c926a8b460a5fc28bbd85ab5ef5efcfc0eb99",
+                                "path":  "scripts/manual_lines.py"
+                            },
+                            {
+                                "sha256":  "d6dd56d631b3889ca81b147ad0571cad77b2caf9c1470f6caafbcbc75b346d7c",
+                                "path":  "scripts/pipeline.py"
+                            },
+                            {
+                                "sha256":  "36385e5e20ddedffe91292921fa38e754d715248911b03957a0e9c733c9f4b98",
+                                "path":  "scripts/plot_bearish_engulfing.py"
+                            },
+                            {
+                                "sha256":  "7d329f58e548d5f22edfb24f937c489cd3cb88d12d80b605f7387aac52edf388",
+                                "path":  "scripts/plot_dow.py"
+                            },
+                            {
+                                "sha256":  "e5d465fa59087aec8471c833cdd52b79828850ee5a6020e58da186a2ed5cd78b",
+                                "path":  "scripts/plot_exhaustion.py"
+                            },
+                            {
+                                "sha256":  "9924e86128701ec8abaa81f466b48b18f04f7946101f6225457bbf1acce1f96d",
+                                "path":  "scripts/plot_ma_regime.py"
+                            },
+                            {
+                                "sha256":  "df03abfe80817b2a0ff52cab58e2e543190e57d3a86622a7b79836301c7a63e4",
+                                "path":  "scripts/plot_rsi.py"
+                            },
+                            {
+                                "sha256":  "9bc8363dccaa0aa6ec86e71f12f9d3bc2526a58633b34668af6a1a94ff26a068",
+                                "path":  "scripts/plot_rsi_ob_os.py"
+                            },
+                            {
+                                "sha256":  "4e1f31722a518b4e1c4b5b81b0d679c12656e939ba442067a53e08ccc4d7fd4f",
+                                "path":  "scripts/plot_rsi_swings.py"
+                            },
+                            {
+                                "sha256":  "d86f0f17ca70f98c4dbc3fe9d11f4f667d318e1177597b0f098395eca35235c1",
+                                "path":  "scripts/plot_sr_touch.py"
+                            },
+                            {
+                                "sha256":  "cb80959f9e7ed0bdb6fa4835bac53cf93be0a8bb9d3e2310d47d0856012ee3cf",
+                                "path":  "scripts/plot_swings.py"
+                            },
+                            {
+                                "sha256":  "af91a5be18d601d1c2005466a1f9f4288b1865b9195eb10438d4e0fd4fc75e45",
+                                "path":  "scripts/position_sizing.py"
+                            },
+                            {
+                                "sha256":  "e1e317b0d7e939fd12226fcad0456d14eef2990c3c30e9f9ed5a380d8994d54a",
+                                "path":  "scripts/rsi.py"
+                            },
+                            {
+                                "sha256":  "672f016e825dc0ddf2b456e74da252900370570638f011cde643cb553398f74d",
+                                "path":  "scripts/rsi_overbought_oversold.py"
+                            },
+                            {
+                                "sha256":  "51e5c915c377d498edde6e00d4876bacf09b0e52e53694c8a3e823df84f84fb5",
+                                "path":  "scripts/rsi_swings.py"
+                            },
+                            {
+                                "sha256":  "7ddc91f6b85013872984e1bc5f187f6d1711b0f70988b46682ff69a19f3f3995",
+                                "path":  "scripts/signal_types.py"
+                            },
+                            {
+                                "sha256":  "e08a9e90519ae83edb12a42d5f0eeb58e7839384d87a52d7bae323b8e1502c90",
+                                "path":  "scripts/sr_touch.py"
+                            },
+                            {
+                                "sha256":  "b7e8db7329d135d115e8267db1f5ad537e51457edb75fd95592305392226a87b",
+                                "path":  "scripts/swing_points.py"
+                            },
+                            {
+                                "sha256":  "fffeed643601dba4684512542c6c4add4e9a137a6b0d867b929773f5e8fbb221",
+                                "path":  "scripts/volatility_expansion.py"
+                            }
+                        ],
+    "branch":  "research/ccx-rapid-drop-review-20261119",
+    "initial_status":  [
+                           "?? .vscode/settings.json",
+                           "?? research/ccx_rapid_drop/README.md",
+                           "?? research/ccx_rapid_drop/example_config.json",
+                           "?? research/ccx_rapid_drop/fixture_excerpt.csv",
+                           "?? research/ccx_rapid_drop/levels.example.json",
+                           "?? research/ccx_rapid_drop/rapid_drop.py",
+                           "?? research/ccx_rapid_drop/replay.py",
+                           "?? research/ccx_rapid_drop/test_log.txt",
+                           "?? research/ccx_rapid_drop/test_rapid_drop.py"
+                       ],
+    "supplied_research":  [
+                              {
+                                  "sha256":  "d8eea7c4e24d13361ec1f46e65b1e5468e2e46f3d9dbbeb4b63cf2acaea19714",
+                                  "path":  "research/ccx_rapid_drop/example_config.json"
+                              },
+                              {
+                                  "sha256":  "e90f0d84c6b3fb84a333d9cc39e057687930657fc3907f93d245890754bf72ee",
+                                  "path":  "research/ccx_rapid_drop/fixture_excerpt.csv"
+                              },
+                              {
+                                  "sha256":  "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+                                  "path":  "research/ccx_rapid_drop/levels.example.json"
+                              },
+                              {
+                                  "sha256":  "895796950fcfffba16431a12f45081b9c1575611c210ce130af393763f5a6af5",
+                                  "path":  "research/ccx_rapid_drop/rapid_drop.py"
+                              },
+                              {
+                                  "sha256":  "7753f93b80207e36d1f7ec7fabe548314b811229a3d5fc0fdd9babeccaad3de2",
+                                  "path":  "research/ccx_rapid_drop/README.md"
+                              },
+                              {
+                                  "sha256":  "5f3f10354d7d79d002db46e40cff74dff52ee65b10e1cccaaf89763f025fec1a",
+                                  "path":  "research/ccx_rapid_drop/replay.py"
+                              },
+                              {
+                                  "sha256":  "2296f67d76432affd3d6ba92d9fdafd9bb91cdfb144904498d3f5f647592c69c",
+                                  "path":  "research/ccx_rapid_drop/test_log.txt"
+                              },
+                              {
+                                  "sha256":  "3ed34b020842c4bbffc583bf8508baacf199ec01471959ff99d4b4aed5afd35f",
+                                  "path":  "research/ccx_rapid_drop/test_rapid_drop.py"
+                              }
+                          ]
+}

@@ -1,0 +1,324 @@
+{
+  "schema_version": "0.2",
+  "base_commit": "38d3f59685e577da2991323d97b448e72b66dd54",
+  "branch": "feat/rapid-drop-v02",
+  "python": {
+    "executable": "C:\\Users\\tlgns\\Desktop\\트레이딩앱\\trading_app\\backend\\.venv\\Scripts\\python.exe",
+    "version": "3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)]",
+    "packages": {
+      "numpy": "2.5.2",
+      "pandas": "3.0.5"
+    }
+  },
+  "tests": {
+    "passed": 46,
+    "failed": 0
+  },
+  "replay": {
+    "exit_code": 0,
+    "rows": 1762,
+    "stderr_bytes": 0,
+    "cli_matches_engine": true
+  },
+  "fixture": {
+    "path": "backend/tests/fixtures/BTCUSDT_1d_2022-01-01_2026-10-28.csv",
+    "sha256": "01c9753467dcddfdb2c9586084d7bf2b926afb294236666c61892745a05a4ca0",
+    "bars": 1762,
+    "first_day": "2022-01-01",
+    "last_day": "2026-10-28"
+  },
+  "config": {
+    "slope_bars": 2,
+    "min_drop_per_bar": 0.02,
+    "min_acceleration": 0.01,
+    "context_bars": 3,
+    "volume_bars": 3,
+    "volume_multiple": 2,
+    "large_red_body": 0.04,
+    "rebound": 0.03,
+    "tolerance": 0.01,
+    "max_age": 8
+  },
+  "config_unchanged_from_v01": true,
+  "config_status": "검증되지 않은 비교용 실험값; 최적화 없음",
+  "shape_function": {
+    "path": "backend/app/services/candle_patterns.py",
+    "sha256": "3ba5d158eed6593c456cdaf36e3399c181e4ae7b192343d29ac65421e54fd722",
+    "parameters": {
+      "body_max": 0.15,
+      "body_ext_max": 0.25,
+      "hammer_body_max": 0.35,
+      "hammer_opposite_wick_max": 0.1,
+      "hammer_wick_body_mult": 2,
+      "volume_lookback": 20,
+      "volume_ratio_min": 1.5
+    }
+  },
+  "actual_support_count": 0,
+  "manual_support_unconfirmed_rows": 1762,
+  "event_occurrences": 144,
+  "event_days": 136,
+  "events": {
+    "volume_red_watch_only": {
+      "count": 22,
+      "dates": [
+        "2022-01-21",
+        "2022-04-11",
+        "2022-05-09",
+        "2022-06-13",
+        "2022-09-06",
+        "2022-11-08",
+        "2023-06-05",
+        "2023-08-17",
+        "2023-12-11",
+        "2024-01-22",
+        "2024-04-02",
+        "2024-06-24",
+        "2024-07-04",
+        "2024-08-05",
+        "2024-08-27",
+        "2025-10-10",
+        "2025-11-04",
+        "2025-12-01",
+        "2026-01-20",
+        "2026-01-29",
+        "2026-02-05",
+        "2026-06-02"
+      ]
+    },
+    "first_support_reaction": {
+      "count": 0,
+      "dates": []
+    },
+    "support_reaction_while_tracking": {
+      "count": 0,
+      "dates": []
+    },
+    "support_reaction_after_invalidation": {
+      "count": 0,
+      "dates": []
+    },
+    "reversal_observed": {
+      "count": 71,
+      "dates": [
+        "2022-01-08",
+        "2022-01-24",
+        "2022-02-12",
+        "2022-02-19",
+        "2022-03-12",
+        "2022-04-20",
+        "2022-04-24",
+        "2022-05-02",
+        "2022-05-12",
+        "2022-06-14",
+        "2022-06-15",
+        "2022-06-17",
+        "2022-07-26",
+        "2022-08-22",
+        "2022-09-08",
+        "2022-09-14",
+        "2022-09-23",
+        "2023-03-04",
+        "2023-03-06",
+        "2023-03-10",
+        "2023-05-09",
+        "2023-05-10",
+        "2023-06-09",
+        "2023-06-11",
+        "2023-06-12",
+        "2023-06-13",
+        "2023-08-19",
+        "2023-11-23",
+        "2023-12-14",
+        "2024-01-13",
+        "2024-01-20",
+        "2024-01-28",
+        "2024-03-23",
+        "2024-04-05",
+        "2024-04-07",
+        "2024-07-01",
+        "2024-07-05",
+        "2024-08-10",
+        "2024-08-29",
+        "2024-08-30",
+        "2024-10-02",
+        "2024-10-03",
+        "2024-11-02",
+        "2024-11-03",
+        "2024-11-28",
+        "2024-12-20",
+        "2025-01-11",
+        "2025-02-06",
+        "2025-02-07",
+        "2025-02-27",
+        "2025-02-28",
+        "2025-03-04",
+        "2025-03-06",
+        "2025-03-30",
+        "2025-03-31",
+        "2025-04-07",
+        "2025-06-13",
+        "2025-08-16",
+        "2025-08-17",
+        "2025-10-13",
+        "2025-11-21",
+        "2025-12-06",
+        "2025-12-08",
+        "2026-01-22",
+        "2026-01-23",
+        "2026-01-30",
+        "2026-02-09",
+        "2026-03-28",
+        "2026-06-04",
+        "2026-06-26",
+        "2026-06-27"
+      ]
+    },
+    "bounce_observed": {
+      "count": 12,
+      "dates": [
+        "2022-04-13",
+        "2022-05-10",
+        "2022-09-09",
+        "2023-06-06",
+        "2023-12-13",
+        "2024-01-26",
+        "2024-04-04",
+        "2024-06-30",
+        "2024-08-06",
+        "2025-11-09",
+        "2025-12-02",
+        "2026-02-06"
+      ]
+    },
+    "retest_observed": {
+      "count": 17,
+      "dates": [
+        "2022-04-14",
+        "2022-04-15",
+        "2022-04-17",
+        "2022-04-18",
+        "2022-05-11",
+        "2023-06-10",
+        "2023-06-11",
+        "2023-06-12",
+        "2023-06-13",
+        "2023-12-14",
+        "2023-12-16",
+        "2023-12-17",
+        "2023-12-18",
+        "2024-04-05",
+        "2024-08-07",
+        "2025-11-11",
+        "2025-11-12"
+      ]
+    },
+    "anchor_lost_on_close": {
+      "count": 11,
+      "dates": [
+        "2022-01-22",
+        "2022-05-11",
+        "2022-06-14",
+        "2022-11-09",
+        "2023-08-18",
+        "2024-07-07",
+        "2024-09-01",
+        "2025-10-11",
+        "2026-01-25",
+        "2026-01-31",
+        "2026-06-03"
+      ]
+    },
+    "anchor_expired": {
+      "count": 11,
+      "dates": [
+        "2022-04-20",
+        "2022-09-15",
+        "2023-06-14",
+        "2023-12-20",
+        "2024-01-31",
+        "2024-04-11",
+        "2024-07-03",
+        "2024-08-14",
+        "2025-11-13",
+        "2025-12-10",
+        "2026-02-14"
+      ]
+    },
+    "support_break_observed": {
+      "count": 0,
+      "dates": []
+    },
+    "support_recovery_trap_watch": {
+      "count": 0,
+      "dates": []
+    },
+    "support_reclaim_without_observed_break": {
+      "count": 0,
+      "dates": []
+    }
+  },
+  "retest_classification": {
+    "by_shape": {
+      "none": 12,
+      "doji": 4,
+      "hammer": 1
+    },
+    "by_close_location": {
+      "above_reference_band": 9,
+      "within_reference_band": 7,
+      "below_reference_band": 1
+    },
+    "far_rebounded": 4,
+    "lower_wick_contact": 16
+  },
+  "invariance": {
+    "real_prefixes": 1762,
+    "historical_observation_comparisons": 1553203,
+    "recompute_existing_shape_for_every_prefix": true,
+    "future_days": 32,
+    "future_level_injected": true,
+    "synthetic_cases": 13,
+    "synthetic_prefixes": 89,
+    "synthetic_extension_days_each": 32,
+    "mismatches": 0
+  },
+  "comparison": {
+    "v01_source_commit": "38d3f59685e577da2991323d97b448e72b66dd54",
+    "v01_source_sha256": "895796950fcfffba16431a12f45081b9c1575611c210ce130af393763f5a6af5",
+    "v01_reexecuted": true,
+    "v01_matches_previous_record": true,
+    "counts": {
+      "preserved": 57,
+      "reclassified": 53,
+      "added": 35,
+      "removed": 0
+    },
+    "old_occurrences": 110,
+    "new_occurrences": 144,
+    "matched_new_facts": 109,
+    "old_facts_merged_into_attributes": 1
+  },
+  "preservation": {
+    "protected_files_checked": 232,
+    "changed": []
+  },
+  "not_verified": [
+    "실제 지지에서의 첫 반응·이탈 회복: 실제 지지 입력 없음",
+    "과거 수동 도형 좌표 버전의 사용 가능 시점",
+    "진입 가능성·성과·체결"
+  ],
+  "not_implemented": [
+    "분할 비중",
+    "손절",
+    "체결·손익",
+    "웹 통합",
+    "RSI",
+    "실제 주문"
+  ],
+  "not_run": [
+    "운영 앱 회귀 검사: 연구 폴더 밖 변경 없음",
+    "main 병합",
+    "운영 배포"
+  ]
+}

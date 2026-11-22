@@ -1,0 +1,3007 @@
+{
+  "enabled": true,
+  "schema_version": "0.3",
+  "symbol": "BTCUSDT",
+  "interval": "1d",
+  "date": "2023-06-11",
+  "data_source": "fixed_fixture",
+  "policy_source": "rapid-drop-v03-draft/2026-11-22 · research/ccx_rapid_drop/example_config.json",
+  "market": {
+    "phase": "normal",
+    "strong_drop": false,
+    "accelerating_now": false,
+    "accelerating_down": false,
+    "previous_speed": 0.0026216923337801716,
+    "recent_speed": -0.010539027393603571,
+    "observation_window": false,
+    "last_acceleration_date": "2023-06-05",
+    "episode_id": "rd02_b8ccb890cd143962afb68ae4",
+    "episode_start": "2023-06-05",
+    "last_drop_date": "2023-06-05",
+    "recovery_line": 27069.22,
+    "post_drop_bars": 0,
+    "price_recovery_streak": 0,
+    "speed_stable_count": 0,
+    "exit_reason": "speed_stability",
+    "reworsened": false,
+    "strong_speed_threshold": -0.02,
+    "ease_speed_threshold": -0.01,
+    "acceleration_delta": 0.01
+  },
+  "summary": {
+    "title": "롱 후보 · 자동 기준대 재시험",
+    "badge": "new",
+    "caution": null
+  },
+  "active_anchors": [
+    {
+      "id": "rd02_e1440c1beea874f7039a4ee4",
+      "day": "2023-06-05",
+      "source": "auto",
+      "reference_price": 25728.2,
+      "initial_low": 25388.0,
+      "bottom": 25470.918,
+      "top": 25985.482,
+      "bounced_on": "2023-06-06",
+      "support_id": null,
+      "support_version_id": null
+    }
+  ],
+  "raw_events": [
+    {
+      "id": "rd02_2a3d8fc62a1bae89600ff692",
+      "kind": "retest_observed",
+      "day": "2023-06-11",
+      "anchor_id": "rd02_e1440c1beea874f7039a4ee4",
+      "anchor_day": "2023-06-05",
+      "anchor_source": "auto",
+      "support_id": "rd02_e1440c1beea874f7039a4ee4",
+      "support_version_id": null,
+      "support_source": "automatic_reference",
+      "manual_support_status": "unconfirmed",
+      "support_bottom": null,
+      "support_top": null,
+      "manual_support_ids": [],
+      "evaluated_support_ids": [],
+      "related_event_id": null,
+      "previous_anchor_id": null,
+      "tracking_anchor": true,
+      "shape": "doji",
+      "reference_price": 25728.2,
+      "reference_bottom": 25470.918,
+      "reference_top": 25985.482,
+      "close_location": "within_reference_band",
+      "close_far_rebounded": false,
+      "range_tests_reference": true,
+      "lower_wick_tests_reference": true,
+      "first_wick_undercut": false,
+      "wick_recovered_on_close": true,
+      "bounce_confirmed_on": "2023-06-06",
+      "volume_ratio_recent": 0.726416985482845,
+      "volume_high_recent": false,
+      "volume_ratio_anchor_red": 0.45610547672049634,
+      "volume_red_anchor_id": "rd02_5df1205e469e39b70a68ce37",
+      "volume_red_anchor_day": "2023-06-05",
+      "entry_status": "not_evaluated",
+      "candidate_id": null,
+      "lifecycle_id": null,
+      "previous_candidate_ids": [],
+      "candidate_reaction_low": null,
+      "anchor_initial_low": 25388.0,
+      "terminal_reason": null
+    },
+    {
+      "id": "rd02_70f418a9a3eada463e781754",
+      "kind": "auto_retest_long",
+      "day": "2023-06-11",
+      "anchor_id": "rd02_e1440c1beea874f7039a4ee4",
+      "anchor_day": "2023-06-05",
+      "anchor_source": "auto",
+      "support_id": "rd02_e1440c1beea874f7039a4ee4",
+      "support_version_id": null,
+      "support_source": "automatic_reference",
+      "manual_support_status": "unconfirmed",
+      "support_bottom": null,
+      "support_top": null,
+      "manual_support_ids": [],
+      "evaluated_support_ids": [],
+      "related_event_id": null,
+      "previous_anchor_id": null,
+      "tracking_anchor": true,
+      "shape": "doji",
+      "reference_price": 25728.2,
+      "reference_bottom": 25470.918,
+      "reference_top": 25985.482,
+      "close_location": "within_reference_band",
+      "close_far_rebounded": false,
+      "range_tests_reference": true,
+      "lower_wick_tests_reference": true,
+      "first_wick_undercut": false,
+      "wick_recovered_on_close": true,
+      "bounce_confirmed_on": "2023-06-06",
+      "volume_ratio_recent": 0.726416985482845,
+      "volume_high_recent": false,
+      "volume_ratio_anchor_red": 0.45610547672049634,
+      "volume_red_anchor_id": "rd02_5df1205e469e39b70a68ce37",
+      "volume_red_anchor_day": "2023-06-05",
+      "entry_status": "candidate_only",
+      "candidate_id": "rd02_995c12c9e4daaf607d3fef2a",
+      "lifecycle_id": "rd02_995c12c9e4daaf607d3fef2a",
+      "previous_candidate_ids": [],
+      "candidate_reaction_low": 25634.7,
+      "anchor_initial_low": 25388.0,
+      "terminal_reason": null
+    }
+  ],
+  "support": {
+    "status": "unconfirmed",
+    "known_versions": 0,
+    "recording_started_at": null,
+    "unsupported_line_ids": [],
+    "warnings": [
+      "기록 시작 이전의 도형 좌표·사용 가능 시점은 확인하지 못했습니다."
+    ]
+  },
+  "signals": [
+    {
+      "id": "rd02_995c12c9e4daaf607d3fef2a",
+      "type": "auto_retest_long",
+      "title": "롱 후보 · 자동 기준대 재시험",
+      "direction": "long",
+      "occurred_on": "2023-06-11",
+      "confirmed_at": "2023-06-12T00:00:00+00:00",
+      "anchor_id": "rd02_e1440c1beea874f7039a4ee4",
+      "anchor_day": "2023-06-05",
+      "reference": {
+        "price": 25728.2,
+        "bottom": 25470.918,
+        "top": 25985.482,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": 25634.7,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.726배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.456배",
+        "이전 봉까지 반등 확인 2023-06-06",
+        "기준 봉 저가 25,388.00",
+        "거래량 비교 장대음봉 2023-06-05"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_70f418a9a3eada463e781754"
+      ]
+    }
+  ],
+  "maintained_candidates": [],
+  "history": [
+    {
+      "id": "rd02_38233ba4861acce4d4c8b6c4",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-01-05",
+      "confirmed_at": "2022-01-06T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_d3bba0795211ebfea1603249",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-01-06",
+      "confirmed_at": "2022-01-07T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_342d19d05d654d7df3d79ba0",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-01-08",
+      "confirmed_at": "2022-01-09T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.679배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.636배",
+        "거래량 비교 장대음봉 2022-01-05"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_82955c7e3fd1b7d22994e3c2"
+      ]
+    },
+    {
+      "id": "rd02_040333c353383b4fce77b1d3",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-01-09",
+      "confirmed_at": "2022-01-10T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.538배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.439배",
+        "거래량 비교 장대음봉 2022-01-05"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_63efeb4ebb6a867f7f200bd8"
+      ]
+    },
+    {
+      "id": "rd02_06958ae8a6805edf54012c9d",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-01-20",
+      "confirmed_at": "2022-01-21T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_794165ad77da9cd545eacb2f",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-01-21",
+      "confirmed_at": "2022-01-22T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_ca1d1d7ba2f9a5a8efff204e",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-01-22",
+      "confirmed_at": "2022-01-23T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_00053ee0872e2007ed70aa1a",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-01-24",
+      "confirmed_at": "2022-01-25T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.233배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 1.034배",
+        "거래량 비교 장대음봉 2022-01-21"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_e9a1392173dae7baf566525b"
+      ]
+    },
+    {
+      "id": "rd02_9c0646d46724e5aea4bd167e",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-02-02",
+      "confirmed_at": "2022-02-03T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_874716dd22e0c635331aa27a",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-02-11",
+      "confirmed_at": "2022-02-12T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_76afdebe1ea331329986a831",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-02-12",
+      "confirmed_at": "2022-02-13T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.562배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.742배",
+        "거래량 비교 장대음봉 2022-02-02"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_e3d1c7afcc7b31d8af119b14"
+      ]
+    },
+    {
+      "id": "rd02_715aaad2a99408a09d6c40ba",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-02-17",
+      "confirmed_at": "2022-02-18T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_81b2245a6c4084f2cb7ef916",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-02-18",
+      "confirmed_at": "2022-02-19T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_ed223044a61e64fa7a5f5693",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-02-19",
+      "confirmed_at": "2022-02-20T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.453배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.382배",
+        "거래량 비교 장대음봉 2022-02-17"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_fb00d23fc3780750d09be6ed"
+      ]
+    },
+    {
+      "id": "rd02_b94168fca41c84bab1e723a5",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-02-21",
+      "confirmed_at": "2022-02-22T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_307889beb9cf61cc808924d3",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-03-03",
+      "confirmed_at": "2022-03-04T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_7ad96d4b7f594941ea332b97",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-03-04",
+      "confirmed_at": "2022-03-05T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_b0ee5528051ed22a09116d24",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-03-05",
+      "confirmed_at": "2022-03-06T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_d47c916f2c6c8bc871c508a7",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-03-11",
+      "confirmed_at": "2022-03-12T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_3f59d28797d849c59e4b19d6",
+      "type": "brake_watch",
+      "title": "역망치형 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-03-12",
+      "confirmed_at": "2022-03-13T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 역망치형",
+        "직전 3봉 평균 대비 거래량 0.363배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.334배",
+        "거래량 비교 장대음봉 2022-03-10"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_796543a521e1b8e43ca0c8da"
+      ]
+    },
+    {
+      "id": "rd02_668ce878a708bcea7ec46710",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-03-31",
+      "confirmed_at": "2022-04-01T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_d15f1e94cb0deb2e7a3eac25",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-04-06",
+      "confirmed_at": "2022-04-07T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_0105188640b764d20e248f7d",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-04-07",
+      "confirmed_at": "2022-04-08T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_81ce350644806728685c03fe",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-04-11",
+      "confirmed_at": "2022-04-12T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_5da7c21c8a421de9c9dea194",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-04-12",
+      "confirmed_at": "2022-04-13T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_6cb03e888c55c8b0584c668f",
+      "type": "strong_recovery_observed",
+      "title": "강한 회복 관찰",
+      "direction": "reference",
+      "occurred_on": "2022-04-14",
+      "confirmed_at": "2022-04-15T00:00:00+00:00",
+      "anchor_id": "rd02_28fb04ee4349a3e1a62fe0c2",
+      "anchor_day": "2022-04-11",
+      "reference": {
+        "price": 39530.45,
+        "bottom": 39135.1455,
+        "top": 39925.754499999995,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 없음",
+        "직전 3봉 평균 대비 거래량 0.679배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.579배",
+        "이전 봉까지 반등 확인 2022-04-13",
+        "기준 봉 저가 39,200.00",
+        "거래량 비교 장대음봉 2022-04-11"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_57bbf61469dce07c96a22856"
+      ]
+    },
+    {
+      "id": "rd02_f1f51d137e86f4dd6863dc02",
+      "type": "strong_recovery_observed",
+      "title": "강한 회복 관찰",
+      "direction": "reference",
+      "occurred_on": "2022-04-15",
+      "confirmed_at": "2022-04-16T00:00:00+00:00",
+      "anchor_id": "rd02_28fb04ee4349a3e1a62fe0c2",
+      "anchor_day": "2022-04-11",
+      "reference": {
+        "price": 39530.45,
+        "bottom": 39135.1455,
+        "top": 39925.754499999995,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 없음",
+        "직전 3봉 평균 대비 거래량 0.530배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.378배",
+        "이전 봉까지 반등 확인 2022-04-13",
+        "기준 봉 저가 39,200.00",
+        "거래량 비교 장대음봉 2022-04-11"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_4bdeef9d9a952e29fa614869"
+      ]
+    },
+    {
+      "id": "rd02_5e1c2d7459eb4b30f7752672",
+      "type": "retest_watch",
+      "title": "재시험 접촉 관찰",
+      "direction": "reference",
+      "occurred_on": "2022-04-17",
+      "confirmed_at": "2022-04-18T00:00:00+00:00",
+      "anchor_id": "rd02_28fb04ee4349a3e1a62fe0c2",
+      "anchor_day": "2022-04-11",
+      "reference": {
+        "price": 39530.45,
+        "bottom": 39135.1455,
+        "top": 39925.754499999995,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 없음",
+        "직전 3봉 평균 대비 거래량 0.782배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.314배",
+        "이전 봉까지 반등 확인 2022-04-13",
+        "기준 봉 저가 39,200.00",
+        "거래량 비교 장대음봉 2022-04-11"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_3b11345ffa038a90b6b8f6cb"
+      ]
+    },
+    {
+      "id": "rd02_277665cb4a2cb2ec8b238153",
+      "type": "strong_recovery_observed",
+      "title": "강한 회복 관찰",
+      "direction": "reference",
+      "occurred_on": "2022-04-18",
+      "confirmed_at": "2022-04-19T00:00:00+00:00",
+      "anchor_id": "rd02_28fb04ee4349a3e1a62fe0c2",
+      "anchor_day": "2022-04-11",
+      "reference": {
+        "price": 39530.45,
+        "bottom": 39135.1455,
+        "top": 39925.754499999995,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 없음",
+        "직전 3봉 평균 대비 거래량 2.720배 · 고거래량 해당",
+        "선행 최근 장대음봉 대비 거래량 0.853배",
+        "이전 봉까지 반등 확인 2022-04-13",
+        "기준 봉 저가 39,200.00",
+        "거래량 비교 장대음봉 2022-04-11"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_b634a09b97ad1a521e382ea3"
+      ]
+    },
+    {
+      "id": "rd02_fbe14a0b22e6bd1566a198fd",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-04-22",
+      "confirmed_at": "2022-04-23T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_65e4265f05ae43fada6a9cc6",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-04-24",
+      "confirmed_at": "2022-04-25T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.634배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.420배",
+        "거래량 비교 장대음봉 2022-04-11"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_87cff755e367b92e170111eb"
+      ]
+    },
+    {
+      "id": "rd02_f00fa4ac59f7ed5a4a308f6e",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-04-30",
+      "confirmed_at": "2022-05-01T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_aa7aab7c0bde1cde4d01e7a6",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-05-02",
+      "confirmed_at": "2022-05-03T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.271배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.798배",
+        "거래량 비교 장대음봉 2022-04-26"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_1913f24eb38d662bf54412d7"
+      ]
+    },
+    {
+      "id": "rd02_f3520c5a97eb9ff4d4efdc88",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-05-06",
+      "confirmed_at": "2022-05-07T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_b6b9ba81ec75e6600c444ec3",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-05-09",
+      "confirmed_at": "2022-05-10T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_c6030668e71b00afa7bc1d5e",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-05-10",
+      "confirmed_at": "2022-05-11T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_0bd4fa3bfc082164d2f0ee1b",
+      "type": "retest_watch",
+      "title": "재시험 접촉 관찰",
+      "direction": "reference",
+      "occurred_on": "2022-05-11",
+      "confirmed_at": "2022-05-12T00:00:00+00:00",
+      "anchor_id": "rd02_1a68e3b3a12147e0979f35cc",
+      "anchor_day": "2022-05-09",
+      "reference": {
+        "price": 30076.31,
+        "bottom": 29775.5469,
+        "top": 30377.0731,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 없음",
+        "직전 3봉 평균 대비 거래량 1.445배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 1.079배",
+        "이전 봉까지 반등 확인 2022-05-10",
+        "기준 봉 저가 30,033.33",
+        "거래량 비교 장대음봉 2022-05-09"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_34a1c2ba4dffc56b942c4d4a"
+      ]
+    },
+    {
+      "id": "rd02_1ed652c1e08b69cb9dc99bc4",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-05-12",
+      "confirmed_at": "2022-05-13T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.087배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.988배",
+        "거래량 비교 장대음봉 2022-05-11"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_7dadbec331c256d28a86c8a2"
+      ]
+    },
+    {
+      "id": "rd02_35eaa4206243da141b8341e1",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-05-13",
+      "confirmed_at": "2022-05-14T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.509배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.473배",
+        "거래량 비교 장대음봉 2022-05-11"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_8ee6787bdadf17b4da7cfdf6"
+      ]
+    },
+    {
+      "id": "rd02_df0bab7e59fcfced6b1f42d6",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-06-01",
+      "confirmed_at": "2022-06-02T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_3332385ee1e7a8a0d72f5938",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-06-02",
+      "confirmed_at": "2022-06-03T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_d8e542fcdbd500409e7fcef2",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-06-11",
+      "confirmed_at": "2022-06-12T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_cb1768f0d00b43a58fd1fb97",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-06-12",
+      "confirmed_at": "2022-06-13T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_4644783762a378fb568f6175",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-06-13",
+      "confirmed_at": "2022-06-14T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_8b6cfec40b91fdd7f891fc89",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-06-14",
+      "confirmed_at": "2022-06-15T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_fd14b01da1935103481437e9",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-06-14",
+      "confirmed_at": "2022-06-15T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.360배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.735배",
+        "거래량 비교 장대음봉 2022-06-13"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_ca80ad593bfa748330632ef6"
+      ]
+    },
+    {
+      "id": "rd02_51e49c6da5ca9ae526616353",
+      "type": "brake_watch",
+      "title": "망치형 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-06-15",
+      "confirmed_at": "2022-06-16T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 망치형",
+        "직전 3봉 평균 대비 거래량 1.127배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.789배",
+        "거래량 비교 장대음봉 2022-06-13"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_1636676979618fdd05591e12"
+      ]
+    },
+    {
+      "id": "rd02_191983d21cebb87b54833f27",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-06-17",
+      "confirmed_at": "2022-06-18T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_a60b0d444bc540731b8e7ea2",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-06-17",
+      "confirmed_at": "2022-06-18T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.533배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.870배",
+        "거래량 비교 장대음봉 2022-06-16"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_36fed3fe262608b786e92402"
+      ]
+    },
+    {
+      "id": "rd02_0da806d3d60866f8a53fce21",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-07-02",
+      "confirmed_at": "2022-07-03T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.490배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.235배",
+        "거래량 비교 장대음봉 2022-06-18"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_ea53276c2577b5d555395ffd"
+      ]
+    },
+    {
+      "id": "rd02_2d9bef1bf74670024058f2ea",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-07-03",
+      "confirmed_at": "2022-07-04T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.608배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.260배",
+        "거래량 비교 장대음봉 2022-06-18"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_5d4811428408285533b60818"
+      ]
+    },
+    {
+      "id": "rd02_b35e6eb48be8aaabd560b327",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-07-11",
+      "confirmed_at": "2022-07-12T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_dad11ad8092f06429c0f2534",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-07-12",
+      "confirmed_at": "2022-07-13T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_a49ee08c9374aaed346e6743",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-07-25",
+      "confirmed_at": "2022-07-26T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_a92d2caad3ce57ffe66d7a4d",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-07-26",
+      "confirmed_at": "2022-07-27T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_51b6b24c20c9a86d4a507731",
+      "type": "brake_watch",
+      "title": "망치형 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-07-26",
+      "confirmed_at": "2022-07-27T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 망치형",
+        "직전 3봉 평균 대비 거래량 1.277배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.986배",
+        "거래량 비교 장대음봉 2022-07-25"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_16ae3412970adee985c2dcd3"
+      ]
+    },
+    {
+      "id": "rd02_f60b6bb62a0793feece1d6d4",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-08-19",
+      "confirmed_at": "2022-08-20T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_1e9559b01c56a54d377d9d68",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-08-20",
+      "confirmed_at": "2022-08-21T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_cce74ff4cff51d5108c51a08",
+      "type": "brake_watch",
+      "title": "망치형 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-08-22",
+      "confirmed_at": "2022-08-23T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 망치형",
+        "직전 3봉 평균 대비 거래량 1.065배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.782배",
+        "거래량 비교 장대음봉 2022-08-19"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_6c68252fdd9ae7b752ab8318"
+      ]
+    },
+    {
+      "id": "rd02_abab0ebb0b6fcbef1c4d3f2d",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-08-26",
+      "confirmed_at": "2022-08-27T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_b75e8dbf41d3503d172613a8",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-08-27",
+      "confirmed_at": "2022-08-28T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_ba27e7b56b34c5cf8e4edc95",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-09-06",
+      "confirmed_at": "2022-09-07T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_1dc24fb8f926df2e1f2cc3dd",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-09-08",
+      "confirmed_at": "2022-09-09T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.910배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.738배",
+        "거래량 비교 장대음봉 2022-09-06"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_2ae5bd7b19f8fc87ccae0b32"
+      ]
+    },
+    {
+      "id": "rd02_921d20cda00bbb3ef74c4158",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-09-13",
+      "confirmed_at": "2022-09-14T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_505f5e8196febb0f58b4dde3",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-09-14",
+      "confirmed_at": "2022-09-15T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_dfd831d35388c1e0d0947bba",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-09-14",
+      "confirmed_at": "2022-09-15T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.923배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.789배",
+        "거래량 비교 장대음봉 2022-09-13"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_ec16c8ed2f8498c8bdafec0a"
+      ]
+    },
+    {
+      "id": "rd02_9fe2ec1d7b79bc68d6f6e1a0",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-09-21",
+      "confirmed_at": "2022-09-22T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_fe3031f6130417ccdb9a7d71",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2022-09-23",
+      "confirmed_at": "2022-09-24T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.064배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.893배",
+        "거래량 비교 장대음봉 2022-09-13"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_4658ba559be704b1ebcb8133"
+      ]
+    },
+    {
+      "id": "rd02_0c4f16b297d9b70575d30804",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-11-08",
+      "confirmed_at": "2022-11-09T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_ad48657c7b8e74c943513d62",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-11-09",
+      "confirmed_at": "2022-11-10T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_38bcbf46b8ce826ee6119819",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-11-13",
+      "confirmed_at": "2022-11-14T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_0a5e5a3365f3128a663a7972",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-11-21",
+      "confirmed_at": "2022-11-22T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_31a27c99889e9cbbffdac1b4",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2022-12-16",
+      "confirmed_at": "2022-12-17T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_1c43297f78e2b948a798ecee",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-02-09",
+      "confirmed_at": "2023-02-10T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_fd372646b0e32deb6cc372ad",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-02-10",
+      "confirmed_at": "2023-02-11T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_7bb86440fddc28ebf29039f3",
+      "type": "brake_watch",
+      "title": "망치형 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-02-25",
+      "confirmed_at": "2023-02-26T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 망치형",
+        "직전 3봉 평균 대비 거래량 0.512배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.475배",
+        "거래량 비교 장대음봉 2023-02-09"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_1be3a41b377d776328c7a30c"
+      ]
+    },
+    {
+      "id": "rd02_d4f0578214950ccaa740a230",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-03-03",
+      "confirmed_at": "2023-03-04T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_9684135a836b41d2156c3c19",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-03-04",
+      "confirmed_at": "2023-03-05T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_141b30928a74670845c77ff6",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-03-04",
+      "confirmed_at": "2023-03-05T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.416배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.379배",
+        "거래량 비교 장대음봉 2023-03-03"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_fc6daf323dea7a38be4907f5"
+      ]
+    },
+    {
+      "id": "rd02_fce7ea3cba1f3bb4136a0ab7",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-03-06",
+      "confirmed_at": "2023-03-07T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.026배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.637배",
+        "거래량 비교 장대음봉 2023-03-03"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_cbdb1e935f1eacbfa6a268fd"
+      ]
+    },
+    {
+      "id": "rd02_2ec81b1baa4471b1e346a8aa",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-03-09",
+      "confirmed_at": "2023-03-10T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_bdd8ad9cf677b682986b1033",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-03-10",
+      "confirmed_at": "2023-03-11T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_eabbbfa24ad4e6b5cbc6e245",
+      "type": "brake_watch",
+      "title": "망치형 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-03-10",
+      "confirmed_at": "2023-03-11T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 망치형",
+        "직전 3봉 평균 대비 거래량 1.788배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 1.394배",
+        "거래량 비교 장대음봉 2023-03-09"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_d09df92e64b4c2753193520b"
+      ]
+    },
+    {
+      "id": "rd02_12cd02c92e0eab0f62035da1",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-04-20",
+      "confirmed_at": "2023-04-21T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_24ab124cd3eef848cd026c52",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-04-21",
+      "confirmed_at": "2023-04-22T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_6fef6ba89213dde3dce10d60",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-05-01",
+      "confirmed_at": "2023-05-02T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_fe4c951e2c007920ec751721",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-05-08",
+      "confirmed_at": "2023-05-09T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_aaf257b34f26c351977f72c2",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-05-09",
+      "confirmed_at": "2023-05-10T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.816배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.463배",
+        "거래량 비교 장대음봉 2023-04-19"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_6b019b7c4b529bebab823fbe"
+      ]
+    },
+    {
+      "id": "rd02_49ad6d976ed1ca517b002a59",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-05-10",
+      "confirmed_at": "2023-05-11T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 1.543배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.822배",
+        "거래량 비교 장대음봉 2023-04-19"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_cb668dd3408b8371b2085272"
+      ]
+    },
+    {
+      "id": "rd02_fbd9255c3f725220008cb4e7",
+      "type": "brake_watch",
+      "title": "망치형 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-05-12",
+      "confirmed_at": "2023-05-13T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 망치형",
+        "직전 3봉 평균 대비 거래량 1.269배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.776배",
+        "거래량 비교 장대음봉 2023-04-19"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_1f1a397c835149c12c75cfe8"
+      ]
+    },
+    {
+      "id": "rd02_08e7bf1f15adc94f658ac802",
+      "type": "brake_watch",
+      "title": "도지 관찰 · 지지 미확인",
+      "direction": "reference",
+      "occurred_on": "2023-05-13",
+      "confirmed_at": "2023-05-14T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "unconfirmed",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.368배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.264배",
+        "거래량 비교 장대음봉 2023-04-19"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_8c24850b22d7fae6521814b7"
+      ]
+    },
+    {
+      "id": "rd02_8f99e0b01668de1593e31b23",
+      "type": "acceleration_warning",
+      "title": "추가 가속",
+      "direction": "warning",
+      "occurred_on": "2023-06-05",
+      "confirmed_at": "2023-06-06T00:00:00+00:00",
+      "anchor_id": null,
+      "anchor_day": null,
+      "reference": {
+        "price": null,
+        "bottom": null,
+        "top": null,
+        "source": "market",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "최근 2봉 속도와 이전 2봉 속도를 마감 시점에서 비교했습니다."
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "rd02_22235928f1989cbaf0211821",
+      "type": "retest_watch",
+      "title": "재시험 접촉 관찰",
+      "direction": "reference",
+      "occurred_on": "2023-06-10",
+      "confirmed_at": "2023-06-11T00:00:00+00:00",
+      "anchor_id": "rd02_e1440c1beea874f7039a4ee4",
+      "anchor_day": "2023-06-05",
+      "reference": {
+        "price": 25728.2,
+        "bottom": 25470.918,
+        "top": 25985.482,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": null,
+      "evidence": [
+        "반전 모양 없음",
+        "직전 3봉 평균 대비 거래량 1.642배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.987배",
+        "이전 봉까지 반등 확인 2023-06-06",
+        "기준 봉 저가 25,388.00",
+        "거래량 비교 장대음봉 2023-06-05"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_84d600ed6b7910391d26a38c"
+      ]
+    },
+    {
+      "id": "rd02_995c12c9e4daaf607d3fef2a",
+      "type": "auto_retest_long",
+      "title": "롱 후보 · 자동 기준대 재시험",
+      "direction": "long",
+      "occurred_on": "2023-06-11",
+      "confirmed_at": "2023-06-12T00:00:00+00:00",
+      "anchor_id": "rd02_e1440c1beea874f7039a4ee4",
+      "anchor_day": "2023-06-05",
+      "reference": {
+        "price": 25728.2,
+        "bottom": 25470.918,
+        "top": 25985.482,
+        "source": "automatic_reference",
+        "support_id": null,
+        "support_version_id": null
+      },
+      "reaction_low": 25634.7,
+      "evidence": [
+        "반전 모양 도지",
+        "직전 3봉 평균 대비 거래량 0.726배 · 고거래량 미해당/미확인",
+        "선행 최근 장대음봉 대비 거래량 0.456배",
+        "이전 봉까지 반등 확인 2023-06-06",
+        "기준 봉 저가 25,388.00",
+        "거래량 비교 장대음봉 2023-06-05"
+      ],
+      "cautions": [
+        "급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.",
+        "기존 독립 신호의 근거 개수에 합산하지 않습니다."
+      ],
+      "previous_candidate_ids": [],
+      "event_ids": [
+        "rd02_70f418a9a3eada463e781754"
+      ]
+    }
+  ],
+  "warnings": []
+}

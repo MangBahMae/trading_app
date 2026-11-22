@@ -1,0 +1,146 @@
+status,day,old_kind,old_anchor_day,new_kind,new_id,new_anchor_day,reason
+reclassified,2022-01-08,shape_observed_only,,reversal_observed,rd02_d757d2546a2b8bb3befa68a4,2022-01-08,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2022-01-21,volume_red_watch_only,2022-01-21,volume_red_watch_only,rd02_ff0fdecb52569bfc6257ff1b,2022-01-21,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-01-22,anchor_lost_on_close,2022-01-21,anchor_lost_on_close,rd02_673703d7844528e228ba1a7d,2022-01-21,기존 사실을 사건별 참조와 함께 유지
+reclassified,2022-01-24,shape_observed_only,,reversal_observed,rd02_33244b14e15f590c0a198a26,2022-01-24,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-02-12,shape_observed_only,,reversal_observed,rd02_d8d817d2d45e4da5b515ae96,2022-02-12,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-02-19,shape_observed_only,,reversal_observed,rd02_45cbba4691dcf9c1e50499e8,2022-02-19,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-03-12,shape_observed_only,,reversal_observed,rd02_3ead4206e03de63de9df1b37,2022-03-12,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2022-04-11,volume_red_watch_only,2022-04-11,volume_red_watch_only,rd02_0009ddbb50e5c5937a283348,2022-04-11,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-04-13,bounce_observed,2022-04-11,bounce_observed,rd02_6c2e876f87fc43063262e0fc,2022-04-11,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-04-14,retest_observed,2022-04-11,retest_observed,rd02_223f6bc468611017d9b97107,2022-04-11,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-04-20,anchor_expired,2022-04-11,anchor_expired,rd02_1cbe0fef14efd2df62796790,2022-04-11,기존 사실을 사건별 참조와 함께 유지
+reclassified,2022-04-24,shape_observed_only,,reversal_observed,rd02_a7e870b526fc86a9d72365b6,2022-04-24,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-05-02,shape_observed_only,,reversal_observed,rd02_ff7f299884b09a4b36e3081f,2022-05-02,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2022-05-09,volume_red_watch_only,2022-05-09,volume_red_watch_only,rd02_9c0aef5a6a32715fd288270c,2022-05-09,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-05-10,bounce_observed,2022-05-09,bounce_observed,rd02_9011b9618a1af309190c19a8,2022-05-09,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-05-11,anchor_lost_on_close,2022-05-09,anchor_lost_on_close,rd02_396d72d60e9899f8575ba812,2022-05-09,기존 사실을 사건별 참조와 함께 유지
+reclassified,2022-05-12,shape_observed_only,,reversal_observed,rd02_3e661831aa2d9c78c19fa48e,2022-05-12,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2022-06-13,volume_red_watch_only,2022-06-13,volume_red_watch_only,rd02_eba50f706d5121a26ebddea7,2022-06-13,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-06-14,anchor_lost_on_close,2022-06-13,anchor_lost_on_close,rd02_ab349c16bf2b8fe72737f7b6,2022-06-13,기존 사실을 사건별 참조와 함께 유지
+reclassified,2022-06-14,shape_observed_only,2022-06-13,reversal_observed,rd02_f1fb1e6fac67a18af789359b,2022-06-14,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-06-15,shape_observed_only,,reversal_observed,rd02_b005536bd2b8e67c64cfb784,2022-06-15,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-06-17,shape_observed_only,,reversal_observed,rd02_55866111a20b737167cc001a,2022-06-17,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-07-26,shape_observed_only,,reversal_observed,rd02_50632ad977781c56b6b57688,2022-07-26,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2022-08-22,shape_observed_only,,reversal_observed,rd02_a23cb475edd2d590a268e704,2022-08-22,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2022-09-06,volume_red_watch_only,2022-09-06,volume_red_watch_only,rd02_62ceff9e8adf7dafbdbd90ce,2022-09-06,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-09-09,bounce_observed,2022-09-06,bounce_observed,rd02_a72aaae73987b7ba19343418,2022-09-06,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-09-15,anchor_expired,2022-09-06,anchor_expired,rd02_d5e25eb60dea3ea948efe825,2022-09-06,기존 사실을 사건별 참조와 함께 유지
+reclassified,2022-09-23,shape_observed_only,,reversal_observed,rd02_b31b5bf0ec79cce4a07551d7,2022-09-23,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2022-11-08,volume_red_watch_only,2022-11-08,volume_red_watch_only,rd02_5755494a917ae20cb6744d60,2022-11-08,기존 사실을 사건별 참조와 함께 유지
+preserved,2022-11-09,anchor_lost_on_close,2022-11-08,anchor_lost_on_close,rd02_81d4adcab932a9dfcb3caa68,2022-11-08,기존 사실을 사건별 참조와 함께 유지
+reclassified,2023-03-04,shape_observed_only,,reversal_observed,rd02_b6e96a7752dea223e1076239,2023-03-04,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2023-03-06,shape_observed_only,,reversal_observed,rd02_04bc18b7758ae2b49bbd0f82,2023-03-06,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2023-03-10,shape_observed_only,,reversal_observed,rd02_c69532dbc3d89f1c1b82d898,2023-03-10,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2023-05-09,shape_observed_only,,reversal_observed,rd02_41c932b8d65231be25d86ec7,2023-05-09,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2023-05-10,shape_observed_only,,reversal_observed,rd02_ad5d2a991637a47cf86fbdf2,2023-05-10,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2023-06-05,volume_red_watch_only,2023-06-05,volume_red_watch_only,rd02_bba45fb14fe38479af05b267,2023-06-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2023-06-06,bounce_observed,2023-06-05,bounce_observed,rd02_ae4c0c470b39fbed2269a906,2023-06-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2023-06-10,retest_observed,2023-06-05,retest_observed,rd02_25d557ab2173105134c5b23d,2023-06-05,기존 사실을 사건별 참조와 함께 유지
+reclassified,2023-06-10,first_wick_undercut_recovered,2023-06-05,retest_observed,rd02_25d557ab2173105134c5b23d,2023-06-05,별도 사건을 같은 재시험 사건의 꼬리 하회·회복 속성으로 통합
+reclassified,2023-06-11,retest_preferred,2023-06-05,retest_observed,rd02_fa029124fee8a07292938741,2023-06-05,선호 진입 의미를 제거하고 모양·종가 위치·진입 미평가를 분리
+preserved,2023-08-17,volume_red_watch_only,2023-08-17,volume_red_watch_only,rd02_0d5f33a00a32e15734be4be6,2023-08-17,기존 사실을 사건별 참조와 함께 유지
+preserved,2023-08-18,anchor_lost_on_close,2023-08-17,anchor_lost_on_close,rd02_626437ce91fc6e0f0f7082f0,2023-08-17,기존 사실을 사건별 참조와 함께 유지
+reclassified,2023-08-19,shape_observed_only,,reversal_observed,rd02_2b63f3758e43e4a102e4fadf,2023-08-19,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2023-11-23,shape_observed_only,,reversal_observed,rd02_202fa549387865f69172952c,2023-11-23,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2023-12-11,volume_red_watch_only,2023-12-11,volume_red_watch_only,rd02_e36199093b844037bad7b836,2023-12-11,기존 사실을 사건별 참조와 함께 유지
+preserved,2023-12-13,bounce_observed,2023-12-11,bounce_observed,rd02_05fc31f102109419af05e15b,2023-12-11,기존 사실을 사건별 참조와 함께 유지
+reclassified,2023-12-14,retest_preferred,2023-12-11,retest_observed,rd02_3dca834c08a93cf92aa3aebc,2023-12-11,선호 진입 의미를 제거하고 모양·종가 위치·진입 미평가를 분리
+reclassified,2024-01-13,shape_observed_only,,reversal_observed,rd02_df14b5cfe6fb0946deaec6ef,2024-01-13,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2024-01-20,shape_observed_only,,reversal_observed,rd02_6b543c878832d32b944f8ac6,2024-01-20,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2024-01-22,volume_red_watch_only,2024-01-22,volume_red_watch_only,rd02_0a16569db98a8c23b343d452,2024-01-22,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-01-26,bounce_observed,2024-01-22,bounce_observed,rd02_b0cfd6d3c58724c372f2d5cb,2024-01-22,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-01-31,anchor_expired,2024-01-22,anchor_expired,rd02_141eaa589ca39f3d62fc64d3,2024-01-22,기존 사실을 사건별 참조와 함께 유지
+reclassified,2024-03-23,shape_observed_only,,reversal_observed,rd02_b04a712f35b56da8694116c0,2024-03-23,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2024-04-02,volume_red_watch_only,2024-04-02,volume_red_watch_only,rd02_5a16dfc29b565ec09f59cbb5,2024-04-02,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-04-04,bounce_observed,2024-04-02,bounce_observed,rd02_aa60e88191151d2b71a4fd44,2024-04-02,기존 사실을 사건별 참조와 함께 유지
+reclassified,2024-04-05,retest_preferred,2024-04-02,retest_observed,rd02_d045c1a911f44ca3469f5e57,2024-04-02,선호 진입 의미를 제거하고 모양·종가 위치·진입 미평가를 분리
+preserved,2024-06-24,volume_red_watch_only,2024-06-24,volume_red_watch_only,rd02_1a77ec52942ce0ff46040285,2024-06-24,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-06-30,bounce_observed,2024-06-24,bounce_observed,rd02_ce9e641d5724bc14a6894b38,2024-06-24,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-07-03,anchor_expired,2024-06-24,anchor_expired,rd02_ddc43b24707df872e04b3222,2024-06-24,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-07-04,volume_red_watch_only,2024-07-04,volume_red_watch_only,rd02_f4aa9f53cfc5b36ff86727bd,2024-07-04,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-07-07,anchor_lost_on_close,2024-07-04,anchor_lost_on_close,rd02_ce207cf782a382f01a545c77,2024-07-04,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-08-05,volume_red_watch_only,2024-08-05,volume_red_watch_only,rd02_cffc7aee51f5a703a3e4aa1e,2024-08-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-08-06,bounce_observed,2024-08-05,bounce_observed,rd02_f98a786891482fb5793edcca,2024-08-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-08-07,retest_observed,2024-08-05,retest_observed,rd02_0aea0f8b55bef239b198905a,2024-08-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-08-14,anchor_expired,2024-08-05,anchor_expired,rd02_8ae09dd6110654d815ffb5d9,2024-08-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-08-27,volume_red_watch_only,2024-08-27,volume_red_watch_only,rd02_474bc78a4e46cd7264c1c3c0,2024-08-27,기존 사실을 사건별 참조와 함께 유지
+preserved,2024-09-01,anchor_lost_on_close,2024-08-27,anchor_lost_on_close,rd02_f86c101bc62ce77aab7d225c,2024-08-27,기존 사실을 사건별 참조와 함께 유지
+reclassified,2024-10-02,shape_observed_only,,reversal_observed,rd02_267b0b979b6aa323b29a1337,2024-10-02,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2024-10-03,shape_observed_only,,reversal_observed,rd02_3decb649e9474285ec34d80a,2024-10-03,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2024-11-02,shape_observed_only,,reversal_observed,rd02_f99949f66377144a3283861e,2024-11-02,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2024-11-03,shape_observed_only,,reversal_observed,rd02_40e7a8e018bd383a1e282164,2024-11-03,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2024-11-28,shape_observed_only,,reversal_observed,rd02_839435cbbc6218d19a08e2c6,2024-11-28,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2024-12-20,shape_observed_only,,reversal_observed,rd02_5bfdee26e90d622f7f2fd6cb,2024-12-20,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-01-11,shape_observed_only,,reversal_observed,rd02_3491eb2ce09fb964c7e686d0,2025-01-11,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-02-06,shape_observed_only,,reversal_observed,rd02_3fcac0ea4c50c7007f6943ef,2025-02-06,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-02-07,shape_observed_only,,reversal_observed,rd02_13255cb0a03ecb3fb19fc8a7,2025-02-07,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-02-27,shape_observed_only,,reversal_observed,rd02_498cecbbb57a3e6897a1b6b4,2025-02-27,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-02-28,shape_observed_only,,reversal_observed,rd02_1896f420e31ae0b35ad1bd81,2025-02-28,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-03-04,shape_observed_only,,reversal_observed,rd02_7c2831dd4a67b6a602cecfd1,2025-03-04,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-03-06,shape_observed_only,,reversal_observed,rd02_e0a8c3157cb2b7d5d325b9c6,2025-03-06,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-03-30,shape_observed_only,,reversal_observed,rd02_b2c8020ddb3745f5570c3f55,2025-03-30,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-03-31,shape_observed_only,,reversal_observed,rd02_a0b05a7ed1247dc2e1c53da8,2025-03-31,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-04-07,shape_observed_only,,reversal_observed,rd02_6b91968e04c72a0233ab8551,2025-04-07,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-06-13,shape_observed_only,,reversal_observed,rd02_5045275b48e48785c925dfc1,2025-06-13,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-08-16,shape_observed_only,,reversal_observed,rd02_cc11e55b0d9a4688df5535c1,2025-08-16,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2025-08-17,shape_observed_only,,reversal_observed,rd02_ebad20c66dbe75d2cc450e00,2025-08-17,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2025-10-10,volume_red_watch_only,2025-10-10,volume_red_watch_only,rd02_67f756803b4ceda0562285a7,2025-10-10,기존 사실을 사건별 참조와 함께 유지
+preserved,2025-10-11,anchor_lost_on_close,2025-10-10,anchor_lost_on_close,rd02_ba7a9ab0509cd7861edd076d,2025-10-10,기존 사실을 사건별 참조와 함께 유지
+reclassified,2025-10-13,shape_observed_only,,reversal_observed,rd02_02702599750d3e15ae418447,2025-10-13,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2025-11-04,volume_red_watch_only,2025-11-04,volume_red_watch_only,rd02_72cae21e01d4e2fb0aae1d2f,2025-11-04,기존 사실을 사건별 참조와 함께 유지
+preserved,2025-11-09,bounce_observed,2025-11-04,bounce_observed,rd02_8a24bd2a0ef5917220357458,2025-11-04,기존 사실을 사건별 참조와 함께 유지
+preserved,2025-11-11,retest_observed,2025-11-04,retest_observed,rd02_457bc7cecad8c6ce55613645,2025-11-04,기존 사실을 사건별 참조와 함께 유지
+preserved,2025-11-13,anchor_expired,2025-11-04,anchor_expired,rd02_259707559a1b5094198a4646,2025-11-04,기존 사실을 사건별 참조와 함께 유지
+reclassified,2025-11-21,shape_observed_only,,reversal_observed,rd02_320813de7fc2751849ed72c8,2025-11-21,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2025-12-01,volume_red_watch_only,2025-12-01,volume_red_watch_only,rd02_b9e0ac49efd459ad91763220,2025-12-01,기존 사실을 사건별 참조와 함께 유지
+preserved,2025-12-02,bounce_observed,2025-12-01,bounce_observed,rd02_afc5cd69bc80afad145ececc,2025-12-01,기존 사실을 사건별 참조와 함께 유지
+preserved,2025-12-10,anchor_expired,2025-12-01,anchor_expired,rd02_e816bad621fce16787b700a1,2025-12-01,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-01-20,volume_red_watch_only,2026-01-20,volume_red_watch_only,rd02_00e523c96cc6f159c654b05e,2026-01-20,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-01-25,anchor_lost_on_close,2026-01-20,anchor_lost_on_close,rd02_baf6516445cbc244ad75db21,2026-01-20,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-01-29,volume_red_watch_only,2026-01-29,volume_red_watch_only,rd02_ebde013194960f22d272f571,2026-01-29,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-01-31,anchor_lost_on_close,2026-01-29,anchor_lost_on_close,rd02_17cbac82049e6af5df489053,2026-01-29,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-02-05,volume_red_watch_only,2026-02-05,volume_red_watch_only,rd02_e23fe0aec60ac9b7a380157b,2026-02-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-02-06,bounce_observed,2026-02-05,bounce_observed,rd02_22b7b6cc17ee5259a5630770,2026-02-05,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-02-14,anchor_expired,2026-02-05,anchor_expired,rd02_0a47c2e7670a26b689f1d2b9,2026-02-05,기존 사실을 사건별 참조와 함께 유지
+reclassified,2026-03-28,shape_observed_only,,reversal_observed,rd02_547aac39648f5597a37e0823,2026-03-28,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+preserved,2026-06-02,volume_red_watch_only,2026-06-02,volume_red_watch_only,rd02_18cea3c86bf69f6bbf037919,2026-06-02,기존 사실을 사건별 참조와 함께 유지
+preserved,2026-06-03,anchor_lost_on_close,2026-06-02,anchor_lost_on_close,rd02_77986431460ce3ccf44c387a,2026-06-02,기존 사실을 사건별 참조와 함께 유지
+reclassified,2026-06-04,shape_observed_only,,reversal_observed,rd02_4d43804510b8f0782a3016cf,2026-06-04,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2026-06-26,shape_observed_only,,reversal_observed,rd02_f264c772c23018c636e2d201,2026-06-26,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+reclassified,2026-06-27,shape_observed_only,,reversal_observed,rd02_37f2aeb4981bfd12c1a083dd,2026-06-27,지지 미확인/확인된 지지 무반응을 구분하는 반전 사실로 명칭 변경
+added,2022-04-15,,,retest_observed,rd02_2316e2ca60702884cc81f174,2022-04-11,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2022-04-17,,,retest_observed,rd02_33dd3fd0ac24356f94f1927e,2022-04-11,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2022-04-18,,,retest_observed,rd02_3574f82bfd4cb9ed659455e0,2022-04-11,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2022-04-20,,,reversal_observed,rd02_365973ab7bf343dae98535be,2022-04-20,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2022-05-11,,,retest_observed,rd02_bcd64e3a7265c789b210e530,2022-05-09,종가 이탈일에도 재시험 접촉 사실을 보존
+added,2022-09-08,,,reversal_observed,rd02_074367064ab1604fef3989b3,2022-09-06,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2022-09-14,,,reversal_observed,rd02_897638debe3a955385af2de7,2022-09-06,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2023-06-09,,,reversal_observed,rd02_fc5a1f8eb059945be50093a1,2023-06-05,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2023-06-11,,,reversal_observed,rd02_3c05278e88aa11ef654548a5,2023-06-05,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2023-06-12,,,retest_observed,rd02_757003a05e555bdd2690389f,2023-06-05,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2023-06-12,,,reversal_observed,rd02_1c7e8236cf4d8bbe4cc80007,2023-06-05,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2023-06-13,,,retest_observed,rd02_566fc2e9b20bdc47f3ddd57e,2023-06-05,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2023-06-13,,,reversal_observed,rd02_1a14ba98fadb21499bc3a9da,2023-06-05,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2023-06-14,,,anchor_expired,rd02_0f0681124cac6ebe71282dde,2023-06-05,반전 모양 재시험 이후에도 기준을 유지하여 수명 종료 기록
+added,2023-12-14,,,reversal_observed,rd02_1d0ae0bfc419ef34d3555d66,2023-12-11,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2023-12-16,,,retest_observed,rd02_49edcb34b36a053051692838,2023-12-11,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2023-12-17,,,retest_observed,rd02_e9f6f09821feeba8a5a50bf2,2023-12-11,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2023-12-18,,,retest_observed,rd02_712c14b869085de220b781ac,2023-12-11,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2023-12-20,,,anchor_expired,rd02_87185d88d22d815bf1631d15,2023-12-11,반전 모양 재시험 이후에도 기준을 유지하여 수명 종료 기록
+added,2024-01-28,,,reversal_observed,rd02_7cf7aef51e1292d428869621,2024-01-22,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2024-04-05,,,reversal_observed,rd02_bc75d9d535760c03d8273a82,2024-04-02,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2024-04-07,,,reversal_observed,rd02_33349c2663b1c2807cad8d70,2024-04-02,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2024-04-11,,,anchor_expired,rd02_76b6675b0590b31522be22f3,2024-04-02,반전 모양 재시험 이후에도 기준을 유지하여 수명 종료 기록
+added,2024-07-01,,,reversal_observed,rd02_57e7cccdd2f774e42580fd13,2024-06-24,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2024-07-05,,,reversal_observed,rd02_74566c4e08c5ae51c8a87db4,2024-07-04,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2024-08-10,,,reversal_observed,rd02_bd2f41dd901608e92dbc2b93,2024-08-05,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2024-08-29,,,reversal_observed,rd02_cf449bd6aa8f68c8ecb0aa66,2024-08-27,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2024-08-30,,,reversal_observed,rd02_2c32df6336b8f3ad6e83023e,2024-08-27,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2025-11-12,,,retest_observed,rd02_616a0de9dae6e930d0bf6a96,2025-11-04,반전 모양으로 기준을 소진하거나 반복 접촉을 진입 중복으로 지우지 않음
+added,2025-12-06,,,reversal_observed,rd02_51ef446c98f4fa10abe5e607,2025-12-01,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2025-12-08,,,reversal_observed,rd02_8070913742836da6755b2b2f,2025-12-01,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2026-01-22,,,reversal_observed,rd02_78e042716fb84b8bac3cfb7d,2026-01-20,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2026-01-23,,,reversal_observed,rd02_6a8470eedd8a9c4b8f7f59dd,2026-01-20,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2026-01-30,,,reversal_observed,rd02_44bc3d32fbe5f6f78f15b2ca,2026-01-29,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록
+added,2026-02-09,,,reversal_observed,rd02_48030d4d519d50debe815f74,2026-02-05,기존 기준 추적 중 또는 다른 사건과 겹친 반전 모양도 독립 기록

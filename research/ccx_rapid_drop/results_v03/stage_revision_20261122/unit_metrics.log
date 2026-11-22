@@ -1,0 +1,18 @@
+test_candidate_censor_and_duplicate_id_are_explicit (test_stage_metrics.TestStageMetrics.test_candidate_censor_and_duplicate_id_are_explicit) ... ok
+test_candidate_families_keep_unsampled_manual_paths_explicit (test_stage_metrics.TestStageMetrics.test_candidate_families_keep_unsampled_manual_paths_explicit) ... ok
+test_candidate_future_window_excludes_issue_bar (test_stage_metrics.TestStageMetrics.test_candidate_future_window_excludes_issue_bar) ... ok
+test_candidate_type_split_is_reclassification_not_two_new_records (test_stage_metrics.TestStageMetrics.test_candidate_type_split_is_reclassification_not_two_new_records) ... ok
+test_empty_and_nearest_rank_distribution (test_stage_metrics.TestStageMetrics.test_empty_and_nearest_rank_distribution) ... ok
+test_incomplete_horizon_is_excluded_even_when_early_hit_exists (test_stage_metrics.TestStageMetrics.test_incomplete_horizon_is_excluded_even_when_early_hit_exists) ... ok
+test_initial_normal_is_not_a_return_event (test_stage_metrics.TestStageMetrics.test_initial_normal_is_not_a_return_event) ... ok
+test_legacy_baseline_global_is_restored_after_success_and_error (test_stage_metrics.TestStageMetrics.test_legacy_baseline_global_is_restored_after_success_and_error) ... ok
+test_native_old_view_does_not_invent_an_observation_stage (test_stage_metrics.TestStageMetrics.test_native_old_view_does_not_invent_an_observation_stage) ... ok
+test_post_recurrence_stops_when_normal_returns (test_stage_metrics.TestStageMetrics.test_post_recurrence_stops_when_normal_returns) ... ok
+test_post_recurrence_uses_transitions_not_every_post_day (test_stage_metrics.TestStageMetrics.test_post_recurrence_uses_transitions_not_every_post_day) ... ok
+test_raw_id_namespace_change_does_not_invent_event_deletion (test_stage_metrics.TestStageMetrics.test_raw_id_namespace_change_does_not_invent_event_deletion) ... ok
+test_warning_runs_and_episode_warning_days_differ (test_stage_metrics.TestStageMetrics.test_warning_runs_and_episode_warning_days_differ) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.002s
+
+OK

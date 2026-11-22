@@ -1,0 +1,116 @@
+{
+  "purpose": "합성 OHLCV와 합성 지지로 분기만 시험. 실제 시장 지지·수익률 검증이 아니다.",
+  "level": {
+    "key": "lower",
+    "bottom": 96,
+    "top": 98,
+    "known_from": "2022-01-01",
+    "through": "2022-01-31"
+  },
+  "observations": [
+    {
+      "day": "2022-01-01",
+      "previous_speed": null,
+      "recent_speed": null,
+      "accelerating_down": null,
+      "volume_ratio": null,
+      "events": [],
+      "anchor_day": null,
+      "reaction_levels": [],
+      "unrecovered_levels": []
+    },
+    {
+      "day": "2022-01-02",
+      "previous_speed": null,
+      "recent_speed": null,
+      "accelerating_down": null,
+      "volume_ratio": null,
+      "events": [],
+      "anchor_day": null,
+      "reaction_levels": [],
+      "unrecovered_levels": []
+    },
+    {
+      "day": "2022-01-03",
+      "previous_speed": null,
+      "recent_speed": null,
+      "accelerating_down": null,
+      "volume_ratio": null,
+      "events": [],
+      "anchor_day": null,
+      "reaction_levels": [],
+      "unrecovered_levels": []
+    },
+    {
+      "day": "2022-01-04",
+      "previous_speed": null,
+      "recent_speed": null,
+      "accelerating_down": null,
+      "volume_ratio": 1.0,
+      "events": [],
+      "anchor_day": null,
+      "reaction_levels": [],
+      "unrecovered_levels": []
+    },
+    {
+      "day": "2022-01-05",
+      "previous_speed": -0.00934606650607626,
+      "recent_speed": -0.044364057804342154,
+      "accelerating_down": true,
+      "volume_ratio": 1.0,
+      "events": [],
+      "anchor_day": null,
+      "reaction_levels": [
+        "lower"
+      ],
+      "unrecovered_levels": []
+    },
+    {
+      "day": "2022-01-06",
+      "previous_speed": -0.02392801058881755,
+      "recent_speed": -0.025130917390444155,
+      "accelerating_down": false,
+      "volume_ratio": 3.0,
+      "events": [
+        "direct_doji_candidate"
+      ],
+      "anchor_day": "2022-01-06",
+      "reaction_levels": [
+        "lower"
+      ],
+      "unrecovered_levels": []
+    },
+    {
+      "day": "2022-01-07",
+      "previous_speed": -0.044364057804342154,
+      "recent_speed": 0.02513091739044415,
+      "accelerating_down": false,
+      "volume_ratio": 0.48000000000000004,
+      "events": [
+        "bounce_observed"
+      ],
+      "anchor_day": "2022-01-06",
+      "reaction_levels": [
+        "lower"
+      ],
+      "unrecovered_levels": []
+    },
+    {
+      "day": "2022-01-08",
+      "previous_speed": -0.025130917390444155,
+      "recent_speed": 0.002570699750209326,
+      "accelerating_down": false,
+      "volume_ratio": 0.5625,
+      "events": [
+        "retest_preferred",
+        "first_wick_undercut_recovered"
+      ],
+      "anchor_day": "2022-01-06",
+      "reaction_levels": [
+        "lower"
+      ],
+      "unrecovered_levels": []
+    }
+  ],
+  "prefix_checks": 8
+}
