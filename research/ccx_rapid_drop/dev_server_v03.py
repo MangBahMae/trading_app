@@ -1,5 +1,7 @@
 """검증 전용 로컬 서버. 고정/합성 입력과 임시 DB만 사용하며 운영 실행 경로가 아니다."""
 import argparse
+from contextlib import ExitStack
+import gc
 import os
 import sys
 import tempfile
@@ -51,7 +53,10 @@ def main():
         raise requests.RequestException('검증 전용 서버: 외부 네트워크 미사용')
     requests.get = blocked
     rapid_drop_signals.DATA_SOURCE = 'synthetic_demo' if args.synthetic or args.doji_example else 'fixed_fixture'
-    with tempfile.TemporaryDirectory(prefix='ccx-v03-') as work:
+    with ExitStack() as cleanup:
+        work = cleanup.enter_context(tempfile.TemporaryDirectory(prefix='ccx-v03-'))
+        # 기존 선·매매 서비스가 반환한 SQLite 연결의 순환 참조를 임시 폴더 삭제 전에 해제한다.
+        cleanup.callback(gc.collect)
         dashboard.lines_store.DB_PATH = Path(work)/'manual_lines.db'
         trades.DB_PATH = Path(work)/'trades.db'
         os.environ['CCX_RAPID_DROP_SUPPORT_HISTORY'] = str(Path(work)/'support_history.jsonl')
@@ -64,7 +69,10 @@ def main():
             journal.record_snapshot(rapid_drop_signals.read_manual_lines(), observed_at=datetime(2022,1,1,tzinfo=timezone.utc))
         from app.main import app
         print(f'검증 입력={rapid_drop_signals.DATA_SOURCE}; 사용자 DB 미사용', flush=True)
-        uvicorn.run(app, host='127.0.0.1', port=args.port)
+        try:
+            uvicorn.run(app, host='127.0.0.1', port=args.port)
+        except KeyboardInterrupt:
+            pass  # Windows에서 정상 종료 후 다시 전달된 Ctrl+C
 
 
 if __name__ == '__main__':

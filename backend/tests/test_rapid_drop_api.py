@@ -1,5 +1,6 @@
 """급락 실험 API: 임시 지지 이력과 합성/고정 일봉으로 실제 라우터를 검사한다."""
 import hashlib
+import sqlite3
 from datetime import datetime, timezone
 
 import pandas as pd
@@ -190,3 +191,20 @@ def test_readonly_manual_adapter_reads_temporary_db_without_changing_db_bytes(tm
     assert [row['id'] for row in rows] == [line_id]
     recorded = journal.load_levels(as_of=datetime.now(timezone.utc).date(), path=history)
     assert recorded['levels'][0]['support_id'] == f'manual:{line_id}'
+
+
+def test_readonly_manual_adapter_releases_its_sqlite_handle(monkeypatch):
+    svc.dashboard.lines_store.list_lines('BTCUSDT', '1d')
+    connect = sqlite3.connect
+    opened = []
+
+    def record_connection(*args, **kwargs):
+        connection = connect(*args, **kwargs)
+        opened.append(connection)
+        return connection
+
+    monkeypatch.setattr(sqlite3, 'connect', record_connection)
+    svc.read_manual_lines()
+    connection, = opened
+    with pytest.raises(sqlite3.ProgrammingError, match='closed'):
+        connection.execute('SELECT 1')

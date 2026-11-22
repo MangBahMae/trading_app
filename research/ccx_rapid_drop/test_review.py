@@ -68,14 +68,16 @@ class TestReview(unittest.TestCase):
         self.assertEqual(event(row, 'reversal_observed').support_source, 'known_no_reaction')
         self.assertEqual(event(row, 'reversal_observed').evaluated_support_ids, (far.identity,))
 
-    def test_far_close_records_wick_contact_and_no_entry(self):
+    def test_far_manual_close_keeps_contact_facts_separate_from_candidate(self):
         bars = existing_shapes(series(DOJI, BOUNCE, (115, 120.5, 96, 120, 90, None)))
-        fact = event(analyze(bars, (Z,), C)[-1], 'retest_observed')
+        row = analyze(bars, (Z,), C)[-1]
+        fact = event(row, 'retest_observed')
         self.assertEqual(fact.shape, 'hammer')
         self.assertTrue(fact.range_tests_reference and fact.lower_wick_tests_reference)
         self.assertEqual(fact.close_location, 'above_reference_band')
         self.assertTrue(fact.close_far_rebounded)
         self.assertEqual(fact.entry_status, 'not_evaluated')
+        self.assertIn('manual_retest_long', row.event_kinds)
 
     def test_close_in_band_and_above_band_are_different(self):
         row = analyze(series(DOJI, BOUNCE, RETEST), (Z,), C)[-1]

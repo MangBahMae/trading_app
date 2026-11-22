@@ -5,6 +5,7 @@ import importlib.util
 import json
 import sqlite3
 import sys
+from contextlib import closing
 from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
 from pathlib import Path
@@ -229,7 +230,7 @@ def read_manual_lines():
     if not path.is_file():
         return []
     # 기존 _connect는 스키마 이관도 하므로 신호 API에서는 읽기 전용 연결만 쓴다.
-    with sqlite3.connect(path.resolve().as_uri()+'?mode=ro', uri=True) as conn:
+    with closing(sqlite3.connect(path.resolve().as_uri()+'?mode=ro', uri=True)) as conn:
         conn.row_factory = sqlite3.Row
         return [dict(r) for r in conn.execute("SELECT * FROM lines WHERE symbol='BTCUSDT' AND interval='1d' ORDER BY id")]
 
