@@ -32,8 +32,8 @@ function marketHeadline(market: RapidDropResponse["market"]): string {
 function SignalCard({ signal, maintained = false }: { signal: RapidDropSignal; maintained?: boolean }) {
   return (
     <li className={styles.signal} data-signal-id={signal.id}>
-      <div className={styles.signalTitle}>
-        <span className={signal.direction === "warning" ? styles.warning : undefined}>{signal.title}</span>
+      <div className={styles.signalTitle} data-direction={maintained ? undefined : signal.direction}>
+        <span>{signal.title}</span>
         <span className={styles.badge}>{maintained ? "유지" : "새 발생"}</span>
       </div>
       <div className={styles.meta}>발생 {signal.occurred_on} · 확정 {signal.confirmed_at} (UTC)</div>
@@ -117,6 +117,9 @@ function MarketDetails({ market }: { market: RapidDropResponse["market"] }) {
 export default function RapidDropPanel({ data, loading, error }: Props) {
   const [expanded, setExpanded] = useState(false);
   const warnings = data ? [...new Set([...data.warnings, ...data.support.warnings])] : [];
+  const summarySignal = data?.summary.badge === "new"
+    ? data.signals.find((signal) => signal.title === data.summary.title)
+    : undefined;
   return (
     <section className={styles.section} aria-labelledby="rapid-drop-heading" data-testid="rapid-drop-panel">
       <h3 id="rapid-drop-heading">급락 대응 · 실험</h3>
@@ -129,7 +132,7 @@ export default function RapidDropPanel({ data, loading, error }: Props) {
           {data.data_source === "fixed_fixture" ? <p className={styles.meta}>고정 마감 일봉 데이터</p> : null}
           <div className={styles.market} data-testid="rapid-drop-summary">
             <div className={data.market.phase === "sharp_drop" ? styles.warning : styles.phase} data-testid="rapid-drop-market-line">{marketHeadline(data.market)}</div>
-            <div className={styles.summaryTitle}>
+            <div className={styles.summaryTitle} data-status={data.summary.badge ?? "none"} data-direction={summarySignal?.direction}>
               <strong>{data.summary.title}</strong>
               {data.summary.badge ? <span className={styles.badge}>{data.summary.badge === "new" ? "새 발생" : "유지"}</span> : null}
             </div>

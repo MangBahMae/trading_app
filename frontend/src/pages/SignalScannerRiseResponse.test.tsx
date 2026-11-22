@@ -59,6 +59,27 @@ describe("선택한 일봉과 상승 대응 실험", () => {
   });
   afterEach(() => vi.unstubAllGlobals());
 
+  it.each([
+    { context: "신규 신호 없음", exit: "해당 없음", short: "해당 없음", caution: true },
+    { context: "도형 조회 실패", exit: "해당 없음", short: "해당 없음", caution: false, warnings: ["도형 이력 확인 실패"] },
+    { context: "롱 종료 검토", exit: "기존 롱 종료 검토 · 상승 추세선 이탈", short: "해당 없음", caution: false },
+    { context: "숏 후보 발행", exit: "해당 없음", short: "숏 후보 · 지지 재시험 실패", caution: false },
+  ])("같은 상승 추세에서 $context 여부에 따라 숏 진입 주의를 구분한다", async ({ exit, short, caution, warnings }) => {
+    const market = "롱 우세 · 정배열 유지";
+    fetchApi.mockResolvedValueOnce(Response.json(result("2022-01-06", {
+      market, long_exit: exit, short_signal: short, events: [],
+      details: { warnings, market: { ema_regime: "bullish", price_direction: "up", price_phase: "상승 추세 유지" } },
+    })));
+    const user = await load();
+    await user.click(screen.getByRole("checkbox", { name: toggleName }));
+    await within(panel()).findByText(market);
+    const label = within(panel()).queryByText("숏 진입 주의");
+    if (caution) expect(label).toBeVisible();
+    else expect(label).not.toBeInTheDocument();
+    if (exit !== "해당 없음") expect(within(panel()).getByText(exit)).toBeVisible();
+    if (short !== "해당 없음") expect(within(panel()).getByText(short)).toBeVisible();
+  });
+
   it("기본 OFF에서 요청을 만들지 않고, 켜면 기존 롱·숏 집계와 독립된 세 판단을 표시한다", async () => {
     const user = await load();
     const toggle = screen.getByRole("checkbox", { name: toggleName });

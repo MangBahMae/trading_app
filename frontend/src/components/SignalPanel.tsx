@@ -56,7 +56,7 @@ type Tab = "all" | "long" | "short";
 function SignalItemRow({ signal }: { signal: SignalItem }) {
   const cls = signal.near_zone === true ? styles.nearZone : signal.near_zone === false ? styles.standalone : undefined;
   return (
-    <li className={cls} data-near-zone={signal.near_zone === true ? "true" : signal.near_zone === false ? "false" : undefined}>
+    <li className={cls} data-direction={signal.direction} data-near-zone={signal.near_zone === true ? "true" : signal.near_zone === false ? "false" : undefined}>
       - {signal.text}
       {signal.near_zone === true && <span className={styles.nearZoneBadge}>존 근처</span>}
     </li>
@@ -94,6 +94,8 @@ export default function SignalPanel({ candle, signals, children, marketState = n
       </div>
       <hr className={styles.divider} />
 
+      {children}
+      {rapidDropEnabled ? <RapidDropPanel data={rapidDrop} loading={rapidDropLoading} error={rapidDropError} /> : null}
       {marketState && <MarketStateBox row={marketState} params={marketStateParams} />}
 
       <div className={styles.tabs}>
@@ -162,8 +164,6 @@ export default function SignalPanel({ candle, signals, children, marketState = n
           </ul>
         </div>
       )}
-      {rapidDropEnabled ? <RapidDropPanel data={rapidDrop} loading={rapidDropLoading} error={rapidDropError} /> : null}
-      {children}
     </div>
   );
 }

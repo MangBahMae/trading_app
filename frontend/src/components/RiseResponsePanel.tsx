@@ -14,6 +14,32 @@ const priceDirections = {
 };
 const stages = { new: "신규", maintained: "유지", released: "해제", invalidated: "무효" };
 
+function hasSignal(text: string) {
+  return text !== "해당 없음" && text !== "없음";
+}
+
+function shortCautionReason(data: RiseResponse) {
+  if (hasSignal(data.long_exit) || hasSignal(data.short_signal) || data.details.warnings?.length) return null;
+  const market = data.details.market;
+  if (market?.price_phase === "상승 구간 · 눌림" || market?.price_phase === "상승 둔화 · 고점 횡보") return null;
+  // 서버가 약화·충돌을 함께 표시한 정배열은 '온전한 상승 우세'로 강조하지 않는다.
+  if (["롱 우세 · 정배열 유지", "상승 우세 · 수렴", "상승 우세 · 혼조"].includes(data.market)) {
+    return "상승 우세";
+  }
+  if (market?.surge_context && market.price_phase === "상승 추세 유지" &&
+      market.ema_regime !== "bearish" && market.ema_regime !== "bullish" && market.price_direction !== "down") {
+    return "급등 직후";
+  }
+  return null;
+}
+
+function shortSignalClass(data: RiseResponse, label: string) {
+  const event = data.events.find((item) => item.label === label);
+  if (event?.kind === "support_retest_short") return layout.shortCandidate;
+  if (event?.kind === "high_retry_failed" || event?.kind === "resistance_rejected") return layout.shortWatch;
+  return layout.secondary;
+}
+
 function Evidence({ data }: { data: RiseResponse }) {
   const { market, drawings, warnings, lifecycle } = data.details;
   const breakouts = new Map(market?.active_watches?.map((watch) => [watch.id, watch.watch_breakout]));
@@ -113,6 +139,7 @@ function Evidence({ data }: { data: RiseResponse }) {
 export default function RiseResponsePanel({ date, revision }: { date: string; revision: unknown }) {
   const { data, loading, error } = useDayExperiment(getRiseResponse, date, revision);
   const statuses = new Set(data?.details.lifecycle?.map((item) => item.status));
+  const caution = data?.enabled ? shortCautionReason(data) : null;
   return (
     <section aria-labelledby="rise-response-heading" className={styles.section} data-testid="rise-response-panel"
       data-date={data?.date}>
@@ -120,16 +147,21 @@ export default function RiseResponsePanel({ date, revision }: { date: string; re
       {loading && <p role="status">선택한 날짜의 상승 대응을 불러오는 중…</p>}
       {error && <p role="alert" className={styles.warning}>{error}</p>}
       {data && (data.enabled ? <>
+        {caution && <p className={layout.caution}>
+          <strong>숏 진입 주의</strong><span>{caution} · 신규 숏 근거 없음</span>
+        </p>}
         {data.data_source === "synthetic_demo" && <p className={styles.synthetic}>합성 데이터 · 검증용</p>}
         {data.data_source === "fixed_fixture" && <p className={styles.meta}>고정 마감 일봉 데이터</p>}
         <dl className={layout.outcomes}>
           <div><dt>시장 방향</dt><dd>{data.market}</dd></div>
-          <div><dt>기존 롱 종료 검토</dt><dd>{data.long_exit}</dd></div>
+          <div><dt>기존 롱 종료 검토</dt><dd className={hasSignal(data.long_exit) ? layout.longExit : layout.secondary}>{data.long_exit}</dd></div>
           <div><dt>숏 관찰·후보
             {statuses.size > 0 && <span className={layout.statuses}>
               {Array.from(statuses, (status) => <span key={status} className={styles.badge}>{stages[status]}</span>)}
             </span>}
-          </dt><dd>{data.short_signal}</dd></div>
+          </dt><dd>{data.short_signal.split(" / ").map((label, index) => (
+            <span key={label}>{index > 0 && " / "}<span className={shortSignalClass(data, label)}>{label}</span></span>
+          ))}</dd></div>
         </dl>
         <Evidence data={data} />
       </> : <p className={styles.note}>서버에서 상승 대응 실험 기능이 꺼져 있습니다.</p>)}
