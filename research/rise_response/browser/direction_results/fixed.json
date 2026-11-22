@@ -1,0 +1,154 @@
+[
+  {
+    "case": "fixed",
+    "date": "2022-01-17",
+    "market": "배열 미확인",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 관찰 · 고점 재시도 실패",
+    "source": "fixed_fixture",
+    "http": 200,
+    "ema_regime": null,
+    "price_direction": "unknown",
+    "event_kinds": [
+      "high_retry_failed"
+    ],
+    "lifecycle": [
+      {
+        "id": "rise:high_retry_failed:2022-01-17",
+        "label": "숏 관찰 · 고점 재시도 실패",
+        "kind": "high_retry_failed",
+        "source": "고점 재시도",
+        "started_on": "2022-01-17",
+        "status": "new",
+        "age_days": 1
+      }
+    ],
+    "capture": "fixed-2022-01-17.png"
+  },
+  {
+    "case": "fixed",
+    "date": "2022-01-20",
+    "market": "배열 미확인",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 후보 · 지지 재시험 실패",
+    "source": "fixed_fixture",
+    "http": 200,
+    "ema_regime": null,
+    "price_direction": "unknown",
+    "event_kinds": [
+      "support_retest_short",
+      "support_retest_touch"
+    ],
+    "lifecycle": [
+      {
+        "id": "rise:high_retry_failed:2022-01-17",
+        "label": "숏 관찰 · 고점 재시도 실패",
+        "kind": "high_retry_failed",
+        "source": "고점 재시도",
+        "started_on": "2022-01-17",
+        "status": "maintained",
+        "age_days": 4
+      },
+      {
+        "id": "rise:swing-low:2022-01-14:2022-01-16:support_retest_short:2022-01-20",
+        "label": "숏 후보 · 지지 재시험 실패",
+        "kind": "support_retest_short",
+        "source": "확정 스윙 저점",
+        "started_on": "2022-01-20",
+        "status": "new",
+        "age_days": 1
+      }
+    ],
+    "capture": "fixed-2022-01-20.png"
+  },
+  {
+    "case": "fixed",
+    "date": "2022-03-09",
+    "market": "역배열 속 반등",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 관찰 · 고점 재시도 실패 유지",
+    "source": "fixed_fixture",
+    "http": 200,
+    "ema_regime": "bearish",
+    "price_direction": "up",
+    "event_kinds": [
+      "resistance_broken",
+      "resistance_touch",
+      "rise_start",
+      "support_reclaimed",
+      "support_retest_touch"
+    ],
+    "lifecycle": [
+      {
+        "id": "rise:high_retry_failed:2022-01-17",
+        "label": "숏 관찰 · 고점 재시도 실패",
+        "kind": "high_retry_failed",
+        "source": "고점 재시도",
+        "started_on": "2022-01-17",
+        "status": "maintained",
+        "age_days": 52
+      },
+      {
+        "id": "rise:high_retry_failed:2022-02-11",
+        "label": "숏 관찰 · 고점 재시도 실패",
+        "kind": "high_retry_failed",
+        "source": "고점 재시도",
+        "started_on": "2022-02-11",
+        "status": "maintained",
+        "age_days": 27
+      },
+      {
+        "id": "rise:high_retry_failed:2022-02-17",
+        "label": "숏 관찰 · 고점 재시도 실패",
+        "kind": "high_retry_failed",
+        "source": "고점 재시도",
+        "started_on": "2022-02-17",
+        "status": "maintained",
+        "age_days": 21
+      }
+    ]
+  },
+  {
+    "case": "fixed",
+    "date": "2024-02-12",
+    "market": "롱 우세 · 정배열 유지",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 관찰 해제 · 상방 돌파",
+    "source": "fixed_fixture",
+    "http": 200,
+    "ema_regime": "bullish",
+    "price_direction": "up",
+    "event_kinds": [
+      "high_watch_released"
+    ],
+    "lifecycle": [
+      {
+        "id": "rise:high_retry_failed:2022-02-11",
+        "label": "숏 관찰 · 고점 재시도 실패",
+        "kind": "high_retry_failed",
+        "source": "고점 재시도",
+        "started_on": "2022-02-11",
+        "status": "released",
+        "ended_on": "2024-02-12",
+        "reason": "숏 관찰 해제 · 상방 돌파",
+        "age_days": 732
+      }
+    ]
+  },
+  {
+    "case": "fixed",
+    "date": "2024-03-16",
+    "market": "롱 우세 · 정배열 유지",
+    "long_exit": "기존 롱 종료 검토 · 확정 스윙 저점 67,024.96 이탈",
+    "short_signal": "해당 없음",
+    "source": "fixed_fixture",
+    "http": 200,
+    "ema_regime": "bullish",
+    "price_direction": "up",
+    "event_kinds": [
+      "support_break"
+    ],
+    "lifecycle": [],
+    "capture": "fixed-2024-03-16.png"
+  }
+]

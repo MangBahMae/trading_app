@@ -26,6 +26,11 @@ def run_case(case):
         for row in timeline:
             day = row['date']
             kinds = {e['kind'] for e in row['events']}
+            engine_active = {w['id'] for w in row['details']['market']['active_watches']}
+            engine_active.update(s['id'] for s in row['details']['drawings']['active_shorts'])
+            state_active = {s['id'] for s in row['details']['lifecycle']
+                            if s['status'] in ('new', 'maintained')}
+            assert engine_active == state_active, (case, day, engine_active ^ state_active)
             surge_days.update(row['details']['market']['surge_sources'])
             for event in row['events']:
                 assert event['date'] == day
@@ -34,7 +39,7 @@ def run_case(case):
                 if event['kind'] == 'high_retry_failed':
                     watch_attempts.append((event['first_peak_day'], event['retry_day']))
             shorts = [s['text'] for s in legacy.get(day, []) if s['direction'] == 'short']
-            issued = bool(kinds & {'high_retry_failed', 'support_retest_short'})
+            issued = bool(kinds & rise_response.ISSUED)
             if shorts:
                 contrasts['legacy_short_days'] += 1
                 if not issued:
@@ -42,7 +47,8 @@ def run_case(case):
             if issued and not shorts:
                 contrasts['new_watch_or_candidate_without_legacy_short'] += 1
             if (row['long_exit'] != '해당 없음' or 'high_retry_failed' in kinds
-                    or (shorts and row['market'] == '상승 추세 유지' and row['short_signal'] == '해당 없음')):
+                    or (shorts and row['details']['market']['ema_regime'] == 'bullish'
+                        and row['short_signal'] == '해당 없음')):
                 comparisons.append(dict(date=day, existing_shorts=shorts, market=row['market'],
                                         long_exit=row['long_exit'], short_signal=row['short_signal']))
         duplicate_ids = len(identifiers) - len(set(identifiers))

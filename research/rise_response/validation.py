@@ -17,14 +17,15 @@ import golden_support
 import requests
 import weekly_data
 
-CASES = ('fixed', 'surge_doji', 'high_retry', 'trendline', 'support_fail', 'support_recover',
-         'support_no_retest')
+MARKET_CASES = ('surge_doji', 'high_retry', 'gentle_rise', 'mixed_structure', 'mixed_fall')
+CASES = ('fixed', *MARKET_CASES, 'trendline', 'bull_trendline', 'ema_resist_rise',
+         'ema_resist_fail', 'support_fail', 'support_recover', 'support_no_retest')
 
 
 def example(case):
     if case == 'fixed':
         return golden_support.load_daily_df(), []
-    if case in ('surge_doji', 'high_retry'):
+    if case in MARKET_CASES:
         from rise_examples import market_example
         return market_example(case), []
     from rise_support_examples import support_example

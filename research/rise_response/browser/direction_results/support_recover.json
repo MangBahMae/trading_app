@@ -1,0 +1,19 @@
+[
+  {
+    "case": "support_recover",
+    "date": "2022-01-03",
+    "market": "배열 미확인",
+    "long_exit": "해당 없음",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": null,
+    "price_direction": "unknown",
+    "event_kinds": [
+      "rise_start",
+      "support_reclaimed",
+      "support_retest_touch"
+    ],
+    "lifecycle": []
+  }
+]
