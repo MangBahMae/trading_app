@@ -67,3 +67,24 @@ def test_known_past_survives_current_drawing_read_error(monkeypatch):
     assert data['long_exit'] == '기존 롱 종료 검토 · 상승 추세선 이탈'
     assert data['short_signal'] == '해당 없음' and data['details']['warnings']
     assert client.get('/api/rapid-drop', params=day).json()['enabled'] is False
+
+
+def test_candidate_lifecycle_keeps_same_id_through_reclaim(monkeypatch):
+    frame, lines = support_example('support_fail')
+    journal.record_snapshot(lines, observed_at=frame.open_time.iloc[0].to_pydatetime())
+    monkeypatch.setattr(dashboard.feature_flags, 'ENABLE_RISE_RESPONSE', True)
+    monkeypatch.setattr(dashboard, '_get_base_data', lambda _: (frame, {}, []))
+    client = TestClient(app)
+    query = lambda day: client.get('/api/rise-response', params={'date': day}).json()
+    broken = query('2022-01-02')
+    assert '수동 지지 100.00 이탈' in broken['long_exit']
+    assert broken['short_signal'] == '해당 없음'
+    issuance = query('2022-01-03')
+    maintained = query('2022-01-04')
+    reclaimed = query('2022-01-05')
+    states = [row['details']['lifecycle'][0] for row in (issuance, maintained, reclaimed)]
+    assert len({r['id'] for r in states}) == 1
+    assert [r['status'] for r in states] == ['new', 'maintained', 'invalidated']
+    assert [r['age_days'] for r in states] == [1, 2, 3]
+    assert states[-1]['ended_on'] == reclaimed['date']
+    assert issuance == query('2022-01-03')

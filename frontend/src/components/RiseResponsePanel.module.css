@@ -7,11 +7,19 @@
 
 .outcomes > div {
   display: grid;
-  grid-template-columns: 5em 1fr;
+  grid-template-columns: 7.2em minmax(0, 1fr);
   gap: 8px;
   align-items: baseline;
   padding: 2px 0;
 }
 
-.outcomes dt { font-size: 0.72rem; color: var(--muted-color); }
-.outcomes dd { margin: 0; line-height: 1.5; }
+.outcomes dt { font-size: 0.72rem; color: var(--muted-color); word-break: keep-all; }
+.outcomes dd { margin: 0; line-height: 1.5; word-break: keep-all; }
+.statuses { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 3px; }
+
+.lifecycle {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lifecycle li { margin: 6px 0; }

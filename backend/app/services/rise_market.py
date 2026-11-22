@@ -1,5 +1,9 @@
 """마감된 BTCUSDT 일봉의 상승 국면과 고점 재시도. 날짜는 모두 UTC 봉 시작일이다."""
 from dataclasses import dataclass
+from datetime import timedelta
+from math import isfinite
+
+from app.services import swing_points
 
 from app.services import dashboard
 
@@ -70,7 +74,7 @@ class PeakAttempt:
 
 
 def _sideways(i, start, peak_history, highs, lows, closes):
-    """급등 이후의 3봉. 급등 봉 자체는 겹침이나 고점 전진 계산에 넣지 않는다."""
+    """상승 구간 시작 후의 3봉을 검사한다. 구간 시작 봉은 겹침 창에서 제외한다."""
     if i - start < SIDEWAYS_BARS:
         return False, None, None
     window = slice(i - SIDEWAYS_BARS + 1, i + 1)
@@ -85,65 +89,164 @@ def _sideways(i, start, peak_history, highs, lows, closes):
     return near_peak and overlap >= MIN_OVERLAP and advance <= MAX_HIGH_ADVANCE, overlap, advance * 100
 
 
+def _advance_swings(i, swings, flags, days, highs, lows):
+    # 계산 결과는 중심 봉에 붙어 있다. 우측 2개 봉이 마감된 오늘 처음 읽는다.
+    center = i - swing_points.N
+    if center < swing_points.N:
+        return
+    high, low = flags[center]
+    if high == low:  # 일봉 하나가 고점·저점 모두이면 두 가격의 선후를 모른다.
+        return
+    kind, price = ('high', highs[center]) if high else ('low', lows[center])
+    point = dict(kind=kind, price=price, date=days[center], confirmed_on=days[i])
+    if swings and swings[-1]['kind'] == kind:
+        previous = swings[-1]['price']
+        if (high and price > previous) or (low and price < previous):
+            swings[-1] = point
+    else:
+        swings.append(point)
+        if len(swings) > 4:
+            swings.pop(0)
+
+
+def _price_direction(highs, lows):
+    if len(highs) < 2 or len(lows) < 2:
+        return 'unknown'
+    high_move = highs[-1]['price'] - highs[-2]['price']
+    low_move = lows[-1]['price'] - lows[-2]['price']
+    if high_move > 0 and low_move > 0:
+        return 'up'
+    if high_move < 0 and low_move < 0:
+        return 'down'
+    return 'mixed'
+
+
+def _market_label(regime, direction, phase, weaker_high):
+    if regime is None:
+        label = '배열 미확인'
+    elif regime == 'bullish':
+        label = '롱 우세 · 정배열 유지'
+        if weaker_high:
+            label += ' · 고점 갱신 둔화'
+        if direction == 'down':
+            label += ' · 가격 하락 구조'
+    elif regime == 'bearish':
+        label = '역배열 속 반등' if direction == 'up' else '하락 우세 · 역배열'
+    else:
+        label = {'up': '상승 우세', 'down': '하락 우세'}.get(direction, '방향 미확인')
+        label += ' · ' + ('수렴' if regime == 'convergence' else '혼조')
+    if phase == SIDEWAYS:
+        label += ' · ' + SIDEWAYS
+    return label
+
+
+def _surge(i, opens, closes):
+    body = (closes[i] - opens[i]) / opens[i] * 100
+    sources = []
+    floors = []
+    if body >= patterns.BIG_CANDLE_MIN_PCT:
+        sources.append('장대양봉')
+        floors.append(opens[i])
+    window_returns = {}
+    for n in expansion.WINDOWS:
+        if i + 1 >= n:
+            window_open = opens[i - n + 1]
+            pct, _, matched = expansion.expansion_window(window_open, closes[i], n)
+            window_returns[str(n)] = pct
+            if matched:
+                sources.append(f'{n}봉 누적 급등')
+                floors.append(window_open)
+    return body, sources, floors, window_returns
+
+
 def market_days(df):
-    """시간순 마감봉을 한 번 순회한다. 현재 봉의 각 상태와 그날 확정된 새 사건을 반환한다."""
+    """마감 시점의 배열·가격 구조·관찰 상태. 급등은 강도 근거로만 사용한다."""
     if df.empty:
         return []
     shapes = patterns.compute_candle_shape(df)['shape'].tolist()
+    regime_frame = dashboard.pipeline.ma_regime.compute_ma_regime(df)
+    regimes = regime_frame[['ma_regime', 'EMA50', 'EMA200']].itertuples(index=False, name=None)
+    swing_input = df if 'close_time' in df else df.assign(close_time=df.open_time + timedelta(days=1))
+    swings_frame = swing_points.find_swing_points(swing_input)
+    flags = list(swings_frame[['swing_high', 'swing_low']].itertuples(index=False, name=None))
     days = df.open_time.dt.strftime('%Y-%m-%d').tolist()
     opens, highs, lows, closes = (df[col].astype(float).tolist() for col in ('open', 'high', 'low', 'close'))
-    start = floor = attempt = attempt_watch_id = sideways_ceiling = None
+    swings = []
+    start = floor = attempt = leg_watch_id = sideways_ceiling = None
+    impulse_floor = last_surge = None
+    pending = []
     watches = {}
     peak_history = []
     rows = []
-    for i, day in enumerate(days):
+    for i, (regime, ema50, ema200) in enumerate(regimes):
+        # 혼합 문자열 열에 있는 None은 pandas 버전에 따라 NaN으로 전달된다.
+        regime = regime if isinstance(regime, str) else None
+        day = days[i]
         events = []
-        sources = []
-        floors = []
-        body = (closes[i] - opens[i]) / opens[i] * 100
-        if body >= patterns.BIG_CANDLE_MIN_PCT:
-            sources.append('장대양봉')
-            floors.append(opens[i])
-        window_returns = {}
-        for n in expansion.WINDOWS:
-            if i + 1 >= n:
-                window_open = opens[i - n + 1]
-                # 기존 필터는 다음 약세 봉에서 읽는다. 시장 상태는 마지막 상승 봉 마감에 이미 알 수 있다.
-                pct, _, matched = expansion.expansion_window(window_open, closes[i], n)
-                window_returns[str(n)] = pct
-                if matched:
-                    sources.append(f'{n}봉 누적 급등')
-                    floors.append(window_open)
+        body, sources, floors, window_returns = _surge(i, opens, closes)
+        if sources:
+            last_surge = i
+            if impulse_floor is None:
+                impulse_floor = min(floors)
+                events.append(_event('rise_start', '강한 상승 시작', day, surge_sources=sources, impulse_floor=impulse_floor))
+            else:
+                impulse_floor = max(impulse_floor, min(floors))
+        if impulse_floor is not None and closes[i] < impulse_floor:
+            impulse_floor = None
 
-        for watch_id, watch in list(watches.items()):
+        _advance_swings(i, swings, flags, days, highs, lows)
+        swing_highs = [p for p in swings if p['kind'] == 'high']
+        swing_lows = [p for p in swings if p['kind'] == 'low']
+        direction = _price_direction(swing_highs, swing_lows)
+        for watch_id, (opened, watch) in list(watches.items()):
             if closes[i] > watch['watch_breakout']:
                 released = _event('high_watch_released', '숏 관찰 해제 · 상방 돌파', day,
                                   related_id=watch_id, watch_breakout=watch['watch_breakout'],
-                                  confirmation_close=closes[i])
-                released['id'] += ':' + watch['date']
+                                  confirmation_close=closes[i], started_on=days[opened], age_bars=i-opened+1)
+                suffix = watch_id.removeprefix('rise:high_retry_failed:')
+                released['id'] += ':' + suffix
                 events.append(released)
                 del watches[watch_id]
-                if watch_id == attempt_watch_id:
-                    attempt_watch_id = None
+                if watch_id == leg_watch_id:
+                    leg_watch_id = None
                     attempt = PeakAttempt(i)
 
-        if floors and start is None:
-            start, floor, attempt = i, min(floors), PeakAttempt(i)
-            events.append(_event('rise_start', '강한 상승 시작', day, surge_sources=list(sources), impulse_floor=floor))
-        elif floors:
-            floor = max(floor, min(floors))
+        advancing = closes[i] > (closes[i-1] if i else opens[i])
+        if start is None and advancing:
+            start, floor, attempt = i, (lows[i-1] if i else lows[i]), PeakAttempt(i)
+        if start is not None and swing_lows and swing_lows[-1]['date'] >= days[start]:
+            floor = max(floor, swing_lows[-1]['price'])
 
-        market = NORMAL
+        # 예전 구간에서 이미 관찰한 눌림은 새 구간·배열 전환 뒤에도 추적한다.
+        # 이전 고점이 허용 범위를 넘어 갱신되면 그 옛 기준의 재시도는 끝난다.
+        pending = [a for a in pending if highs[i] <= highs[a.first] * (1 + SIMILAR_HIGH)]
+        trackers = pending + ([attempt] if attempt is not None else [])
+        for anchor in trackers:
+            failure = anchor.advance(i, days, highs, lows, closes)
+            if failure is None:
+                continue
+            # 같은 첫 고점 가격대의 관찰이 살아 있을 때 더 많은 접촉을 새 알림으로 세지 않는다.
+            existing = next((key for key, (_, w) in watches.items()
+                             if abs(failure['first_peak'] / w['first_peak'] - 1) <= SIMILAR_HIGH), None)
+            if existing is None:
+                if failure['id'] in watches:
+                    failure['id'] += ':' + failure['first_peak_day']
+                failure['surge_since_peak'] = last_surge is not None and last_surge >= anchor.first
+                events.append(failure)
+                watches[failure['id']] = (i, failure)
+                existing = failure['id']
+            if anchor is attempt:
+                leg_watch_id, attempt = existing, None
+            else:
+                pending.remove(anchor)
+
+        phase = '가격 상승 근거 미확인'
         overlap = high_advance = None
         if start is not None:
-            if attempt_watch_id is None:
-                failure = attempt.advance(i, days, highs, lows, closes)
-                if failure:
-                    events.append(failure)
-                    attempt_watch_id = failure['id']
-                    watches[attempt_watch_id] = failure
             if closes[i] < floor:
-                start = floor = attempt = attempt_watch_id = sideways_ceiling = None
+                if attempt is not None and attempt.dip is not None:
+                    pending.append(attempt)
+                start = floor = attempt = leg_watch_id = sideways_ceiling = None
             else:
                 sideways, overlap, high_advance = _sideways(i, start, peak_history, highs, lows, closes)
                 if sideways_ceiling is not None and closes[i] > sideways_ceiling * (1 + MAX_HIGH_ADVANCE):
@@ -152,21 +255,26 @@ def market_days(df):
                     sideways_ceiling = max(highs[i - SIDEWAYS_BARS + 1:i + 1])
                     events.append(_event('high_sideways', SIDEWAYS, day,
                                          overlap_ratio=overlap, high_advance_pct=high_advance))
-                market = RISING if attempt.dip is None else DIPPING
+                phase = DIPPING if leg_watch_id or (attempt and attempt.dip is not None) else RISING
                 if sideways:
-                    market = SIDEWAYS
+                    phase = SIDEWAYS
         previous_peak = peak_history[-1] if start is not None and i > start else highs[i]
         peak_history.append(max(previous_peak, highs[i]))
-        latest_watch = next(reversed(watches.values()), None)
-        details = dict(candle_shape=patterns.PATTERN_LABEL_KR.get(shapes[i]), bullish_body_pct=body,
-                       surge_sources=sources, window_returns_pct=window_returns, impulse_floor=floor,
-                       first_peak=highs[attempt.first] if attempt else None,
-                       pullback_close=closes[attempt.dip] if attempt and attempt.dip is not None else None,
-                       retry_peak=highs[attempt.retry] if attempt and attempt.retry is not None else None,
-                       overlap_ratio=overlap, high_advance_pct=high_advance,
-                       watch_breakout=latest_watch['watch_breakout'] if latest_watch else None,
-                       watch_id=latest_watch['id'] if latest_watch else None,
-                       active_watches=[dict(id=w['id'], date=w['date'], watch_breakout=w['watch_breakout'])
-                                       for w in watches.values()])
-        rows.append(dict(market=market, events=events, details=details, short_watch=bool(watches)))
+        weaker = len(swing_highs) == 2 and swing_highs[-1]['price'] <= swing_highs[0]['price']
+        active = [dict(id=w['id'], date=days[opened], watch_breakout=w['watch_breakout'], age_bars=i-opened+1)
+                  for opened, w in watches.values()]
+        latest = active[-1] if active else {}
+        facts = dict(ema_regime=regime, ema50=ema50 if isfinite(ema50) else None,
+                     ema200=ema200 if isfinite(ema200) else None, price_direction=direction, price_phase=phase,
+                     swing_highs=swing_highs, swing_lows=swing_lows,
+                     candle_shape=patterns.PATTERN_LABEL_KR.get(shapes[i]), bullish_body_pct=body,
+                     surge_sources=sources, window_returns_pct=window_returns, impulse_floor=impulse_floor,
+                     surge_context=last_surge is not None and i-last_surge <= patterns.BIG_CANDLE_SUPPRESS_BARS,
+                     first_peak=highs[attempt.first] if attempt else None,
+                     pullback_close=closes[attempt.dip] if attempt and attempt.dip is not None else None,
+                     retry_peak=highs[attempt.retry] if attempt and attempt.retry is not None else None,
+                     overlap_ratio=overlap, high_advance_pct=high_advance,
+                     watch_breakout=latest.get('watch_breakout'), watch_id=latest.get('id'), active_watches=active)
+        rows.append(dict(market=_market_label(regime, direction, phase, weaker), events=events,
+                         details=facts, short_watch=bool(watches)))
     return rows

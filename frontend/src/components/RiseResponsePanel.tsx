@@ -5,10 +5,18 @@ import layout from "./RiseResponsePanel.module.css";
 
 const number = new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 4 });
 const percent = new Intl.NumberFormat("ko-KR", { style: "percent", maximumFractionDigits: 2 });
-const levelKinds: Record<string, string> = { trend: "추세선", horizontal: "수평선", zone: "지지 존" };
+const levelKinds: Record<string, string> = {
+  trend: "추세선", horizontal: "수평선", zone: "지지 존", swing_low: "확정 스윙 저점", resistance: "저항",
+};
+const regimes = { bullish: "정배열", bearish: "역배열", convergence: "수렴", mixed: "혼조" };
+const priceDirections = {
+  up: "고점·저점 상승", down: "고점·저점 하락", mixed: "고점·저점 엇갈림", unknown: "방향 미확인",
+};
+const stages = { new: "신규", maintained: "유지", released: "해제", invalidated: "무효" };
 
 function Evidence({ data }: { data: RiseResponse }) {
-  const { market, drawings, warnings } = data.details;
+  const { market, drawings, warnings, lifecycle } = data.details;
+  const breakouts = new Map(market?.active_watches?.map((watch) => [watch.id, watch.watch_breakout]));
   const prices = [
     ["상승 구간 유지 기준가", market?.impulse_floor],
     ["첫 고점", market?.first_peak],
@@ -20,8 +28,18 @@ function Evidence({ data }: { data: RiseResponse }) {
     <details className={styles.details}>
       <summary>판정 근거와 당일 사건</summary>
       {market && <>
-        <h4>상승 구간</h4>
+        <h4>시장 방향의 근거</h4>
+        <div>EMA9·20·50 {market.ema_regime ? regimes[market.ema_regime] : "배열 미확인"}</div>
+        {market.price_direction && <div>가격 구조 · {priceDirections[market.price_direction]}</div>}
+        {market.price_phase && <div>{market.price_phase}</div>}
+        {([["고점", market.swing_highs], ["저점", market.swing_lows]] as const).map(([label, points]) =>
+          points?.map((point) => <div key={label + point.date}>
+            {label} {number.format(point.price)} · 발생 {point.date} → 확인 {point.confirmed_on}
+          </div>))}
+        {market.ema50 != null && <div>EMA50 {number.format(market.ema50)}</div>}
+        {market.ema200 != null && <div>EMA200 {number.format(market.ema200)}</div>}
         <div>당일 급등 조건 · {market.surge_sources?.join(" · ") || "해당 없음"}</div>
+        {market.surge_context && !market.surge_sources?.length && <div>최근 급등 영향 구간</div>}
         {market.bullish_body_pct != null && <div>몸통 등락률 {number.format(market.bullish_body_pct)}%</div>}
         {Object.entries(market.window_returns_pct ?? {}).map(([bars, value]) => (
           <div key={bars}>{bars}봉 누적 등락률 {number.format(value)}%</div>
@@ -30,30 +48,47 @@ function Evidence({ data }: { data: RiseResponse }) {
         {market.overlap_ratio != null && <div>가격대 겹침 {percent.format(market.overlap_ratio)}</div>}
         {market.high_advance_pct != null && <div>고점 전진 {number.format(market.high_advance_pct)}%</div>}
         {prices.map(([label, price]) => price == null ? null : <div key={label}>{label} {number.format(price)}</div>)}
-        {market.active_watches && market.active_watches.length > 0 && <details>
-          <summary>유지 중인 고점 관찰 ({market.active_watches.length})</summary>
-          {market.active_watches.map((watch) => <div key={watch.id}>
-            {watch.date} · 해제 기준 {number.format(watch.watch_breakout)} · {watch.id}
-          </div>)}
-        </details>}
       </>}
       {drawings && <>
-        <h4>당시 수동 도형</h4>
+        <h4>당시 지지·저항</h4>
         <div>{[drawings.trendline_status, drawings.support_status].filter(Boolean).join(" · ")}</div>
         {drawings.levels?.map((level) => (
-          <div className={styles.signal} key={level.version}>
-            <strong>{levelKinds[level.kind] ?? level.kind} · {level.state}</strong>
-            {level.price != null && <div>당일 선 가격 {number.format(level.price)}</div>}
+          <div className={styles.signal} key={level.kind + ":" + level.version}>
+            <strong>{level.kind === "resistance" && level.source && (level.source === "manual" ? "수동 " : level.source + " ")}
+              {levelKinds[level.kind] ?? level.kind} · {level.state}</strong>
+            {level.kind === "trend" && level.price != null && <div>당일 선 가격 {number.format(level.price)}</div>}
+            {(level.source === "EMA50" || level.source === "EMA200") && <>
+              {level.price != null && <div>접촉 당시 {level.source} {number.format(level.price)}</div>}
+              {level.current_price != null && <div>당일 {level.source} {number.format(level.current_price)}</div>}
+            </>}
             {level.bottom != null && <div>하단 {number.format(level.bottom)}</div>}
             {level.top != null && <div>상단 {number.format(level.top)}</div>}
+            {level.pivot_date && level.confirmed_on &&
+              <div>저점 발생 {level.pivot_date} → 지지 확인 {level.confirmed_on}</div>}
+            {level.touch_date && <div>접촉 {level.touch_date}
+              {level.touch_low != null && <> · 접촉 봉 저가 {number.format(level.touch_low)}</>}
+            </div>}
             {level.rule && <div>{level.rule}</div>}
             {level.time1 && level.price1 != null && <div>첫 좌표 {level.time1} · {number.format(level.price1)}</div>}
             {level.time2 && level.price2 != null && <div>둘째 좌표 {level.time2} · {number.format(level.price2)}</div>}
-            <div className={styles.meta}>버전 {level.version}</div>
+            <div className={styles.meta}>기준 {level.version}</div>
           </div>
         ))}
-        {drawings.active_short_ids && drawings.active_short_ids.length > 0 &&
-          <div className={styles.meta}>추적 중인 숏 후보 ID {drawings.active_short_ids.join(", ")}</div>}
+      </>}
+      {lifecycle && lifecycle.length > 0 && <>
+        <h4>선택일 숏 관찰·후보</h4>
+        <ul className={layout.lifecycle}>
+          {lifecycle.map((item) => {
+            const breakout = breakouts.get(item.id);
+            return <li key={item.id}>
+              <span className={styles.badge}>{stages[item.status]}</span> <strong>{item.label}</strong>
+              <div>{item.source} · 시작 {item.started_on}
+                {item.ended_on && <> · 종료 {item.ended_on}</>} · {item.age_days}일</div>
+              {breakout != null && <div>해제 기준 · 종가 {number.format(breakout)} 초과</div>}
+              {item.reason && <div>{item.reason}</div>}
+            </li>;
+          })}
+        </ul>
       </>}
       <h4>당일 사건 ({data.events.length})</h4>
       {data.events.map((event) => (
@@ -77,6 +112,7 @@ function Evidence({ data }: { data: RiseResponse }) {
 
 export default function RiseResponsePanel({ date, revision }: { date: string; revision: unknown }) {
   const { data, loading, error } = useDayExperiment(getRiseResponse, date, revision);
+  const statuses = new Set(data?.details.lifecycle?.map((item) => item.status));
   return (
     <section aria-labelledby="rise-response-heading" className={styles.section} data-testid="rise-response-panel"
       data-date={data?.date}>
@@ -87,9 +123,13 @@ export default function RiseResponsePanel({ date, revision }: { date: string; re
         {data.data_source === "synthetic_demo" && <p className={styles.synthetic}>합성 데이터 · 검증용</p>}
         {data.data_source === "fixed_fixture" && <p className={styles.meta}>고정 마감 일봉 데이터</p>}
         <dl className={layout.outcomes}>
-          <div><dt>시장 상태</dt><dd>{data.market}</dd></div>
-          <div><dt>롱 종료 검토</dt><dd>{data.long_exit}</dd></div>
-          <div><dt>숏 관찰·후보</dt><dd>{data.short_signal}</dd></div>
+          <div><dt>시장 방향</dt><dd>{data.market}</dd></div>
+          <div><dt>기존 롱 종료 검토</dt><dd>{data.long_exit}</dd></div>
+          <div><dt>숏 관찰·후보
+            {statuses.size > 0 && <span className={layout.statuses}>
+              {Array.from(statuses, (status) => <span key={status} className={styles.badge}>{stages[status]}</span>)}
+            </span>}
+          </dt><dd>{data.short_signal}</dd></div>
         </dl>
         <Evidence data={data} />
       </> : <p className={styles.note}>서버에서 상승 대응 실험 기능이 꺼져 있습니다.</p>)}

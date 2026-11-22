@@ -18,6 +18,12 @@ export interface RiseEvent {
   version?: string;
 }
 
+interface ConfirmedSwing {
+  date: string;
+  confirmed_on: string;
+  price: number;
+}
+
 export interface RiseResponse {
   enabled: boolean;
   date: string;
@@ -30,8 +36,16 @@ export interface RiseResponse {
   events: RiseEvent[];
   details: {
     market?: {
+      ema_regime?: "bullish" | "bearish" | "convergence" | "mixed" | null;
+      ema50?: number | null;
+      ema200?: number | null;
+      price_direction?: "up" | "down" | "mixed" | "unknown";
+      price_phase?: string;
+      swing_highs?: ConfirmedSwing[];
+      swing_lows?: ConfirmedSwing[];
       candle_shape?: string | null;
       surge_sources?: string[];
+      surge_context?: boolean;
       bullish_body_pct?: number | null;
       window_returns_pct?: Record<string, number>;
       impulse_floor?: number | null;
@@ -50,7 +64,9 @@ export interface RiseResponse {
       levels?: {
         kind: string;
         version: string;
+        source?: string;
         price?: number;
+        current_price?: number | null;
         bottom?: number;
         top?: number;
         state: string;
@@ -59,8 +75,22 @@ export interface RiseResponse {
         price1?: number;
         time2?: string;
         price2?: number;
+        touch_date?: string | null;
+        touch_low?: number | null;
+        pivot_date?: string | null;
+        confirmed_on?: string | null;
       }[];
     };
+    lifecycle?: {
+      id: string;
+      label: string;
+      source: string;
+      status: "new" | "maintained" | "released" | "invalidated";
+      started_on: string;
+      ended_on?: string | null;
+      age_days: number;
+      reason?: string;
+    }[];
     warnings?: string[];
   };
 }

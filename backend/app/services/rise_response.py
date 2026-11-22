@@ -5,27 +5,74 @@ import sqlite3
 from app.services import dashboard, rapid_drop_signals, rapid_drop_support_history as journal
 
 DATA_SOURCE = 'market'
+ISSUED = {'high_retry_failed', 'resistance_rejected', 'support_retest_short'}
+SOURCE_LABELS = {'swing_low': '확정 스윙 저점', 'EMA50': 'EMA50', 'EMA200': 'EMA200'}
+
+
+def _source(event):
+    if event['kind'] == 'high_retry_failed':
+        return '고점 재시도'
+    source = event.get('source', 'manual')
+    if source == 'manual':
+        return '수동 저항' if event['kind'] == 'resistance_rejected' else '수동 지지'
+    return SOURCE_LABELS.get(source, source)
+
+
+def _lifecycle(events, active, day):
+    """발행 ID별 당일 상태. 마감된 날짜별 출력에 이후 상태를 덮어쓰지 않는다."""
+    ended = []
+    for event in events:
+        if event['kind'] in ISSUED:
+            active[event['id']] = dict(id=event['id'], label=event['label'], kind=event['kind'],
+                                       source=_source(event), started_on=event['date'])
+            continue
+        ref = event.get('related_id') or event.get('related')
+        if ref not in active:
+            continue
+        terminal = event.get('lifecycle')
+        if event['kind'] in ('high_watch_released', 'resistance_watch_released'):
+            terminal = 'released'
+        if terminal in ('released', 'invalidated'):
+            ended.append(dict(active.pop(ref), status=terminal, ended_on=day, reason=event['label']))
+    items = [dict(item, status='new' if item['started_on'] == day else 'maintained')
+             for item in active.values()] + ended
+    for item in items:
+        item['age_days'] = (date.fromisoformat(day) - date.fromisoformat(item['started_on'])).days + 1
+    return items
+
+
+def _short_summary(events, states):
+    """겹친 근거는 상세에 모두 남기고, 기본 줄은 신규·종료를 우선한다."""
+    new = [e['label'] for e in events if e['kind'] in ISSUED]
+    closing = [item['reason'] for item in states if 'ended_on' in item]
+    labels = list(dict.fromkeys(new + closing))
+    if labels:
+        return ' / '.join(labels)
+    return ' / '.join(dict.fromkeys(item['label'] + ' 유지' for item in states)) or '해당 없음'
 
 
 def build_timeline(frame, versions=()):
     from app.services.rise_market import market_days
     from app.services.rise_support import support_days
 
+    markets = market_days(frame)
+    drawings = support_days(frame, versions, markets)
     result = []
-    for stamp, market, drawing in zip(frame['open_time'], market_days(frame),
-                                      support_days(frame, versions), strict=True):
+    active = {}
+    for stamp, market, drawing in zip(frame['open_time'], markets, drawings, strict=True):
+        day = stamp.date().isoformat()
         events = market['events'] + drawing['events']
-        labels = {event['kind']: event['label'] for event in events}
-        short = [labels[kind] for kind in ('support_retest_short', 'high_retry_failed',
-                                           'high_watch_released') if kind in labels]
-        if drawing['active_short_ids'] and 'support_retest_short' not in labels:
-            short.append('지지 재시험 실패 후보 유지')
-        if market['short_watch'] and 'high_retry_failed' not in labels:
-            short.append('고점 재시도 실패 관찰 유지')
-        result.append(dict(date=stamp.date().isoformat(), market=market['market'],
-                           long_exit=labels.get('trendline_exit_long', '해당 없음'),
-                           short_signal=' / '.join(short) or '해당 없음', events=events,
-                           details=dict(market=market['details'], drawings={
+        states = _lifecycle(events, active, day)
+        exits = []
+        for event in drawing['events']:
+            if event['kind'] == 'trendline_exit_long':
+                exits.append(event['label'])
+            elif event['kind'] == 'support_break':
+                exits.append(f"기존 롱 종료 검토 · {_source(event)} {event['price']:,.2f} 이탈")
+        result.append(dict(date=day, market=market['market'],
+                           long_exit=' / '.join(dict.fromkeys(exits)) or '해당 없음',
+                           short_signal=_short_summary(events, states), events=events,
+                           details=dict(market=market['details'], lifecycle=states, drawings={
                                **drawing['details'], 'active_short_ids': drawing['active_short_ids']})))
     return result
 

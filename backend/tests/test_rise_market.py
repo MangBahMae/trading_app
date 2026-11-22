@@ -22,7 +22,8 @@ def test_single_impulse_and_doji_do_not_issue_short():
     assert rows[3]['details']['surge_sources'] == ['장대양봉']
     assert 'rise_start' in kinds(rows[3])
     assert rows[4]['details']['candle_shape'] == '도지'
-    assert rows[4]['market'] == rows[5]['market'] == engine.RISING
+    assert rows[4]['market'] == '배열 미확인'
+    assert rows[4]['details']['price_phase'] == rows[5]['details']['price_phase'] == engine.RISING
     assert not any(row['short_watch'] for row in rows)
     assert rows[4]['events'] == []
 
@@ -43,9 +44,9 @@ def test_cumulative_filter_uses_closed_window_as_soon_as_it_finishes():
 
 def test_sideways_and_retry_have_separate_confirmation_dates_and_release_reference():
     rows = engine.market_days(market_example('high_retry'))
-    assert rows[1]['market'] == rows[2]['market'] == engine.RISING
+    assert rows[1]['details']['price_phase'] == rows[2]['details']['price_phase'] == engine.RISING
     assert kinds(rows[3]) == ['high_sideways']
-    assert rows[3]['market'] == engine.SIDEWAYS
+    assert rows[3]['details']['price_phase'] == engine.SIDEWAYS
     assert not any(r['short_watch'] for r in rows[:6])
     failed, = rows[6]['events']
     assert failed['kind'] == 'high_retry_failed'
@@ -82,7 +83,7 @@ def test_market_exit_keeps_existing_short_watch():
     bars = market_example('high_retry').iloc[:8].copy()
     bars.loc[7, ['low', 'close']] = [98, 99]
     rows = engine.market_days(bars)
-    assert rows[-1]['market'] == engine.NORMAL
+    assert rows[-1]['details']['price_phase'] == '가격 상승 근거 미확인'
     assert rows[-1]['short_watch'] and not rows[-1]['events']
 
 
@@ -110,3 +111,50 @@ def test_all_synthetic_prefixes_reproduce_entire_history(name):
     assert all(engine.market_days(bars.iloc[:n]) == expected[:n] for n in range(len(bars) + 1))
     ids = [e['id'] for row in expected for e in row['events']]
     assert len(set(ids)) == len(ids)
+
+
+def test_gentle_staircase_has_direction_and_retry_without_any_surge():
+    bars = market_example('gentle_rise')
+    rows = engine.market_days(bars)
+    assert all(not row['details']['surge_sources'] for row in rows)
+    assert all(not row['details']['surge_context'] for row in rows)
+    assert rows[48]['market'] == '배열 미확인'
+    assert rows[48]['details']['price_direction'] == 'up'
+    assert rows[49]['market'] == '롱 우세 · 정배열 유지'
+    failed = [e for row in rows for e in row['events'] if e['kind'] == 'high_retry_failed']
+    assert len(failed) == 1
+    event = failed[0]
+    assert (event['first_peak_day'], event['retry_day'], event['date']) == (
+        '2022-03-09', '2022-03-13', '2022-03-15')
+    assert not event['surge_since_peak']
+    assert rows[-1]['market'] == '롱 우세 · 정배열 유지 · 고점 갱신 둔화'
+    assert rows[-1]['details']['active_watches'][0]['age_bars'] == 1
+
+
+@pytest.mark.parametrize(('case', 'day', 'direction', 'label'), [
+    ('mixed_structure', '2022-04-08', 'mixed', '방향 미확인 · 혼조'),
+    ('mixed_structure', '2022-04-10', 'up', '상승 우세 · 혼조'),
+    ('mixed_fall', '2022-04-10', 'down', '하락 우세 · 혼조'),
+])
+def test_mixed_uses_both_confirmed_highs_and_lows(case, day, direction, label):
+    bars = market_example(case)
+    n = bars.index[bars.open_time.dt.strftime('%Y-%m-%d') == day][0] + 1
+    row = engine.market_days(bars.iloc[:n])[-1]
+    assert row == engine.market_days(bars)[n-1]
+    assert row['details']['ema_regime'] == 'mixed'
+    assert row['details']['price_direction'] == direction and row['market'] == label
+    highs, lows = row['details']['swing_highs'], row['details']['swing_lows']
+    points = sorted(highs + lows, key=lambda p: p['date'])
+    assert len(points) == 4
+    assert all(a['kind'] != b['kind'] for a, b in zip(points, points[1:]))
+    for point in points:
+        assert pd.Timestamp(point['confirmed_on']) - pd.Timestamp(point['date']) == pd.Timedelta(days=2)
+        assert point['confirmed_on'] <= day
+
+
+def test_new_surge_or_array_change_does_not_clear_tracking():
+    rows = engine.market_days(market_example('high_retry'))
+    assert rows[7]['details']['active_watches'][0]['age_bars'] == 2
+    released = rows[8]['events'][0]
+    assert released['started_on'] == '2022-01-07' and released['age_bars'] == 3
+    assert rows[8]['details']['surge_sources'] == ['장대양봉']
