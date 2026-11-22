@@ -1,0 +1,11 @@
+[
+  {
+    "case": "surge_doji",
+    "date": "2022-01-05",
+    "market": "상승 추세 유지",
+    "long_exit": "해당 없음",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200
+  }
+]

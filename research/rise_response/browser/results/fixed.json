@@ -1,0 +1,12 @@
+[
+  {
+    "case": "fixed",
+    "date": "2022-02-17",
+    "market": "일반",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 관찰 · 고점 재시도 실패",
+    "source": "fixed_fixture",
+    "http": 200,
+    "capture": "fixed-2022-02-17.png"
+  }
+]

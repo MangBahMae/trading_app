@@ -1,0 +1,12 @@
+[
+  {
+    "case": "support_fail",
+    "date": "2022-01-03",
+    "market": "일반",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 후보 · 지지 재시험 실패",
+    "source": "synthetic_demo",
+    "http": 200,
+    "capture": "support_fail-2022-01-03.png"
+  }
+]
