@@ -1,0 +1,17 @@
+.outcomes {
+  margin: 0;
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--bg-color);
+}
+
+.outcomes > div {
+  display: grid;
+  grid-template-columns: 5em 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding: 2px 0;
+}
+
+.outcomes dt { font-size: 0.72rem; color: var(--muted-color); }
+.outcomes dd { margin: 0; line-height: 1.5; }

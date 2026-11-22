@@ -15,6 +15,7 @@ import IntervalSwitch from "../components/IntervalSwitch";
 import LineManager from "../components/LineManager";
 import PeriodBar from "../components/PeriodBar";
 import SignalPanel from "../components/SignalPanel";
+import RiseResponsePanel from "../components/RiseResponsePanel";
 import ToolRail from "../components/ToolRail";
 import type { DashboardResponse, DrawMode, MarketStateBlock, MarketStateResponse, Timeframe } from "../types";
 import styles from "./SignalScanner.module.css";
@@ -69,6 +70,7 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
   const [showRsi, setShowRsi] = useState(false);
   const [showDivergence, setShowDivergence] = useState(false);
   const [showRapidDrop, setShowRapidDrop] = useState(false);
+  const [showRiseResponse, setShowRiseResponse] = useState(false);
   const rapidDrop = useRapidDrop(showRapidDrop, timeframe === "1D", selectedDate, dailyData);
 
   // 시장 상태 - 신호가 아니라 차트 배경 음영 전용(횡보 구간 표시).
@@ -284,7 +286,9 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
       : []),
     ...(timeframe === "1D"
       ? [{ key: "rapid-drop", label: "급락 대응 · 실험", color: "#efad76", active: showRapidDrop,
-        onToggle: () => setShowRapidDrop((value) => !value) }]
+        onToggle: () => setShowRapidDrop((value) => !value) },
+        { key: "rise-response", label: "상승·급등 대응 · 실험", color: THEME.up, active: showRiseResponse,
+          onToggle: () => setShowRiseResponse((value) => !value) }]
       : []),
   ];
 
@@ -365,7 +369,10 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
             rapidDrop={rapidDrop.data}
             rapidDropLoading={rapidDrop.loading}
             rapidDropError={rapidDrop.error}
-          />
+          >
+            {timeframe === "1D" && showRiseResponse && selectedDate
+              ? <RiseResponsePanel date={selectedDate} revision={dailyData} /> : null}
+          </SignalPanel>
           <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} readOnly={timeframe === "1W"} />
         </aside>
       </div>
