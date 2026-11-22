@@ -1,20 +1,32 @@
-"""--synthetic 개발 서버의 실제 HTTP 응답 검사. 브라우저 화면 검사와는 별도다."""
+"""임시 DB를 쓰는 --synthetic 개발 서버의 HTTP 응답을 검증한다."""
+import argparse
 import json
 from pathlib import Path
 from urllib.request import urlopen
 
-examples = []
-for day in ('2022-01-06', '2022-01-07', '2022-01-08'):
-    with urlopen(f'http://127.0.0.1:8000/api/rapid-drop?date={day}') as response:
-        data = json.loads(response.read())
-    assert data['data_source'] == 'synthetic_demo'
-    examples.append({key: data[key] for key in ('date','data_source','market','support','signals','maintained_candidates')})
-first = next(s for s in examples[0]['signals'] if s['type'] == 'first_brake_long')
-assert examples[0]['market']['accelerating_down'] is True
-assert any(s['type'] == 'acceleration_warning' for s in examples[0]['signals'])
-assert examples[1]['maintained_candidates'][0]['id'] == first['id']
-retest = next(s for s in examples[2]['signals'] if s['type'] == 'retest_long')
-assert retest['previous_candidate_ids'] == [first['id']]
-Path(__file__).with_name('results_v03').joinpath('synthetic_api_examples.json').write_text(
-    json.dumps(dict(source='synthetic_demo', actual_manual_support=False, examples=examples), ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-print('합성 실제 HTTP: 첫 후보+경고 / 유지 / 재지지 후보 연결 통과. 브라우저 합성 표시 검증은 아님.')
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--port', type=int, default=18703)
+    parser.add_argument('--output', type=Path, help='결과를 저장할 새 JSON 파일')
+    args = parser.parse_args()
+    days = {}
+    for day in ('2022-01-06', '2022-01-07', '2022-01-08'):
+        with urlopen(f'http://127.0.0.1:{args.port}/api/rapid-drop?date={day}', timeout=15) as response:
+            data = json.load(response)
+        assert data['data_source'] == 'synthetic_demo'
+        days[day] = data
+    first_day, bounce, retest_day = days.values()
+    first, = [s for s in first_day['signals'] if s['type'] == 'manual_first_long']
+    assert first_day['market']['phase'] == 'sharp_drop' and first_day['market']['accelerating_now']
+    assert first in bounce['maintained_candidates']
+    retest, = [s for s in retest_day['signals'] if s['type'] == 'manual_retest_long']
+    assert retest['previous_candidate_ids'] == [first['id']]
+    if args.output:
+        with args.output.open('x', encoding='utf-8') as stream:
+            json.dump(days, stream, ensure_ascii=False, indent=2)
+    print('합성 HTTP 검사 통과 · 수동 첫 후보와 추가 가속, 유지, 재시험 후보 연결')
+
+
+if __name__ == '__main__':
+    main()

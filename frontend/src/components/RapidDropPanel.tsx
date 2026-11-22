@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { RapidDropPhase, RapidDropRawEvent, RapidDropResponse, RapidDropSignal } from "../types/rapidDrop";
+import type { RapidDropAnchor, RapidDropPhase, RapidDropRawEvent, RapidDropResponse, RapidDropSignal } from "../types/rapidDrop";
 import styles from "./RapidDropPanel.module.css";
 
 interface Props {
@@ -13,13 +13,21 @@ const value = (number: number | null) => number === null ? "미확인" : String(
 const yesNo = (flag: boolean | null) => flag === null ? "자료 부족" : flag ? "해당" : "아님";
 const SOURCE_NAMES: Record<string, string> = {
   manual: "사용자 수동 지지", manual_support: "사용자 수동 지지",
-  automatic_reference: "자동 기준 봉 가격", unconfirmed: "지지 미확인",
+  automatic_reference: "자동 기준 봉 가격", auto: "자동 기준 봉 가격", unconfirmed: "지지 미확인",
   support_reaction_close: "지지 반응 봉 종가 · 자동 기준", market: "시장 상태",
 };
 const PHASE_NAMES: Record<RapidDropPhase, string> = {
-  insufficient: "데이터 부족", normal: "급락 구간 아님", active: "급락 지속", eased: "급락 완화",
+  insufficient: "일반", normal: "일반", sharp_drop: "최근 2봉 급락", post_drop: "급락 후 관찰",
 };
 const sourceName = (source: string) => SOURCE_NAMES[source] ?? source;
+const EXIT_REASONS = { price_recovery: "가격 회복", speed_stability: "속도 안정" };
+
+function marketHeadline(market: RapidDropResponse["market"]): string {
+  if (market.phase === "insufficient") return "일반 · 속도 자료 부족";
+  const speed = market.recent_speed === null
+    ? "속도 자료 부족" : `${(market.recent_speed * 100).toFixed(2).replace(/^-/, "−")}%/봉`;
+  return `${PHASE_NAMES[market.phase]} · ${speed}${market.accelerating_now === true ? " · 추가 가속" : ""}`;
+}
 
 function SignalCard({ signal, maintained = false }: { signal: RapidDropSignal; maintained?: boolean }) {
   return (
@@ -32,6 +40,7 @@ function SignalCard({ signal, maintained = false }: { signal: RapidDropSignal; m
       <div>{sourceName(signal.reference.source)} · 기준 {price(signal.reference.price)}</div>
       <div>기준 가격대 {price(signal.reference.bottom)} ~ {price(signal.reference.top)}</div>
       {signal.anchor_day ? <div>기준 봉 {signal.anchor_day}</div> : null}
+      {signal.reaction_low !== null ? <div>반응 봉 저가 {price(signal.reaction_low)}</div> : null}
       {signal.reference.support_id ? <div>지지 ID {signal.reference.support_id}</div> : null}
       {signal.reference.support_version_id ? <div>지지 버전 {signal.reference.support_version_id}</div> : null}
       {signal.evidence.length > 0 ? <ul>{signal.evidence.map((text, i) => <li key={`${i}:${text}`}>{text}</li>)}</ul> : null}
@@ -58,6 +67,23 @@ function RawEventCard({ event }: { event: RapidDropRawEvent }) {
   );
 }
 
+function AnchorCard({ anchor }: { anchor: RapidDropAnchor }) {
+  return (
+    <li className={styles.signal} data-anchor-id={anchor.id}>
+      <div>{sourceName(anchor.source)} · 기준 봉 {anchor.day}</div>
+      <div>기준 가격 {price(anchor.reference_price)} · 가격대 {price(anchor.bottom)} ~ {price(anchor.top)}</div>
+      <div>첫 기준 저가 {price(anchor.initial_low)} · 반등 확인 {anchor.bounced_on ?? "미확인"}</div>
+      {anchor.support_id ? <div>지지 ID {anchor.support_id}</div> : null}
+      {anchor.support_version_id ? <div>지지 버전 {anchor.support_version_id}</div> : null}
+      <div>추적 기준 ID {anchor.id}</div>
+      <details className={styles.details}>
+        <summary>추적 기준 전체 속성</summary>
+        <pre className={styles.rawData}>{JSON.stringify(anchor, null, 2)}</pre>
+      </details>
+    </li>
+  );
+}
+
 function SignalHistory({ history }: { history: RapidDropSignal[] }) {
   const [expanded, setExpanded] = useState(false);
   return (
@@ -76,11 +102,12 @@ function MarketDetails({ market }: { market: RapidDropResponse["market"] }) {
       <h4>시장 판정 상세</h4>
       <div>현재 추가 가속: {yesNo(market.accelerating_now)} · 강한 급락 속도: {yesNo(market.strong_drop)}</div>
       <div>최근 속도 {value(market.recent_speed)} · 이전 속도 {value(market.previous_speed)} (봉당 로그수익률)</div>
-      <div>강한 급락 기준 {value(market.strong_speed_threshold)} · 완화 속도 기준 {value(market.ease_speed_threshold)}</div>
-      <div>추가 가속 차이 기준 {value(market.acceleration_delta)} · 안정 봉 {market.stable_bars}/{value(market.stable_bars_required)}</div>
-      <div>구간 시작 {market.episode_start ?? "없음"} · 완화일 {market.eased_on ?? "없음"}</div>
-      <div>전일까지 최저 종가 {price(market.previous_low_close)} · 구간 최저 종가 {price(market.episode_low_close)}</div>
-      <div>새 종가 저점: {yesNo(market.new_closing_low)}</div>
+      <div>급락 속도 기준 {value(market.strong_speed_threshold)} · 안정 속도 기준 {value(market.ease_speed_threshold)}</div>
+      <div>추가 가속 차이 기준 {value(market.acceleration_delta)}</div>
+      <div>구간 시작 {market.episode_start ?? "없음"} · 마지막 급락일 {market.last_drop_date ?? "없음"}</div>
+      <div>시장 회복선 {price(market.recovery_line)} · 급락 후 관찰 {market.post_drop_bars}봉</div>
+      <div>가격 회복 연속 {market.price_recovery_streak}봉 · 속도 안정 {market.speed_stable_count}회</div>
+      <div>관찰 해제 사유: {market.exit_reason === null ? "없음" : EXIT_REASONS[market.exit_reason]} · 재악화: {yesNo(market.reworsened)}</div>
       {market.last_acceleration_date ? <div>최근 추가 가속 {market.last_acceleration_date}</div> : null}
       {market.episode_id ? <div>급락 구간 ID {market.episode_id}</div> : null}
     </div>
@@ -90,8 +117,6 @@ function MarketDetails({ market }: { market: RapidDropResponse["market"] }) {
 export default function RapidDropPanel({ data, loading, error }: Props) {
   const [expanded, setExpanded] = useState(false);
   const warnings = data ? [...new Set([...data.warnings, ...data.support.warnings])] : [];
-  const phaseLabel = data?.market.phase === "active" && data.market.accelerating_now
-    ? "급락 지속·가속" : data ? PHASE_NAMES[data.market.phase] : null;
   return (
     <section className={styles.section} aria-labelledby="rapid-drop-heading" data-testid="rapid-drop-panel">
       <h3 id="rapid-drop-heading">급락 대응 · 실험</h3>
@@ -103,17 +128,17 @@ export default function RapidDropPanel({ data, loading, error }: Props) {
           {data.data_source === "synthetic_demo" ? <p className={styles.synthetic}>합성 데이터 · 검증용</p> : null}
           {data.data_source === "fixed_fixture" ? <p className={styles.meta}>고정 마감 일봉 데이터</p> : null}
           <div className={styles.market} data-testid="rapid-drop-summary">
-            <div className={data.market.phase === "active" ? styles.warning : styles.phase}>{phaseLabel}</div>
+            <div className={data.market.phase === "sharp_drop" ? styles.warning : styles.phase} data-testid="rapid-drop-market-line">{marketHeadline(data.market)}</div>
             <div className={styles.summaryTitle}>
               <strong>{data.summary.title}</strong>
               {data.summary.badge ? <span className={styles.badge}>{data.summary.badge === "new" ? "새 발생" : "유지"}</span> : null}
             </div>
-            {data.summary.caution ? <p className={styles.caution}>{data.summary.caution}</p> : null}
           </div>
           <details className={styles.details} open={expanded} onToggle={(event) => setExpanded(event.currentTarget.open)}>
             <summary>전체 사건·근거·기록 보기</summary>
             {expanded ? (
               <>
+                {data.summary.caution ? <p className={styles.caution}>{data.summary.caution}</p> : null}
                 <MarketDetails market={data.market} />
                 <p className={styles.meta}>{data.support.status === "unconfirmed" ? "지지 미확인" : `확인된 지지 버전 ${data.support.known_versions}개`}</p>
                 {data.support.recording_started_at ? <p className={styles.meta}>지지 기록 시작 {data.support.recording_started_at}</p> : null}
@@ -122,6 +147,8 @@ export default function RapidDropPanel({ data, loading, error }: Props) {
                 {data.signals.length > 0 ? <ul className={styles.list}>{data.signals.map((signal) => <SignalCard key={signal.id} signal={signal} />)}</ul> : <p className={styles.note}>당일 새 급락 대응 신호가 없습니다.</p>}
                 <h4>이전 후보 유지 ({data.maintained_candidates.length}개)</h4>
                 {data.maintained_candidates.length > 0 ? <ul className={styles.list}>{data.maintained_candidates.map((signal) => <SignalCard key={signal.id} signal={signal} maintained />)}</ul> : <p className={styles.note}>유지 중인 이전 후보가 없습니다.</p>}
+                <h4>현재 추적 기준 ({data.active_anchors.length}개)</h4>
+                {data.active_anchors.length > 0 ? <ul className={styles.list}>{data.active_anchors.map((anchor) => <AnchorCard key={anchor.id} anchor={anchor} />)}</ul> : <p className={styles.note}>추적 중인 기준이 없습니다.</p>}
                 <h4>당일 원시 사건 ({data.raw_events.length}개)</h4>
                 {data.raw_events.length > 0 ? <ul className={styles.list}>{data.raw_events.map((event) => <RawEventCard key={event.id} event={event} />)}</ul> : <p className={styles.note}>당일 원시 사건이 없습니다.</p>}
                 <SignalHistory history={data.history} />

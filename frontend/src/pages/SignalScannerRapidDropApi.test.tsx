@@ -35,16 +35,20 @@ describe("급락 대응 실제 API → 기존 패널", () => {
     } else {
       const summary = screen.getByTestId("rapid-drop-summary");
       expect(summary).toHaveTextContent(expected.summary.title);
-      if (expected.summary.caution) expect(summary).toHaveTextContent(expected.summary.caution);
+      if (expected.summary.caution) expect(summary).not.toHaveTextContent(expected.summary.caution);
       expect(panel.querySelector("[data-signal-id]")).toBeNull();
       await user.click(screen.getByText("전체 사건·근거·기록 보기"));
       await screen.findByText("시장 판정 상세");
+      if (expected.summary.caution) expect(panel).toHaveTextContent(expected.summary.caution);
       for (const signal of [...expected.signals, ...expected.maintained_candidates]) {
         expect(panel).toHaveTextContent(signal.title);
         expect(panel.querySelector(`[data-signal-id="${signal.id}"]`)).not.toBeNull();
       }
       for (const event of expected.raw_events) {
         expect(panel.querySelector(`[data-event-id="${event.id}"]`)).not.toBeNull();
+      }
+      for (const anchor of expected.active_anchors) {
+        expect(panel.querySelector(`[data-anchor-id="${anchor.id}"]`)).not.toBeNull();
       }
       expect(panel).toHaveTextContent(expected.support.status === "unconfirmed" ? "지지 미확인" : "확인된 지지 버전");
       if (expected.data_source === "synthetic_demo") expect(panel).toHaveTextContent("합성 데이터 · 검증용");
