@@ -1,0 +1,119 @@
+{
+  "fixed": {
+    "bars": 1762,
+    "first": "2022-01-01",
+    "last": "2026-10-28",
+    "prefix_checks": 1762,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "surge_doji": {
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "prefix_checks": 6,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "high_retry": {
+    "bars": 9,
+    "first": "2022-01-01",
+    "last": "2022-01-09",
+    "prefix_checks": 9,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "gentle_rise": {
+    "bars": 74,
+    "first": "2022-01-01",
+    "last": "2022-03-15",
+    "prefix_checks": 74,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "mixed_structure": {
+    "bars": 191,
+    "first": "2022-01-01",
+    "last": "2022-07-10",
+    "prefix_checks": 191,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "mixed_fall": {
+    "bars": 191,
+    "first": "2022-01-01",
+    "last": "2022-07-10",
+    "prefix_checks": 191,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "trendline": {
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "prefix_checks": 6,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "bull_trendline": {
+    "bars": 68,
+    "first": "2022-01-01",
+    "last": "2022-03-09",
+    "prefix_checks": 68,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "ema_resist_rise": {
+    "bars": 225,
+    "first": "2022-01-01",
+    "last": "2022-08-13",
+    "prefix_checks": 225,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "ema_resist_fail": {
+    "bars": 226,
+    "first": "2022-01-01",
+    "last": "2022-08-14",
+    "prefix_checks": 226,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "support_fail": {
+    "bars": 5,
+    "first": "2022-01-01",
+    "last": "2022-01-05",
+    "prefix_checks": 5,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "support_recover": {
+    "bars": 4,
+    "first": "2022-01-01",
+    "last": "2022-01-04",
+    "prefix_checks": 4,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  },
+  "support_no_retest": {
+    "bars": 4,
+    "first": "2022-01-01",
+    "last": "2022-01-04",
+    "prefix_checks": 4,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0
+  }
+}

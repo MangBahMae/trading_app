@@ -1,0 +1,12 @@
+[
+  {
+    "case": "trendline",
+    "date": "2022-01-04",
+    "market": "일반",
+    "long_exit": "기존 롱 종료 검토 · 상승 추세선 이탈",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200,
+    "capture": "trendline-2022-01-04.png"
+  }
+]

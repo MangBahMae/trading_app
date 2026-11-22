@@ -1,0 +1,44 @@
+.outcomes {
+  margin: 0;
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--bg-color);
+}
+
+.outcomes > div {
+  display: grid;
+  grid-template-columns: 7.2em minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  padding: 2px 0;
+}
+
+.outcomes dt { font-size: 0.72rem; color: var(--muted-color); word-break: keep-all; }
+.outcomes dd { margin: 0; line-height: 1.5; word-break: keep-all; }
+.caution {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 10px;
+  align-items: baseline;
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-left: 3px solid #f6c56f;
+  border-radius: 4px;
+  color: #f6c56f;
+  background: #332d24;
+}
+.caution strong { font-size: 1rem; }
+.caution span { font-size: 0.76rem; }
+.longExit, .shortWatch, .shortCandidate { font-weight: 700; font-size: 0.92rem; }
+.longExit { color: #f6c56f; }
+.shortWatch { color: #94c6ff; }
+.shortCandidate { color: #ff929b; }
+.secondary { color: var(--muted-color); }
+.statuses { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 3px; }
+
+.lifecycle {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lifecycle li { margin: 6px 0; }

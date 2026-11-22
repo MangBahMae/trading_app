@@ -1,0 +1,42 @@
+[
+  {
+    "case": "gentle_rise",
+    "date": "2022-02-19",
+    "market": "롱 우세 · 정배열 유지",
+    "long_exit": "해당 없음",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": "bullish",
+    "price_direction": "up",
+    "event_kinds": [],
+    "lifecycle": []
+  },
+  {
+    "case": "gentle_rise",
+    "date": "2022-03-15",
+    "market": "롱 우세 · 정배열 유지 · 고점 갱신 둔화",
+    "long_exit": "기존 롱 종료 검토 · 확정 스윙 저점 117.82 이탈",
+    "short_signal": "숏 관찰 · 고점 재시도 실패",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": "bullish",
+    "price_direction": "mixed",
+    "event_kinds": [
+      "high_retry_failed",
+      "support_break"
+    ],
+    "lifecycle": [
+      {
+        "id": "rise:high_retry_failed:2022-03-15",
+        "label": "숏 관찰 · 고점 재시도 실패",
+        "kind": "high_retry_failed",
+        "source": "고점 재시도",
+        "started_on": "2022-03-15",
+        "status": "new",
+        "age_days": 1
+      }
+    ],
+    "capture": "gentle_rise-2022-03-15.png"
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "case": "bull_trendline",
+    "date": "2022-03-07",
+    "market": "롱 우세 · 정배열 유지",
+    "long_exit": "해당 없음",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": "bullish",
+    "price_direction": "unknown",
+    "event_kinds": [
+      "trendline_wick_recovery"
+    ],
+    "lifecycle": []
+  },
+  {
+    "case": "bull_trendline",
+    "date": "2022-03-08",
+    "market": "롱 우세 · 정배열 유지 · 상승 둔화 · 고점 횡보",
+    "long_exit": "기존 롱 종료 검토 · 상승 추세선 이탈",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": "bullish",
+    "price_direction": "unknown",
+    "event_kinds": [
+      "high_sideways",
+      "trendline_exit_long"
+    ],
+    "lifecycle": [],
+    "capture": "bull_trendline-2022-03-08.png"
+  }
+]

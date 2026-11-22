@@ -1,0 +1,746 @@
+{
+  "fixed": {
+    "bars": 1762,
+    "first": "2022-01-01",
+    "last": "2026-10-28",
+    "prefix_checks": 1762,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0,
+    "legacy_comparison": {
+      "legacy_short_days": 859,
+      "legacy_short_without_new_watch_or_candidate": 845,
+      "new_watch_or_candidate_without_legacy_short": 16
+    },
+    "surge_source_days": {
+      "장대양봉": 136,
+      "3봉 누적 급등": 22,
+      "4봉 누적 급등": 14
+    },
+    "markets": {
+      "일반": 699,
+      "상승 추세 유지": 347,
+      "상승 구간 · 눌림": 696,
+      "상승 둔화 · 고점 횡보": 20
+    },
+    "events": {
+      "high_retry_failed": {
+        "count": 30,
+        "dates": [
+          "2022-02-17",
+          "2022-04-05",
+          "2022-05-27",
+          "2022-06-10",
+          "2022-06-27",
+          "2022-10-31",
+          "2022-12-07",
+          "2023-01-30",
+          "2023-03-27",
+          "2023-04-19",
+          "2023-05-01",
+          "2023-06-28",
+          "2023-10-11",
+          "2023-12-11",
+          "2024-02-23",
+          "2024-04-02",
+          "2024-05-29",
+          "2024-08-15",
+          "2025-01-26",
+          "2025-03-07",
+          "2025-05-29",
+          "2025-07-20",
+          "2025-12-14",
+          "2026-02-10",
+          "2026-03-26",
+          "2026-04-28",
+          "2026-05-13",
+          "2026-06-23",
+          "2026-07-31",
+          "2026-10-07"
+        ]
+      },
+      "high_sideways": {
+        "count": 13,
+        "dates": [
+          "2022-12-10",
+          "2023-11-30",
+          "2023-12-10",
+          "2024-02-03",
+          "2024-02-20",
+          "2024-09-12",
+          "2024-09-22",
+          "2024-11-24",
+          "2025-04-30",
+          "2025-05-11",
+          "2025-06-28",
+          "2026-05-03",
+          "2026-07-20"
+        ]
+      },
+      "high_watch_released": {
+        "count": 29,
+        "dates": [
+          "2022-03-27",
+          "2022-05-30",
+          "2022-07-18",
+          "2022-11-05",
+          "2022-12-13",
+          "2023-02-15",
+          "2023-04-10",
+          "2023-06-23",
+          "2023-07-13",
+          "2023-10-20",
+          "2023-10-23",
+          "2023-10-23",
+          "2024-01-02",
+          "2024-02-12",
+          "2024-02-26",
+          "2024-08-23",
+          "2024-10-29",
+          "2024-10-29",
+          "2025-05-01",
+          "2025-05-22",
+          "2025-07-10",
+          "2025-10-06",
+          "2026-01-13",
+          "2026-03-04",
+          "2026-04-17",
+          "2026-05-05",
+          "2026-08-19",
+          "2026-08-19",
+          "2026-09-21"
+        ]
+      },
+      "rise_start": {
+        "count": 60,
+        "dates": [
+          "2022-02-04",
+          "2022-02-28",
+          "2022-03-09",
+          "2022-03-14",
+          "2022-05-04",
+          "2022-05-15",
+          "2022-05-19",
+          "2022-05-30",
+          "2022-06-19",
+          "2022-07-04",
+          "2022-07-13",
+          "2022-07-27",
+          "2022-08-29",
+          "2022-09-09",
+          "2022-09-22",
+          "2022-10-25",
+          "2022-11-10",
+          "2022-11-30",
+          "2023-01-12",
+          "2023-03-12",
+          "2023-03-29",
+          "2023-04-27",
+          "2023-05-28",
+          "2023-06-06",
+          "2023-06-20",
+          "2023-08-29",
+          "2023-10-01",
+          "2023-10-16",
+          "2024-01-01",
+          "2024-01-26",
+          "2024-03-17",
+          "2024-03-20",
+          "2024-04-04",
+          "2024-04-18",
+          "2024-05-03",
+          "2024-07-15",
+          "2024-08-06",
+          "2024-09-09",
+          "2024-11-06",
+          "2024-11-27",
+          "2024-12-24",
+          "2025-01-06",
+          "2025-01-15",
+          "2025-02-03",
+          "2025-03-02",
+          "2025-03-11",
+          "2025-04-09",
+          "2025-06-23",
+          "2025-10-01",
+          "2025-10-12",
+          "2025-11-26",
+          "2025-12-02",
+          "2026-01-13",
+          "2026-02-06",
+          "2026-02-25",
+          "2026-03-09",
+          "2026-04-07",
+          "2026-06-07",
+          "2026-07-14",
+          "2026-09-18"
+        ]
+      }
+    },
+    "legacy_examples": [
+      {
+        "date": "2022-02-17",
+        "existing_shorts": [],
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "숏 관찰 · 고점 재시도 실패"
+      },
+      {
+        "date": "2022-02-05",
+        "existing_shorts": [
+          "매물소진 - 매도 신호"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ],
+    "days": null
+  },
+  "surge_doji": {
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "prefix_checks": 6,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0,
+    "legacy_comparison": {
+      "legacy_short_days": 1,
+      "legacy_short_without_new_watch_or_candidate": 1
+    },
+    "surge_source_days": {
+      "장대양봉": 1
+    },
+    "markets": {
+      "일반": 3,
+      "상승 추세 유지": 3
+    },
+    "events": {
+      "rise_start": {
+        "count": 1,
+        "dates": [
+          "2022-01-04"
+        ]
+      }
+    },
+    "legacy_examples": [
+      {
+        "date": "2022-01-05",
+        "existing_shorts": [
+          "매물소진 - 매도 신호"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ],
+    "days": [
+      {
+        "date": "2022-01-01",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-02",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-03",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-04",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-05",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-06",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ]
+  },
+  "high_retry": {
+    "bars": 9,
+    "first": "2022-01-01",
+    "last": "2022-01-09",
+    "prefix_checks": 9,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0,
+    "legacy_comparison": {
+      "legacy_short_days": 2,
+      "legacy_short_without_new_watch_or_candidate": 1
+    },
+    "surge_source_days": {
+      "장대양봉": 2
+    },
+    "markets": {
+      "상승 추세 유지": 4,
+      "상승 둔화 · 고점 횡보": 1,
+      "상승 구간 · 눌림": 4
+    },
+    "events": {
+      "high_retry_failed": {
+        "count": 1,
+        "dates": [
+          "2022-01-07"
+        ]
+      },
+      "high_sideways": {
+        "count": 1,
+        "dates": [
+          "2022-01-04"
+        ]
+      },
+      "high_watch_released": {
+        "count": 1,
+        "dates": [
+          "2022-01-09"
+        ]
+      },
+      "rise_start": {
+        "count": 1,
+        "dates": [
+          "2022-01-01"
+        ]
+      }
+    },
+    "legacy_examples": [
+      {
+        "date": "2022-01-02",
+        "existing_shorts": [
+          "매물소진 - 매도 신호"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-07",
+        "existing_shorts": [
+          "장악형 하락 - 숏 신호"
+        ],
+        "market": "상승 구간 · 눌림",
+        "long_exit": "해당 없음",
+        "short_signal": "숏 관찰 · 고점 재시도 실패"
+      }
+    ],
+    "days": [
+      {
+        "date": "2022-01-01",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-02",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-03",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-04",
+        "market": "상승 둔화 · 고점 횡보",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-05",
+        "market": "상승 구간 · 눌림",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-06",
+        "market": "상승 구간 · 눌림",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-07",
+        "market": "상승 구간 · 눌림",
+        "long_exit": "해당 없음",
+        "short_signal": "숏 관찰 · 고점 재시도 실패"
+      },
+      {
+        "date": "2022-01-08",
+        "market": "상승 구간 · 눌림",
+        "long_exit": "해당 없음",
+        "short_signal": "고점 재시도 실패 관찰 유지"
+      },
+      {
+        "date": "2022-01-09",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "숏 관찰 해제 · 상방 돌파"
+      }
+    ]
+  },
+  "trendline": {
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "prefix_checks": 6,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0,
+    "legacy_comparison": {
+      "legacy_short_days": 3,
+      "legacy_short_without_new_watch_or_candidate": 3
+    },
+    "surge_source_days": {
+      "장대양봉": 1
+    },
+    "markets": {
+      "일반": 4,
+      "상승 추세 유지": 2
+    },
+    "events": {
+      "rise_start": {
+        "count": 1,
+        "dates": [
+          "2022-01-05"
+        ]
+      },
+      "trendline_exit_long": {
+        "count": 1,
+        "dates": [
+          "2022-01-04"
+        ]
+      },
+      "trendline_wick_recovery": {
+        "count": 1,
+        "dates": [
+          "2022-01-03"
+        ]
+      }
+    },
+    "legacy_examples": [
+      {
+        "date": "2022-01-04",
+        "existing_shorts": [
+          "추세선 (2022-01-01 99 → 2022-01-02 100) 하향 이탈 (숏) 진입"
+        ],
+        "market": "일반",
+        "long_exit": "기존 롱 종료 검토 · 상승 추세선 이탈",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-05",
+        "existing_shorts": [
+          "추세선 (2022-01-01 99 → 2022-01-02 100) 근접 - 저항 시험 (매도 후보)"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-06",
+        "existing_shorts": [
+          "매물소진 - 매도 신호"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ],
+    "days": [
+      {
+        "date": "2022-01-01",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-02",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-03",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-04",
+        "market": "일반",
+        "long_exit": "기존 롱 종료 검토 · 상승 추세선 이탈",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-05",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-06",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ]
+  },
+  "support_fail": {
+    "bars": 5,
+    "first": "2022-01-01",
+    "last": "2022-01-05",
+    "prefix_checks": 5,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0,
+    "legacy_comparison": {
+      "legacy_short_days": 4,
+      "legacy_short_without_new_watch_or_candidate": 3
+    },
+    "surge_source_days": {
+      "장대양봉": 1
+    },
+    "markets": {
+      "일반": 4,
+      "상승 추세 유지": 1
+    },
+    "events": {
+      "rise_start": {
+        "count": 1,
+        "dates": [
+          "2022-01-05"
+        ]
+      },
+      "support_break": {
+        "count": 1,
+        "dates": [
+          "2022-01-02"
+        ]
+      },
+      "support_reclaimed": {
+        "count": 1,
+        "dates": [
+          "2022-01-05"
+        ]
+      },
+      "support_retest_short": {
+        "count": 1,
+        "dates": [
+          "2022-01-03"
+        ]
+      },
+      "support_retest_touch": {
+        "count": 1,
+        "dates": [
+          "2022-01-03"
+        ]
+      }
+    },
+    "legacy_examples": [
+      {
+        "date": "2022-01-05",
+        "existing_shorts": [
+          "존 100~102 저항 스윕 (매도 후보)"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ],
+    "days": [
+      {
+        "date": "2022-01-01",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-02",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-03",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "숏 후보 · 지지 재시험 실패"
+      },
+      {
+        "date": "2022-01-04",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "지지 재시험 실패 후보 유지"
+      },
+      {
+        "date": "2022-01-05",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ]
+  },
+  "support_recover": {
+    "bars": 4,
+    "first": "2022-01-01",
+    "last": "2022-01-04",
+    "prefix_checks": 4,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0,
+    "legacy_comparison": {
+      "legacy_short_days": 3,
+      "legacy_short_without_new_watch_or_candidate": 3
+    },
+    "surge_source_days": {
+      "장대양봉": 1
+    },
+    "markets": {
+      "일반": 2,
+      "상승 추세 유지": 2
+    },
+    "events": {
+      "rise_start": {
+        "count": 1,
+        "dates": [
+          "2022-01-03"
+        ]
+      },
+      "support_break": {
+        "count": 1,
+        "dates": [
+          "2022-01-02"
+        ]
+      },
+      "support_reclaimed": {
+        "count": 1,
+        "dates": [
+          "2022-01-03"
+        ]
+      },
+      "support_retest_touch": {
+        "count": 1,
+        "dates": [
+          "2022-01-03"
+        ]
+      }
+    },
+    "legacy_examples": [
+      {
+        "date": "2022-01-03",
+        "existing_shorts": [
+          "존 100~102 저항 스윕 (매도 후보)"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-04",
+        "existing_shorts": [
+          "매물소진 - 매도 신호"
+        ],
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ],
+    "days": [
+      {
+        "date": "2022-01-01",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-02",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-03",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-04",
+        "market": "상승 추세 유지",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ]
+  },
+  "support_no_retest": {
+    "bars": 4,
+    "first": "2022-01-01",
+    "last": "2022-01-04",
+    "prefix_checks": 4,
+    "future_bars": 12,
+    "duplicate_event_ids": 0,
+    "repeated_peak_attempts": 0,
+    "legacy_comparison": {
+      "legacy_short_days": 1,
+      "legacy_short_without_new_watch_or_candidate": 1
+    },
+    "surge_source_days": {},
+    "markets": {
+      "일반": 4
+    },
+    "events": {
+      "support_break": {
+        "count": 1,
+        "dates": [
+          "2022-01-02"
+        ]
+      }
+    },
+    "legacy_examples": [],
+    "days": [
+      {
+        "date": "2022-01-01",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-02",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-03",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      },
+      {
+        "date": "2022-01-04",
+        "market": "일반",
+        "long_exit": "해당 없음",
+        "short_signal": "해당 없음"
+      }
+    ]
+  }
+}

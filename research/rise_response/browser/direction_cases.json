@@ -1,0 +1,47 @@
+{
+  "fixed": [
+    {"date": "2022-01-17", "events": ["high_retry_failed"], "capture": true},
+    {"date": "2022-01-20", "events": ["support_retest_short"], "capture": true},
+    {"date": "2022-03-09", "contains": {"market": "역배열 속 반등"}},
+    {"date": "2024-02-12", "events": ["high_watch_released"]},
+    {"date": "2024-03-16", "events": ["support_break"], "contains": {"market": "정배열 유지", "long_exit": "확정 스윙 저점"}, "capture": true}
+  ],
+  "gentle_rise": [
+    {"date": "2022-02-19", "contains": {"market": "롱 우세", "short_signal": "해당 없음"}},
+    {"date": "2022-03-15", "events": ["high_retry_failed"], "capture": true}
+  ],
+  "surge_doji": [
+    {"date": "2022-01-05", "contains": {"market": "배열 미확인", "long_exit": "해당 없음", "short_signal": "해당 없음"}}
+  ],
+  "bull_trendline": [
+    {"date": "2022-03-07", "events": ["trendline_wick_recovery"], "contains": {"long_exit": "해당 없음"}},
+    {"date": "2022-03-08", "contains": {"market": "정배열 유지", "long_exit": "상승 추세선 이탈", "short_signal": "해당 없음"}, "capture": true}
+  ],
+  "ema_resist_rise": [
+    {"date": "2022-08-11", "events": ["resistance_touch"], "contains": {"short_signal": "해당 없음"}},
+    {"date": "2022-08-12", "events": ["resistance_broken"], "contains": {"short_signal": "해당 없음"}}
+  ],
+  "ema_resist_fail": [
+    {"date": "2022-08-11", "events": ["resistance_touch"], "contains": {"short_signal": "해당 없음"}},
+    {"date": "2022-08-12", "events": ["resistance_rejected", "high_retry_failed"], "contains": {"market": "역배열 속 반등"}, "capture": true},
+    {"date": "2022-08-13", "contains": {"short_signal": "유지"}},
+    {"date": "2022-08-14", "events": ["resistance_watch_released"]}
+  ],
+  "support_fail": [
+    {"date": "2022-01-03", "events": ["support_retest_short"]},
+    {"date": "2022-01-05", "contains": {"short_signal": "후보 무효"}}
+  ],
+  "support_recover": [
+    {"date": "2022-01-03", "events": ["support_reclaimed"], "contains": {"short_signal": "해당 없음"}}
+  ],
+  "support_no_retest": [
+    {"date": "2022-01-03", "contains": {"short_signal": "해당 없음"}}
+  ],
+  "mixed_structure": [
+    {"date": "2022-04-08", "contains": {"market": "방향 미확인 · 혼조"}},
+    {"date": "2022-04-10", "contains": {"market": "상승 우세 · 혼조"}}
+  ],
+  "mixed_fall": [
+    {"date": "2022-04-10", "contains": {"market": "하락 우세 · 혼조"}}
+  ]
+}

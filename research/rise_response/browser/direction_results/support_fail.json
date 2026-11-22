@@ -1,0 +1,56 @@
+[
+  {
+    "case": "support_fail",
+    "date": "2022-01-03",
+    "market": "배열 미확인",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 후보 · 지지 재시험 실패",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": null,
+    "price_direction": "unknown",
+    "event_kinds": [
+      "support_retest_short",
+      "support_retest_touch"
+    ],
+    "lifecycle": [
+      {
+        "id": "rise:manual:42:vfdee722b584ca7b8de40:support_retest_short:2022-01-03",
+        "label": "숏 후보 · 지지 재시험 실패",
+        "kind": "support_retest_short",
+        "source": "수동 지지",
+        "started_on": "2022-01-03",
+        "status": "new",
+        "age_days": 1
+      }
+    ]
+  },
+  {
+    "case": "support_fail",
+    "date": "2022-01-05",
+    "market": "배열 미확인",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 후보 무효 · 지지 회복",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": null,
+    "price_direction": "unknown",
+    "event_kinds": [
+      "rise_start",
+      "support_reclaimed"
+    ],
+    "lifecycle": [
+      {
+        "id": "rise:manual:42:vfdee722b584ca7b8de40:support_retest_short:2022-01-03",
+        "label": "숏 후보 · 지지 재시험 실패",
+        "kind": "support_retest_short",
+        "source": "수동 지지",
+        "started_on": "2022-01-03",
+        "status": "invalidated",
+        "ended_on": "2022-01-05",
+        "reason": "숏 후보 무효 · 지지 회복",
+        "age_days": 3
+      }
+    ]
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "case": "high_retry",
+    "date": "2022-01-04",
+    "market": "상승 둔화 · 고점 횡보",
+    "long_exit": "해당 없음",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200
+  },
+  {
+    "case": "high_retry",
+    "date": "2022-01-07",
+    "market": "상승 구간 · 눌림",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 관찰 · 고점 재시도 실패",
+    "source": "synthetic_demo",
+    "http": 200,
+    "capture": "high_retry-2022-01-07.png"
+  },
+  {
+    "case": "high_retry",
+    "date": "2022-01-09",
+    "market": "상승 추세 유지",
+    "long_exit": "해당 없음",
+    "short_signal": "숏 관찰 해제 · 상방 돌파",
+    "source": "synthetic_demo",
+    "http": 200
+  }
+]

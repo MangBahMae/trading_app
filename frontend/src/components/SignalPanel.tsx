@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import type { Candle, MarketStateRow, SignalItem } from "../types";
 import type { RapidDropResponse } from "../types/rapidDrop";
 import RapidDropPanel from "./RapidDropPanel";
@@ -14,6 +14,7 @@ interface Props {
   rapidDrop?: RapidDropResponse | null;
   rapidDropLoading?: boolean;
   rapidDropError?: string | null;
+  children?: ReactNode;
 }
 
 const fmt1 = (v: number | null) => (v === null ? "-" : v.toLocaleString("en-US", { maximumFractionDigits: 1 }));
@@ -55,7 +56,7 @@ type Tab = "all" | "long" | "short";
 function SignalItemRow({ signal }: { signal: SignalItem }) {
   const cls = signal.near_zone === true ? styles.nearZone : signal.near_zone === false ? styles.standalone : undefined;
   return (
-    <li className={cls} data-near-zone={signal.near_zone === true ? "true" : signal.near_zone === false ? "false" : undefined}>
+    <li className={cls} data-direction={signal.direction} data-near-zone={signal.near_zone === true ? "true" : signal.near_zone === false ? "false" : undefined}>
       - {signal.text}
       {signal.near_zone === true && <span className={styles.nearZoneBadge}>존 근처</span>}
     </li>
@@ -66,7 +67,7 @@ function SignalItemRow({ signal }: { signal: SignalItem }) {
 // day_all(그날의 전체 신호)은 이미 백엔드 /api/dashboard 응답의 signals[date]에
 // pipeline + 수동 선 + 캔들패턴이 전부 합쳐져서 내려오므로, 여기서는 그걸
 // direction별로 나누기만 한다.
-export default function SignalPanel({ candle, signals, marketState = null, marketStateParams = null,
+export default function SignalPanel({ candle, signals, children, marketState = null, marketStateParams = null,
   rapidDropEnabled = false, rapidDrop = null, rapidDropLoading = false, rapidDropError = null }: Props) {
   const [tab, setTab] = useState<Tab>("all");
 
@@ -93,6 +94,8 @@ export default function SignalPanel({ candle, signals, marketState = null, marke
       </div>
       <hr className={styles.divider} />
 
+      {children}
+      {rapidDropEnabled ? <RapidDropPanel data={rapidDrop} loading={rapidDropLoading} error={rapidDropError} /> : null}
       {marketState && <MarketStateBox row={marketState} params={marketStateParams} />}
 
       <div className={styles.tabs}>
@@ -161,7 +164,6 @@ export default function SignalPanel({ candle, signals, marketState = null, marke
           </ul>
         </div>
       )}
-      {rapidDropEnabled ? <RapidDropPanel data={rapidDrop} loading={rapidDropLoading} error={rapidDropError} /> : null}
     </div>
   );
 }

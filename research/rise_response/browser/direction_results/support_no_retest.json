@@ -1,0 +1,15 @@
+[
+  {
+    "case": "support_no_retest",
+    "date": "2022-01-03",
+    "market": "배열 미확인",
+    "long_exit": "해당 없음",
+    "short_signal": "해당 없음",
+    "source": "synthetic_demo",
+    "http": 200,
+    "ema_regime": null,
+    "price_direction": "unknown",
+    "event_kinds": [],
+    "lifecycle": []
+  }
+]

@@ -19,7 +19,7 @@ from typing import Iterator
 
 DEFAULT_PATH = Path(__file__).resolve().parents[3] / "data" / "rapid_drop_support_versions.jsonl"
 ENV_PATH = "CCX_RAPID_DROP_SUPPORT_HISTORY"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 class SupportHistoryError(ValueError):
@@ -86,6 +86,21 @@ def _normalize(lines: list[dict]) -> dict:
             raise SupportHistoryError("같은 수동 도형 ID를 중복 입력할 수 없습니다.")
         seen.add(identity)
         kind = row.get("line_type")
+        if kind == "trend":
+            # 구형·불완전 도형은 ID만 남긴다. 다른 정상 지지 버전까지 버리지 않는다.
+            try:
+                points = sorted((date.fromisoformat(row[t]), _price(row[p]))
+                                for t, p in (("time1", "price1"), ("time2", "price2")))
+            except (KeyError, TypeError, ValueError):
+                unsupported.append(identity)
+                continue
+            (first, price1), (last, price2) = points
+            if first == last:
+                unsupported.append(identity)
+                continue
+            state.append(dict(id=identity, kind=kind, time1=first.isoformat(), price1=price1,
+                              time2=last.isoformat(), price2=price2))
+            continue
         if kind not in ("horizontal", "zone"):
             unsupported.append(identity)
             continue
@@ -142,7 +157,7 @@ def _read(path: Path) -> list[dict]:
             if not isinstance(item, dict) or set(item) != {
                     "schema_version", "observed_at", "state", "fingerprint", "previous_hash", "record_hash"}:
                 raise ValueError("잘못된 기록 형식")
-            if item["schema_version"] != SCHEMA_VERSION:
+            if item["schema_version"] not in (1, SCHEMA_VERSION):
                 raise ValueError("지원하지 않는 기록 버전")
             observed = _utc(item["observed_at"])
             state = item["state"]
@@ -151,6 +166,11 @@ def _read(path: Path) -> list[dict]:
             # 저장된 내부 좌표 역시 검증해 손상·임의 편집을 fail-closed 처리한다.
             reconstructed = []
             for row in state["lines"]:
+                if row["kind"] == "trend" and item["schema_version"] == 2:
+                    if set(row) != {"id", "kind", "time1", "price1", "time2", "price2"}:
+                        raise ValueError("잘못된 추세선 좌표")
+                    reconstructed.append(dict(row, line_type="trend"))
+                    continue
                 if set(row) != {"id", "kind", "bottom", "top", "start", "end"}:
                     raise ValueError("잘못된 좌표 행")
                 reconstructed.append(dict(id=row["id"], line_type=row["kind"], price1=row["top"],
@@ -159,7 +179,8 @@ def _read(path: Path) -> list[dict]:
             if not isinstance(unsupported, list) or any(not isinstance(x, str) or not x for x in unsupported):
                 raise ValueError("잘못된 미지원 도형 ID")
             normalized = _normalize(reconstructed)
-            if normalized["lines"] != state["lines"] or sorted(set(unsupported)) != unsupported:
+            if (normalized["lines"] != state["lines"] or sorted(set(unsupported)) != unsupported
+                    or any(row["id"] in unsupported for row in state["lines"])):
                 raise ValueError("정규화되지 않은 좌표")
             if item["fingerprint"] != _hash(state) or item["previous_hash"] != previous_hash:
                 raise ValueError("기록 연결 불일치")
@@ -226,8 +247,8 @@ def _query_bounds(as_of: date | datetime | str | None) -> tuple[datetime, date]:
     raise SupportHistoryError("조회 시각은 UTC 시각 또는 ISO 날짜여야 합니다.")
 
 
-def load_levels(as_of: date | datetime | str | None = None, path: str | Path | None = None) -> dict:
-    """당시 알려진 버전의 일봉용 Level 입력과 상태 메타데이터를 반환한다."""
+def load_drawing_versions(as_of: date | datetime | str | None = None, path: str | Path | None = None) -> dict:
+    """UTC 일봉별 적용 기간을 계산한다. v1의 미지원 ID에서 추세선 좌표를 복원하지 않는다."""
     target = _path(path)
     cutoff, last_day = _query_bounds(as_of)
     if target.exists():
@@ -238,8 +259,8 @@ def load_levels(as_of: date | datetime | str | None = None, path: str | Path | N
     records = [item for item in all_records if _utc(item["observed_at"]) < cutoff]
     warnings = ["기록 시작 이전의 도형 좌표·사용 가능 시점은 확인하지 못했습니다."]
     if not records:
-        return dict(levels=[], status="unconfirmed", recording_started_at=None, last_observed_at=None,
-                    unsupported_line_ids=[], warnings=warnings)
+        return dict(versions=[], status="unconfirmed", recording_started_at=None, last_observed_at=None,
+                    unsupported_line_ids=[], trend_line_ids=[], warnings=warnings)
     opened: dict[str, dict] = {}
     versions = []
     for item in records:
@@ -255,19 +276,34 @@ def load_levels(as_of: date | datetime | str | None = None, path: str | Path | N
                 opened[identity] = dict(row=row, known_from=first_day,
                     key=f"manual:{identity}:v{version_hash}", support_id=f"manual:{identity}")
     versions.extend(dict(value, through=last_day) for value in opened.values())
-    levels = []
+    drawings = []
     for version in versions:
         row = version["row"]
-        first = max(version["known_from"], date.fromisoformat(row["start"])) if row["start"] else version["known_from"]
+        first = version["known_from"]
         last = min(version["through"], last_day)
-        if row["end"]:
+        if row["kind"] == "trend":
+            first = max(first, date.fromisoformat(row["time2"]))
+        elif row["kind"] == "zone":
+            first = max(first, date.fromisoformat(row["start"]))
             last = min(last, date.fromisoformat(row["end"]))
         if first <= last:
-            levels.append(dict(key=version["key"], support_id=version["support_id"], bottom=row["bottom"],
-                               top=row["top"], known_from=first.isoformat(), through=last.isoformat()))
-    unsupported = records[-1]["state"]["unsupported_line_ids"]
-    if unsupported:
-        warnings.append("추세선·미지원 도형은 급락 지지 판정에서 제외했습니다.")
-    return dict(levels=sorted(levels, key=lambda item: (item["known_from"], item["key"])), status="recorded",
+            drawings.append(dict(row, key=version["key"], support_id=version["support_id"],
+                                 known_from=first.isoformat(), through=last.isoformat()))
+    latest = records[-1]["state"]
+    return dict(versions=sorted(drawings, key=lambda item: (item["known_from"], item["key"])), status="recorded",
                 recording_started_at=records[0]["observed_at"], last_observed_at=records[-1]["observed_at"],
-                unsupported_line_ids=unsupported, warnings=warnings)
+                unsupported_line_ids=latest["unsupported_line_ids"],
+                trend_line_ids=[row["id"] for row in latest["lines"] if row["kind"] == "trend"], warnings=warnings)
+
+
+def load_levels(as_of: date | datetime | str | None = None, path: str | Path | None = None) -> dict:
+    """급락 전략은 이전과 같이 수평선·존만 받는다."""
+    result = load_drawing_versions(as_of, path)
+    rows = result.pop("versions")
+    fields = ("key", "support_id", "bottom", "top", "known_from", "through")
+    result["levels"] = [{f: row[f] for f in fields} for row in rows if row["kind"] != "trend"]
+    unsupported = sorted(result["unsupported_line_ids"] + result.pop("trend_line_ids"))
+    result["unsupported_line_ids"] = unsupported
+    if unsupported:
+        result["warnings"].append("추세선·미지원 도형은 급락 지지 판정에서 제외했습니다.")
+    return result

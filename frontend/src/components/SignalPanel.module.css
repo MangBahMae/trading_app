@@ -17,6 +17,9 @@
   margin: 12px 0;
 }
 
+.divider + section { border-top: 0; margin-top: 0; padding-top: 0; }
+.panel > section + .tabs, .panel > section + .marketState { margin-top: 12px; }
+
 .tabs {
   display: flex;
   gap: 6px;
@@ -72,6 +75,8 @@
   padding: 4px 0;
   font-size: 0.9rem;
 }
+.signalList [data-direction="long"] { color: #70d9b5; }
+.signalList [data-direction="short"] { color: #ff929b; }
 
 .referenceSection {
   margin-top: 12px;

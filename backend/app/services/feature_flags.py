@@ -27,3 +27,4 @@ ENABLE_CANDLE_REFERENCE = True
 # 기본 OFF인 독립 실험 API. 기존 신호에는 합산하지 않는다.
 import os
 ENABLE_RAPID_DROP_SIGNALS = os.environ.get('CCX_ENABLE_RAPID_DROP_SIGNALS', '0') == '1'
+ENABLE_RISE_RESPONSE = os.environ.get('CCX_ENABLE_RISE_RESPONSE', '0') == '1'
