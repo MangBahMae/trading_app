@@ -43,6 +43,13 @@ WINDOWS = range(MIN_WINDOW, MAX_WINDOW + 1)
 CUM_PCT_PER_N_MIN = 4.0
 
 
+def expansion_window(open_start, close_end, window):
+    """마감이 끝난 N봉 창의 누적률(%), 봉당 변화율(%), 급등 기준 충족 여부."""
+    pct = (close_end - open_start) / open_start * 100
+    per_bar = pct / window
+    return pct, per_bar, per_bar >= CUM_PCT_PER_N_MIN
+
+
 def compute_volatility_expansion(df: pd.DataFrame) -> pd.DataFrame:
     df = df.reset_index(drop=True).copy()
     n = len(df)
@@ -59,11 +66,11 @@ def compute_volatility_expansion(df: pd.DataFrame) -> pd.DataFrame:
             start = t - window
             open_start = df["open"].iloc[start]
             close_prev = df["close"].iloc[t - 1]
-            pct = (close_prev - open_start) / open_start * 100
+            pct, per_bar, matched = expansion_window(open_start, close_prev, window)
             cum_pct[t] = pct
-            cum_pct_per_n[t] = pct / window
+            cum_pct_per_n[t] = per_bar
 
-            if cum_pct_per_n[t] >= CUM_PCT_PER_N_MIN:
+            if matched:
                 expansion[t] = True
                 any_expansion[t] = True
                 matched_windows[t].append(window)
