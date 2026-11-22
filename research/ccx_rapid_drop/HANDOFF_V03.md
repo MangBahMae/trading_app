@@ -1,6 +1,47 @@
 # 급락 대응 신호 v0.3 다음 기기 인계
 
-## 2026-11-21 현재 브랜치에서 재현
+## 2026-11-22 현재 브랜치에서 재현
+
+다음 기기에서는 `feat/rapid-drop-signals-v03`을 받아 Draft PR #1의 head와 `git rev-parse HEAD`를 대조한다. 이번 비교 기준은 `04e4ad9a52e78e1de3c718925cf5525f49c99d00`이다. [변경된 시장·후보 규칙](README.md)과 [고정 일봉 평가](results_v03/stage_revision_20261122/REPORT.md)를 참고한다. 이전 기기의 개인 DB나 현재 수동 좌표를 과거 날짜의 지지 이력으로 사용하지 않는다.
+
+검사 전 해당 기기의 매매 DB·수동선 DB·각 DB의 WAL/SHM/journal·지지 이력과 lock의 존재와 SHA-256을 기록한다. 존재하는 파일은 Git 밖의 비공개 경로에 복사해 해시를 확인한다. 표준 검사와 아래 검증 서버는 이 파일들을 임시 경로로 격리한다. 검사가 끝난 뒤 서버를 닫고 같은 경로들을 다시 대조한다. 기존 매매 DB 사고 경위는 아래 기록에 보존했다.
+
+저장소 루트에서 고정 일봉 API를 실행한다. 선택한 포트는 비어 있어야 한다.
+
+```powershell
+& .\backend\.venv\Scripts\python.exe -B research/ccx_rapid_drop/dev_server_v03.py --port 18731
+```
+
+다른 터미널에서 화면을 연다.
+
+```powershell
+Set-Location frontend
+$env:VITE_API_BASE_URL = 'http://127.0.0.1:18731'
+npm.cmd run dev -- --host 127.0.0.1 --port 5173 --strictPort
+```
+
+브라우저에서 `http://127.0.0.1:5173`으로 접속해 BTCUSDT 1D의 **급락 대응 · 실험**을 켜고 일봉을 클릭한다. 고정 일봉 2023-06-11에서는 시장이 일반이어도 자동 기준대 재시험 후보가 보인다. 합성 예시는 서버를 종료한 뒤 같은 서버 명령에 `--doji-example manual` 또는 `--doji-example unknown`을 붙여 재현한다. 2022-01-04의 종가 94 도지와 다음 날 종가 90을 선택한다. 수동선 가격은 94이며 두 모드의 OHLCV는 동일하다. 예시는 화면에 **합성 데이터 · 검증용**으로 표시된다.
+
+검사와 비교는 저장소 루트에서 시작한다. 프런트 전체 검사에는 고정 모드의 로컬 서버를 사용한다.
+
+현행 계산의 전후 평가 진입점은 `compare_stage_revision.py`다. 아래 이전 기기 기록의 `run_audit.py`와 `verify_v03.py` 직접 실행 명령은 당시 스키마·후보 유형·실행 디렉터리를 전제로 한다. 과거 결과를 재현할 때는 해당 커밋을 별도 체크아웃한 뒤 새 출력 경로를 사용한다.
+
+```powershell
+Push-Location backend
+& .\.venv\Scripts\python.exe -B -m pytest tests -q -p no:cacheprovider
+Pop-Location
+& .\backend\.venv\Scripts\python.exe -B -m unittest discover -s research/ccx_rapid_drop -p 'test*.py'
+$resultDir = Join-Path ([IO.Path]::GetTempPath()) ('ccx-stage-' + [guid]::NewGuid())
+& .\backend\.venv\Scripts\python.exe -B -u research/ccx_rapid_drop/compare_stage_revision.py --output-dir $resultDir
+Set-Location frontend
+$env:CCX_TEST_API_PORT = '18731'
+.\node_modules\.bin\vitest.cmd run
+.\node_modules\.bin\tsc.cmd --noEmit -p .
+npm.cmd run lint
+npm.cmd run build
+```
+
+## 2026-11-21 이전 브랜치의 재현 기록
 
 `feat/rapid-drop-signals-v03`의 Draft PR #1을 사용한다. `869df61` 이후 단일 연구 엔진에 급락 지속·추가 가속·3봉 완화 판정이 들어갔고, 기존 패널은 대표 신호와 상세 보기로 나뉘었다. 기본 기능 플래그는 OFF다. 비교용 설정은 `example_config.json`에 있다. 날짜별 기준 결과는 [전후 비교](results_v03/regime_revision_20261121/REPORT.md), 이번 회귀와 DB 보호 결과는 [작업 보고](REPORT_V03.md)에 있다.
 

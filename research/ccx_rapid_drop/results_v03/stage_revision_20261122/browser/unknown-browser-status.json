@@ -1,0 +1,16 @@
+{
+  "preview_url": "http://127.0.0.1:18736",
+  "viewport": {
+    "width": 1440,
+    "height": 960
+  },
+  "captured": [
+    "2022-01-04"
+  ],
+  "page_errors": [],
+  "blocked_requests": [],
+  "request_failures": [],
+  "expected_aborted_requests": [],
+  "unexpected_request_failures": [],
+  "browser": "Playwright Chromium headless"
+}

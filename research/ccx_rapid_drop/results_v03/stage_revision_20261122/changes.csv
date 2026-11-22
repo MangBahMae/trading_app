@@ -1,0 +1,470 @@
+stream,status,day,old_type,new_type,old_kind,new_kind,old_id,new_id,id_changed,old_anchor_day,new_anchor_day,reason
+api,retained,2022-01-05,acceleration_warning,acceleration_warning,,,rd02_38233ba4861acce4d4c8b6c4,rd02_38233ba4861acce4d4c8b6c4,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-01-06,acceleration_warning,acceleration_warning,,,rd02_d3bba0795211ebfea1603249,rd02_d3bba0795211ebfea1603249,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-01-08,brake_watch,brake_watch,,,rd02_6c79c8cb767ad186a559585d,rd02_342d19d05d654d7df3d79ba0,True,2022-01-08,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2022-01-09,brake_watch,brake_watch,,,rd02_bff641cfe08f55a6b66c22ac,rd02_040333c353383b4fce77b1d3,True,2022-01-09,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-01-20,acceleration_warning,acceleration_warning,,,rd02_06958ae8a6805edf54012c9d,rd02_06958ae8a6805edf54012c9d,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-01-21,acceleration_warning,acceleration_warning,,,rd02_794165ad77da9cd545eacb2f,rd02_794165ad77da9cd545eacb2f,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-01-22,acceleration_warning,acceleration_warning,,,rd02_ca1d1d7ba2f9a5a8efff204e,rd02_ca1d1d7ba2f9a5a8efff204e,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-01-24,brake_watch,brake_watch,,,rd02_de012dcde72537f1d1d53326,rd02_00053ee0872e2007ed70aa1a,True,2022-01-24,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-02-02,acceleration_warning,acceleration_warning,,,rd02_9c0646d46724e5aea4bd167e,rd02_9c0646d46724e5aea4bd167e,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-02-11,acceleration_warning,acceleration_warning,,,rd02_874716dd22e0c635331aa27a,rd02_874716dd22e0c635331aa27a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-02-12,brake_watch,brake_watch,,,rd02_45f685aca14855f4bedc791d,rd02_76afdebe1ea331329986a831,True,2022-02-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-02-17,acceleration_warning,acceleration_warning,,,rd02_715aaad2a99408a09d6c40ba,rd02_715aaad2a99408a09d6c40ba,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-02-18,acceleration_warning,acceleration_warning,,,rd02_81b2245a6c4084f2cb7ef916,rd02_81b2245a6c4084f2cb7ef916,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-02-19,brake_watch,brake_watch,,,rd02_cb930c254b1d1ba81124c1de,rd02_ed223044a61e64fa7a5f5693,True,2022-02-19,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-02-21,acceleration_warning,acceleration_warning,,,rd02_b94168fca41c84bab1e723a5,rd02_b94168fca41c84bab1e723a5,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-03-03,acceleration_warning,acceleration_warning,,,rd02_307889beb9cf61cc808924d3,rd02_307889beb9cf61cc808924d3,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-03-04,acceleration_warning,acceleration_warning,,,rd02_7ad96d4b7f594941ea332b97,rd02_7ad96d4b7f594941ea332b97,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-03-05,acceleration_warning,acceleration_warning,,,rd02_b0ee5528051ed22a09116d24,rd02_b0ee5528051ed22a09116d24,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-03-11,acceleration_warning,acceleration_warning,,,rd02_d47c916f2c6c8bc871c508a7,rd02_d47c916f2c6c8bc871c508a7,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-03-12,brake_watch,brake_watch,,,rd02_d084859bf5467fe67be010ac,rd02_3f59d28797d849c59e4b19d6,True,2022-03-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-03-31,acceleration_warning,acceleration_warning,,,rd02_668ce878a708bcea7ec46710,rd02_668ce878a708bcea7ec46710,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-04-06,acceleration_warning,acceleration_warning,,,rd02_d15f1e94cb0deb2e7a3eac25,rd02_d15f1e94cb0deb2e7a3eac25,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-04-07,acceleration_warning,acceleration_warning,,,rd02_0105188640b764d20e248f7d,rd02_0105188640b764d20e248f7d,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-04-11,acceleration_warning,acceleration_warning,,,rd02_81ce350644806728685c03fe,rd02_81ce350644806728685c03fe,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-04-12,acceleration_warning,acceleration_warning,,,rd02_5da7c21c8a421de9c9dea194,rd02_5da7c21c8a421de9c9dea194,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,added,2022-04-14,,strong_recovery_observed,,,,rd02_6cb03e888c55c8b0584c668f,False,,2022-04-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,added,2022-04-15,,strong_recovery_observed,,,,rd02_f1f51d137e86f4dd6863dc02,False,,2022-04-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,retained,2022-04-17,retest_watch,retest_watch,,,rd02_91c429f3da51c923ca90e943,rd02_5e1c2d7459eb4b30f7752672,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,added,2022-04-18,,strong_recovery_observed,,,,rd02_277665cb4a2cb2ec8b238153,False,,2022-04-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,retained,2022-04-22,acceleration_warning,acceleration_warning,,,rd02_fbe14a0b22e6bd1566a198fd,rd02_fbe14a0b22e6bd1566a198fd,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-04-24,brake_watch,brake_watch,,,rd02_7e72de89ab25174d37117d37,rd02_65e4265f05ae43fada6a9cc6,True,2022-04-24,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-04-30,acceleration_warning,acceleration_warning,,,rd02_f00fa4ac59f7ed5a4a308f6e,rd02_f00fa4ac59f7ed5a4a308f6e,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-05-02,brake_watch,brake_watch,,,rd02_604985d248b80a79a3b662ce,rd02_aa7aab7c0bde1cde4d01e7a6,True,2022-05-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-05-06,acceleration_warning,acceleration_warning,,,rd02_f3520c5a97eb9ff4d4efdc88,rd02_f3520c5a97eb9ff4d4efdc88,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-05-09,acceleration_warning,acceleration_warning,,,rd02_b6b9ba81ec75e6600c444ec3,rd02_b6b9ba81ec75e6600c444ec3,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-05-10,acceleration_warning,acceleration_warning,,,rd02_c6030668e71b00afa7bc1d5e,rd02_c6030668e71b00afa7bc1d5e,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-05-11,retest_watch,retest_watch,,,rd02_f277db37e611585cc9d176a0,rd02_0bd4fa3bfc082164d2f0ee1b,True,2022-05-09,2022-05-09,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-05-12,brake_watch,brake_watch,,,rd02_c44c6dca7dac3f743810e0d2,rd02_1ed652c1e08b69cb9dc99bc4,True,2022-05-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2022-05-13,brake_watch,brake_watch,,,rd02_2bbd7c55519e2dc905857f88,rd02_35eaa4206243da141b8341e1,True,2022-05-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-06-01,acceleration_warning,acceleration_warning,,,rd02_df0bab7e59fcfced6b1f42d6,rd02_df0bab7e59fcfced6b1f42d6,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-06-02,acceleration_warning,acceleration_warning,,,rd02_3332385ee1e7a8a0d72f5938,rd02_3332385ee1e7a8a0d72f5938,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-06-11,acceleration_warning,acceleration_warning,,,rd02_d8e542fcdbd500409e7fcef2,rd02_d8e542fcdbd500409e7fcef2,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-06-12,acceleration_warning,acceleration_warning,,,rd02_cb1768f0d00b43a58fd1fb97,rd02_cb1768f0d00b43a58fd1fb97,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-06-13,acceleration_warning,acceleration_warning,,,rd02_4644783762a378fb568f6175,rd02_4644783762a378fb568f6175,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-06-14,acceleration_warning,acceleration_warning,,,rd02_8b6cfec40b91fdd7f891fc89,rd02_8b6cfec40b91fdd7f891fc89,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-06-14,brake_watch,brake_watch,,,rd02_586f01198bb590d4157abea2,rd02_fd14b01da1935103481437e9,True,2022-06-14,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2022-06-15,brake_watch,brake_watch,,,rd02_a99186b7a7abf58eeb826ff1,rd02_51e49c6da5ca9ae526616353,True,2022-06-15,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-06-17,acceleration_warning,acceleration_warning,,,rd02_191983d21cebb87b54833f27,rd02_191983d21cebb87b54833f27,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-06-17,brake_watch,brake_watch,,,rd02_6299623573a24b7fdc453e5f,rd02_a60b0d444bc540731b8e7ea2,True,2022-06-17,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2022-07-02,brake_watch,brake_watch,,,rd02_e76f50edbb274bc11004268a,rd02_0da806d3d60866f8a53fce21,True,2022-07-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2022-07-03,brake_watch,brake_watch,,,rd02_a23a34e4a8bd02541e6af94c,rd02_2d9bef1bf74670024058f2ea,True,2022-07-03,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-07-11,acceleration_warning,acceleration_warning,,,rd02_b35e6eb48be8aaabd560b327,rd02_b35e6eb48be8aaabd560b327,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-07-12,acceleration_warning,acceleration_warning,,,rd02_dad11ad8092f06429c0f2534,rd02_dad11ad8092f06429c0f2534,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-07-25,acceleration_warning,acceleration_warning,,,rd02_a49ee08c9374aaed346e6743,rd02_a49ee08c9374aaed346e6743,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-07-26,acceleration_warning,acceleration_warning,,,rd02_a92d2caad3ce57ffe66d7a4d,rd02_a92d2caad3ce57ffe66d7a4d,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-07-26,brake_watch,brake_watch,,,rd02_8be5566422234bff7d127653,rd02_51b6b24c20c9a86d4a507731,True,2022-07-26,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-08-19,acceleration_warning,acceleration_warning,,,rd02_f60b6bb62a0793feece1d6d4,rd02_f60b6bb62a0793feece1d6d4,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-08-20,acceleration_warning,acceleration_warning,,,rd02_1e9559b01c56a54d377d9d68,rd02_1e9559b01c56a54d377d9d68,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-08-22,brake_watch,brake_watch,,,rd02_cefd62532d22d6347843422c,rd02_cce74ff4cff51d5108c51a08,True,2022-08-22,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-08-26,acceleration_warning,acceleration_warning,,,rd02_abab0ebb0b6fcbef1c4d3f2d,rd02_abab0ebb0b6fcbef1c4d3f2d,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-08-27,acceleration_warning,acceleration_warning,,,rd02_b75e8dbf41d3503d172613a8,rd02_b75e8dbf41d3503d172613a8,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-09-06,acceleration_warning,acceleration_warning,,,rd02_ba27e7b56b34c5cf8e4edc95,rd02_ba27e7b56b34c5cf8e4edc95,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-09-08,brake_watch,brake_watch,,,rd02_e19834bec33c5a8c2a2de1ed,rd02_1dc24fb8f926df2e1f2cc3dd,True,2022-09-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-09-13,acceleration_warning,acceleration_warning,,,rd02_921d20cda00bbb3ef74c4158,rd02_921d20cda00bbb3ef74c4158,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-09-14,acceleration_warning,acceleration_warning,,,rd02_505f5e8196febb0f58b4dde3,rd02_505f5e8196febb0f58b4dde3,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-09-14,brake_watch,brake_watch,,,rd02_408ee39e18a44504cb5003f8,rd02_dfd831d35388c1e0d0947bba,True,2022-09-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-09-21,acceleration_warning,acceleration_warning,,,rd02_9fe2ec1d7b79bc68d6f6e1a0,rd02_9fe2ec1d7b79bc68d6f6e1a0,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2022-09-23,brake_watch,brake_watch,,,rd02_74623bd88069e09e46b40fb7,rd02_fe3031f6130417ccdb9a7d71,True,2022-09-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2022-11-08,acceleration_warning,acceleration_warning,,,rd02_0c4f16b297d9b70575d30804,rd02_0c4f16b297d9b70575d30804,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-11-09,acceleration_warning,acceleration_warning,,,rd02_ad48657c7b8e74c943513d62,rd02_ad48657c7b8e74c943513d62,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-11-13,acceleration_warning,acceleration_warning,,,rd02_38bcbf46b8ce826ee6119819,rd02_38bcbf46b8ce826ee6119819,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-11-21,acceleration_warning,acceleration_warning,,,rd02_0a5e5a3365f3128a663a7972,rd02_0a5e5a3365f3128a663a7972,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2022-12-16,acceleration_warning,acceleration_warning,,,rd02_31a27c99889e9cbbffdac1b4,rd02_31a27c99889e9cbbffdac1b4,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-02-09,acceleration_warning,acceleration_warning,,,rd02_1c43297f78e2b948a798ecee,rd02_1c43297f78e2b948a798ecee,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-02-10,acceleration_warning,acceleration_warning,,,rd02_fd372646b0e32deb6cc372ad,rd02_fd372646b0e32deb6cc372ad,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2023-02-25,brake_watch,brake_watch,,,rd02_275bd982c51e5d079a154086,rd02_7bb86440fddc28ebf29039f3,True,2023-02-25,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2023-03-03,acceleration_warning,acceleration_warning,,,rd02_d4f0578214950ccaa740a230,rd02_d4f0578214950ccaa740a230,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-03-04,acceleration_warning,acceleration_warning,,,rd02_9684135a836b41d2156c3c19,rd02_9684135a836b41d2156c3c19,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2023-03-04,brake_watch,brake_watch,,,rd02_af0dfd8e75178745dac075e4,rd02_141b30928a74670845c77ff6,True,2023-03-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2023-03-06,brake_watch,brake_watch,,,rd02_913ff429531e55f8c666c48f,rd02_fce7ea3cba1f3bb4136a0ab7,True,2023-03-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2023-03-09,acceleration_warning,acceleration_warning,,,rd02_2ec81b1baa4471b1e346a8aa,rd02_2ec81b1baa4471b1e346a8aa,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-03-10,acceleration_warning,acceleration_warning,,,rd02_bdd8ad9cf677b682986b1033,rd02_bdd8ad9cf677b682986b1033,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2023-03-10,brake_watch,brake_watch,,,rd02_7f621ab68d30635be6d4da08,rd02_eabbbfa24ad4e6b5cbc6e245,True,2023-03-10,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2023-04-20,acceleration_warning,acceleration_warning,,,rd02_12cd02c92e0eab0f62035da1,rd02_12cd02c92e0eab0f62035da1,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-04-21,acceleration_warning,acceleration_warning,,,rd02_24ab124cd3eef848cd026c52,rd02_24ab124cd3eef848cd026c52,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-05-01,acceleration_warning,acceleration_warning,,,rd02_6fef6ba89213dde3dce10d60,rd02_6fef6ba89213dde3dce10d60,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-05-08,acceleration_warning,acceleration_warning,,,rd02_fe4c951e2c007920ec751721,rd02_fe4c951e2c007920ec751721,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2023-05-09,brake_watch,brake_watch,,,rd02_d7388062e9e5d08cdb3fb751,rd02_aaf257b34f26c351977f72c2,True,2023-05-09,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2023-05-10,brake_watch,brake_watch,,,rd02_a536db40e279dffd4bbda93c,rd02_49ad6d976ed1ca517b002a59,True,2023-05-10,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2023-05-12,brake_watch,brake_watch,,,rd02_e530ea1fde11f74d14ce83b7,rd02_fbd9255c3f725220008cb4e7,True,2023-05-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2023-05-13,brake_watch,brake_watch,,,rd02_eb11e1b7301ee8100111306d,rd02_08e7bf1f15adc94f658ac802,True,2023-05-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2023-06-05,acceleration_warning,acceleration_warning,,,rd02_8f99e0b01668de1593e31b23,rd02_8f99e0b01668de1593e31b23,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-06-10,retest_watch,retest_watch,,,rd02_89aa663a6d8c2e838afb444c,rd02_22235928f1989cbaf0211821,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reclassified,2023-06-11,retest_long,auto_retest_long,,,rd02_daf68fa48b8165a47c975cb5,rd02_995c12c9e4daaf607d3fef2a,True,2023-06-05,2023-06-05,통합 후보를 manual_first/manual_retest/auto_retest 출처별 유형으로 구분
+api,added,2023-06-12,,wick_recovery,,,,rd02_291a8a5035ef211f137cbd85,False,,2023-06-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,added,2023-06-12,,retest_watch,,,,rd02_9dcd27d21f9245853f7eb1d5,False,,2023-06-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,added,2023-06-13,,retest_watch,,,,rd02_3430d1caab5e90aec87c33e3,False,,2023-06-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,retained,2023-06-14,candidate_expired,candidate_expired,,,rd02_6594aca96960caee16ed1585,rd02_4ce17882325059b14c97ed5f,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-08-17,acceleration_warning,acceleration_warning,,,rd02_97a5332a20c4988128eced64,rd02_97a5332a20c4988128eced64,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-08-18,acceleration_warning,acceleration_warning,,,rd02_faa12ecdd5974accbcbe49a9,rd02_faa12ecdd5974accbcbe49a9,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2023-08-19,brake_watch,brake_watch,,,rd02_b81a2581fde9cea59469a768,rd02_c9e3975391ad635c104e8a33,True,2023-08-19,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2023-08-31,acceleration_warning,acceleration_warning,,,rd02_7aac0114063d6de1e252bdf1,rd02_7aac0114063d6de1e252bdf1,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-09-01,acceleration_warning,acceleration_warning,,,rd02_8d2649ae8988c0a544ce9665,rd02_8d2649ae8988c0a544ce9665,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-11-14,acceleration_warning,acceleration_warning,,,rd02_a085aa53a738758c66862e5d,rd02_a085aa53a738758c66862e5d,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-11-21,acceleration_warning,acceleration_warning,,,rd02_980dc8dd21c357b02951a5d1,rd02_980dc8dd21c357b02951a5d1,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2023-11-23,brake_watch,brake_watch,,,rd02_83c6a6d0d1cb127e7082e842,rd02_7592c1e7260941f9c74afbe6,True,2023-11-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2023-12-11,acceleration_warning,acceleration_warning,,,rd02_d288911c3c90b14848601cfd,rd02_d288911c3c90b14848601cfd,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2023-12-12,acceleration_warning,acceleration_warning,,,rd02_550450c25de4d7fd792ee3cb,rd02_550450c25de4d7fd792ee3cb,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,added,2023-12-14,,strong_recovery_observed,,,,rd02_1f49d1a954972d7f854b88e5,False,,2023-12-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,reference_updated,2023-12-14,brake_watch,brake_watch,,,rd02_a6d6646c3b48382985569051,rd02_ddd8bdb482bae6505a1fe047,True,2023-12-11,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,added,2023-12-16,,strong_recovery_observed,,,,rd02_b180d9f5ba706b4537daaf8c,False,,2023-12-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,retained,2023-12-17,retest_watch,retest_watch,,,rd02_27b09d2b40bd28a8644ecc4f,rd02_f8c5787bc3b95bc7f1d64b9a,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,added,2023-12-18,,strong_recovery_observed,,,,rd02_3c013aaeaa8ff3e4ab394a79,False,,2023-12-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,added,2024-01-05,,strong_recovery_observed,,,,rd02_68c5fda854de2612e95b732f,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,added,2024-01-08,,strong_recovery_observed,,,,rd02_d0c6fb91b715e9b50bcfb8ef,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,retained,2024-01-12,acceleration_warning,acceleration_warning,,,rd02_0540b9031e1b39579bda12c2,rd02_0540b9031e1b39579bda12c2,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-01-13,acceleration_warning,acceleration_warning,,,rd02_22d2a3eaba9fa5e4ec0acc71,rd02_22d2a3eaba9fa5e4ec0acc71,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-01-13,brake_watch,brake_watch,,,rd02_e5a5d2f0f487e3d7a5c45f86,rd02_81474064e8753094c88e5089,True,2024-01-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-01-18,acceleration_warning,acceleration_warning,,,rd02_7a12900bd07a6d474af35522,rd02_7a12900bd07a6d474af35522,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-01-20,brake_watch,brake_watch,,,rd02_64e3e098c3322ce264cfba4d,rd02_fade360357a1bdacb8096af1,True,2024-01-20,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-01-22,acceleration_warning,acceleration_warning,,,rd02_051a40703b38a2aa372a7e6c,rd02_051a40703b38a2aa372a7e6c,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-01-23,acceleration_warning,acceleration_warning,,,rd02_85afffb12abe483a93149ddf,rd02_85afffb12abe483a93149ddf,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-03-15,acceleration_warning,acceleration_warning,,,rd02_4261100fe88253cbdb1724e5,rd02_4261100fe88253cbdb1724e5,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-03-16,acceleration_warning,acceleration_warning,,,rd02_cb4cdd0e02855722c94c0561,rd02_cb4cdd0e02855722c94c0561,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-03-19,acceleration_warning,acceleration_warning,,,rd02_d4b8ceaac0eaa09400e1b55c,rd02_d4b8ceaac0eaa09400e1b55c,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-03-22,acceleration_warning,acceleration_warning,,,rd02_6c515e51bc749c41f1bae19b,rd02_6c515e51bc749c41f1bae19b,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-03-23,brake_watch,brake_watch,,,rd02_397d027332b30e77498c04cc,rd02_82dd974e4d55f9ccaddd4609,True,2024-03-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-04-02,acceleration_warning,acceleration_warning,,,rd02_a4e7b16fc727a7ec2876e25e,rd02_a4e7b16fc727a7ec2876e25e,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-04-03,acceleration_warning,acceleration_warning,,,rd02_6ecec30eb17dcac005f8f5e2,rd02_6ecec30eb17dcac005f8f5e2,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,added,2024-04-05,,strong_recovery_observed,,,,rd02_3afc15c20f9597af00a7aa8d,False,,2024-04-02,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,reference_updated,2024-04-05,brake_watch,brake_watch,,,rd02_53a4abd992bf94ab6076cd0c,rd02_b7e40aacbbfee743034f4324,True,2024-04-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-04-12,acceleration_warning,acceleration_warning,,,rd02_d07f929236201da6a0da644c,rd02_d07f929236201da6a0da644c,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-04-13,acceleration_warning,acceleration_warning,,,rd02_d51bbfdf7022e5181f7d664a,rd02_d51bbfdf7022e5181f7d664a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-04-16,brake_watch,brake_watch,,,rd02_1205830baaafa4cdb59cef80,rd02_5513ea0f0b6983ec80492de2,True,2024-04-16,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-05-01,acceleration_warning,acceleration_warning,,,rd02_c496cbffb0aebc80833c294a,rd02_c496cbffb0aebc80833c294a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-06-24,acceleration_warning,acceleration_warning,,,rd02_8af89b88782a7a99f84f0a6a,rd02_8af89b88782a7a99f84f0a6a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-07-03,acceleration_warning,acceleration_warning,,,rd02_685c64adb47d03d4df20c1b6,rd02_685c64adb47d03d4df20c1b6,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-07-04,acceleration_warning,acceleration_warning,,,rd02_ad2b55bd279cbb430b310182,rd02_ad2b55bd279cbb430b310182,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-07-05,brake_watch,brake_watch,,,rd02_a8eca658d1153fbc303e80df,rd02_ff030bc585c9722bbf2f43db,True,2024-07-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2024-07-08,brake_watch,brake_watch,,,rd02_f9535443232171fbd1516a79,rd02_5c57042419ac74e9d17ff0ce,True,2024-07-08,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-08-03,acceleration_warning,acceleration_warning,,,rd02_e0460d49182629fbf9439213,rd02_e0460d49182629fbf9439213,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-08-05,acceleration_warning,acceleration_warning,,,rd02_cd789ffd3bea7b6fdf9ff74c,rd02_cd789ffd3bea7b6fdf9ff74c,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,added,2024-08-07,,strong_recovery_observed,,,,rd02_bc4828edcc5192ab9a9818ac,False,,2024-08-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,retained,2024-08-15,acceleration_warning,acceleration_warning,,,rd02_fd78bb8ecf59ddbacb7f4c41,rd02_fd78bb8ecf59ddbacb7f4c41,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-08-27,acceleration_warning,acceleration_warning,,,rd02_58e3c6386936458fdd4c5498,rd02_58e3c6386936458fdd4c5498,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-08-28,acceleration_warning,acceleration_warning,,,rd02_abc4f4dee9f399bb2c063258,rd02_abc4f4dee9f399bb2c063258,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-08-29,brake_watch,brake_watch,,,rd02_2bd3d1edfca043806981287e,rd02_2e08e3d4637532430a23298f,True,2024-08-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2024-08-30,brake_watch,brake_watch,,,rd02_7e846465f35b76f7ccd1d4a7,rd02_ea0d2b8149859c4921f4dd6a,True,2024-08-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-09-06,acceleration_warning,acceleration_warning,,,rd02_76214e14b784d7a611d78969,rd02_76214e14b784d7a611d78969,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-10-01,acceleration_warning,acceleration_warning,,,rd02_92b43f9c787c8af3635d3756,rd02_92b43f9c787c8af3635d3756,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-10-02,brake_watch,brake_watch,,,rd02_c49b4c8bd576791b670a4d67,rd02_258b4b99ba444d1da20dcd91,True,2024-10-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2024-10-03,brake_watch,brake_watch,,,rd02_d66cd42f438cbc053bda2a7d,rd02_5df3331e58ac6ba513055e58,True,2024-10-03,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-11-01,acceleration_warning,acceleration_warning,,,rd02_fc82b0a60eb6ea9c08ee1d5f,rd02_fc82b0a60eb6ea9c08ee1d5f,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-11-02,brake_watch,brake_watch,,,rd02_e26f481d15dd2b4d706583bd,rd02_7e944826ab9590d1fd490890,True,2024-11-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2024-11-03,brake_watch,brake_watch,,,rd02_bf4c634fc6217e788ba83ebb,rd02_29e35de1b3d8a274aff3ec1b,True,2024-11-03,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-11-25,acceleration_warning,acceleration_warning,,,rd02_d32b7c9abe7d3397c2746b3f,rd02_d32b7c9abe7d3397c2746b3f,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-11-26,acceleration_warning,acceleration_warning,,,rd02_4b91458a584f9651e0ac2e88,rd02_4b91458a584f9651e0ac2e88,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-11-28,brake_watch,brake_watch,,,rd02_eb65c30966a117774507b621,rd02_6177f066bd66182d781b0e20,True,2024-11-28,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-12-10,acceleration_warning,acceleration_warning,,,rd02_7e5e173e4389c1e12fb37674,rd02_7e5e173e4389c1e12fb37674,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-12-18,acceleration_warning,acceleration_warning,,,rd02_772b33f60a2d8a3398d73de3,rd02_772b33f60a2d8a3398d73de3,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2024-12-19,acceleration_warning,acceleration_warning,,,rd02_2536f80403a9955533ae1664,rd02_2536f80403a9955533ae1664,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2024-12-20,brake_watch,brake_watch,,,rd02_d73b2e4061901320066d77b1,rd02_95ba7f427d408e347e11eff7,True,2024-12-20,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2024-12-23,brake_watch,brake_watch,,,rd02_6ca0dc9a72fbd1d3db686213,rd02_7429709a49514859c24db8e2,True,2024-12-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2024-12-27,acceleration_warning,acceleration_warning,,,rd02_2fa024a026268471c213ed5b,rd02_2fa024a026268471c213ed5b,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-01-08,acceleration_warning,acceleration_warning,,,rd02_9045e7aa906156bd4bcc497c,rd02_9045e7aa906156bd4bcc497c,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-01-09,acceleration_warning,acceleration_warning,,,rd02_6d2b7232736df79c5339b577,rd02_6d2b7232736df79c5339b577,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-01-11,brake_watch,brake_watch,,,rd02_2b6ec53f9864cb033b3a10a2,rd02_7a35b924b3583c56ba4d5210,True,2025-01-11,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-02-02,acceleration_warning,acceleration_warning,,,rd02_9958489c616bdc0e1f27509f,rd02_9958489c616bdc0e1f27509f,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-02-05,acceleration_warning,acceleration_warning,,,rd02_f0c31cf0dddd9df165e82a34,rd02_f0c31cf0dddd9df165e82a34,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-02-06,brake_watch,brake_watch,,,rd02_592f244ef070145d4e1e0468,rd02_9f35171f0b9b3ebb039989ab,True,2025-02-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2025-02-07,brake_watch,brake_watch,,,rd02_47477b18b5c6fecbad6d670b,rd02_4f09e58b71e889dec222cee6,True,2025-02-07,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-02-24,acceleration_warning,acceleration_warning,,,rd02_6979bb184f80ac7203d6855a,rd02_6979bb184f80ac7203d6855a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-02-25,acceleration_warning,acceleration_warning,,,rd02_ee16e956cce7cd32005ccccc,rd02_ee16e956cce7cd32005ccccc,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-02-26,acceleration_warning,acceleration_warning,,,rd02_752c59381f969cb0ab2fa1fb,rd02_752c59381f969cb0ab2fa1fb,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-02-27,brake_watch,brake_watch,,,rd02_2cdd6a8aa98e1cd539bb1566,rd02_070388ca67ea17f73c6a85e5,True,2025-02-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2025-02-28,brake_watch,brake_watch,,,rd02_8c1db40fd0e4eb918eba1549,rd02_72c7e7b339d9efc3ab03ec31,True,2025-02-28,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-03-04,acceleration_warning,acceleration_warning,,,rd02_f1fae46b6db02bbab38d12b9,rd02_f1fae46b6db02bbab38d12b9,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-03-04,brake_watch,brake_watch,,,rd02_8b8cfb3b69927934f11c55d5,rd02_0f7332a84e5845d07b64c3cf,True,2025-03-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2025-03-06,brake_watch,brake_watch,,,rd02_4122475e973e3e197fc6ee45,rd02_7d035f103eac7f12cdbdada2,True,2025-03-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-03-07,acceleration_warning,acceleration_warning,,,rd02_113c7428b88d4b86ed01c968,rd02_113c7428b88d4b86ed01c968,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-03-08,acceleration_warning,acceleration_warning,,,rd02_5b294e95170ae1eb50aaf715,rd02_5b294e95170ae1eb50aaf715,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-03-09,acceleration_warning,acceleration_warning,,,rd02_7c3e77e0616ff5246f20a757,rd02_7c3e77e0616ff5246f20a757,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-03-10,acceleration_warning,acceleration_warning,,,rd02_b75449a61e7e4ebecadb2d28,rd02_b75449a61e7e4ebecadb2d28,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-03-29,acceleration_warning,acceleration_warning,,,rd02_2f875b9639545ea0b4229caf,rd02_2f875b9639545ea0b4229caf,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-03-30,brake_watch,brake_watch,,,rd02_0983d5bb77b38a70b1939da6,rd02_2d4e191ca0d0b960ffdeac60,True,2025-03-30,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2025-03-31,brake_watch,brake_watch,,,rd02_3946f2d44af1538348ff5b46,rd02_ac7466f66ead3b1ef9768fca,True,2025-03-31,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-04-06,acceleration_warning,acceleration_warning,,,rd02_2a18303667c5b8aeb0f1e986,rd02_2a18303667c5b8aeb0f1e986,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-04-07,acceleration_warning,acceleration_warning,,,rd02_6f9afec9abd0770cd009c77a,rd02_6f9afec9abd0770cd009c77a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-04-07,brake_watch,brake_watch,,,rd02_be2292b4dfecc6aaf2c4b494,rd02_6b8beb8ec6db2157bd3829d1,True,2025-04-07,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-06-12,acceleration_warning,acceleration_warning,,,rd02_a93aa558eb1ebb88d143dd8a,rd02_a93aa558eb1ebb88d143dd8a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-06-13,brake_watch,brake_watch,,,rd02_8994fbf1edf9d9233530dae9,rd02_2231808e5816c4a0449bfaf5,True,2025-06-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-08-15,acceleration_warning,acceleration_warning,,,rd02_b3497722f26af3e4db4ab98a,rd02_b3497722f26af3e4db4ab98a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-08-16,brake_watch,brake_watch,,,rd02_fbdd0235d35e95625b4ab50d,rd02_0e2e60d5de0ba3e141241d37,True,2025-08-16,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2025-08-17,brake_watch,brake_watch,,,rd02_057b5ffaa95d7c7eecf4c0a8,rd02_172ca115ab1641d430e5dbd8,True,2025-08-17,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-08-25,acceleration_warning,acceleration_warning,,,rd02_c98e98f81560088523d03cfe,rd02_c98e98f81560088523d03cfe,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-10-10,acceleration_warning,acceleration_warning,,,rd02_2f6c3281c5590b35fd5c0f2d,rd02_2f6c3281c5590b35fd5c0f2d,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-10-11,acceleration_warning,acceleration_warning,,,rd02_c0df34d311f8e1fa6334e7af,rd02_c0df34d311f8e1fa6334e7af,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-10-13,brake_watch,brake_watch,,,rd02_7c3d5f6b25de0ed3f4ec5054,rd02_89158e4c5898418beda41dcf,True,2025-10-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-10-16,acceleration_warning,acceleration_warning,,,rd02_2384e49ed054e22388a39b51,rd02_2384e49ed054e22388a39b51,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-10-30,acceleration_warning,acceleration_warning,,,rd02_dddee5db39d888b6f5f77cd1,rd02_dddee5db39d888b6f5f77cd1,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-11-04,acceleration_warning,acceleration_warning,,,rd02_4c68fffbbc1a6e320e20350e,rd02_4c68fffbbc1a6e320e20350e,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,added,2025-11-11,,strong_recovery_observed,,,,rd02_12d0dee5f86c5bb09af36469,False,,2025-11-04,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+api,retained,2025-11-12,acceleration_warning,acceleration_warning,,,rd02_c2b3f11cb3652ebc326ee2e5,rd02_c2b3f11cb3652ebc326ee2e5,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-11-12,retest_watch,retest_watch,,,rd02_941ca1c8187bfc3dc596105e,rd02_2a836c64a3b1193d3720b563,True,2025-11-04,2025-11-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-11-14,acceleration_warning,acceleration_warning,,,rd02_7a42d82103e4d1030f5594f2,rd02_7a42d82103e4d1030f5594f2,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-11-20,acceleration_warning,acceleration_warning,,,rd02_eb38962ed8fbf0a2256b33e7,rd02_eb38962ed8fbf0a2256b33e7,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-11-21,acceleration_warning,acceleration_warning,,,rd02_a6ee4c57edcecf2f8ce31d1d,rd02_a6ee4c57edcecf2f8ce31d1d,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-11-21,brake_watch,brake_watch,,,rd02_a0f056d70c2bdbd165f2f26f,rd02_53f4aaa7526bda51bcb909e3,True,2025-11-21,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2025-12-01,acceleration_warning,acceleration_warning,,,rd02_f28a09717c618e04e57e08e2,rd02_f28a09717c618e04e57e08e2,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2025-12-05,acceleration_warning,acceleration_warning,,,rd02_45cb8263b850ae9dfd10eaca,rd02_45cb8263b850ae9dfd10eaca,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2025-12-06,brake_watch,brake_watch,,,rd02_b3a992a7b52a4d230ab62e6d,rd02_2ea43373e988156c97701845,True,2025-12-01,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2025-12-18,brake_watch,brake_watch,,,rd02_034c2d6745d2040fe28f3bd1,rd02_a8a8a022ec12c4831a3e2fd1,True,2025-12-18,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2026-01-20,acceleration_warning,acceleration_warning,,,rd02_0109c842a9060dc400df935b,rd02_0109c842a9060dc400df935b,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2026-01-22,brake_watch,brake_watch,,,rd02_f32fbc649d28c627f4e88840,rd02_70e805f32e404100e4f9caf9,True,2026-01-20,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2026-01-29,acceleration_warning,acceleration_warning,,,rd02_59149213c84bcd8c7b034aaf,rd02_59149213c84bcd8c7b034aaf,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-01-30,acceleration_warning,acceleration_warning,,,rd02_7eb2014a1a08855550991e23,rd02_7eb2014a1a08855550991e23,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2026-01-30,brake_watch,brake_watch,,,rd02_bfc46b3ecbc361a970f70324,rd02_645336e2b02ec7c18ee6ca98,True,2026-01-29,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2026-02-01,acceleration_warning,acceleration_warning,,,rd02_c884be6d0f0f9118b876e4da,rd02_c884be6d0f0f9118b876e4da,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-02-04,acceleration_warning,acceleration_warning,,,rd02_16189bc3481e7a436e20edf6,rd02_16189bc3481e7a436e20edf6,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-02-05,acceleration_warning,acceleration_warning,,,rd02_c835cafb5b112709fdb41890,rd02_c835cafb5b112709fdb41890,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-02-11,acceleration_warning,acceleration_warning,,,rd02_d9a5024ba3cd4ac6456aedac,rd02_d9a5024ba3cd4ac6456aedac,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-02-23,acceleration_warning,acceleration_warning,,,rd02_d594087a3f72ec7ee3212630,rd02_d594087a3f72ec7ee3212630,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-02-24,acceleration_warning,acceleration_warning,,,rd02_94babdba09a2134b84a3a1ed,rd02_94babdba09a2134b84a3a1ed,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-03-06,acceleration_warning,acceleration_warning,,,rd02_60998637fd6d65b49372c3be,rd02_60998637fd6d65b49372c3be,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-03-07,acceleration_warning,acceleration_warning,,,rd02_8d14c362243c5059f3d7b44a,rd02_8d14c362243c5059f3d7b44a,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-03-18,acceleration_warning,acceleration_warning,,,rd02_905262d7e4db60ad4b4f2774,rd02_905262d7e4db60ad4b4f2774,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-03-19,acceleration_warning,acceleration_warning,,,rd02_b6c14fc6f2fe1f6a197c6c71,rd02_b6c14fc6f2fe1f6a197c6c71,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-03-27,acceleration_warning,acceleration_warning,,,rd02_b91dd829794fbb603e48eaf3,rd02_b91dd829794fbb603e48eaf3,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2026-03-28,brake_watch,brake_watch,,,rd02_b8bb774f2a6ce298cd76b459,rd02_e38a107e7d0eaaf56b7cf0a5,True,2026-03-28,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2026-04-19,acceleration_warning,acceleration_warning,,,rd02_16399dc6e6901da9aa7475f4,rd02_16399dc6e6901da9aa7475f4,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-06-02,acceleration_warning,acceleration_warning,,,rd02_7d02eaa925b755d3c77bed42,rd02_7d02eaa925b755d3c77bed42,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-06-03,acceleration_warning,acceleration_warning,,,rd02_9bc165c7bff82e52122b7c5b,rd02_9bc165c7bff82e52122b7c5b,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2026-06-04,brake_watch,brake_watch,,,rd02_ab64cf427ebe290dadd400c7,rd02_30da965d927365b45dd8abd1,True,2026-06-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2026-06-06,brake_watch,brake_watch,,,rd02_4ff1b187f854ac3077d66130,rd02_d9ff845d1431466bf8228981,True,2026-06-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2026-06-08,brake_watch,brake_watch,,,rd02_8731b5dce9a21babbc99671b,rd02_d6d555f5bb6c536ec6d11a5d,True,2026-06-08,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2026-06-10,brake_watch,brake_watch,,,rd02_8e0702eddcf64c1630cfab47,rd02_108f22fef2f9cc39eda84183,True,2026-06-10,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2026-06-18,acceleration_warning,acceleration_warning,,,rd02_03ce7b21b935f7f6205364ab,rd02_03ce7b21b935f7f6205364ab,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-06-24,acceleration_warning,acceleration_warning,,,rd02_a9baf0ce33bb9b16182c2190,rd02_a9baf0ce33bb9b16182c2190,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,retained,2026-06-25,acceleration_warning,acceleration_warning,,,rd02_2e3ce70e15bfd3686b47ec65,rd02_2e3ce70e15bfd3686b47ec65,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,reference_updated,2026-06-26,brake_watch,brake_watch,,,rd02_1fbc3b651ee988cdeb259b53,rd02_f31f3134280539e92f66dbf4,True,2026-06-26,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,reference_updated,2026-06-27,brake_watch,brake_watch,,,rd02_3845c4c81a53d2ebf17838cd,rd02_f04cd3d879118fca6ebc8d23,True,2026-06-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+api,retained,2026-10-08,acceleration_warning,acceleration_warning,,,rd02_8f95da7a56fc08f72bc4ee79,rd02_8f95da7a56fc08f72bc4ee79,False,,,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+api,removed,2022-01-10,brake_watch,,,,rd02_ac92aa0c3dc633dd8ea38181,,False,2022-01-10,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2022-04-14,retest_watch,,,,rd02_e961be8f6745bdcee2c61516,,False,2022-04-11,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2022-04-15,retest_watch,,,,rd02_c32c3859fa6dd08fe223918f,,False,2022-04-11,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2022-04-18,retest_watch,,,,rd02_10005feae1530880e1a52c31,,False,2022-04-11,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2022-06-05,brake_watch,,,,rd02_3359990fd0bfd510f8604018,,False,2022-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2022-06-20,brake_watch,,,,rd02_d89fdfb124cef66fdb91b793,,False,2022-06-20,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2022-09-19,brake_watch,,,,rd02_1cc30a09ecf4675a6964a003,,False,2022-09-19,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2022-09-27,brake_watch,,,,rd02_5068baddee7b8c35915a6dd1,,False,2022-09-27,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-02-27,brake_watch,,,,rd02_e839ef5ab305ab8562efc7f8,,False,2023-02-27,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-06-09,brake_watch,,,,rd02_466ace9f6ca7a12274696878,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-06-11,brake_watch,,,,rd02_28f2d49436506518f7889c3c,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-06-12,brake_watch,,,,rd02_a0a52e21dca63de8983e1f46,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-06-13,brake_watch,,,,rd02_141a3763db27b8db2db50c49,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-11-18,brake_watch,,,,rd02_380978babf2c5b095261235b,,False,2023-11-18,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-12-14,retest_watch,,,,rd02_55a571a06b1f084d9b2dfe13,,False,2023-12-11,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-12-16,retest_watch,,,,rd02_0d1cc02bec27fc771c7cd49e,,False,2023-12-11,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2023-12-18,retest_watch,,,,rd02_ec79644e79386f43809cff08,,False,2023-12-11,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2024-04-05,retest_watch,,,,rd02_8d7726a2f38b774754466303,,False,2024-04-02,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2024-04-19,brake_watch,,,,rd02_c17b651519a10341e3f6aca8,,False,2024-04-19,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2024-07-10,brake_watch,,,,rd02_ed09678aa10e84aa20408c79,,False,2024-07-10,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2024-08-07,retest_watch,,,,rd02_ab661e305457cee0ad96d3e3,,False,2024-08-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-02-08,brake_watch,,,,rd02_a0e81c54e36253867a85d16e,,False,2025-02-08,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-02-09,brake_watch,,,,rd02_a846b12304cb064cfe1a378c,,False,2025-02-09,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-06-15,brake_watch,,,,rd02_461a4eb57d124f9db8951c92,,False,2025-06-15,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-06-22,brake_watch,,,,rd02_7c37e79cda5d4e2066466e75,,False,2025-06-22,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-11-11,retest_watch,,,,rd02_8a0cdbbc96dea455b25aa8a4,,False,2025-11-04,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-11-18,brake_watch,,,,rd02_51b8dc5af905e8b648d4ecde,,False,2025-11-18,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-11-19,brake_watch,,,,rd02_498d88819c12b3c6ace196fe,,False,2025-11-19,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2025-12-08,brake_watch,,,,rd02_7884dbad410ffc7204ec932a,,False,2025-12-01,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2026-01-23,brake_watch,,,,rd02_2c24e0e0d52f02e24e556385,,False,2026-01-20,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2026-03-24,brake_watch,,,,rd02_838ee82a261b755ade768598,,False,2026-03-24,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+api,removed,2026-06-12,brake_watch,,,,rd02_80056885ec218514693d18a1,,False,2026-06-12,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,reference_updated,2022-01-08,,,reversal_observed,reversal_observed,rd02_d757d2546a2b8bb3befa68a4,rd02_82955c7e3fd1b7d22994e3c2,True,2022-01-08,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-01-09,,,reversal_observed,reversal_observed,rd02_a7b10d709d597841a7f9126c,rd02_63efeb4ebb6a867f7f200bd8,True,2022-01-09,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-01-21,,,volume_red_watch_only,volume_red_watch_only,rd02_ff0fdecb52569bfc6257ff1b,rd02_b35d0cc109df353bc901200b,True,2022-01-21,2022-01-21,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-01-22,,,anchor_lost_on_close,anchor_lost_on_close,rd02_673703d7844528e228ba1a7d,rd02_b8e9a8bac585cfc1cb631e98,True,2022-01-21,2022-01-21,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2022-01-24,,,reversal_observed,reversal_observed,rd02_33244b14e15f590c0a198a26,rd02_e9a1392173dae7baf566525b,True,2022-01-24,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-02-12,,,reversal_observed,reversal_observed,rd02_d8d817d2d45e4da5b515ae96,rd02_e3d1c7afcc7b31d8af119b14,True,2022-02-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-02-19,,,reversal_observed,reversal_observed,rd02_45cbba4691dcf9c1e50499e8,rd02_fb00d23fc3780750d09be6ed,True,2022-02-19,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-03-12,,,reversal_observed,reversal_observed,rd02_3ead4206e03de63de9df1b37,rd02_796543a521e1b8e43ca0c8da,True,2022-03-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-04-11,,,volume_red_watch_only,volume_red_watch_only,rd02_0009ddbb50e5c5937a283348,rd02_66ac84166fd4e0ddd6c93681,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-04-13,,,bounce_observed,bounce_observed,rd02_6c2e876f87fc43063262e0fc,rd02_33e6e8a6177294796f712f0e,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-04-14,,,retest_observed,retest_observed,rd02_223f6bc468611017d9b97107,rd02_a45729aec907970d2a099ae0,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2022-04-14,,,,strong_recovery_observed,,rd02_57bbf61469dce07c96a22856,False,,2022-04-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2022-04-15,,,retest_observed,retest_observed,rd02_2316e2ca60702884cc81f174,rd02_07e8671f9092417b5c2b2531,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2022-04-15,,,,strong_recovery_observed,,rd02_4bdeef9d9a952e29fa614869,False,,2022-04-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2022-04-17,,,retest_observed,retest_observed,rd02_33dd3fd0ac24356f94f1927e,rd02_3b11345ffa038a90b6b8f6cb,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-04-18,,,retest_observed,retest_observed,rd02_3574f82bfd4cb9ed659455e0,rd02_b7075597cb872a4c63330e4b,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2022-04-18,,,,strong_recovery_observed,,rd02_b634a09b97ad1a521e382ea3,False,,2022-04-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2022-04-20,,,anchor_expired,anchor_expired,rd02_1cbe0fef14efd2df62796790,rd02_84a285973e2bb9115b08515c,True,2022-04-11,2022-04-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2022-04-24,,,reversal_observed,reversal_observed,rd02_a7e870b526fc86a9d72365b6,rd02_87cff755e367b92e170111eb,True,2022-04-24,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-05-02,,,reversal_observed,reversal_observed,rd02_ff7f299884b09a4b36e3081f,rd02_1913f24eb38d662bf54412d7,True,2022-05-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-05-09,,,volume_red_watch_only,volume_red_watch_only,rd02_9c0aef5a6a32715fd288270c,rd02_f7a052eaac988eb3b53072fe,True,2022-05-09,2022-05-09,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-05-10,,,bounce_observed,bounce_observed,rd02_9011b9618a1af309190c19a8,rd02_5c288b146da1e2e1baeebc75,True,2022-05-09,2022-05-09,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-05-11,,,retest_observed,retest_observed,rd02_bcd64e3a7265c789b210e530,rd02_34a1c2ba4dffc56b942c4d4a,True,2022-05-09,2022-05-09,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-05-11,,,anchor_lost_on_close,anchor_lost_on_close,rd02_396d72d60e9899f8575ba812,rd02_a768cb742266f4e6293d61b3,True,2022-05-09,2022-05-09,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2022-05-12,,,reversal_observed,reversal_observed,rd02_3e661831aa2d9c78c19fa48e,rd02_7dadbec331c256d28a86c8a2,True,2022-05-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-05-13,,,reversal_observed,reversal_observed,rd02_752a3e9f781e6b623ca5f7cc,rd02_8ee6787bdadf17b4da7cfdf6,True,2022-05-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-06-13,,,volume_red_watch_only,volume_red_watch_only,rd02_eba50f706d5121a26ebddea7,rd02_8d72c95ce775dcb1032a518d,True,2022-06-13,2022-06-13,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-06-14,,,anchor_lost_on_close,anchor_lost_on_close,rd02_ab349c16bf2b8fe72737f7b6,rd02_950eeaac0d5c8f25deaab564,True,2022-06-13,2022-06-13,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2022-06-14,,,reversal_observed,reversal_observed,rd02_f1fb1e6fac67a18af789359b,rd02_ca80ad593bfa748330632ef6,True,2022-06-14,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-06-15,,,reversal_observed,reversal_observed,rd02_b005536bd2b8e67c64cfb784,rd02_1636676979618fdd05591e12,True,2022-06-15,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-06-17,,,reversal_observed,reversal_observed,rd02_55866111a20b737167cc001a,rd02_36fed3fe262608b786e92402,True,2022-06-17,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-07-02,,,reversal_observed,reversal_observed,rd02_7ebbc273274e68d9d9b4c7c3,rd02_ea53276c2577b5d555395ffd,True,2022-07-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-07-03,,,reversal_observed,reversal_observed,rd02_39069f8623225c1ab89cb8e6,rd02_5d4811428408285533b60818,True,2022-07-03,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-07-26,,,reversal_observed,reversal_observed,rd02_50632ad977781c56b6b57688,rd02_16ae3412970adee985c2dcd3,True,2022-07-26,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2022-08-22,,,reversal_observed,reversal_observed,rd02_a23cb475edd2d590a268e704,rd02_6c68252fdd9ae7b752ab8318,True,2022-08-22,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-09-06,,,volume_red_watch_only,volume_red_watch_only,rd02_62ceff9e8adf7dafbdbd90ce,rd02_5af2bef86588415ffa060b4b,True,2022-09-06,2022-09-06,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2022-09-08,,,reversal_observed,reversal_observed,rd02_074367064ab1604fef3989b3,rd02_2ae5bd7b19f8fc87ccae0b32,True,2022-09-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-09-09,,,bounce_observed,bounce_observed,rd02_a72aaae73987b7ba19343418,rd02_c50455b608c0ace522d20c07,True,2022-09-06,2022-09-06,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2022-09-14,,,reversal_observed,reversal_observed,rd02_897638debe3a955385af2de7,rd02_ec16c8ed2f8498c8bdafec0a,True,2022-09-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-09-15,,,anchor_expired,anchor_expired,rd02_d5e25eb60dea3ea948efe825,rd02_e2ee03798c369bbb88f354ba,True,2022-09-06,2022-09-06,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2022-09-23,,,reversal_observed,reversal_observed,rd02_b31b5bf0ec79cce4a07551d7,rd02_4658ba559be704b1ebcb8133,True,2022-09-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2022-11-08,,,volume_red_watch_only,volume_red_watch_only,rd02_5755494a917ae20cb6744d60,rd02_388dbc874cece0844bc7fa83,True,2022-11-08,2022-11-08,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2022-11-09,,,anchor_lost_on_close,anchor_lost_on_close,rd02_81d4adcab932a9dfcb3caa68,rd02_593002f6b4f5f099ad6dcd07,True,2022-11-08,2022-11-08,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2023-02-25,,,reversal_observed,reversal_observed,rd02_97cd5074cdabeb21f8371573,rd02_1be3a41b377d776328c7a30c,True,2023-02-25,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-03-04,,,reversal_observed,reversal_observed,rd02_b6e96a7752dea223e1076239,rd02_fc6daf323dea7a38be4907f5,True,2023-03-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-03-06,,,reversal_observed,reversal_observed,rd02_04bc18b7758ae2b49bbd0f82,rd02_cbdb1e935f1eacbfa6a268fd,True,2023-03-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-03-10,,,reversal_observed,reversal_observed,rd02_c69532dbc3d89f1c1b82d898,rd02_d09df92e64b4c2753193520b,True,2023-03-10,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-05-09,,,reversal_observed,reversal_observed,rd02_41c932b8d65231be25d86ec7,rd02_6b019b7c4b529bebab823fbe,True,2023-05-09,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-05-10,,,reversal_observed,reversal_observed,rd02_ad5d2a991637a47cf86fbdf2,rd02_cb668dd3408b8371b2085272,True,2023-05-10,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-05-12,,,reversal_observed,reversal_observed,rd02_dcd09fba2e7c00d6f2129f29,rd02_1f1a397c835149c12c75cfe8,True,2023-05-12,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-05-13,,,reversal_observed,reversal_observed,rd02_f06ecd7de26563f993f05ad8,rd02_8c24850b22d7fae6521814b7,True,2023-05-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2023-06-05,,,volume_red_watch_only,volume_red_watch_only,rd02_bba45fb14fe38479af05b267,rd02_b283f3d9c7d7216dacfa353f,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-06-06,,,bounce_observed,bounce_observed,rd02_ae4c0c470b39fbed2269a906,rd02_bb88900d9bc6698a85626be7,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-06-10,,,retest_observed,retest_observed,rd02_25d557ab2173105134c5b23d,rd02_84d600ed6b7910391d26a38c,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-06-11,,,retest_observed,retest_observed,rd02_fa029124fee8a07292938741,rd02_2a3d8fc62a1bae89600ff692,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2023-06-11,,,,auto_retest_long,,rd02_70f418a9a3eada463e781754,False,,2023-06-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2023-06-12,,,,candidate_wick_recovered,,rd02_61c8514e0a7eaf8938e638e7,False,,2023-06-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2023-06-12,,,retest_observed,retest_observed,rd02_757003a05e555bdd2690389f,rd02_bb88352ac87ed8f134af1836,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-06-13,,,retest_observed,retest_observed,rd02_566fc2e9b20bdc47f3ddd57e,rd02_be19639681f37cbbf6c8e5bd,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-06-14,,,anchor_expired,anchor_expired,rd02_0f0681124cac6ebe71282dde,rd02_f71be315998fd78b96752072,True,2023-06-05,2023-06-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2023-06-14,,,,candidate_expired,,rd02_7807c6f56fe0ed442f3ad3ef,False,,2023-06-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2023-08-17,,,volume_red_watch_only,volume_red_watch_only,rd02_0d5f33a00a32e15734be4be6,rd02_4dc14ef05cee0f13f8163979,True,2023-08-17,2023-08-17,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-08-18,,,anchor_lost_on_close,anchor_lost_on_close,rd02_626437ce91fc6e0f0f7082f0,rd02_995b137d5a0bd072c5ae9b48,True,2023-08-17,2023-08-17,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2023-08-19,,,reversal_observed,reversal_observed,rd02_2b63f3758e43e4a102e4fadf,rd02_d6137d81cd805d050188db84,True,2023-08-19,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2023-11-23,,,reversal_observed,reversal_observed,rd02_202fa549387865f69172952c,rd02_f85fa98f9ed96778dcea356c,True,2023-11-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2023-12-11,,,volume_red_watch_only,volume_red_watch_only,rd02_e36199093b844037bad7b836,rd02_f03b564862a5a9027a616bcd,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-12-13,,,bounce_observed,bounce_observed,rd02_05fc31f102109419af05e15b,rd02_e397620275b92eb017a4122f,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-12-14,,,retest_observed,retest_observed,rd02_3dca834c08a93cf92aa3aebc,rd02_4147799e851d6afd2e903301,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2023-12-14,,,,strong_recovery_observed,,rd02_74dfa0c8bc7284891c083b5f,False,,2023-12-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,reference_updated,2023-12-14,,,reversal_observed,reversal_observed,rd02_1d0ae0bfc419ef34d3555d66,rd02_e38faff961f681f064340036,True,2023-12-11,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2023-12-16,,,retest_observed,retest_observed,rd02_49edcb34b36a053051692838,rd02_9f202ac971dfcb9b7dac0e42,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2023-12-16,,,,strong_recovery_observed,,rd02_8adcc302126cd9d08f7dcddd,False,,2023-12-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2023-12-17,,,retest_observed,retest_observed,rd02_e9f6f09821feeba8a5a50bf2,rd02_1d9f55f5fbb795aec5a07c4a,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2023-12-18,,,retest_observed,retest_observed,rd02_712c14b869085de220b781ac,rd02_6c0183d72517838898f7a7ff,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2023-12-18,,,,strong_recovery_observed,,rd02_aa109086c648333ca45cfafa,False,,2023-12-11,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2023-12-20,,,anchor_expired,anchor_expired,rd02_87185d88d22d815bf1631d15,rd02_bbcf11e81af5de8c9f601f24,True,2023-12-11,2023-12-11,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2024-01-03,,,,volume_red_watch_only,,rd02_25f0772033b087afce659793,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-01-04,,,,bounce_observed,,rd02_aa5dfa36135059ca5e27e35a,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-01-05,,,,retest_observed,,rd02_9586e8fd9dff8a2c6da3cac2,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-01-05,,,,strong_recovery_observed,,rd02_33f71b5f2a760f093dc626e7,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-01-08,,,,retest_observed,,rd02_4530caedac978c0fce66a364,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-01-08,,,,strong_recovery_observed,,rd02_ba848c26bc068b891002f8eb,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-01-12,,,,anchor_expired,,rd02_2fbaca06c9eba34fc283fb19,False,,2024-01-03,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,reference_updated,2024-01-13,,,reversal_observed,reversal_observed,rd02_df14b5cfe6fb0946deaec6ef,rd02_a1e4c5e2c6e262766d75ae21,True,2024-01-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-01-20,,,reversal_observed,reversal_observed,rd02_6b543c878832d32b944f8ac6,rd02_865b125db53edd8a59c470d5,True,2024-01-20,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2024-01-22,,,volume_red_watch_only,volume_red_watch_only,rd02_0a16569db98a8c23b343d452,rd02_2df358a0b086fd7ae95077d0,True,2024-01-22,2024-01-22,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-01-26,,,bounce_observed,bounce_observed,rd02_b0cfd6d3c58724c372f2d5cb,rd02_2d18311a161423b0cc0f29a8,True,2024-01-22,2024-01-22,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-01-31,,,anchor_expired,anchor_expired,rd02_141eaa589ca39f3d62fc64d3,rd02_7db11b613fe0bf88d3e18c93,True,2024-01-22,2024-01-22,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2024-03-05,,,,volume_red_watch_only,,rd02_5010cfc9a60f22bbb63eba3a,False,,2024-03-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-03-06,,,,bounce_observed,,rd02_95290c46834431cea6eab593,False,,2024-03-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-03-14,,,,anchor_expired,,rd02_7ec85ede085f75fec35af716,False,,2024-03-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,reference_updated,2024-03-23,,,reversal_observed,reversal_observed,rd02_b04a712f35b56da8694116c0,rd02_1f4d26844953bc4c5a736237,True,2024-03-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2024-04-02,,,volume_red_watch_only,volume_red_watch_only,rd02_5a16dfc29b565ec09f59cbb5,rd02_43cd477038d0e1be7e095c59,True,2024-04-02,2024-04-02,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-04-04,,,bounce_observed,bounce_observed,rd02_aa60e88191151d2b71a4fd44,rd02_83229b662913d5e9c8182fa2,True,2024-04-02,2024-04-02,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-04-05,,,retest_observed,retest_observed,rd02_d045c1a911f44ca3469f5e57,rd02_473c883842bc750ee18391eb,True,2024-04-02,2024-04-02,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2024-04-05,,,,strong_recovery_observed,,rd02_3924751a67d71d5642bab869,False,,2024-04-02,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,reference_updated,2024-04-05,,,reversal_observed,reversal_observed,rd02_bc75d9d535760c03d8273a82,rd02_aa6d80017054b9075e3d0f33,True,2024-04-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2024-04-11,,,anchor_expired,anchor_expired,rd02_76b6675b0590b31522be22f3,rd02_3d15eda7f4bc52194e101f8e,True,2024-04-02,2024-04-02,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2024-04-16,,,reversal_observed,reversal_observed,rd02_3c8bd44d55c3afd18def41e6,rd02_9acb509cd2934428f96e1f80,True,2024-04-16,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,added,2024-04-30,,,,volume_red_watch_only,,rd02_0ce1d8d60ba016b7a96fc271,False,,2024-04-30,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2024-05-01,,,,anchor_lost_on_close,,rd02_6ed3ad76221cdd3d9b2599d3,False,,2024-04-30,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2024-06-24,,,volume_red_watch_only,volume_red_watch_only,rd02_1a77ec52942ce0ff46040285,rd02_7721441f823926100132608b,True,2024-06-24,2024-06-24,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-06-30,,,bounce_observed,bounce_observed,rd02_ce9e641d5724bc14a6894b38,rd02_b5216631fd47110b818a9bdc,True,2024-06-24,2024-06-24,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-07-03,,,anchor_expired,anchor_expired,rd02_ddc43b24707df872e04b3222,rd02_7942e19862efa1100a6d5027,True,2024-06-24,2024-06-24,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-07-04,,,volume_red_watch_only,volume_red_watch_only,rd02_f4aa9f53cfc5b36ff86727bd,rd02_60d5884d07e0d51c28434c43,True,2024-07-04,2024-07-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2024-07-05,,,reversal_observed,reversal_observed,rd02_74566c4e08c5ae51c8a87db4,rd02_7029ce150270d8a7977e89e5,True,2024-07-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2024-07-07,,,anchor_lost_on_close,anchor_lost_on_close,rd02_ce207cf782a382f01a545c77,rd02_131b80d3972c13ffe9be34e3,True,2024-07-04,2024-07-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2024-07-08,,,reversal_observed,reversal_observed,rd02_316515ee1c8cd0836aae6f30,rd02_7b4ee0b36e18b7e5338f1de6,True,2024-07-08,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2024-08-05,,,volume_red_watch_only,volume_red_watch_only,rd02_cffc7aee51f5a703a3e4aa1e,rd02_bf480e6d3db74c1472e5115f,True,2024-08-05,2024-08-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-08-06,,,bounce_observed,bounce_observed,rd02_f98a786891482fb5793edcca,rd02_7c46c4d158ee0576489b2759,True,2024-08-05,2024-08-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-08-07,,,retest_observed,retest_observed,rd02_0aea0f8b55bef239b198905a,rd02_79d797eda6c984098cf7f20c,True,2024-08-05,2024-08-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2024-08-07,,,,strong_recovery_observed,,rd02_40852069ba63fe9341229fe4,False,,2024-08-05,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2024-08-14,,,anchor_expired,anchor_expired,rd02_8ae09dd6110654d815ffb5d9,rd02_7a4a82aeb6cde61274494b5e,True,2024-08-05,2024-08-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2024-08-27,,,volume_red_watch_only,volume_red_watch_only,rd02_474bc78a4e46cd7264c1c3c0,rd02_ca11998e4817f88328dee3b2,True,2024-08-27,2024-08-27,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2024-08-29,,,reversal_observed,reversal_observed,rd02_cf449bd6aa8f68c8ecb0aa66,rd02_cadf2aaece299644230a6653,True,2024-08-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-08-30,,,reversal_observed,reversal_observed,rd02_2c32df6336b8f3ad6e83023e,rd02_d96b4373ba98796a2b0c383a,True,2024-08-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2024-09-01,,,anchor_lost_on_close,anchor_lost_on_close,rd02_f86c101bc62ce77aab7d225c,rd02_b97a8e74a871be307d69639e,True,2024-08-27,2024-08-27,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2024-10-02,,,reversal_observed,reversal_observed,rd02_267b0b979b6aa323b29a1337,rd02_7f8f287bba004aa250bb44f0,True,2024-10-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-10-03,,,reversal_observed,reversal_observed,rd02_3decb649e9474285ec34d80a,rd02_dc13f21732cee362733151c4,True,2024-10-03,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-11-02,,,reversal_observed,reversal_observed,rd02_f99949f66377144a3283861e,rd02_5c3099f303b609999e646792,True,2024-11-02,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-11-03,,,reversal_observed,reversal_observed,rd02_40e7a8e018bd383a1e282164,rd02_ee403445f7df52d544df1da6,True,2024-11-03,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-11-28,,,reversal_observed,reversal_observed,rd02_839435cbbc6218d19a08e2c6,rd02_9f03af986399299ffad33d07,True,2024-11-28,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-12-20,,,reversal_observed,reversal_observed,rd02_5bfdee26e90d622f7f2fd6cb,rd02_23b38026926831d663d93900,True,2024-12-20,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2024-12-23,,,reversal_observed,reversal_observed,rd02_4c658dbd2295b73f08f5e4eb,rd02_1733893c9b70a03594bab509,True,2024-12-23,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,added,2025-01-07,,,,volume_red_watch_only,,rd02_722a4037019ca683993ddc91,False,,2025-01-07,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,added,2025-01-08,,,,anchor_lost_on_close,,rd02_ebf3bc3db294498a6286e150,False,,2025-01-07,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,reference_updated,2025-01-11,,,reversal_observed,reversal_observed,rd02_3491eb2ce09fb964c7e686d0,rd02_7c8ab12330a8a087b10ee043,True,2025-01-11,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-02-06,,,reversal_observed,reversal_observed,rd02_3fcac0ea4c50c7007f6943ef,rd02_435a1dfc4ebd6a3f65f9c0e5,True,2025-02-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-02-07,,,reversal_observed,reversal_observed,rd02_13255cb0a03ecb3fb19fc8a7,rd02_75d1c02df5d9e1ee309f96cd,True,2025-02-07,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-02-27,,,reversal_observed,reversal_observed,rd02_498cecbbb57a3e6897a1b6b4,rd02_75b9d5b40fb9e860be5dfbdb,True,2025-02-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-02-28,,,reversal_observed,reversal_observed,rd02_1896f420e31ae0b35ad1bd81,rd02_8a667f63e86757bf660d9489,True,2025-02-28,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-03-04,,,reversal_observed,reversal_observed,rd02_7c2831dd4a67b6a602cecfd1,rd02_de36824e2415c1fecf090ef2,True,2025-03-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-03-06,,,reversal_observed,reversal_observed,rd02_e0a8c3157cb2b7d5d325b9c6,rd02_8608864ff5de830c8686124b,True,2025-03-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-03-30,,,reversal_observed,reversal_observed,rd02_b2c8020ddb3745f5570c3f55,rd02_a55211d7f2c4278ea44ee448,True,2025-03-30,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-03-31,,,reversal_observed,reversal_observed,rd02_a0b05a7ed1247dc2e1c53da8,rd02_9b3eedea4a23901d1319dcfa,True,2025-03-31,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-04-07,,,reversal_observed,reversal_observed,rd02_6b91968e04c72a0233ab8551,rd02_5c808ed260a49e98e76fce80,True,2025-04-07,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-06-13,,,reversal_observed,reversal_observed,rd02_5045275b48e48785c925dfc1,rd02_0172c7809e0bb1911b259501,True,2025-06-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-08-16,,,reversal_observed,reversal_observed,rd02_cc11e55b0d9a4688df5535c1,rd02_eefaaeaf9f87b15dc09a834d,True,2025-08-16,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2025-08-17,,,reversal_observed,reversal_observed,rd02_ebad20c66dbe75d2cc450e00,rd02_c907c7d31f84be521c371358,True,2025-08-17,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2025-10-10,,,volume_red_watch_only,volume_red_watch_only,rd02_67f756803b4ceda0562285a7,rd02_dbfefbe9174b200bc6d18bb1,True,2025-10-10,2025-10-10,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2025-10-11,,,anchor_lost_on_close,anchor_lost_on_close,rd02_ba7a9ab0509cd7861edd076d,rd02_a80fc15b2c82e77b094d8045,True,2025-10-10,2025-10-10,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2025-10-13,,,reversal_observed,reversal_observed,rd02_02702599750d3e15ae418447,rd02_52b65e3c520535f8ef6774cb,True,2025-10-13,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2025-11-04,,,volume_red_watch_only,volume_red_watch_only,rd02_72cae21e01d4e2fb0aae1d2f,rd02_896a6d2d6b9e277524d9e5ea,True,2025-11-04,2025-11-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2025-11-09,,,bounce_observed,bounce_observed,rd02_8a24bd2a0ef5917220357458,rd02_9a4ee540b99960b0cd02c902,True,2025-11-04,2025-11-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2025-11-11,,,retest_observed,retest_observed,rd02_457bc7cecad8c6ce55613645,rd02_6a44f06c4d5116abbfe7e127,True,2025-11-04,2025-11-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,added,2025-11-11,,,,strong_recovery_observed,,rd02_63028f76a38bf97a272da0e5,False,,2025-11-04,새 sharp_drop/post_drop 관찰 또는 후보별 생명주기를 구조화해 기록
+engine,retained,2025-11-12,,,retest_observed,retest_observed,rd02_616a0de9dae6e930d0bf6a96,rd02_f60bc40374a379914213fb32,True,2025-11-04,2025-11-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2025-11-13,,,anchor_expired,anchor_expired,rd02_259707559a1b5094198a4646,rd02_805d1d36abb54b689c7ca1c2,True,2025-11-04,2025-11-04,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2025-11-21,,,reversal_observed,reversal_observed,rd02_320813de7fc2751849ed72c8,rd02_eb58ec6c139df870ef9ee809,True,2025-11-21,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2025-12-01,,,volume_red_watch_only,volume_red_watch_only,rd02_b9e0ac49efd459ad91763220,rd02_57da1daafc907caf943af467,True,2025-12-01,2025-12-01,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2025-12-02,,,bounce_observed,bounce_observed,rd02_afc5cd69bc80afad145ececc,rd02_f3591e0ca9706eaca1a99ac1,True,2025-12-01,2025-12-01,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2025-12-06,,,reversal_observed,reversal_observed,rd02_51ef446c98f4fa10abe5e607,rd02_3f9e4d1f9259bfdca2677822,True,2025-12-01,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2025-12-10,,,anchor_expired,anchor_expired,rd02_e816bad621fce16787b700a1,rd02_ad6b5722c58ce9c521a421a8,True,2025-12-01,2025-12-01,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2025-12-18,,,reversal_observed,reversal_observed,rd02_53873c5476ae609a550ecf64,rd02_aaa78859d3bce0e4568680f3,True,2025-12-18,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2026-01-20,,,volume_red_watch_only,volume_red_watch_only,rd02_00e523c96cc6f159c654b05e,rd02_489138addb148800311e2251,True,2026-01-20,2026-01-20,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2026-01-22,,,reversal_observed,reversal_observed,rd02_78e042716fb84b8bac3cfb7d,rd02_f3a7850a36abba1d5c6cd1f8,True,2026-01-20,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2026-01-25,,,anchor_lost_on_close,anchor_lost_on_close,rd02_baf6516445cbc244ad75db21,rd02_d165230c04445f982e7a841d,True,2026-01-20,2026-01-20,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2026-01-29,,,volume_red_watch_only,volume_red_watch_only,rd02_ebde013194960f22d272f571,rd02_9965103ad9288e94b3829c02,True,2026-01-29,2026-01-29,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2026-01-30,,,reversal_observed,reversal_observed,rd02_44bc3d32fbe5f6f78f15b2ca,rd02_1513aa2465de6f8112c8c09a,True,2026-01-29,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2026-01-31,,,anchor_lost_on_close,anchor_lost_on_close,rd02_17cbac82049e6af5df489053,rd02_4155172ea6ae13214083cc2f,True,2026-01-29,2026-01-29,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2026-02-05,,,volume_red_watch_only,volume_red_watch_only,rd02_e23fe0aec60ac9b7a380157b,rd02_2bafac582ad907e6827d48a3,True,2026-02-05,2026-02-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2026-02-06,,,bounce_observed,bounce_observed,rd02_22b7b6cc17ee5259a5630770,rd02_a7b4ba550c2ebc3bb3e57371,True,2026-02-05,2026-02-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2026-02-14,,,anchor_expired,anchor_expired,rd02_0a47c2e7670a26b689f1d2b9,rd02_45cd3871e2587643105dd362,True,2026-02-05,2026-02-05,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2026-03-28,,,reversal_observed,reversal_observed,rd02_547aac39648f5597a37e0823,rd02_4067e1586baf777e01c3935a,True,2026-03-28,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,retained,2026-06-02,,,volume_red_watch_only,volume_red_watch_only,rd02_18cea3c86bf69f6bbf037919,rd02_310ab3b547ce008b6d622794,True,2026-06-02,2026-06-02,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,retained,2026-06-03,,,anchor_lost_on_close,anchor_lost_on_close,rd02_77986431460ce3ccf44c387a,rd02_a63918bc07f419a15ec4e7bc,True,2026-06-02,2026-06-02,유형·날짜·실질 기준 유지; ID 및 부가 필드 교체는 삭제로 세지 않음
+engine,reference_updated,2026-06-04,,,reversal_observed,reversal_observed,rd02_4d43804510b8f0782a3016cf,rd02_f9feaed44bdb1c9df4c368fb,True,2026-06-04,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2026-06-06,,,reversal_observed,reversal_observed,rd02_342635b07a4e66f39e4a4c75,rd02_45dd43332c4303c1ce1e2f1a,True,2026-06-06,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2026-06-08,,,reversal_observed,reversal_observed,rd02_858cf130f89ff80b25a971ce,rd02_ced6ea3e738a892f70e0857f,True,2026-06-08,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2026-06-10,,,reversal_observed,reversal_observed,rd02_735d4b259b674901da1c23ca,rd02_a55836fa6c19b93ff58da579,True,2026-06-10,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2026-06-26,,,reversal_observed,reversal_observed,rd02_f264c772c23018c636e2d201,rd02_44a3d2f3f3d050ee5be23b63,True,2026-06-26,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,reference_updated,2026-06-27,,,reversal_observed,reversal_observed,rd02_37f2aeb4981bfd12c1a083dd,rd02_b53bb87194ad9d283c4ba21c,True,2026-06-27,,같은 날 같은 관찰/발행의 기준 출처·가격 참조를 다중 기준 모델에 맞춰 명시
+engine,removed,2022-01-10,,,reversal_observed,,rd02_b267ba938170eacf8f0cbb2c,,False,2022-01-10,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2022-06-05,,,reversal_observed,,rd02_9f0912658d7882b94e829b87,,False,2022-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2022-06-20,,,reversal_observed,,rd02_10608530ed23ddead135c565,,False,2022-06-20,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2022-09-19,,,reversal_observed,,rd02_509c20929f44abcf8ec48829,,False,2022-09-19,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2022-09-27,,,reversal_observed,,rd02_3ec68b8fc56da8f6254fb229,,False,2022-09-27,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2023-02-27,,,reversal_observed,,rd02_3244da2cb25c70bd8b139e8e,,False,2023-02-27,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2023-06-09,,,reversal_observed,,rd02_fc5a1f8eb059945be50093a1,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2023-06-11,,,reversal_observed,,rd02_3c05278e88aa11ef654548a5,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2023-06-12,,,reversal_observed,,rd02_1c7e8236cf4d8bbe4cc80007,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2023-06-13,,,reversal_observed,,rd02_1a14ba98fadb21499bc3a9da,,False,2023-06-05,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2023-11-18,,,reversal_observed,,rd02_8c520fb63136a7fe4ba7c21d,,False,2023-11-18,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2024-04-19,,,reversal_observed,,rd02_3964045fd3a6877aad1afd83,,False,2024-04-19,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2024-07-10,,,reversal_observed,,rd02_353e747da32e2ab6ebf68fbc,,False,2024-07-10,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2025-02-08,,,reversal_observed,,rd02_c29f0ba84b7195cd18e98ff2,,False,2025-02-08,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2025-02-09,,,reversal_observed,,rd02_fe9ffb7045b755bcded4fd2c,,False,2025-02-09,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2025-06-15,,,reversal_observed,,rd02_00fdf89b5feb3080019aa25d,,False,2025-06-15,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2025-06-22,,,reversal_observed,,rd02_8dfa85b78dc9434c307263ab,,False,2025-06-22,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2025-11-18,,,reversal_observed,,rd02_cc9ff88599f43b23775d8b85,,False,2025-11-18,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2025-11-19,,,reversal_observed,,rd02_fe55bd2eae86a10bc0f6179d,,False,2025-11-19,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2025-12-08,,,reversal_observed,,rd02_8070913742836da6755b2b2f,,False,2025-12-01,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2026-01-23,,,reversal_observed,,rd02_6a8470eedd8a9c4b8f7f59dd,,False,2026-01-20,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2026-03-24,,,reversal_observed,,rd02_909c72edfd89268b55517ecc,,False,2026-03-24,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음
+engine,removed,2026-06-12,,,reversal_observed,,rd02_6aa507b535925f5000f841e5,,False,2026-06-12,,새 일반 복귀 또는 기준별 후보 요건에서 같은 날짜의 관찰/발행을 만들지 않음

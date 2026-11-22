@@ -1,0 +1,31 @@
+{
+  "date_kst": "2026-11-22",
+  "baseline": "작업 전 실제 파일과 Git 밖의 보존 사본을 SHA-256으로 대조",
+  "before": {
+    "data/trades.db": "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06",
+    "data/merged/manual_lines.db": "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372",
+    "data/trades.db-wal": "absent",
+    "data/trades.db-shm": "absent",
+    "data/trades.db-journal": "absent",
+    "data/merged/manual_lines.db-wal": "absent",
+    "data/merged/manual_lines.db-shm": "absent",
+    "data/merged/manual_lines.db-journal": "absent",
+    "data/rapid_drop_support_versions.jsonl": "absent",
+    "data/rapid_drop_support_versions.jsonl.lock": "absent"
+  },
+  "after": {
+    "data/trades.db": "f046e9789707f1ed4768832098b51716ee60cbd3285072d4856c9a9e23360a06",
+    "data/merged/manual_lines.db": "c14d1c536dea5d51a48e2d45d13daa5fb169217b7ee51c4d1bbf44ed22d74372",
+    "data/trades.db-wal": "absent",
+    "data/trades.db-shm": "absent",
+    "data/trades.db-journal": "absent",
+    "data/merged/manual_lines.db-wal": "absent",
+    "data/merged/manual_lines.db-shm": "absent",
+    "data/merged/manual_lines.db-journal": "absent",
+    "data/rapid_drop_support_versions.jsonl": "absent",
+    "data/rapid_drop_support_versions.jsonl.lock": "absent"
+  },
+  "changed_paths": [],
+  "checked_after": "전체 테스트·리플레이·헤드리스 차트 검사와 검증 서버 종료 후",
+  "original_incident": "이전 사고 전 매매 DB의 복구와 당시 데이터 영향 미확인"
+}
