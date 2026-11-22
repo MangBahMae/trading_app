@@ -42,7 +42,9 @@ class TestRapidDrop(unittest.TestCase):
         self.assertFalse(analyze(rows,(),C)[-1].accelerating_down)
 
     def test_direct_doji(self):
-        x=self.obs(DOJI)[-1]; self.assertEqual(x.event_kinds,('first_support_reaction',)); self.assertEqual(x.volume_ratio_recent,3)
+        x=self.obs(DOJI)[-1]
+        self.assertEqual(x.event_kinds,('first_support_reaction','manual_first_long','reversal_observed'))
+        self.assertEqual(x.volume_ratio_recent,3)
 
     def test_broken_old_support_not_buy(self):
         old=replace(Z,bottom=100,top=101)
@@ -51,7 +53,8 @@ class TestRapidDrop(unittest.TestCase):
 
     def test_lower_new_zone_not_double_bottom(self):
         old=replace(Z,key='old',bottom=100,top=101)
-        x=self.obs(DOJI,levels=(old,Z))[-1]; self.assertEqual(x.event_kinds,('first_support_reaction',))
+        x=self.obs(DOJI,levels=(old,Z))[-1]
+        self.assertIn('first_support_reaction',x.event_kinds); self.assertIn('manual_first_long',x.event_kinds)
         self.assertEqual(x.reaction_levels,('lower',)); self.assertIn('old',x.unrecovered_levels)
 
     def test_big_red_not_bottom_foresight(self):

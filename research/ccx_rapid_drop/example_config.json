@@ -10,5 +10,8 @@
   "tolerance": 0.01,
   "max_age": 8,
   "regime_ease_drop_per_bar": 0.01,
-  "regime_ease_bars": 3
+  "regime_ease_bars": 3,
+  "regime_speed_votes": 2,
+  "regime_price_recovery_bars": 2,
+  "regime_min_post_drop_bars": 3
 }

@@ -89,14 +89,17 @@ class TestReview(unittest.TestCase):
         red, reaction = event(row, 'volume_red_watch_only'), event(row, 'first_support_reaction')
         self.assertEqual(bars[-1].shape, 'doji')
         self.assertNotEqual(red.id, reaction.id)
-        self.assertEqual(red.anchor_id, reaction.anchor_id)
-        self.assertTrue(all(e.entry_status == 'not_evaluated' for e in row.events))
+        self.assertNotEqual(red.anchor_id, reaction.anchor_id)
+        self.assertEqual({a.source for a in row.active_anchors}, {'manual', 'auto'})
+        self.assertEqual([e.kind for e in row.events if e.entry_status == 'candidate_only'], ['manual_first_long'])
 
     def test_live_red_anchor_does_not_hide_support_reversal(self):
         level = replace(Z, bottom=90, top=92)
         rows = analyze(existing_shapes(series(RED, (91, 93, 87, 91, 1000, None))), (level,), C)
-        reaction = event(rows[-1], 'support_reaction_while_tracking')
-        self.assertEqual(reaction.anchor_id, rows[-2].active_anchor_id)
+        reaction = event(rows[-1], 'first_support_reaction')
+        self.assertNotEqual(reaction.anchor_id, rows[-2].active_anchor_id)
+        self.assertEqual(reaction.anchor_source, 'manual')
+        self.assertIn(rows[-2].active_anchor_id, [a.id for a in rows[-1].active_anchors])
         self.assertEqual(reaction.support_id, level.key)
         self.assertAlmostEqual(reaction.volume_ratio_anchor_red, 1000/350)
         self.assertNotEqual(reaction.volume_ratio_anchor_red, reaction.volume_ratio_recent)
@@ -105,19 +108,20 @@ class TestReview(unittest.TestCase):
         rows = analyze(series(RED, (100, 101, 90, 92, 1000, None)), (), C)
         red = event(rows[-1], 'volume_red_watch_only')
         self.assertNotEqual(red.anchor_id, rows[-1].active_anchor_id)
-        self.assertFalse(red.tracking_anchor)
+        self.assertTrue(red.tracking_anchor)
         self.assertEqual(rows[-2].active_anchor_id, rows[-1].active_anchor_id)
+        self.assertEqual(len(rows[-1].active_anchors), 2)
 
     def test_old_invalidation_and_new_reaction_keep_their_own_refs(self):
         lower = Level('new_v1', 90, 92, START + timedelta(days=6), START + timedelta(days=20), 'lower_zone')
         rows = analyze(existing_shapes(series(DOJI, (91, 93, 88, 91, 1000, None))), (Z, lower), C)
         lost = event(rows[-1], 'anchor_lost_on_close')
-        new = event(rows[-1], 'support_reaction_after_invalidation')
+        new = event(rows[-1], 'first_support_reaction')
         self.assertEqual(lost.anchor_id, rows[-2].active_anchor_id)
         self.assertEqual(lost.anchor_day, rows[-2].day)
         self.assertEqual(new.anchor_day, rows[-1].day)
         self.assertNotEqual(lost.anchor_id, new.anchor_id)
-        self.assertEqual(new.previous_anchor_id, lost.anchor_id)
+        self.assertEqual(new.anchor_source, 'manual')
         self.assertEqual((new.support_id, new.support_version_id), ('lower_zone', 'new_v1'))
 
     def test_retest_and_loss_are_both_facts(self):
@@ -151,12 +155,13 @@ class TestReview(unittest.TestCase):
         self.assertIn('support_reclaim_without_observed_break', rows[-1].event_kinds)
         self.assertNotIn('support_recovery_trap_watch', rows[-1].event_kinds)
 
-    def test_partial_zone_recovery_is_not_full_recovery(self):
+    def test_lower_edge_recovery_is_a_recovery_day_and_next_day_can_react(self):
         level = replace(Z, top=100)
         rows = analyze(series(RED, (91, 99, 90, 98, 100, None), (98, 102, 97, 101, 100, None)), (level,), C)
-        self.assertIn(level.key, rows[-2].unrecovered_levels)
-        self.assertNotIn('support_recovery_trap_watch', rows[-2].event_kinds)
-        self.assertIn('support_recovery_trap_watch', rows[-1].event_kinds)
+        self.assertNotIn(level.key, rows[-2].unrecovered_levels)
+        self.assertIn('support_recovery_trap_watch', rows[-2].event_kinds)
+        self.assertNotIn('first_support_reaction', rows[-2].event_kinds)
+        self.assertNotIn('support_recovery_trap_watch', rows[-1].event_kinds)
 
     def test_support_known_and_through_are_inclusive(self):
         bars = existing_shapes(series(DOJI))
@@ -211,8 +216,8 @@ class TestReview(unittest.TestCase):
         bars = series((97, 99, 94, 97, 1, 'hammer'))
         fact = event(analyze(bars, (Z,), C)[-1], 'first_support_reaction')
         self.assertFalse(fact.volume_high_recent)
-        self.assertIsNone(fact.volume_ratio_anchor_red)
-        self.assertIsNone(fact.volume_red_anchor_id)
+        self.assertAlmostEqual(fact.volume_ratio_anchor_red, 1/100)
+        self.assertEqual(fact.volume_red_anchor_day, START+timedelta(days=4))
 
     def test_zero_volume_ratios_are_unavailable(self):
         bars = [replace(b, volume=0) for b in series(DOJI, BOUNCE, RETEST)]

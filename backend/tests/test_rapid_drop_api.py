@@ -71,14 +71,14 @@ def test_api_reports_data_source_schema_confirmation_and_maintained_candidate(ap
     assert payload['symbol'] == 'BTCUSDT' and payload['interval'] == '1d'
     assert payload['data_source'] == 'synthetic_demo'
     assert payload['support']['status'] == 'known'
-    candidate, = [s for s in payload['signals'] if s['type'] == 'first_brake_long']
+    candidate, = [s for s in payload['signals'] if s['type'] == 'manual_first_long']
     assert candidate['confirmed_at'] == '2022-01-07T00:00:00+00:00'
     assert candidate['reference']['support_id'] == 'manual:7'
     assert candidate['event_ids']
     later = client.get('/api/rapid-drop?date=2022-01-07').json()
     assert candidate in later['maintained_candidates']
     assert candidate in later['history']
-    assert not [s for s in later['signals'] if s['type'] == 'first_brake_long']
+    assert not [s for s in later['signals'] if s['type'] == 'manual_first_long']
     assert client.get('/api/rapid-drop?date=2022-01-06').json() == payload
 
 
@@ -86,10 +86,10 @@ def test_api_records_retest_once_with_explicit_draft_policy_source(api):
     client, history = api
     record_support(history)
     data = client.get('/api/rapid-drop?date=2022-01-08').json()
-    candidate, = [s for s in data['signals'] if s['type'] == 'retest_long']
+    candidate, = [s for s in data['signals'] if s['type'] == 'manual_retest_long']
     later = client.get('/api/rapid-drop?date=2022-01-09').json()
     assert candidate in later['maintained_candidates']
-    assert not [s for s in later['signals'] if s['type'] == 'retest_long']
+    assert not [s for s in later['signals'] if s['type'] == 'manual_retest_long']
     assert data['policy_source'].startswith('rapid-drop-v03-draft')
 
 
@@ -101,7 +101,7 @@ def test_enabled_experimental_api_preserves_existing_daily_and_weekly_payloads(m
     weekly = client.get('/api/dashboard/weekly').json()
     response = client.get('/api/rapid-drop?date=2023-06-11')
     assert response.status_code == 200 and response.json()['enabled'] is True
-    assert [s['type'] for s in response.json()['signals'] if s['direction'] == 'long'] == ['retest_long']
+    assert [s['type'] for s in response.json()['signals'] if s['direction'] == 'long'] == ['auto_retest_long']
     assert response.json()['support']['status'] == 'unconfirmed'
     assert client.get('/api/dashboard').json() == daily
     assert client.get('/api/dashboard/weekly').json() == weekly
@@ -113,7 +113,7 @@ def test_api_leaves_dates_before_recording_unconfirmed_despite_ancient_created_a
     payload = client.get('/api/rapid-drop?date=2022-01-06').json()
     assert payload['support']['status'] == 'unconfirmed'
     assert payload['support']['recording_started_at'] is None
-    assert not [s for s in payload['signals'] if s['type'] == 'first_brake_long']
+    assert not [s for s in payload['signals'] if s['type'] == 'manual_first_long']
 
 
 def test_future_support_versions_do_not_rewrite_an_earlier_api_response(api):
@@ -134,7 +134,7 @@ def test_corrupt_support_journal_fails_closed_without_overwriting_it(api):
     assert payload['enabled'] is True
     assert payload['support']['status'] == 'unconfirmed'
     assert any('지지 이력 확인 실패' in warning for warning in payload['warnings'])
-    assert not [s for s in payload['signals'] if s['type'] == 'first_brake_long']
+    assert not [s for s in payload['signals'] if s['type'] == 'manual_first_long']
     assert history.read_bytes() == before
 
 
@@ -146,6 +146,35 @@ def test_api_cannot_serve_a_still_open_daily_bar(api, monkeypatch):
                         REAL_CLOSED_FRAME(candles, pd.Timestamp('2022-01-08T12:00:00Z')))
     assert client.get('/api/rapid-drop?date=2022-01-08').status_code == 422
     assert client.get('/api/rapid-drop?date=2022-01-07').status_code == 200
+
+
+@pytest.mark.parametrize('has_level', [True, False])
+def test_chart_example_same_five_prices_with_and_without_known_line(api, monkeypatch, has_level):
+    client, history = api
+    if has_level:
+        record_support(history, price=94)
+    rows = [(101,102,99,100,100), (100,101,98,99,100), (99,100,93.5,94,100),
+            (94,95,93,94,100), (94,94.5,89,90,100)]
+    frame = pd.DataFrame(rows, columns=['open', 'high', 'low', 'close', 'volume'])
+    frame['open_time'] = pd.date_range('2022-01-01', periods=5, tz='UTC')
+    monkeypatch.setattr(svc.dashboard, '_get_base_data', lambda *_: (frame.copy(), {}, []))
+    doji = client.get('/api/rapid-drop?date=2022-01-04').json()
+    after = client.get('/api/rapid-drop?date=2022-01-05').json()
+    assert doji['market']['phase'] == 'sharp_drop'
+    assert round(doji['market']['recent_speed'] * 100, 2) == -2.59
+    assert doji['summary']['title'] == ('롱 후보 · 수동 지지 첫 반응' if has_level else '도지 관찰 · 지지 미확인')
+    assert doji['summary']['badge'] == 'new'
+    if has_level:
+        candidate, = [s for s in doji['signals'] if s['direction'] == 'long']
+        assert candidate['reaction_low'] == 93
+        assert candidate['reference']['bottom'] == candidate['reference']['top'] == 94
+        assert after['summary']['title'] == '기존 후보 무효'
+        invalid, = [s for s in after['signals'] if s['type'] == 'candidate_invalidated']
+        assert invalid['previous_candidate_ids'] == [candidate['id']]
+        assert candidate in after['history'] and not after['maintained_candidates']
+    else:
+        assert not doji['active_anchors'] and not any(s['direction'] == 'long' for s in after['history'])
+    assert client.get('/api/rapid-drop?date=2022-01-04').json() == doji
 
 
 def test_readonly_manual_adapter_reads_temporary_db_without_changing_db_bytes(tmp_path, monkeypatch):
