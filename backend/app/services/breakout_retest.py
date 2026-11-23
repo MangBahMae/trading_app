@@ -114,7 +114,7 @@ def _bounds(version, bar):
     return version["bottom"], version["top"]
 
 
-def _above(attempt, today, index, previous_close, previous_top):
+def _above(attempt, today, index):
     """이전 마감에서 위로 넘어선 시도의 유지·주의·실패와 롱 후보를 판정한다."""
     bar, lo, hi = today.bar, today.bottom, today.top
     if bar.close < lo:
@@ -132,11 +132,12 @@ def _above(attempt, today, index, previous_close, previous_top):
                                            parents=[attempt.latest()], evidence=["하단 ≤ 종가 < 상단"])
         attempt.in_zone = True
     else:
-        from_above = previous_close >= previous_top or bar.open >= hi
-        if not attempt.candidate and from_above and bar.low <= hi and bar.high >= lo:
+        if not attempt.candidate and bar.low <= hi and bar.high >= lo:
+            facts = [f"저가 {bar.low:g}~고가 {bar.high:g}가 당일 경계와 교차 · 종가 ≥ 상단"]
+            if attempt.in_zone:
+                facts.append("존 내부 복귀 이후 상단 이상 마감")
             attempt.candidate = today.emit("long_candidate", LONG, attempt, parents=[attempt.latest()],
-                                           evidence=["전일 종가 또는 당일 시가가 상단 이상",
-                                                     f"저가 {bar.low:g}~고가 {bar.high:g}가 당일 경계와 교차 · 종가 ≥ 상단"])
+                                           evidence=facts)
             attempt.issued = index
             attempt.last_step = attempt.candidate
         elif attempt.in_zone:
@@ -206,7 +207,7 @@ def _version_days(rows, bars, dates, markets, version, sources):
         failure = None
         if attempt:
             if attempt.above:
-                attempt, failure = _above(attempt, today, i, previous_close, previous[1])
+                attempt, failure = _above(attempt, today, i)
             else:
                 _below(attempt, today, i, previous_close, previous[0])
         if not attempt and (up or down):

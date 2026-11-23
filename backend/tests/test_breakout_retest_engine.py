@@ -68,16 +68,16 @@ def test_wick_sweep_and_two_sided_sweep_are_not_close_breaks():
     assert not rows[2]["events"]
 
 
-@pytest.mark.parametrize("opening,expected", [(101, "returned_above"), (102, "long_candidate")])
-def test_inside_caution_requires_an_observable_upper_side_retest(opening, expected):
+@pytest.mark.parametrize("opening", [101, 102])
+def test_inside_caution_then_intersection_and_close_above_without_open_filter(opening):
     frame = bars(BASE + [(103, 103, 100, 101), (101, 101.5, 100, 100.5),
                          (opening, 104, 101, 103), (103, 104, 102, 103)])
     rows = run(frame, ZONE)
     caution = event(rows[2], "breakout_caution")
     assert rows[3]["active"][0]["id"] == caution["id"] and not rows[3]["events"]
-    assert expected in types(rows[4]) and caution["id"] in event(rows[4], expected)["linked_ids"]
+    assert caution["id"] in event(rows[4], "long_candidate")["linked_ids"]
     dates = [e["confirmed_date"] for r in rows for e in r["events"] if e["type"] == "long_candidate"]
-    assert dates == (["2022-01-06"] if opening < 102 else ["2022-01-05"])
+    assert dates == ["2022-01-05"]
 
 
 def test_down_failure_at_upper_equality_then_rebreak_is_not_an_up_break_failure():
