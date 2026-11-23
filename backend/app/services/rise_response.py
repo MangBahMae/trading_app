@@ -1,8 +1,7 @@
 """동일한 마감 일봉에서 시장·롱 종료·숏 판단을 각각 표시한다."""
 from datetime import date
-import sqlite3
 
-from app.services import dashboard, rapid_drop_signals, rapid_drop_support_history as journal
+from app.services import dashboard, rapid_drop_signals
 
 DATA_SOURCE = 'market'
 ISSUED = {'high_retry_failed', 'resistance_rejected', 'support_retest_short'}
@@ -51,6 +50,14 @@ def _short_summary(events, states):
     return ' / '.join(dict.fromkeys(item['label'] + ' 유지' for item in states)) or '해당 없음'
 
 
+def long_exit_label(event):
+    if event['kind'] == 'trendline_exit_long':
+        return event['label']
+    if event['kind'] == 'support_break':
+        return f"기존 롱 종료 검토 · {_source(event)} {event['price']:,.2f} 이탈"
+    return None
+
+
 def build_timeline(frame, versions=()):
     from app.services.rise_market import market_days
     from app.services.rise_support import support_days
@@ -63,12 +70,7 @@ def build_timeline(frame, versions=()):
         day = stamp.date().isoformat()
         events = market['events'] + drawing['events']
         states = _lifecycle(events, active, day)
-        exits = []
-        for event in drawing['events']:
-            if event['kind'] == 'trendline_exit_long':
-                exits.append(event['label'])
-            elif event['kind'] == 'support_break':
-                exits.append(f"기존 롱 종료 검토 · {_source(event)} {event['price']:,.2f} 이탈")
+        exits = [label for event in drawing['events'] if (label := long_exit_label(event))]
         result.append(dict(date=day, market=market['market'],
                            long_exit=' / '.join(dict.fromkeys(exits)) or '해당 없음',
                            short_signal=_short_summary(events, states), events=events,
@@ -84,22 +86,8 @@ def response_for_date(day: date, now=None):
     if not dashboard.feature_flags.ENABLE_RISE_RESPONSE:
         return base
 
-    frame, _, _ = dashboard._get_base_data(False)
-    frame = rapid_drop_signals.closed_frame(frame, now)
-    frame = frame.loc[frame['open_time'].dt.date <= day].reset_index(drop=True)
-    if frame.empty or frame['open_time'].iloc[-1].date() != day:
-        raise ValueError('선택 날짜의 마감된 BTCUSDT 일봉이 없습니다.')
-
-    warnings = []
-    try:
-        rapid_drop_signals.capture_support_snapshot()
-    except (OSError, ValueError, sqlite3.Error):
-        warnings.append('현재 수동 도형을 기록하지 못했습니다.')
-    try:
-        versions = journal.load_drawing_versions(as_of=day)['versions']
-    except (OSError, ValueError):
-        versions = []
-        warnings.append('당시 수동 도형 이력을 확인할 수 없습니다.')
-    state = build_timeline(frame, versions)[-1]
+    frame = rapid_drop_signals.closed_daily_through(day, now)
+    history, warnings = rapid_drop_signals.drawings_as_of(day)
+    state = build_timeline(frame, history['versions'])[-1]
     state['details']['warnings'] = warnings
     return {**base, **state, 'enabled': True}

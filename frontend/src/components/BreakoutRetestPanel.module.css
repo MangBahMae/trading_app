@@ -1,0 +1,11 @@
+.outcomes { list-style: none; padding: 0; margin: 5px 0; }
+.steps { padding-inline-start: 18px; margin-block: 5px; }
+.line { display: flex; gap: 6px; align-items: baseline; padding: 2px 0; }
+.line[data-type="long_candidate"] { color: #70d9b5; }
+.line[data-type="short_candidate"] { color: #ff929b; }
+.line:is([data-type="breakout_caution"], [data-type="breakout_failed"], [data-type="breakdown_failed"], [data-type="reclaim_failed"]) {
+  color: #94c6ff;
+}
+.line[data-type="long_exit"] { color: #f6c56f; }
+.line:is([data-status="maintained"], [data-status="ended"]) { color: var(--muted-color); }
+.line:is([data-status="maintained"], [data-status="ended"]) strong { font-weight: 400; }

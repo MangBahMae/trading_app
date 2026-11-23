@@ -1,0 +1,46 @@
+[
+  {
+    "date": "2022-01-03",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v598b4cb761b7cd963798:breakout_up:2022-01-03",
+        "type": "breakout_up",
+        "label": "상향 종가 돌파",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-04",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v598b4cb761b7cd963798:long_candidate:2022-01-04",
+        "type": "long_candidate",
+        "label": "롱 후보 · 돌파 가격 지지 확인",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(112, 217, 181)"
+      },
+      {
+        "id": "breakout:manual:73:v598b4cb761b7cd963798:wick_sweep:2022-01-04",
+        "type": "wick_sweep",
+        "label": "지지 꼬리 스윕",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": "slope_down-2022-01-04.png"
+  }
+]

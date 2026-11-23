@@ -56,6 +56,15 @@ def _zone_label(top: float, bottom: float) -> str:
     return f"존 {bottom:,.0f}~{top:,.0f}"
 
 
+def sweep_direction(o, h, l, c, top, bottom):
+    """몸통이 돌아온 한쪽 꼬리만 판정한다. 양쪽 스윕이면 방향을 추정하지 않는다."""
+    down = l < bottom and c >= bottom and o >= bottom
+    up = h > top and c <= top and o <= top
+    if down != up:
+        return "long" if down else "short"
+    return None
+
+
 def _classify_day(o, h, l, c, pc, top, bottom, first_touch_only):
     """하루 한 존의 판정 -> (suffix, direction) 또는 None. pc는 None일 수 있다(첫 캔들)."""
     # 1) 이탈 우선 (마감이 넘어간 첫날만)
@@ -66,11 +75,10 @@ def _classify_day(o, h, l, c, pc, top, bottom, first_touch_only):
             return "하방 이탈 (숏)", "short"
 
     # 2) 유동성 스윕 (반응보다 우선, first_touch_only 무관)
-    sweep_down = l < bottom and c >= bottom and o >= bottom
-    sweep_up = h > top and c <= top and o <= top
-    if sweep_down and not sweep_up:
+    sweep = sweep_direction(o, h, l, c, top, bottom)
+    if sweep == "long":
         return "지지 스윕 (매수 후보)", "long"
-    if sweep_up and not sweep_down:
+    if sweep == "short":
         return "저항 스윕 (매도 후보)", "short"
 
     # 3) 반응

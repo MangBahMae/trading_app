@@ -1,0 +1,98 @@
+[
+  {
+    "date": "2022-01-02",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:breakout_up:2022-01-02",
+        "type": "breakout_up",
+        "label": "상향 종가 돌파",
+        "status": "new",
+        "confirmed": "2022-01-02",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-03",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:long_candidate:2022-01-03",
+        "type": "long_candidate",
+        "label": "롱 후보 · 돌파 가격 지지 확인",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(112, 217, 181)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-04",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:long_candidate:2022-01-03",
+        "type": "long_candidate",
+        "label": "롱 후보 · 돌파 가격 지지 확인",
+        "status": "maintained",
+        "confirmed": "2022-01-03",
+        "color": "rgb(138, 143, 156)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-05",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:breakout_failed:2022-01-05",
+        "type": "breakout_failed",
+        "label": "상향 돌파 실패 관찰",
+        "status": "new",
+        "confirmed": "2022-01-05",
+        "color": "rgb(148, 198, 255)"
+      },
+      {
+        "id": "rise:manual:73:v8f0cb026a3ec6972672c:support_break:2022-01-05",
+        "type": "long_exit",
+        "label": "기존 롱 종료 검토 · 수동 지지 이탈",
+        "status": "new",
+        "confirmed": "2022-01-05",
+        "color": "rgb(246, 197, 111)"
+      },
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:break_down:2022-01-05",
+        "type": "break_down",
+        "label": "하향 종가 이탈",
+        "status": "new",
+        "confirmed": "2022-01-05",
+        "color": "rgb(209, 212, 220)"
+      },
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:invalidated:2022-01-05",
+        "type": "invalidated",
+        "label": "롱 후보 무효 · 반대 경계 종가 이탈",
+        "status": "ended",
+        "confirmed": "2022-01-05",
+        "color": "rgb(138, 143, 156)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  }
+]

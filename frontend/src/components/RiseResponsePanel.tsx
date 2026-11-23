@@ -1,4 +1,5 @@
 import { getRiseResponse, type RiseResponse } from "../api/riseResponse";
+import type { BreakoutResponse } from "../api/breakoutRetest";
 import { useDayExperiment } from "../hooks/useDayExperiment";
 import styles from "./RapidDropPanel.module.css";
 import layout from "./RiseResponsePanel.module.css";
@@ -136,10 +137,35 @@ function Evidence({ data }: { data: RiseResponse }) {
   );
 }
 
-export default function RiseResponsePanel({ date, revision }: { date: string; revision: unknown }) {
+interface Props {
+  date: string;
+  revision: unknown;
+  breakout: BreakoutResponse | null;
+  breakoutPending: boolean;
+}
+
+export default function RiseResponsePanel({ date, revision, breakout, breakoutPending }: Props) {
   const { data, loading, error } = useDayExperiment(getRiseResponse, date, revision);
-  const statuses = new Set(data?.details.lifecycle?.map((item) => item.status));
-  const caution = data?.enabled ? shortCautionReason(data) : null;
+  const breakoutRows = breakout?.enabled ? [...breakout.events, ...breakout.active] : [];
+  const sharedIds = new Set(breakoutRows.filter((item) => item.origin === "rise_response").map((item) => item.id));
+  // 무효 사건은 자체 ID가 있지만 상승 패널의 종료 상태는 원래 후보 ID에 달려 있다.
+  const endedIds = new Set(breakoutRows.filter((item) => item.status === "ended").map((item) => item.id));
+  for (const event of data?.events ?? []) {
+    const original = event.related_id ?? event.related;
+    if (endedIds.has(event.id) && original) sharedIds.add(original);
+  }
+  const otherStates = data?.details.lifecycle?.filter((item) => !sharedIds.has(item.id));
+  const statuses = new Set(otherStates?.map((item) => item.status));
+  const shortLabels = data?.short_signal.split(" / ").filter((label) => {
+    const matching = data.details.lifecycle?.filter((item) =>
+      item.label === label || item.label + " 유지" === label || item.reason === label);
+    return !matching?.length || matching.some((item) => !sharedIds.has(item.id));
+  }) ?? [];
+  const hasSharedExit = breakoutRows.some((item) => item.type === "long_exit" && item.origin === "rise_response");
+  const exitText = hasSharedExit ? breakout?.remaining_long_exits.join(" / ") : data?.long_exit;
+  const adverse = breakoutRows.some((item) => item.status !== "ended"
+    && ["short_candidate", "breakout_failed", "reclaim_failed", "long_exit"].includes(item.type));
+  const caution = data?.enabled && !breakoutPending && !adverse ? shortCautionReason(data) : null;
   return (
     <section aria-labelledby="rise-response-heading" className={styles.section} data-testid="rise-response-panel"
       data-date={data?.date}>
@@ -154,12 +180,14 @@ export default function RiseResponsePanel({ date, revision }: { date: string; re
         {data.data_source === "fixed_fixture" && <p className={styles.meta}>고정 마감 일봉 데이터</p>}
         <dl className={layout.outcomes}>
           <div><dt>시장 방향</dt><dd>{data.market}</dd></div>
-          <div><dt>기존 롱 종료 검토</dt><dd className={hasSignal(data.long_exit) ? layout.longExit : layout.secondary}>{data.long_exit}</dd></div>
+          <div><dt>기존 롱 종료 검토</dt><dd className={exitText && hasSignal(exitText) ? layout.longExit : layout.secondary}>
+            {exitText || "위 돌파·재시험에 표시"}</dd></div>
           <div><dt>숏 관찰·후보
             {statuses.size > 0 && <span className={layout.statuses}>
               {Array.from(statuses, (status) => <span key={status} className={styles.badge}>{stages[status]}</span>)}
             </span>}
-          </dt><dd>{data.short_signal.split(" / ").map((label, index) => (
+          </dt><dd>{shortLabels.length === 0 && <span className={layout.secondary}>위 돌파·재시험에 표시</span>}
+          {shortLabels.map((label, index) => (
             <span key={label}>{index > 0 && " / "}<span className={shortSignalClass(data, label)}>{label}</span></span>
           ))}</dd></div>
         </dl>

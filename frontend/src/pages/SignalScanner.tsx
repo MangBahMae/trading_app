@@ -4,6 +4,8 @@ import {
   addHorizontalLine, addTrendLine, addZone, deleteLine, getDashboard, updateTrend, updateZone,
 } from "../api/dashboard";
 import { getMarketState } from "../api/marketState";
+import { breakoutTitle, getBreakoutRetest } from "../api/breakoutRetest";
+import { useDayExperiment } from "../hooks/useDayExperiment";
 import { useRapidDrop } from "../hooks/useRapidDrop";
 import NumberInput from "../components/NumberInput";
 import type { EmaSeriesConfig } from "../components/chart/TvChart";
@@ -16,6 +18,7 @@ import LineManager from "../components/LineManager";
 import PeriodBar from "../components/PeriodBar";
 import SignalPanel from "../components/SignalPanel";
 import RiseResponsePanel from "../components/RiseResponsePanel";
+import BreakoutRetestPanel from "../components/BreakoutRetestPanel";
 import ToolRail from "../components/ToolRail";
 import type { DashboardResponse, DrawMode, MarketStateBlock, MarketStateResponse, Timeframe } from "../types";
 import styles from "./SignalScanner.module.css";
@@ -71,6 +74,8 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
   const [showDivergence, setShowDivergence] = useState(false);
   const [showRapidDrop, setShowRapidDrop] = useState(false);
   const [showRiseResponse, setShowRiseResponse] = useState(false);
+  const [showBreakout, setShowBreakout] = useState(false);
+  const breakout = useDayExperiment(getBreakoutRetest, showBreakout && timeframe === "1D" ? selectedDate : null, dailyData);
   const rapidDrop = useRapidDrop(showRapidDrop, timeframe === "1D", selectedDate, dailyData);
 
   // 시장 상태 - 신호가 아니라 차트 배경 음영 전용(횡보 구간 표시).
@@ -288,7 +293,9 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
       ? [{ key: "rapid-drop", label: "급락 대응 · 실험", color: "#efad76", active: showRapidDrop,
         onToggle: () => setShowRapidDrop((value) => !value) },
         { key: "rise-response", label: "상승·급등 대응 · 실험", color: THEME.up, active: showRiseResponse,
-          onToggle: () => setShowRiseResponse((value) => !value) }]
+          onToggle: () => setShowRiseResponse((value) => !value) },
+        { key: "breakout-retest", label: breakoutTitle, color: "#70d9b5", active: showBreakout,
+          onToggle: () => setShowBreakout((value) => !value) }]
       : []),
   ];
 
@@ -370,8 +377,11 @@ export default function SignalScanner({ nav }: { nav: ReactNode }) {
             rapidDropLoading={rapidDrop.loading}
             rapidDropError={rapidDrop.error}
           >
+            {timeframe === "1D" && showBreakout && selectedDate
+              ? <BreakoutRetestPanel {...breakout} /> : null}
             {timeframe === "1D" && showRiseResponse && selectedDate
-              ? <RiseResponsePanel date={selectedDate} revision={dailyData} /> : null}
+              ? <RiseResponsePanel date={selectedDate} revision={dailyData}
+                  breakout={breakout.data} breakoutPending={breakout.loading} /> : null}
           </SignalPanel>
           <LineManager lines={data.manual_lines} onDelete={handleDeleteLine} readOnly={timeframe === "1W"} />
         </aside>
