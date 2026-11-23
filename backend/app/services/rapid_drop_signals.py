@@ -9,6 +9,7 @@ from contextlib import closing
 from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
 from pathlib import Path
+from threading import Lock
 
 import pandas as pd
 
@@ -17,6 +18,7 @@ from app.services import dashboard
 REPO = Path(__file__).resolve().parents[3]
 POLICY_SOURCE = 'rapid-drop-v03-draft/2026-11-22 · research/ccx_rapid_drop/example_config.json'
 DATA_SOURCE = 'market'
+_SNAPSHOT_LOCK = Lock()
 SHAPES = {'doji': '도지', 'hammer': '망치형', 'inverted_hammer': '역망치형'}
 CAUTIONS = ['급락 대응 v0.3 검증용 초안 · 체결·포지션·수익성이 아닙니다.', '기존 독립 신호의 근거 개수에 합산하지 않습니다.']
 
@@ -237,7 +239,34 @@ def read_manual_lines():
 
 def capture_support_snapshot():
     from app.services import rapid_drop_support_history as journal
-    return journal.record_snapshot(read_manual_lines())
+    # 동시에 연 두 패널이 먼저 읽었던 좌표를 뒤늦게 다시 기록하지 않게 한다.
+    with _SNAPSHOT_LOCK:
+        return journal.record_snapshot(read_manual_lines())
+
+
+def closed_daily_through(day: date, now=None):
+    frame, _, _ = dashboard._get_base_data(False)
+    frame = closed_frame(frame, now)
+    frame = frame.loc[frame['open_time'].dt.date <= day].reset_index(drop=True)
+    if frame.empty or frame['open_time'].iloc[-1].date() != day:
+        raise ValueError('선택 날짜의 마감된 BTCUSDT 일봉이 없습니다.')
+    return frame
+
+
+def drawings_as_of(day: date):
+    """현재 최초 관찰과 과거 이력 조회는 독립적이다. 현재 읽기 오류로 과거 기록을 잃지 않는다."""
+    from app.services import rapid_drop_support_history as journal
+    warnings = []
+    try:
+        capture_support_snapshot()
+    except (OSError, ValueError, sqlite3.Error):
+        warnings.append('현재 수동 도형을 기록하지 못했습니다.')
+    try:
+        history = journal.load_drawing_versions(as_of=day)
+    except (OSError, ValueError):
+        history = dict(versions=[], status='unconfirmed', unsupported_line_ids=[])
+        warnings.append('당시 수동 도형 이력을 확인할 수 없습니다.')
+    return history, warnings
 
 
 def response_for_date(day: date, now=None):
@@ -249,11 +278,7 @@ def response_for_date(day: date, now=None):
         signals=[], maintained_candidates=[], history=[], warnings=[])
     if not dashboard.feature_flags.ENABLE_RAPID_DROP_SIGNALS:
         return empty
-    df, _, _ = dashboard._get_base_data(False)
-    df = closed_frame(df, now)
-    df = df.loc[df['open_time'].dt.date <= day].reset_index(drop=True)
-    if df.empty or df['open_time'].iloc[-1].date() != day:
-        raise ValueError('선택 날짜의 마감된 BTCUSDT 일봉이 없습니다.')
+    df = closed_daily_through(day, now)
     warnings = []
     try:
         capture_support_snapshot()

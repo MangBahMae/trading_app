@@ -53,6 +53,16 @@ def _trend_days(rows, bars, dates, version, start, stop):
         previous_level, previous_wick = level, wick
 
 
+def touched_from_below(bar, previous_close, previous_bottom, bottom):
+    """전일 아래 마감 뒤 오늘 하단을 아래쪽에서 시험했는지 확인한다."""
+    return previous_close < previous_bottom and bar.open <= bottom <= bar.high
+
+
+def rejected_below(bar, previous_close, bottom):
+    """접촉 뒤 회복 대신 하단 아래에서 전일보다 낮게 마감했는지 확인한다."""
+    return bar.close < bottom and bar.close < previous_close
+
+
 def _level_days(rows, bars, dates, version, start, stop, superseded=None):
     bottom, top = version["bottom"], version["top"]
     manual = version["kind"] != "swing_low"
@@ -74,7 +84,7 @@ def _level_days(rows, bars, dates, version, start, stop, superseded=None):
                                 pivot_date=version.get("pivot_date"), confirmed_on=version.get("confirmed_on"))
                 events.append(broken)
         else:
-            if touched is None and previous_close < bottom and bar.open <= bottom <= bar.high:
+            if touched is None and touched_from_below(bar, previous_close, bottom, bottom):
                 touched = _event(day, version, "support_retest_touch", "이탈 지지 아래쪽 재시험", bounds,
                                  f"이탈일 {broken['date']} · 오늘 시가 {bar.open:g}, 고가 {bar.high:g}",
                                  related=broken["id"], price=bottom, break_date=broken["date"])
@@ -87,7 +97,7 @@ def _level_days(rows, bars, dates, version, start, stop, superseded=None):
                     events.append(_event(day, version, "support_reclaimed", "이탈 지지 종가 회복", bounds,
                                          f"종가 {bar.close:g}", related=(touched or broken)["id"], price=top))
                 broken = touched = candidate = None
-            elif touched and not candidate and bar.close < bottom and bar.close < previous_close:
+            elif touched and not candidate and rejected_below(bar, previous_close, bottom):
                 candidate = _event(day, version, "support_retest_short", "숏 후보 · 지지 재시험 실패",
                                    bounds, f"이탈일 {broken['date']} · 재시험일 {touched['date']}",
                                    f"종가 {bar.close:g} < 전일 종가 {previous_close:g}, 하단 아래 재하락",

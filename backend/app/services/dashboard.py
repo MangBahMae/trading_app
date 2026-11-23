@@ -153,7 +153,8 @@ def delete_line(line_id: int) -> None:
 
 
 def _record_manual_drawings() -> None:
-    if not (feature_flags.ENABLE_RAPID_DROP_SIGNALS or feature_flags.ENABLE_RISE_RESPONSE):
+    if not (feature_flags.ENABLE_RAPID_DROP_SIGNALS or feature_flags.ENABLE_RISE_RESPONSE
+            or feature_flags.ENABLE_BREAKOUT_RETEST):
         return
     from app.services import rapid_drop_signals
     try:

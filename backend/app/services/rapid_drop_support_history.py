@@ -15,11 +15,14 @@ import json
 import math
 import os
 from pathlib import Path
+from threading import RLock
 from typing import Iterator
 
 DEFAULT_PATH = Path(__file__).resolve().parents[3] / "data" / "rapid_drop_support_versions.jsonl"
 ENV_PATH = "CCX_RAPID_DROP_SUPPORT_HISTORY"
 SCHEMA_VERSION = 2
+# 여러 실험 패널의 동시 요청은 같은 프로세스 안에서 차례로 처리한다.
+_LOCAL_LOCK = RLock()
 
 
 class SupportHistoryError(ValueError):
@@ -122,6 +125,12 @@ def _normalize(lines: list[dict]) -> dict:
 
 @contextmanager
 def _locked(path: Path, *, create_parent: bool) -> Iterator[None]:
+    with _LOCAL_LOCK, _file_lock(path, create_parent=create_parent):
+        yield
+
+
+@contextmanager
+def _file_lock(path: Path, *, create_parent: bool) -> Iterator[None]:
     try:
         if create_parent:
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -269,7 +278,9 @@ def load_drawing_versions(as_of: date | datetime | str | None = None, path: str 
         for identity in list(opened):
             if identity not in current or opened[identity]["row"] != current[identity]:
                 old = opened.pop(identity)
-                versions.append(dict(old, through=first_day-timedelta(days=1)))
+                replaced = identity in current or identity in item["state"]["unsupported_line_ids"]
+                versions.append(dict(old, through=first_day-timedelta(days=1),
+                                     end_reason="replaced" if replaced else "ended"))
         for identity, row in current.items():
             if identity not in opened:
                 version_hash = _hash(dict(row=row, observed_at=item["observed_at"]))[:20]
@@ -287,8 +298,12 @@ def load_drawing_versions(as_of: date | datetime | str | None = None, path: str 
             first = max(first, date.fromisoformat(row["start"]))
             last = min(last, date.fromisoformat(row["end"]))
         if first <= last:
-            drawings.append(dict(row, key=version["key"], support_id=version["support_id"],
-                                 known_from=first.isoformat(), through=last.isoformat()))
+            drawing = dict(row, key=version["key"], support_id=version["support_id"],
+                           known_from=first.isoformat(), through=last.isoformat())
+            if last < last_day:
+                drawing["end_reason"] = (version.get("end_reason", "ended")
+                                         if last == version["through"] else "ended")
+            drawings.append(drawing)
     latest = records[-1]["state"]
     return dict(versions=sorted(drawings, key=lambda item: (item["known_from"], item["key"])), status="recorded",
                 recording_started_at=records[0]["observed_at"], last_observed_at=records[-1]["observed_at"],
