@@ -1,0 +1,54 @@
+[
+  {
+    "date": "2022-01-03",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "rise:manual:73:v8f0cb026a3ec6972672c:support_reclaimed:2022-01-03",
+        "type": "breakdown_failed",
+        "label": "하향 이탈 실패 관찰",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(148, 198, 255)"
+      },
+      {
+        "id": "rise:manual:73:v8f0cb026a3ec6972672c:support_retest_touch:2022-01-03",
+        "type": "retest_below",
+        "label": "이탈 지지 아래쪽 재시험",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(209, 212, 220)"
+      },
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:wick_sweep:2022-01-03",
+        "type": "wick_sweep",
+        "label": "저항 꼬리 스윕",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-04",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:long_candidate:2022-01-04",
+        "type": "long_candidate",
+        "label": "롱 후보 · 돌파 가격 지지 확인",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(112, 217, 181)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  }
+]

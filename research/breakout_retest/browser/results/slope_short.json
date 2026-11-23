@@ -1,0 +1,80 @@
+[
+  {
+    "date": "2022-01-03",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "rise:manual:73:v22781e3b0787b7c939a8:trendline_exit_long:2022-01-03",
+        "type": "long_exit",
+        "label": "기존 롱 종료 검토 · 상승 추세선 이탈",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(246, 197, 111)"
+      },
+      {
+        "id": "breakout:manual:73:v22781e3b0787b7c939a8:break_down:2022-01-03",
+        "type": "break_down",
+        "label": "하향 종가 이탈",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-04",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v22781e3b0787b7c939a8:short_candidate:2022-01-04",
+        "type": "short_candidate",
+        "label": "숏 후보 · 지지 재시험 실패",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(255, 146, 155)"
+      },
+      {
+        "id": "breakout:manual:73:v22781e3b0787b7c939a8:retest_below:2022-01-04",
+        "type": "retest_below",
+        "label": "이탈 지지 아래쪽 재시험",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(209, 212, 220)"
+      },
+      {
+        "id": "breakout:manual:73:v22781e3b0787b7c939a8:wick_sweep:2022-01-04",
+        "type": "wick_sweep",
+        "label": "저항 꼬리 스윕",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-05",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v22781e3b0787b7c939a8:short_candidate:2022-01-04",
+        "type": "short_candidate",
+        "label": "숏 후보 · 지지 재시험 실패",
+        "status": "maintained",
+        "confirmed": "2022-01-04",
+        "color": "rgb(138, 143, 156)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  }
+]

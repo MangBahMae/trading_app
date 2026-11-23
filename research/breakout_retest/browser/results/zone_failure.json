@@ -1,0 +1,98 @@
+[
+  {
+    "date": "2022-01-03",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:breakout_caution:2022-01-03",
+        "type": "breakout_caution",
+        "label": "돌파 유지 주의",
+        "status": "new",
+        "confirmed": "2022-01-03",
+        "color": "rgb(148, 198, 255)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-04",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:breakout_failed:2022-01-04",
+        "type": "breakout_failed",
+        "label": "상향 돌파 실패 관찰",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(148, 198, 255)"
+      },
+      {
+        "id": "rise:manual:73:v8f0cb026a3ec6972672c:support_break:2022-01-04",
+        "type": "long_exit",
+        "label": "기존 롱 종료 검토 · 수동 지지 이탈",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(246, 197, 111)"
+      },
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:break_down:2022-01-04",
+        "type": "break_down",
+        "label": "하향 종가 이탈",
+        "status": "new",
+        "confirmed": "2022-01-04",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  },
+  {
+    "date": "2022-01-05",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "rise:manual:73:v8f0cb026a3ec6972672c:support_retest_short:2022-01-05",
+        "type": "short_candidate",
+        "label": "숏 후보 · 지지 재시험 실패",
+        "status": "new",
+        "confirmed": "2022-01-05",
+        "color": "rgb(255, 146, 155)"
+      },
+      {
+        "id": "rise:manual:73:v8f0cb026a3ec6972672c:support_retest_touch:2022-01-05",
+        "type": "retest_below",
+        "label": "이탈 지지 아래쪽 재시험",
+        "status": "new",
+        "confirmed": "2022-01-05",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": "zone_failure-2022-01-05.png"
+  },
+  {
+    "date": "2022-01-06",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "rise:manual:73:v8f0cb026a3ec6972672c:support_retest_short:2022-01-05",
+        "type": "short_candidate",
+        "label": "숏 후보 · 지지 재시험 실패",
+        "status": "maintained",
+        "confirmed": "2022-01-05",
+        "color": "rgb(138, 143, 156)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  }
+]

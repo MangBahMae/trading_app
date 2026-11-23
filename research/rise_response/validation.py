@@ -33,8 +33,8 @@ def example(case):
 
 
 @contextmanager
-def isolated(case):
-    frame, lines = example(case)
+def isolated(case, *, fixture=None):
+    frame, lines = example(case) if fixture is None else fixture
     weekly = golden_support.load_candles_csv(golden_support.WEEKLY_FIXTURE)
     source = 'fixed_fixture' if case == 'fixed' else 'synthetic_demo'
     with ExitStack() as stack:

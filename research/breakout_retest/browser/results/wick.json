@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2022-01-02",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v8f0cb026a3ec6972672c:wick_sweep:2022-01-02",
+        "type": "wick_sweep",
+        "label": "저항 꼬리 스윕",
+        "status": "new",
+        "confirmed": "2022-01-02",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "배열 미확인",
+    "context": null,
+    "capture": null
+  }
+]

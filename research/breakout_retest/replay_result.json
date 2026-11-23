@@ -1,0 +1,849 @@
+{
+  "fixed": {
+    "source": "고정 BTCUSDT · 당시 도형 이력 없음",
+    "bars": 1762,
+    "first": "2022-01-01",
+    "last": "2026-10-28",
+    "history_status": "unconfirmed",
+    "versions": 0,
+    "prefix_checks": 1762,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {},
+    "days_with_events": []
+  },
+  "zone_hold": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 6,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "breakout_up": 1,
+      "long_candidate": 1,
+      "invalidated": 1,
+      "breakout_failed": 1,
+      "break_down": 1,
+      "long_exit": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-02",
+        "close": 104,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-03",
+        "close": 103,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-05",
+        "close": 99,
+        "events": [
+          {
+            "type": "invalidated",
+            "label": "롱 후보 무효 · 반대 경계 종가 이탈",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "breakout_failed",
+            "label": "상향 돌파 실패 관찰",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "break_down",
+            "label": "하향 종가 이탈",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "long_exit",
+            "label": "기존 롱 종료 검토 · 수동 지지 이탈",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      }
+    ]
+  },
+  "wick": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 3,
+    "first": "2022-01-01",
+    "last": "2022-01-03",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 3,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "wick_sweep": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-02",
+        "close": 99.5,
+        "events": [
+          {
+            "type": "wick_sweep",
+            "label": "저항 꼬리 스윕",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      }
+    ]
+  },
+  "zone_failure": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 6,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "breakout_up": 1,
+      "breakout_caution": 1,
+      "breakout_failed": 1,
+      "break_down": 1,
+      "long_exit": 1,
+      "retest_below": 1,
+      "short_candidate": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-02",
+        "close": 103.0,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-03",
+        "close": 101.0,
+        "events": [
+          {
+            "type": "breakout_caution",
+            "label": "돌파 유지 주의",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-04",
+        "close": 99.0,
+        "events": [
+          {
+            "type": "breakout_failed",
+            "label": "상향 돌파 실패 관찰",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "break_down",
+            "label": "하향 종가 이탈",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "long_exit",
+            "label": "기존 롱 종료 검토 · 수동 지지 이탈",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-05",
+        "close": 98.5,
+        "events": [
+          {
+            "type": "retest_below",
+            "label": "이탈 지지 아래쪽 재시험",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "short_candidate",
+            "label": "숏 후보 · 지지 재시험 실패",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      }
+    ]
+  },
+  "support_recover": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 5,
+    "first": "2022-01-01",
+    "last": "2022-01-05",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 5,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "break_down": 1,
+      "long_exit": 1,
+      "retest_below": 1,
+      "breakdown_failed": 1,
+      "wick_sweep": 1,
+      "long_candidate": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-02",
+        "close": 98,
+        "events": [
+          {
+            "type": "break_down",
+            "label": "하향 종가 이탈",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "long_exit",
+            "label": "기존 롱 종료 검토 · 수동 지지 이탈",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-03",
+        "close": 102,
+        "events": [
+          {
+            "type": "retest_below",
+            "label": "이탈 지지 아래쪽 재시험",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "breakdown_failed",
+            "label": "하향 이탈 실패 관찰",
+            "bottom": 100.0,
+            "top": 102.0
+          },
+          {
+            "type": "wick_sweep",
+            "label": "저항 꼬리 스윕",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-04",
+        "close": 103,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      }
+    ]
+  },
+  "slope_down": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 5,
+    "first": "2022-01-01",
+    "last": "2022-01-05",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 5,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "breakout_up": 1,
+      "long_candidate": 1,
+      "wick_sweep": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-03",
+        "close": 103.5,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 102.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-04",
+        "close": 103.0,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 100.0,
+            "top": 100.0
+          },
+          {
+            "type": "wick_sweep",
+            "label": "지지 꼬리 스윕",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      }
+    ]
+  },
+  "slope_up": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 6,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "break_down": 1,
+      "long_exit": 1,
+      "retest_below": 1,
+      "breakdown_failed": 1,
+      "long_candidate": 1,
+      "wick_sweep": 2
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-03",
+        "close": 99,
+        "events": [
+          {
+            "type": "break_down",
+            "label": "하향 종가 이탈",
+            "bottom": 100.0,
+            "top": 100.0
+          },
+          {
+            "type": "long_exit",
+            "label": "기존 롱 종료 검토 · 상승 추세선 이탈",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-04",
+        "close": 102,
+        "events": [
+          {
+            "type": "retest_below",
+            "label": "이탈 지지 아래쪽 재시험",
+            "bottom": 101.0,
+            "top": 101.0
+          },
+          {
+            "type": "breakdown_failed",
+            "label": "하향 이탈 실패 관찰",
+            "bottom": 101.0,
+            "top": 101.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-05",
+        "close": 103,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 102.0,
+            "top": 102.0
+          },
+          {
+            "type": "wick_sweep",
+            "label": "지지 꼬리 스윕",
+            "bottom": 102.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-06",
+        "close": 104,
+        "events": [
+          {
+            "type": "wick_sweep",
+            "label": "지지 꼬리 스윕",
+            "bottom": 103.0,
+            "top": 103.0
+          }
+        ]
+      }
+    ]
+  },
+  "slope_short": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 6,
+    "first": "2022-01-01",
+    "last": "2022-01-06",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 6,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "break_down": 1,
+      "long_exit": 1,
+      "retest_below": 1,
+      "short_candidate": 1,
+      "wick_sweep": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-03",
+        "close": 99.0,
+        "events": [
+          {
+            "type": "break_down",
+            "label": "하향 종가 이탈",
+            "bottom": 100.0,
+            "top": 100.0
+          },
+          {
+            "type": "long_exit",
+            "label": "기존 롱 종료 검토 · 상승 추세선 이탈",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-04",
+        "close": 98.5,
+        "events": [
+          {
+            "type": "retest_below",
+            "label": "이탈 지지 아래쪽 재시험",
+            "bottom": 101.0,
+            "top": 101.0
+          },
+          {
+            "type": "short_candidate",
+            "label": "숏 후보 · 지지 재시험 실패",
+            "bottom": 101.0,
+            "top": 101.0
+          },
+          {
+            "type": "wick_sweep",
+            "label": "저항 꼬리 스윕",
+            "bottom": 101.0,
+            "top": 101.0
+          }
+        ]
+      }
+    ]
+  },
+  "version_lifecycle": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 10,
+    "first": "2022-01-01",
+    "last": "2022-01-10",
+    "history_status": "recorded",
+    "versions": 3,
+    "prefix_checks": 10,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "breakout_up": 3,
+      "version_replaced": 1,
+      "long_candidate": 2,
+      "version_ended": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-02",
+        "close": 103.0,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 100.0,
+            "top": 102.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-03",
+        "close": 104.0,
+        "events": [
+          {
+            "type": "version_replaced",
+            "label": "도형 버전 교체",
+            "bottom": null,
+            "top": null
+          }
+        ]
+      },
+      {
+        "date": "2022-01-04",
+        "close": 106.0,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 104.0,
+            "top": 105.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-05",
+        "close": 106.1,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 104.0,
+            "top": 105.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-06",
+        "close": 106.0,
+        "events": [
+          {
+            "type": "version_ended",
+            "label": "도형 버전 종료",
+            "bottom": null,
+            "top": null
+          }
+        ]
+      },
+      {
+        "date": "2022-01-08",
+        "close": 105.5,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 104.0,
+            "top": 105.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-09",
+        "close": 105.6,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 104.0,
+            "top": 105.0
+          }
+        ]
+      }
+    ]
+  },
+  "expiry": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 24,
+    "first": "2022-01-01",
+    "last": "2022-01-24",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 24,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "breakout_up": 2,
+      "expired": 2,
+      "wick_sweep": 1,
+      "long_candidate": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-01-02",
+        "close": 104,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-11",
+        "close": 104,
+        "events": [
+          {
+            "type": "expired",
+            "label": "재시험 대기 만료",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-12",
+        "close": 100,
+        "events": [
+          {
+            "type": "wick_sweep",
+            "label": "지지 꼬리 스윕",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-13",
+        "close": 104,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-14",
+        "close": 103,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      },
+      {
+        "date": "2022-01-23",
+        "close": 105,
+        "events": [
+          {
+            "type": "expired",
+            "label": "후보 표시 만료",
+            "bottom": 100.0,
+            "top": 100.0
+          }
+        ]
+      }
+    ]
+  },
+  "gentle": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 68,
+    "first": "2022-01-01",
+    "last": "2022-03-09",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 68,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "wick_sweep": 2,
+      "breakout_up": 1,
+      "long_candidate": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-03-02",
+        "close": 102.0,
+        "events": [
+          {
+            "type": "wick_sweep",
+            "label": "저항 꼬리 스윕",
+            "bottom": 102.1,
+            "top": 102.1
+          }
+        ]
+      },
+      {
+        "date": "2022-03-03",
+        "close": 102.2,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 102.1,
+            "top": 102.1
+          }
+        ]
+      },
+      {
+        "date": "2022-03-04",
+        "close": 102.4,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 102.1,
+            "top": 102.1
+          },
+          {
+            "type": "wick_sweep",
+            "label": "지지 꼬리 스윕",
+            "bottom": 102.1,
+            "top": 102.1
+          }
+        ]
+      }
+    ]
+  },
+  "bear_rebound": {
+    "source": "합성 데이터 · 검증용",
+    "bars": 82,
+    "first": "2022-01-01",
+    "last": "2022-03-23",
+    "history_status": "recorded",
+    "versions": 1,
+    "prefix_checks": 82,
+    "future_bars": 4,
+    "future_drawing_count": 1,
+    "duplicate_ids": 0,
+    "repeated_candidates": 0,
+    "events": {
+      "wick_sweep": 2,
+      "break_down": 1,
+      "long_exit": 1,
+      "expired": 1,
+      "breakout_up": 1,
+      "long_candidate": 1
+    },
+    "days_with_events": [
+      {
+        "date": "2022-03-05",
+        "close": 111.1,
+        "events": [
+          {
+            "type": "wick_sweep",
+            "label": "지지 꼬리 스윕",
+            "bottom": 111.0,
+            "top": 111.0
+          }
+        ]
+      },
+      {
+        "date": "2022-03-06",
+        "close": 110.8,
+        "events": [
+          {
+            "type": "break_down",
+            "label": "하향 종가 이탈",
+            "bottom": 111.0,
+            "top": 111.0
+          },
+          {
+            "type": "long_exit",
+            "label": "기존 롱 종료 검토 · 수동 지지 이탈",
+            "bottom": 111.0,
+            "top": 111.0
+          }
+        ]
+      },
+      {
+        "date": "2022-03-15",
+        "close": 108.1,
+        "events": [
+          {
+            "type": "expired",
+            "label": "재시험 대기 만료",
+            "bottom": 111.0,
+            "top": 111.0
+          }
+        ]
+      },
+      {
+        "date": "2022-03-21",
+        "close": 111.5,
+        "events": [
+          {
+            "type": "breakout_up",
+            "label": "상향 종가 돌파",
+            "bottom": 111.0,
+            "top": 111.0
+          }
+        ]
+      },
+      {
+        "date": "2022-03-22",
+        "close": 111.8,
+        "events": [
+          {
+            "type": "long_candidate",
+            "label": "롱 후보 · 돌파 가격 지지 확인",
+            "bottom": 111.0,
+            "top": 111.0
+          },
+          {
+            "type": "wick_sweep",
+            "label": "지지 꼬리 스윕",
+            "bottom": 111.0,
+            "top": 111.0
+          }
+        ]
+      }
+    ]
+  }
+}

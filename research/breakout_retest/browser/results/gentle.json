@@ -1,0 +1,28 @@
+[
+  {
+    "date": "2022-03-04",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v995b7e47e9054e8fd04a:long_candidate:2022-03-04",
+        "type": "long_candidate",
+        "label": "롱 후보 · 돌파 가격 지지 확인",
+        "status": "new",
+        "confirmed": "2022-03-04",
+        "color": "rgb(112, 217, 181)"
+      },
+      {
+        "id": "breakout:manual:73:v995b7e47e9054e8fd04a:wick_sweep:2022-03-04",
+        "type": "wick_sweep",
+        "label": "지지 꼬리 스윕",
+        "status": "new",
+        "confirmed": "2022-03-04",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "롱 우세 · 정배열 유지",
+    "context": "정배열 · 돌파 가격 지지 확인",
+    "capture": null
+  }
+]

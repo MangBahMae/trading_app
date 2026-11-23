@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2022-01-11",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:v7c0fc30d93b22ca92695:expired:2022-01-11",
+        "type": "expired",
+        "label": "재시험 대기 만료",
+        "status": "ended",
+        "confirmed": "2022-01-11",
+        "color": "rgb(138, 143, 156)"
+      }
+    ],
+    "market": "배열 미확인 · 상승 둔화 · 고점 횡보",
+    "context": null,
+    "capture": null
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "date": "2022-03-22",
+    "http": 200,
+    "source": "synthetic_demo",
+    "events": [
+      {
+        "id": "breakout:manual:73:vc09340242959e4612a11:long_candidate:2022-03-22",
+        "type": "long_candidate",
+        "label": "롱 후보 · 돌파 가격 지지 확인",
+        "status": "new",
+        "confirmed": "2022-03-22",
+        "color": "rgb(112, 217, 181)"
+      },
+      {
+        "id": "breakout:manual:73:vc09340242959e4612a11:wick_sweep:2022-03-22",
+        "type": "wick_sweep",
+        "label": "지지 꼬리 스윕",
+        "status": "new",
+        "confirmed": "2022-03-22",
+        "color": "rgb(209, 212, 220)"
+      }
+    ],
+    "market": "하락 우세 · 역배열",
+    "context": "역배열 속 반등 · 돌파 가격 지지 확인",
+    "capture": "bear_rebound-2022-03-22.png"
+  }
+]
